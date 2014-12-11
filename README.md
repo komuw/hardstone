@@ -18,3 +18,7 @@ This is my setup, it may not work for you. Feel free to modify appropriately.
 
 * You can direct any questions, suggestions etc to:     
 komuw05 [At] gmail [dot] com
+
+
+## TODO:
+* make it more generic
