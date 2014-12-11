@@ -1,0 +1,20 @@
+## Setup and Provision your ubuntu development environment.
+
+This is my setup, it may not work for you. Feel free to modify appropriately.
+
+## Setup       
+      
+* git clone this project
+* cd intial_provision
+* edit vars/base.yml with the values you want
+* ./setup.sh
+* go make a cup of coffee, this may take a while
+* your dev environment is ready
+
+
+## NB:      
+* This project was tested on a machine running ubuntu 14.04
+* However, It should work for most debian machines. 
+
+* You can direct any questions, suggestions etc to:     
+komuw05 [At] gmail [dot] com
