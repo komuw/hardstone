@@ -1,0 +1,8 @@
+{% for ip in ssh_config %}
+# {{ip.host_name}}
+Host {{ip.ip_address}}
+  ForwardAgent yes
+{% endfor %}
+
+
+ServerAliveInterval 60

@@ -1,0 +1,10 @@
+IPSec gateway 8.8.8.8
+IPSec ID group_name
+IPSec secret secret_pass
+#IKE Authmode hybrid #this shud be commented out to solve errors
+Xauth username user_name
+Xauth password user_pass
+#NAT Traversal Mode cisco-udp #shud be commented out
+
+# connect like: sudo vpnc example.conf --local-port 0
+# disconnect like: sudo vpnc disconnect

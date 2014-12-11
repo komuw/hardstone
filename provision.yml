@@ -1,0 +1,181 @@
+---
+- hosts: all
+  gather_facts: no
+  sudo: yes
+  sudo_user: {{ ANSIBLE_SSH_USER }}
+
+  vars_files:
+    - ./vars/base.yml
+
+  vars_prompt:
+
+    - name: "ssh_key_passphrase"
+      prompt: "Enter private passphrase for pub key"
+      private: no
+      default: {{ DEFAULT_SSH_KEY_PASSPHRASE }}
+
+  tasks:
+
+    - name: Update package cache if last run was more than 10 hours ago
+      apt: update_cache=yes cache_valid_time={{ 60 * 60 * 10 }}
+
+    - name:
+      apt_repository: repo={{ item }} state=present update_cache=yes
+      with_items:
+        - 'deb http://archive.canonical.com/ trusty partner' #skype
+        - 'ppa:transmissionbt/ppa'                           #transmission torrent client
+        - 'ppa:webupd8team/sublime-text-3'                   #sublime-text3
+        - 'ppa:eugenesan/ppa'                                #wireshark
+
+    - name: Remove some default system packages
+      apt: pkg={{ item }} state=absent
+      with_items:
+        - netsurf-gtk
+
+    - name: Install system packages
+      apt: pkg={{ item }} state=present
+      with_items:
+        - skype
+        - kdiff3
+        - python-software-properties
+        - software-properties-common
+        - terminator
+        - lsof
+        - telnet
+        - curl
+        - mercurial
+        - git
+        - unrar
+        - ransmission
+        - vlc
+        - sublime-text-installer
+        - pep8
+        - python-pip
+        - libpq-dev 
+        - python2.7-dev
+        - libxml2-dev 
+        - libxslt1-dev
+        - postgresql 
+        - postgresql-contrib
+        - network-manager-vpnc
+        - vpnc
+        - screen
+        - build-essential
+        - python-dev
+        - python-setuptools
+        - iftop
+        - ifconfig
+        - tcptrack
+        - wireshark
+
+    - name: Ensure pip is up-to-date
+      command: pip install --upgrade pip
+
+    - name: Install Python packages
+      pip: name={{ item }}
+      with_items: 
+        - virtualenv
+        - virtualenvwrapper
+        - passlib
+
+    - name: remove particular user 
+      user: name={{ REMOVE_USER }} state=absent remove=yes
+      ignore_errors: yes
+
+    #todo: add a password
+    - name: create user 
+      user: >
+        name={{ USER }} 
+        generate_ssh_key=yes
+        groups={{ user }},video,sudo,plugde,audio,admin
+        ssh_key_comment={{ SSH_KEY_COMMENT }}
+        ssh_key_passphrase={{ ssh_key_passphrase }}
+
+    - name: start ssh-agent
+      command: ssh-agent /bin/bash
+
+    - name: load your key to the agent
+      command: ssh-add $HOME/.ssh/id_rsa
+
+    - name: fetch the new users ssh public key
+      shell: cat ~/.ssh/id_rsa.pub
+      register: result
+
+    - name: notify user their ssh public key
+      debug: var=result
+
+    - name: notify user of location of their ssh public key
+      debug: msg="You can always see your public key in: ~/.ssh/id_rsa.pub"
+
+    - name: configure ssh/config
+      template: src=templates/ssh_config.j2 
+                dest=$HOME/.ssh/config
+
+    - name: configure .bashrc
+      template: src=templates/bashrc.j2
+                dest=$HOME/.bashrc
+
+    - name: configure .profile
+      template: src=templates/profile.j2
+                dest=$HOME/.profile
+
+    - name: configure gitconfig
+      template: src=templates/gitconfig.j2
+                dest=$HOME/.gitconfig
+
+    - name: configure hgrc(mercurial)
+      template: src=templates/hgrc.j2
+                dest=$HOME/.hgrc
+
+    - name: configure pip cache conf
+      template: src=templates/pip.conf.j2
+                dest=$HOME/.pip/pip.conf
+
+    - name: clone nvm
+      git: >
+        repo='https://github.com/creationix/nvm.git'
+        dest=$HOME/.nvm
+        accept_hostkey=yes 
+
+    - name: source bashrc
+      shell: . $HOME/.bashrc
+
+    - name: source profile
+      shell: . $HOME/.profile
+
+    - name: install nodejs
+      command: nvm install {{ NODE_VERSION }}
+
+    - name: use that nvm version
+      command: nvm use v{{ NODE_VERSION }}
+
+    - name: make that node version the default
+      command: nvm alias default v{{ NODE_VERSION }}
+
+    - name: configure /etc/vpnc/example.conf
+      template: src=templates/example.conf.j2
+                dest=/etc/vpnc/example.conf
+
+    - name: check if docker installed
+      command: docker
+      register: result
+      ignore_errors: True
+
+    - name: install docker
+      shell: sudo curl -sSL https://get.docker.io/ubuntu/ | sudo sh
+      when: result|failed
+
+    - name: add google chrome ppa
+      command: wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
+      ignore_errors: True
+
+    - name: add chrome's key to source list 
+      command: sudo sh -c 'echo "deb http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list'
+      ignore_errors: True
+      notify: 
+        - finally
+
+  handlers:
+
+    - name: finally
+      debug: msg="THATS IT. YOU are done."

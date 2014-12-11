@@ -1,0 +1,18 @@
+---
+ANSIBLE_SSH_USER: root
+
+DEFAULT_SSH_KEY_PASSPHRASE: "secret_pass"
+REMOVE_USER: 'komu'
+USER: 'komu'
+USER_EMAIL: 'johndoe@gmail.com'
+SSH_KEY_COMMENT: 'johndoe@gmail.com'
+
+NODE_VERSION: 0.10.26
+NODE_ARCHITECTURE: linux-x86
+
+
+ssh_config:
+  - { ip_address: 8.8.8.8, host_name: 'something'}
+  - { ip_address: 1.1.1.1, host_name: 'somethingelse'}
+
+
