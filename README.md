@@ -5,7 +5,7 @@ This is my setup, it may not work for you. Feel free to modify appropriately.
 ## Setup       
       
 * git clone this project
-* cd this projects directory
+* cd into this project's directory
 * edit vars/base.yml with the values you want
 * ./setup.sh
 * go make a cup of coffee, this may take a while
