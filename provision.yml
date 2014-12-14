@@ -76,7 +76,7 @@
       with_items: 
         - virtualenv
         - virtualenvwrapper
-        - passlib
+        - youtube-dl
 
     - name: remove particular user 
       user: name={{ REMOVE_USER }} state=absent remove=yes
