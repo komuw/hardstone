@@ -131,6 +131,10 @@
       template: src=templates/pip.conf.j2
                 dest=$HOME/.pip/pip.conf
 
+    - name: configure terminator conf
+      template: src=templates/terminator.conf.j2
+                dest=$HOME/.config/terminator/config
+
     - name: clone nvm
       git: >
         repo='https://github.com/creationix/nvm.git'
