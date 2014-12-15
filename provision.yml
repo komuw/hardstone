@@ -26,16 +26,25 @@
         - 'ppa:transmissionbt/ppa'                           #transmission torrent client
         - 'ppa:webupd8team/sublime-text-3'                   #sublime-text3
         - 'ppa:eugenesan/ppa'                                #wireshark
+      ignore_errors: yes
+
+    # the skype ppa above has problems.
+    - name: add skype ppa
+      shell: sudo add-apt-repository "deb http://archive.canonical.com/ $(lsb_release -sc) partner" && sudo apt-get update
 
     - name: Remove some default system packages
       apt: pkg={{ item }} state=absent
       with_items:
         - netsurf-gtk
 
+    - name: fix broken dependencies
+      shell: sudo apt-get -f install
+
     - name: Install system packages
       apt: pkg={{ item }} state=present
       with_items:
-        - skype
+        #- skype-bin
+        #- skype
         - kdiff3
         - python-software-properties
         - software-properties-common
@@ -45,8 +54,8 @@
         - curl
         - mercurial
         - git
-        - unrar
-        - ransmission
+        #- unrar
+        - transmission
         - vlc
         - sublime-text-installer
         - pep8
@@ -64,7 +73,7 @@
         - python-dev
         - python-setuptools
         - iftop
-        - ifconfig
+        #- ifconfig
         - tcptrack
         - wireshark
 
