@@ -81,11 +81,12 @@
       command: pip install --upgrade pip
 
     - name: Install Python packages
-      pip: name={{ item }}
+      pip: name={{ item }} extra_args='-U'
       with_items: 
         - virtualenv
         - virtualenvwrapper
         - youtube-dl
+        - pip
 
     - name: remove particular user 
       user: name={{ REMOVE_USER }} state=absent remove=yes
