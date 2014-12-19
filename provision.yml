@@ -46,39 +46,39 @@
     - name: Install system packages
       apt: pkg={{ item }} state=present
       with_items:
-        #- skype-bin
-        #- skype
+        - skype-bin
+        - skype
         - kdiff3
         - python-pip
-        # - python-software-properties
-        # - software-properties-common
-        # - terminator
-        # - lsof
-        # - telnet
-        # - curl
-        # - mercurial
-        # - git
-        # #- unrar
-        # - transmission
-        # - vlc
-        # - sublime-text-installer
-        # - pep8
-        # - libpq-dev 
-        # - python2.7-dev
-        # - libxml2-dev 
-        # - libxslt1-dev
-        # - postgresql 
-        # - postgresql-contrib
-        # - network-manager-vpnc
-        # - vpnc
-        # - screen
-        # - build-essential
-        # - python-dev
-        # - python-setuptools
-        # - iftop
-        # #- ifconfig
-        # - tcptrack
-        # - wireshark
+        - python-software-properties
+        - software-properties-common
+        - terminator
+        - lsof
+        - telnet
+        - curl
+        - mercurial
+        - git
+        - unrar
+        - transmission
+        - vlc
+        - sublime-text-installer
+        - pep8
+        - libpq-dev 
+        - python2.7-dev
+        - libxml2-dev 
+        - libxslt1-dev
+        - postgresql 
+        - postgresql-contrib
+        - network-manager-vpnc
+        - vpnc
+        - screen
+        - build-essential
+        - python-dev
+        - python-setuptools
+        - iftop
+        #- ifconfig
+        - tcptrack
+        - wireshark
 
     - name: download google chrome 
       get_url: >
@@ -205,8 +205,8 @@
 
   handlers:
 
-    - name: finally
-      debug: msg="THATS IT. YOU are done."
-
     - name: reinstall_chrome
       command: sudo dpkg -i google-chrome-stable_current_amd64.deb chdir=/tmp
+
+    - name: finally
+      debug: msg="THATS IT. YOU are done."
