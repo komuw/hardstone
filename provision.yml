@@ -11,7 +11,7 @@
 
     - name: "ssh_key_passphrase"
       prompt: "Enter private passphrase for pub key"
-      private: no
+      private: yes
       default: "{{ DEFAULT_SSH_KEY_PASSPHRASE }}"
 
   tasks:
@@ -22,7 +22,7 @@
     - name:
       apt_repository: repo={{ item }} state=present update_cache=yes
       with_items:
-        - 'deb http://archive.canonical.com/ trusty partner' #skype
+        - 'deb http://archive.canonical.com trusty partner' #skype
         - 'ppa:transmissionbt/ppa'                           #transmission torrent client
         - 'ppa:webupd8team/sublime-text-3'                   #sublime-text3
         - 'ppa:eugenesan/ppa'                                #wireshark
@@ -37,8 +37,11 @@
       with_items:
         - netsurf-gtk
 
+    - name: remove potential apt lock 
+      command: sudo rm -rf /var/cache/apt/archives/lock && sudo rm -rf /var/lib/dpkg/lock
+
     - name: fix broken dependencies
-      shell: sudo apt-get -f install
+      shell: sudo apt-get -f -y install
 
     - name: Install system packages
       apt: pkg={{ item }} state=present
@@ -46,36 +49,52 @@
         #- skype-bin
         #- skype
         - kdiff3
-        - python-software-properties
-        - software-properties-common
-        - terminator
-        - lsof
-        - telnet
-        - curl
-        - mercurial
-        - git
-        #- unrar
-        - transmission
-        - vlc
-        - sublime-text-installer
-        - pep8
         - python-pip
-        - libpq-dev 
-        - python2.7-dev
-        - libxml2-dev 
-        - libxslt1-dev
-        - postgresql 
-        - postgresql-contrib
-        - network-manager-vpnc
-        - vpnc
-        - screen
-        - build-essential
-        - python-dev
-        - python-setuptools
-        - iftop
-        #- ifconfig
-        - tcptrack
-        - wireshark
+        # - python-software-properties
+        # - software-properties-common
+        # - terminator
+        # - lsof
+        # - telnet
+        # - curl
+        # - mercurial
+        # - git
+        # #- unrar
+        # - transmission
+        # - vlc
+        # - sublime-text-installer
+        # - pep8
+        # - libpq-dev 
+        # - python2.7-dev
+        # - libxml2-dev 
+        # - libxslt1-dev
+        # - postgresql 
+        # - postgresql-contrib
+        # - network-manager-vpnc
+        # - vpnc
+        # - screen
+        # - build-essential
+        # - python-dev
+        # - python-setuptools
+        # - iftop
+        # #- ifconfig
+        # - tcptrack
+        # - wireshark
+
+    - name: download google chrome 
+      get_url: >
+        url=https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb 
+        dest=/tmp
+
+    - name: install google chrome
+      command: sudo dpkg -i google-chrome-stable_current_amd64.deb chdir=/tmp
+      register: chromeresult
+      ignore_errors: yes
+
+    - name: fix install chrome errors
+      command: sudo apt-get -f -y install  
+      when: chromeresult|failed
+      notify:
+        - reinstall_chrome
 
     - name: Ensure pip is up-to-date
       command: pip install --upgrade pip
@@ -97,7 +116,7 @@
       user: >
         name={{ USER }} 
         generate_ssh_key=yes
-        groups={{ user }},video,sudo,plugde,audio,admin
+        groups={{ USER }},video,sudo,plugde,audio,admin
         ssh_key_comment={{ SSH_KEY_COMMENT }}
         ssh_key_passphrase={{ ssh_key_passphrase }}
 
@@ -174,22 +193,17 @@
       command: docker
       register: result
       ignore_errors: True
+      notify: 
+        - finally
 
     - name: install docker
       shell: sudo curl -sSL https://get.docker.io/ubuntu/ | sudo sh
       when: result|failed
 
-    - name: add google chrome ppa
-      command: wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
-      ignore_errors: True
-
-    - name: add chrome's key to source list 
-      command: sudo sh -c 'echo "deb http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list'
-      ignore_errors: True
-      notify: 
-        - finally
-
   handlers:
 
     - name: finally
       debug: msg="THATS IT. YOU are done."
+
+    - name: reinstall_chrome
+      command: sudo dpkg -i google-chrome-stable_current_amd64.deb chdir=/tmp
