@@ -111,6 +111,9 @@
       user: name={{ REMOVE_USER }} state=absent remove=yes
       ignore_errors: yes
 
+    - name: create users group
+      group: name={{ USER }} state=present
+
     #todo: add a password
     - name: create user 
       user: >
