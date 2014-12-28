@@ -23,3 +23,4 @@ komuw05 [At] gmail [dot] com
 
 ## TODO:
 * make it more generic
+* fix as many of the tasks whose errors I'm ignoring as possible.

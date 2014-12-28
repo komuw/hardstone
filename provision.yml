@@ -18,6 +18,9 @@
 
     - name: Update package cache if last run was more than 10 hours ago
       apt: update_cache=yes cache_valid_time={{ 60 * 60 * 10 }}
+    
+    - name: create /etc/apt/sources.list.d file
+      command: mkdir -p /etc/apt/sources.list.d
 
     - name:
       apt_repository: repo={{ item }} state=present update_cache=yes
@@ -30,12 +33,20 @@
 
     # the skype ppa above has problems.
     - name: add skype ppa
-      shell: sudo add-apt-repository "deb http://archive.canonical.com/ $(lsb_release -sc) partner" && sudo apt-get update
-
-    - name: Remove some default system packages
-      apt: pkg={{ item }} state=absent
+      shell: sudo add-apt-repository "deb http://archive.canonical.com/ $(lsb_release -sc) partner"
+ 
+    - name: add some ppas
+      shell: sudo add-apt-repository {{ item }}
       with_items:
-        - netsurf-gtk
+        - "ppa:webupd8team/sublime-text-3"
+        - "ppa:eugenesan/ppa"
+        - "ppa:transmissionbt/ppa"
+      ignore_errors: yes
+      register: addppasresult
+
+    - name: update cache
+      command: sudo apt-get update
+      when: addppasresult|success
 
     - name: remove potential apt lock 
       command: sudo rm -rf /var/cache/apt/archives/lock && sudo rm -rf /var/lib/dpkg/lock
@@ -44,8 +55,10 @@
       shell: sudo apt-get -f -y install
 
     - name: Install system packages
-      apt: pkg={{ item }} state=present
+      shell: sudo apt-get -y install {{ item }}
       with_items:
+        - openssh-client
+        - openssh-server
         - skype-bin
         - skype
         - kdiff3
@@ -61,7 +74,7 @@
         - unrar
         - transmission
         - vlc
-        - sublime-text-installer
+        #- sublime-text-installer
         - pep8
         - libpq-dev 
         - python2.7-dev
@@ -79,6 +92,7 @@
         #- ifconfig
         - tcptrack
         - wireshark
+        - nano
 
     - name: download google chrome 
       get_url: >
@@ -96,112 +110,117 @@
       notify:
         - reinstall_chrome
 
-    - name: Ensure pip is up-to-date
-      command: pip install --upgrade pip
-
     - name: Install Python packages
-      pip: name={{ item }} extra_args='-U'
+      shell: sudo pip install --upgrade {{ item }}
       with_items: 
         - virtualenv
         - virtualenvwrapper
         - youtube-dl
         - pip
 
-    - name: remove particular user 
-      user: name={{ REMOVE_USER }} state=absent remove=yes
-      ignore_errors: yes
-
     - name: create users group
       group: name={{ USER }} state=present
+     
+    - name: check if ssh public key exists
+      command: cat ~/.ssh/id_rsa.pub
+      register: checksshresult
 
-    #todo: add a password
-    - name: create user 
-      user: >
-        name={{ USER }} 
-        generate_ssh_key=yes
-        groups={{ USER }},video,sudo,plugde,audio,admin
-        ssh_key_comment={{ SSH_KEY_COMMENT }}
-        ssh_key_passphrase={{ ssh_key_passphrase }}
+    - name: create ssh-key 
+      command: ssh-keygen -t rsa -C {{ SSH_KEY_COMMENT }} -b 2048 -q -N {{ ssh_key_passphrase }} -f /home/{{USER}}/.ssh/id_rsa
+      when: checksshresult|failed
 
-    - name: start ssh-agent
-      command: ssh-agent /bin/bash
+    #- name: start ssh-agent 
+      #shell: ssh-agent /bin/bash
 
-    - name: load your key to the agent
-      command: ssh-add $HOME/.ssh/id_rsa
+    #- name: load your key to the agent
+      #command: ssh-add ~/.ssh/id_rsa
 
     - name: fetch the new users ssh public key
       shell: cat ~/.ssh/id_rsa.pub
-      register: result
+      register: sshkeyresult
 
     - name: notify user their ssh public key
-      debug: var=result
+      debug: var=sshkeyresult
 
     - name: notify user of location of their ssh public key
       debug: msg="You can always see your public key in $HOME/.ssh/id_rsa.pub"
 
     - name: configure ssh/config
       template: src=templates/ssh_config.j2 
-                dest=$HOME/.ssh/config
+                dest=~/.ssh/config
 
     - name: configure .bashrc
       template: src=templates/bashrc.j2
-                dest=$HOME/.bashrc
+                dest=~/.bashrc
 
     - name: configure .profile
       template: src=templates/profile.j2
-                dest=$HOME/.profile
+                dest=~/.profile
 
     - name: configure gitconfig
       template: src=templates/gitconfig.j2
-                dest=$HOME/.gitconfig
+                dest=~/.gitconfig
 
     - name: configure hgrc(mercurial)
       template: src=templates/hgrc.j2
-                dest=$HOME/.hgrc
+                dest=~/.hgrc
 
     - name: configure pip cache conf
       template: src=templates/pip.conf.j2
-                dest=$HOME/.pip/pip.conf
+                dest=~/.pip/pip.conf
+
+    - name: create terminator conf dir
+      command: mkdir -p ~/.config/terminator
 
     - name: configure terminator conf
       template: src=templates/terminator.conf.j2
-                dest=$HOME/.config/terminator/config
+                dest=~/.config/terminator/config
 
     - name: clone nvm
       git: >
         repo='https://github.com/creationix/nvm.git'
-        dest=$HOME/.nvm
+        dest=~/.nvm
         accept_hostkey=yes 
 
     - name: source bashrc
-      shell: . $HOME/.bashrc
+      shell: . ~/.bashrc
 
     - name: source profile
-      shell: . $HOME/.profile
+      shell: . ~/.profile
+      ignore_errors: yes
 
     - name: install nodejs
       command: nvm install {{ NODE_VERSION }}
+      ignore_errors: yes
 
     - name: use that nvm version
       command: nvm use v{{ NODE_VERSION }}
+      ignore_errors: yes
 
     - name: make that node version the default
       command: nvm alias default v{{ NODE_VERSION }}
+      ignore_errors: yes
 
     - name: configure /etc/vpnc/example.conf
       template: src=templates/example.conf.j2
                 dest=/etc/vpnc/example.conf
+      ignore_errors: yes
 
     - name: check if docker installed
       command: docker
-      register: result
+      register: dockerresult
       ignore_errors: True
       notify: 
         - finally
 
     - name: install docker
       shell: sudo curl -sSL https://get.docker.io/ubuntu/ | sudo sh
-      when: result|failed
+      when: dockerresult|failed
+
+    - name: Remove some default system packages
+      apt: pkg={{ item }} state=absent
+      with_items:
+        - netsurf-gtk
 
   handlers:
 
