@@ -1,11 +1,11 @@
 ---
-ANSIBLE_SSH_USER: komu
+ANSIBLE_SSH_USER: admin
 
-DEFAULT_SSH_KEY_PASSPHRASE: "secret_pass"
-REMOVE_USER: 'komu'
-USER: 'komu'
-USER_EMAIL: 'komuw05@gmail.com'
-SSH_KEY_COMMENT: 'komuw05@gmail.com'
+DEFAULT_SSH_KEY_PASSPHRASE: "super_secret_pass"
+REMOVE_USER: 'admin'
+USER: 'admin'
+USER_EMAIL: 'johndoe@gmail.com'
+SSH_KEY_COMMENT: 'johndoe@gmail.com'
 
 NODE_VERSION: 0.10.26
 NODE_ARCHITECTURE: linux-x86
