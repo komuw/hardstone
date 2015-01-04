@@ -111,6 +111,24 @@
       notify:
         - reinstall_chrome
 
+    - name: download sublime-text3 
+      get_url: >
+        url=http://c758482.r82.cf2.rackcdn.com/sublime-text_build-3065_amd64.deb 
+        dest=/tmp
+
+    - name: install sublime-text3
+      command: sudo dpkg -i sublime-text_build-3065_amd64.deb chdir=/tmp
+      ignore_errors: yes
+
+    - name: download vagrant 
+      get_url: >
+        url=https://dl.bintray.com/mitchellh/vagrant/vagrant_1.7.1_x86_64.deb 
+        dest=/tmp
+     
+    - name: install vagrant
+      command: sudo dpkg -i vagrant_1.7.1_x86_64.deb chdir=/tmp
+      ignore_errors: yes
+      
     - name: Install Python packages
       shell: sudo pip install --upgrade {{ item }}
       with_items: 
