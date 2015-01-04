@@ -166,7 +166,10 @@
     - name: configure hgrc(mercurial)
       template: src=templates/hgrc.j2
                 dest=~/.hgrc
-
+    
+    - name: create pip conf 
+      shell: mkdir -p ~/.pip && touch ~/.pip/pip.conf
+      
     - name: configure pip cache conf
       template: src=templates/pip.conf.j2
                 dest=~/.pip/pip.conf
