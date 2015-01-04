@@ -223,7 +223,7 @@
       when: dockerresult|failed
 
     - name: Remove some default system packages
-      apt: pkg={{ item }} state=absent
+      shell: sudo apt-get -y purge {{ item }}
       with_items:
         - netsurf-gtk
 
