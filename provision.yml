@@ -93,6 +93,7 @@
         - tcptrack
         - wireshark
         - nano
+      ignore_errors: yes
 
     - name: download google chrome 
       get_url: >
@@ -124,6 +125,7 @@
     - name: check if ssh public key exists
       command: cat ~/.ssh/id_rsa.pub
       register: checksshresult
+      ignore_errors: yes
 
     - name: create ssh-key 
       command: ssh-keygen -t rsa -C {{ SSH_KEY_COMMENT }} -b 2048 -q -N {{ ssh_key_passphrase }} -f /home/{{USER}}/.ssh/id_rsa
