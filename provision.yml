@@ -115,7 +115,12 @@
 
     - name: install vagrant
       command: sudo dpkg -i vagrant_1.7.1_x86_64.deb chdir=/tmp
+      register: checkvagrantresult
       ignore_errors: yes
+
+    - name: install vagrant cachier plugin
+      shell: vagrant plugin install vagrant-cachier
+      when: checkvagrantresult|success
 
     - name: Install Python packages
       shell: sudo pip install --upgrade {{ item }}
