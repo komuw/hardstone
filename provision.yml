@@ -18,27 +18,16 @@
 
     - name: Update package cache if last run was more than 10 hours ago
       apt: update_cache=yes cache_valid_time={{ 60 * 60 * 10 }}
-    
+
     - name: create /etc/apt/sources.list.d file
       command: mkdir -p /etc/apt/sources.list.d
 
-    - name:
-      apt_repository: repo={{ item }} state=present update_cache=yes
-      with_items:
-        - 'deb http://archive.canonical.com trusty partner' #skype
-        - 'ppa:transmissionbt/ppa'                           #transmission torrent client
-        - 'ppa:webupd8team/sublime-text-3'                   #sublime-text3
-        - 'ppa:eugenesan/ppa'                                #wireshark
-      ignore_errors: yes
-
-    # the skype ppa above has problems.
     - name: add skype ppa
       shell: sudo add-apt-repository "deb http://archive.canonical.com/ $(lsb_release -sc) partner"
- 
+
     - name: add some ppas
       shell: sudo add-apt-repository {{ item }}
       with_items:
-        - "ppa:webupd8team/sublime-text-3"
         - "ppa:eugenesan/ppa"
         - "ppa:transmissionbt/ppa"
       ignore_errors: yes
@@ -74,7 +63,6 @@
         - unrar
         - transmission
         - vlc
-        #- sublime-text-installer
         - pep8
         - libpq-dev 
         - python2.7-dev
@@ -124,11 +112,11 @@
       get_url: >
         url=https://dl.bintray.com/mitchellh/vagrant/vagrant_1.7.1_x86_64.deb 
         dest=/tmp
-     
+
     - name: install vagrant
       command: sudo dpkg -i vagrant_1.7.1_x86_64.deb chdir=/tmp
       ignore_errors: yes
-      
+
     - name: Install Python packages
       shell: sudo pip install --upgrade {{ item }}
       with_items: 
@@ -139,7 +127,7 @@
 
     - name: create users group
       group: name={{ USER }} state=present
-     
+
     - name: check if ssh public key exists
       command: cat ~/.ssh/id_rsa.pub
       register: checksshresult
@@ -184,10 +172,10 @@
     - name: configure hgrc(mercurial)
       template: src=templates/hgrc.j2
                 dest=~/.hgrc
-    
+
     - name: create pip conf 
       shell: mkdir -p ~/.pip && touch ~/.pip/pip.conf
-      
+
     - name: configure pip cache conf
       template: src=templates/pip.conf.j2
                 dest=~/.pip/pip.conf
