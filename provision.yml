@@ -23,13 +23,14 @@
       command: mkdir -p /etc/apt/sources.list.d
 
     - name: add skype ppa
-      shell: sudo add-apt-repository "deb http://archive.canonical.com/ $(lsb_release -sc) partner"
+      shell: sudo add-apt-repository -y "deb http://archive.canonical.com/ $(lsb_release -sc) partner"
 
     - name: add some ppas
-      shell: sudo add-apt-repository {{ item }}
+      shell: sudo add-apt-repository -y {{ item }}
       with_items:
         - "ppa:eugenesan/ppa"
-        - "ppa:transmissionbt/ppa"
+        - "ppa:transmissionbt/ppa"         #transmission bittorrent
+        - "ppa:jon-severinsson/ffmpeg"     #ffmpeg
       ignore_errors: yes
       register: addppasresult
 
@@ -81,6 +82,7 @@
         - tcptrack
         - wireshark
         - nano
+        - ffmpeg
       ignore_errors: yes
 
     - name: download google chrome 
