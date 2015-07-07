@@ -2,7 +2,7 @@
 - hosts: all
   gather_facts: no
   sudo: yes
-  sudo_user: "{{ ANSIBLE_SSH_USER }}"
+  sudo_user: root
 
   vars_files:
     - ./vars/base.yml
@@ -18,6 +18,9 @@
 
     - name: Update package cache if last run was more than 10 hours ago
       apt: update_cache=yes cache_valid_time={{ 60 * 60 * 10 }}
+
+    - name: fix broken dependencies
+      shell: sudo apt-get -f -y install
 
     - name: create /etc/apt/sources.list.d file
       command: mkdir -p /etc/apt/sources.list.d
@@ -39,6 +42,7 @@
 
     - name: update cache
       command: sudo apt-get update
+      when: addppasresult|success
 
     - name: remove potential apt lock 
       command: sudo rm -rf /var/cache/apt/archives/lock && sudo rm -rf /var/lib/dpkg/lock
@@ -47,7 +51,7 @@
       shell: sudo apt-get -f -y install
 
     - name: Install system packages
-      shell: sudo apt-get -y install {{ item }}
+      apt: pkg={{ item }} state=present
       with_items:
         - openssh-client
         - openssh-server
