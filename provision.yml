@@ -2,7 +2,7 @@
 - hosts: all
   gather_facts: no
   sudo: yes
-  sudo_user: "{{ ANSIBLE_SSH_USER }}"
+  sudo_user: root
 
   vars_files:
     - ./vars/base.yml
@@ -19,8 +19,14 @@
     - name: Update package cache if last run was more than 10 hours ago
       apt: update_cache=yes cache_valid_time={{ 60 * 60 * 10 }}
 
+    - name: fix broken dependencies
+      shell: sudo apt-get -f -y install
+
     - name: create /etc/apt/sources.list.d file
       command: mkdir -p /etc/apt/sources.list.d
+
+    - name: rm skype
+      shell: sudo apt-get -y remove skype skype-bin:i386 skype:i386 && sudo rm -rf ~/.Skype
 
     - name: add skype ppa
       shell: sudo add-apt-repository -y "deb http://archive.canonical.com/ $(lsb_release -sc) partner"
@@ -30,7 +36,8 @@
       with_items:
         - "ppa:eugenesan/ppa"
         - "ppa:transmissionbt/ppa"         #transmission bittorrent
-        - "ppa:jon-severinsson/ffmpeg"     #ffmpeg
+        - "ppa:mc3man/trusty-media"     #ffmpeg
+
       ignore_errors: yes
       register: addppasresult
 
@@ -45,11 +52,10 @@
       shell: sudo apt-get -f -y install
 
     - name: Install system packages
-      shell: sudo apt-get -y install {{ item }}
+      apt: pkg={{ item }} state=present
       with_items:
         - openssh-client
         - openssh-server
-        - skype-bin
         - skype
         - kdiff3
         - python-pip
@@ -83,6 +89,14 @@
         - wireshark
         - nano
         - ffmpeg
+        - git-flow
+        - ffmpeg
+        - zip
+        - lxc 
+        - lxc-templates 
+        - cgroup-lite 
+        - redir
+        - gdb
       ignore_errors: yes
 
     - name: download google chrome 
@@ -126,11 +140,14 @@
 
     - name: Install Python packages
       shell: sudo pip install --upgrade {{ item }}
-      with_items: 
+      with_items:
+        - pip 
         - virtualenv
         - virtualenvwrapper
         - youtube-dl
-        - pip
+        - asciinema
+        - yapf
+        - ansible
 
     - name: create users group
       group: name={{ USER }} state=present
@@ -202,10 +219,18 @@
 
     - name: source bashrc
       shell: . ~/.bashrc
+      sudo: no
+      ignore_errors: yes
+      args:
+        executable: /bin/bash
 
     - name: source profile
       shell: . ~/.profile
       ignore_errors: yes
+      sudo: no
+      ignore_errors: yes
+      args:
+        executable: /bin/bash
 
     - name: install nodejs
       command: nvm install {{ NODE_VERSION }}
@@ -239,6 +264,9 @@
       shell: sudo apt-get -y purge {{ item }}
       with_items:
         - netsurf-gtk
+
+    - name: create my stuff dir
+      shell: mkdir -p $HOME/mystuff
 
   handlers:
 

@@ -2,7 +2,7 @@
 ANSIBLE_SSH_USER: admin
 
 DEFAULT_SSH_KEY_PASSPHRASE: "super_secret_pass"
-REMOVE_USER: 'admin'
+
 USER: 'admin'
 USER_EMAIL: 'johndoe@gmail.com'
 SSH_KEY_COMMENT: 'johndoe@gmail.com'
@@ -14,5 +14,7 @@ NODE_ARCHITECTURE: linux-x86
 ssh_config:
   - { ip_address: 8.8.8.8, host_name: 'something'}
   - { ip_address: 1.1.1.1, host_name: 'somethingelse'}
+
+GOLANG_DOWNLOAD_URL: "https://storage.googleapis.com/golang/go1.4.2.linux-amd64.tar.gz"
 
 

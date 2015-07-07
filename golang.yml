@@ -1,0 +1,55 @@
+---
+- hosts: all
+  gather_facts: no
+  sudo: yes
+  sudo_user: root
+
+  vars_files:
+    - ./vars/base.yml
+
+  tasks:
+
+    - name: check if golang is already downloaded
+      stat: path=/usr/local/go1.4.2.linux-amd64.tar.gz
+      register: golang_file_exist
+
+    - name: download golang
+      shell: sudo wget --directory-prefix=/usr/local {{GOLANG_DOWNLOAD_URL}}
+      when: golang_file_exist.stat.exists == False
+
+    - name: untar golang file
+      command: sudo tar -xzf /usr/local/go1.4.2.linux-amd64.tar.gz chdir=/usr/local/
+
+    - name: golang profileI
+      lineinfile: line="\n#golang"
+                  backup=yes
+                  dest=~/.profile
+      sudo: yes
+      sudo_user: "{{ansible_ssh_user}}"
+
+    - name: golang profileII
+      lineinfile: line="export PATH=$PATH:/usr/local/go/bin"
+                  backup=yes
+                  dest=~/.profile
+      sudo: yes
+      sudo_user: "{{ansible_ssh_user}}"
+
+    - name: create golang code dir
+      shell: mkdir -p $HOME/mystuff/gocode
+
+    - name: export golang code dir
+      lineinfile: line="export GOPATH=$HOME/mystuff/gocode"
+                  backup=yes
+                  dest=~/.profile
+      sudo: yes
+      sudo_user: "{{ansible_ssh_user}}"
+
+    - name: create golang code github dir
+      shell: mkdir -p $HOME/mystuff/gocode/src/github.com/komuw
+
+    - name: source profile
+      shell: source ~/.profile
+      sudo: no
+      ignore_errors: yes
+      args:
+        executable: /bin/bash
