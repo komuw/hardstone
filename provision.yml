@@ -212,10 +212,18 @@
 
     - name: source bashrc
       shell: . ~/.bashrc
+      sudo: no
+      ignore_errors: yes
+      args:
+        executable: /bin/bash
 
     - name: source profile
       shell: . ~/.profile
       ignore_errors: yes
+      sudo: no
+      ignore_errors: yes
+      args:
+        executable: /bin/bash
 
     - name: install nodejs
       command: nvm install {{ NODE_VERSION }}

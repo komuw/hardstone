@@ -2,7 +2,7 @@
 ANSIBLE_SSH_USER: admin
 
 DEFAULT_SSH_KEY_PASSPHRASE: "super_secret_pass"
-REMOVE_USER: 'admin'
+
 USER: 'admin'
 USER_EMAIL: 'johndoe@gmail.com'
 SSH_KEY_COMMENT: 'johndoe@gmail.com'
