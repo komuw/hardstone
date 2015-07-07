@@ -15,4 +15,6 @@ ssh_config:
   - { ip_address: 8.8.8.8, host_name: 'something'}
   - { ip_address: 1.1.1.1, host_name: 'somethingelse'}
 
+GOLANG_DOWNLOAD_URL: "https://storage.googleapis.com/golang/go1.4.2.linux-amd64.tar.gz"
+
 
