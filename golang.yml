@@ -36,6 +36,8 @@
 
     - name: create golang code dir
       shell: mkdir -p $HOME/mystuff/gocode
+      sudo: yes
+      sudo_user: "{{ansible_ssh_user}}"
 
     - name: export golang code dir
       lineinfile: line="export GOPATH=$HOME/mystuff/gocode"
@@ -46,6 +48,8 @@
 
     - name: create golang code github dir
       shell: mkdir -p $HOME/mystuff/gocode/src/github.com/komuw
+      sudo: yes
+      sudo_user: "{{ansible_ssh_user}}"
 
     - name: source profile
       shell: source ~/.profile
