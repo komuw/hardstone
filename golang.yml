@@ -51,8 +51,36 @@
       sudo: yes
       sudo_user: "{{ansible_ssh_user}}"
 
+    - name: golang bashrcI
+      lineinfile: line="\n#golang"
+                  backup=yes
+                  dest=~/.bashrc
+      sudo: yes
+      sudo_user: "{{ansible_ssh_user}}"
+
+    - name: golang bashrcII
+      lineinfile: line="export PATH=$PATH:/usr/local/go/bin"
+                  backup=yes
+                  dest=~/.bashrc
+      sudo: yes
+      sudo_user: "{{ansible_ssh_user}}"
+
+    - name: export golang code dir in bashrc
+      lineinfile: line="export GOPATH=$HOME/mystuff/gocode"
+                  backup=yes
+                  dest=~/.bashrc
+      sudo: yes
+      sudo_user: "{{ansible_ssh_user}}"
+
     - name: source profile
       shell: source ~/.profile
+      sudo: no
+      ignore_errors: yes
+      args:
+        executable: /bin/bash
+
+    - name: source bashrc
+      shell: source ~/.bashrc
       sudo: no
       ignore_errors: yes
       args:
