@@ -87,7 +87,7 @@
         executable: /bin/bash
 
     - name: install some golang packages
-      shell: export GOPATH="$HOME/mystuff/gocode" && /usr/local/go/bin/go get {{item}}
+      shell: export GOPATH="$HOME/mystuff/gocode" && source ~/.profile && go get {{item}}
       with_items:
         - github.com/motemen/gore                 #golang repl
         - github.com/nsf/gocode                   #golang auto-completion
@@ -96,5 +96,7 @@
         - github.com/derekparker/delve/cmd/dlv    #debugger
         - github.com/mailgun/godebug              #another debugger
       tags: go-packages
+      sudo: yes
+      sudo_user: "{{ansible_ssh_user}}"
       args:
         executable: /bin/bash
