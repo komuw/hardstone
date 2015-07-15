@@ -73,7 +73,7 @@
       sudo_user: "{{ansible_ssh_user}}"
 
     - name: add $GOPATH to $PATH
-      lineinfile: line="export PATH=$HOME/work/gocode/bin:$PATH"
+      lineinfile: line="export PATH=$HOME/mystuff/gocode/bin:$PATH"
                   backup=yes
                   dest=~/.profile
       sudo: yes
