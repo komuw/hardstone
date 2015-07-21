@@ -23,16 +23,12 @@
     - name: golang profileI
       lineinfile: line="\n#golang"
                   backup=yes
-                  dest=~/.profile
-      sudo: yes
-      sudo_user: "{{ansible_ssh_user}}"
+                  dest=/etc/profile
 
     - name: golang profileII
       lineinfile: line="export PATH=$PATH:/usr/local/go/bin"
                   backup=yes
-                  dest=~/.profile
-      sudo: yes
-      sudo_user: "{{ansible_ssh_user}}"
+                  dest=/etc/profile
 
     - name: create golang code dir
       shell: mkdir -p $HOME/mystuff/gocode
@@ -42,9 +38,7 @@
     - name: export golang code dir
       lineinfile: line="export GOPATH=$HOME/mystuff/gocode"
                   backup=yes
-                  dest=~/.profile
-      sudo: yes
-      sudo_user: "{{ansible_ssh_user}}"
+                  dest=/etc/profile
 
     - name: create golang code github dir
       shell: mkdir -p $HOME/mystuff/gocode/src/github.com/komuw
@@ -75,12 +69,10 @@
     - name: add $GOPATH to $PATH
       lineinfile: line="export PATH=$HOME/mystuff/gocode/bin:$PATH"
                   backup=yes
-                  dest=~/.profile
-      sudo: yes
-      sudo_user: "{{ansible_ssh_user}}"
+                  dest=/etc/profile
 
     - name: source profile
-      shell: source ~/.profile
+      shell: source /etc/profile
       sudo: no
       ignore_errors: yes
       args:
@@ -94,7 +86,7 @@
         executable: /bin/bash
 
     - name: install some golang packages
-      shell: export GOPATH="$HOME/mystuff/gocode" && source ~/.profile && go get {{item}}
+      shell: export GOPATH="$HOME/mystuff/gocode" && source /etc/profile && go get {{item}}
       with_items:
         - github.com/motemen/gore                 #golang repl
         - github.com/nsf/gocode                   #golang auto-completion
@@ -103,7 +95,5 @@
         - github.com/derekparker/delve/cmd/dlv    #debugger
         - github.com/mailgun/godebug              #another debugger
       tags: go-packages
-      sudo: yes
-      sudo_user: "{{ansible_ssh_user}}"
       args:
         executable: /bin/bash
