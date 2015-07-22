@@ -148,6 +148,7 @@
         - asciinema
         - yapf
         - ansible
+        - httpie
 
     - name: create users group
       group: name={{ USER }} state=present
