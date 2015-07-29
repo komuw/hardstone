@@ -254,12 +254,18 @@
       command: docker
       register: dockerresult
       ignore_errors: True
+      tags: docker
       notify: 
         - finally
 
     - name: install docker
-      shell: sudo curl -sSL https://get.docker.io/ubuntu/ | sudo sh
+      shell: sudo wget -qO- https://get.docker.com/ | sh
       when: dockerresult|failed
+      tags: docker
+
+    - name: add docker group and add user to it 
+      shell: sudo usermod -aG docker {{ANSIBLE_SSH_USER}}
+      tags: docker
 
     - name: Remove some default system packages
       shell: sudo apt-get -y purge {{ item }}
