@@ -2,7 +2,7 @@
 - hosts: all
   gather_facts: no
   sudo: yes
-  sudo_user: root
+  sudo_user: "{{ANSIBLE_SSH_USER}}"
 
   vars_files:
     - ./vars/base.yml
