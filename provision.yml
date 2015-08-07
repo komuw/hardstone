@@ -52,7 +52,7 @@
       shell: sudo apt-get -f -y install
 
     - name: Install system packages
-      apt: pkg={{ item }} state=present
+      shell: sudo apt-get -y install {{ item }}
       with_items:
         - openssh-client
         - openssh-server
