@@ -10,15 +10,18 @@
   tasks:
 
     - name: check if golang is already downloaded
-      stat: path=/usr/local/go1.4.2.linux-amd64.tar.gz
+      stat: path=/usr/local/go1.5.linux-amd64.tar.gz
       register: golang_file_exist
+      tags: install_go
 
     - name: download golang
       shell: sudo wget --directory-prefix=/usr/local {{GOLANG_DOWNLOAD_URL}}
       when: golang_file_exist.stat.exists == False
+      tags: install_go
 
     - name: untar golang file
-      command: sudo tar -xzf /usr/local/go1.4.2.linux-amd64.tar.gz chdir=/usr/local/
+      command: sudo tar -xzf /usr/local/go1.5.linux-amd64.tar.gz chdir=/usr/local/
+      tags: install_go
 
     - name: golang profileI
       lineinfile: line="\n#golang"
@@ -29,6 +32,7 @@
       lineinfile: line="export PATH=$PATH:/usr/local/go/bin"
                   backup=yes
                   dest=/etc/profile
+      tags: install_go
 
     - name: create golang code dir
       shell: mkdir -p $HOME/mystuff/gocode
@@ -58,6 +62,7 @@
                   dest=~/.bashrc
       sudo: yes
       sudo_user: "{{ansible_ssh_user}}"
+      tags: install_go
 
     - name: export golang code dir in bashrc
       lineinfile: line="export GOPATH=$HOME/mystuff/gocode"
@@ -70,6 +75,7 @@
       lineinfile: line="export PATH=$HOME/mystuff/gocode/bin:$PATH"
                   backup=yes
                   dest=/etc/profile
+      tags: install_go
 
     - name: source profile
       shell: source /etc/profile
