@@ -26,10 +26,25 @@
       command: mkdir -p /etc/apt/sources.list.d
 
     - name: rm skype
-      shell: sudo apt-get -y remove skype skype-bin:i386 skype:i386 && sudo rm -rf ~/.Skype
+      shell: sudo apt-get -y remove skype skype-bin:i386 skype:i386
+      ignore_errors: yes
+
+    - name: install skype dependency
+      shell: sudo apt-get -y install sni-qt:i386
+
+    - name: rm skype config
+      shell: sudo rm -rf ~/.Skype
+
+    - name: enable multiarch
+      shell: sudo dpkg --add-architecture i386
+      ignore_errors: yes
+
+    - name: install gdebi
+      shell: sudo apt-get -y update && sudo apt-get -y install gdebi
 
     - name: add skype ppa
       shell: sudo add-apt-repository -y "deb http://archive.canonical.com/ $(lsb_release -sc) partner"
+      ignore_errors: yes
 
     - name: add some ppas
       shell: sudo add-apt-repository -y {{ item }}
@@ -40,6 +55,10 @@
 
       ignore_errors: yes
       register: addppasresult
+
+    - name: install skype
+      shell: sudo apt-get -y update && sudo apt-get -y install skype
+      ignore_errors: yes
 
     - name: update cache
       command: sudo apt-get update
@@ -56,7 +75,6 @@
       with_items:
         - openssh-client
         - openssh-server
-        - skype
         - kdiff3
         - python-pip
         - python-software-properties
