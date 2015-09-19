@@ -156,6 +156,15 @@
       shell: vagrant plugin install vagrant-cachier
       when: checkvagrantresult|success
 
+    - name: download virtualbox
+      get_url: >
+        url=http://download.virtualbox.org/virtualbox/4.3.30/virtualbox-4.3_4.3.30-101610~Ubuntu~raring_amd64.deb 
+        dest=/tmp
+
+    - name: install virtualbox
+      command: sudo dpkg -i virtualbox-4.3_4.3.30-101610~Ubuntu~raring_amd64.deb chdir=/tmp
+      ignore_errors: yes
+
     - name: Install Python packages
       shell: sudo pip install --upgrade {{ item }}
       with_items:
