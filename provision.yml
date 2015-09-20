@@ -65,10 +65,16 @@
       when: addppasresult|success
 
     - name: remove potential apt lock 
-      command: sudo rm -rf /var/cache/apt/archives/lock && sudo rm -rf /var/lib/dpkg/lock
+      command: sudo rm -rf /var/cache/apt/archives/lock && sudo rm -rf /var/lib/dpkg/lock && sudo rm /var/cache/debconf/*.dat
 
     - name: fix broken dependencies
       shell: sudo apt-get -f -y install
+
+    - name: configure
+      shell: sudo dpkg --configure -a
+
+    - name: update system
+      shell: sudo apt-get -y update
 
     - name: Install system packages
       shell: sudo apt-get -y install {{ item }}
@@ -116,6 +122,29 @@
         - redir
         - gdb
       ignore_errors: yes
+
+    - name: remove potential apt lock 
+      command: sudo rm -rf /var/cache/apt/archives/lock && sudo rm -rf /var/lib/dpkg/lock && sudo rm /var/cache/debconf/*.dat
+
+    - name: fix broken dependencies
+      shell: sudo apt-get -f -y install
+
+    - name: configure
+      shell: sudo dpkg --configure -a
+
+    - name: update system
+      shell: sudo apt-get -y update
+
+    - name: agree to ttf-mscorefonts-installer license(prepare media codecs install)
+      shell: echo ttf-mscorefonts-installer msttcorefonts/accepted-mscorefonts-eula select true | sudo debconf-set-selections
+      tags: media_codecs
+
+    - name: Install system packages  media codecs
+      shell: sudo apt-get -y install ubuntu-restricted-extras
+      tags: media_codecs
+
+    - name: update system
+      shell: sudo apt-get -y update
 
     - name: download google chrome 
       get_url: >
