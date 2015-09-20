@@ -7,7 +7,7 @@ USER: 'admin'
 USER_EMAIL: 'johndoe@gmail.com'
 SSH_KEY_COMMENT: 'johndoe@gmail.com'
 
-NODE_VERSION: 0.10.26
+NODE_VERSION: 0.10.32
 NODE_ARCHITECTURE: linux-x86
 
 

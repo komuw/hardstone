@@ -11,6 +11,75 @@ This is my setup, it may not work for you. Feel free to modify appropriately.
 * go make a cup of coffee, this may take a while
 * your dev environment is ready
 
+## How will this setup f**ck up my computer?      
+relax home boy. this setup will install and configure: 
+* openssh-client
+* openssh-server
+* kdiff3
+* python-pip
+* python-software-properties
+* software-properties-common
+* terminator
+* lsof
+* telnet
+* curl
+* mercurial
+* git
+* unrar
+* transmission
+* vlc
+* pep8
+* libpq-dev 
+* python2.7-dev
+* build-essential
+* python-dev
+* python-setuptools
+* libxml2-dev 
+* libxslt1-dev
+* postgresql 
+* postgresql-contrib
+* network-manager-vpnc
+* vpnc
+* screen
+* iftop
+* tcptrack
+* wireshark
+* nano
+* ffmpeg
+* git-flow
+* ffmpeg
+* zip
+* lxc 
+* lxc-templates 
+* cgroup-lite 
+* redir
+* gdb
+* skype
+* ubuntu-restricted-extras (media codecs)
+* google chrome
+* sublime-text3
+* vagrant
+* virtualbox
+* pip 
+* virtualenv
+* virtualenvwrapper
+* youtube-dl
+* asciinema
+* yapf
+* ansible
+* httpie
+* docker
+* nvm
+* nodeJS
+* Go(golang)
+	* github.com/motemen/gore                 #golang repl
+	* github.com/nsf/gocode                   #golang auto-completion
+	* github.com/k0kubun/pp                   #pretty print
+	* golang.org/x/tools/cmd/godoc            #docs
+	* github.com/derekparker/delve/cmd/dlv    #golang debugger
+	* github.com/mailgun/godebug              #another golang debugger
+	* hugo                                    #golang static site generator
+* popcorntime io
 
 ## NB:      
 * This project was tested on a machine running ubuntu 14.04, 64bit.
