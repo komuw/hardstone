@@ -19,4 +19,4 @@ GOLANG_DOWNLOAD_URL: "https://storage.googleapis.com/golang/go1.5.linux-amd64.ta
 
 HUGO_DOWNLOAD_URL: "https://github.com/spf13/hugo/releases/download/v0.14/hugo_0.14_amd64.deb"
 
-
+ATOM_EDITOR_VERSION: "v1.2.0"
