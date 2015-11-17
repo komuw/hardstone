@@ -29,4 +29,20 @@
       shell: bash install_popcorntime.sh chdir=/tmp/poptime
       ignore_errors: yes
 
+    - name: check if atom editor is already downloaded
+      stat: path=/tmp/atom-amd64.deb
+      register: atom_file_exist
 
+    - name: download atom editor
+      shell: sudo wget --directory-prefix=/tmp https://github.com/atom/atom/releases/download/{{ATOM_EDITOR_VERSION}}/atom-amd64.deb
+      when: atom_file_exist.stat.exists == False
+
+    - name: install atom editor
+      shell: sudo dpkg -i /tmp/atom-amd64.deb
+
+    - name: configure atom/config.cson
+      template: src=templates/atom.config.cson.j2
+                dest=~/atom/config.cson
+
+    - name: clear atom files from tmp
+      shell: sudo rm -rf /tmp/atom-*
