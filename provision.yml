@@ -26,10 +26,25 @@
       command: mkdir -p /etc/apt/sources.list.d
 
     - name: rm skype
-      shell: sudo apt-get -y remove skype skype-bin:i386 skype:i386 && sudo rm -rf ~/.Skype
+      shell: sudo apt-get -y remove skype skype-bin:i386 skype:i386
+      ignore_errors: yes
+
+    - name: install skype dependency
+      shell: sudo apt-get -y install sni-qt:i386
+
+    - name: rm skype config
+      shell: sudo rm -rf ~/.Skype
+
+    - name: enable multiarch
+      shell: sudo dpkg --add-architecture i386
+      ignore_errors: yes
+
+    - name: install gdebi
+      shell: sudo apt-get -y update && sudo apt-get -y install gdebi
 
     - name: add skype ppa
       shell: sudo add-apt-repository -y "deb http://archive.canonical.com/ $(lsb_release -sc) partner"
+      ignore_errors: yes
 
     - name: add some ppas
       shell: sudo add-apt-repository -y {{ item }}
@@ -41,22 +56,31 @@
       ignore_errors: yes
       register: addppasresult
 
+    - name: install skype
+      shell: sudo apt-get -y update && sudo apt-get -y install skype
+      ignore_errors: yes
+
     - name: update cache
       command: sudo apt-get update
       when: addppasresult|success
 
     - name: remove potential apt lock 
-      command: sudo rm -rf /var/cache/apt/archives/lock && sudo rm -rf /var/lib/dpkg/lock
+      command: sudo rm -rf /var/cache/apt/archives/lock && sudo rm -rf /var/lib/dpkg/lock && sudo rm /var/cache/debconf/*.dat
 
     - name: fix broken dependencies
       shell: sudo apt-get -f -y install
+
+    - name: configure
+      shell: sudo dpkg --configure -a
+
+    - name: update system
+      shell: sudo apt-get -y update
 
     - name: Install system packages
       shell: sudo apt-get -y install {{ item }}
       with_items:
         - openssh-client
         - openssh-server
-        - skype
         - kdiff3
         - python-pip
         - python-software-properties
@@ -99,6 +123,29 @@
         - gdb
       ignore_errors: yes
 
+    - name: remove potential apt lock 
+      command: sudo rm -rf /var/cache/apt/archives/lock && sudo rm -rf /var/lib/dpkg/lock && sudo rm /var/cache/debconf/*.dat
+
+    - name: fix broken dependencies
+      shell: sudo apt-get -f -y install
+
+    - name: configure
+      shell: sudo dpkg --configure -a
+
+    - name: update system
+      shell: sudo apt-get -y update
+
+    - name: agree to ttf-mscorefonts-installer license(prepare media codecs install)
+      shell: echo ttf-mscorefonts-installer msttcorefonts/accepted-mscorefonts-eula select true | sudo debconf-set-selections
+      tags: media_codecs
+
+    - name: Install system packages  media codecs
+      shell: sudo apt-get -y install ubuntu-restricted-extras
+      tags: media_codecs
+
+    - name: update system
+      shell: sudo apt-get -y update
+
     - name: download google chrome 
       get_url: >
         url=https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb 
@@ -137,6 +184,15 @@
     - name: install vagrant cachier plugin
       shell: vagrant plugin install vagrant-cachier
       when: checkvagrantresult|success
+
+    - name: download virtualbox
+      get_url: >
+        url=http://download.virtualbox.org/virtualbox/4.3.30/virtualbox-4.3_4.3.30-101610~Ubuntu~raring_amd64.deb 
+        dest=/tmp
+
+    - name: install virtualbox
+      command: sudo dpkg -i virtualbox-4.3_4.3.30-101610~Ubuntu~raring_amd64.deb chdir=/tmp
+      ignore_errors: yes
 
     - name: Install Python packages
       shell: sudo pip install --upgrade {{ item }}

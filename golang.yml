@@ -27,12 +27,16 @@
       lineinfile: line="\n#golang"
                   backup=yes
                   dest=/etc/profile
+      sudo: yes
+      sudo_user: root
 
     - name: golang profileII
       lineinfile: line="export PATH=$PATH:/usr/local/go/bin"
                   backup=yes
                   dest=/etc/profile
       tags: install_go
+      sudo: yes
+      sudo_user: root
 
     - name: create golang code dir
       shell: mkdir -p $HOME/mystuff/gocode
@@ -43,6 +47,8 @@
       lineinfile: line="export GOPATH=$HOME/mystuff/gocode"
                   backup=yes
                   dest=/etc/profile
+      sudo: yes
+      sudo_user: root
 
     - name: create golang code github dir
       shell: mkdir -p $HOME/mystuff/gocode/src/github.com/komuw
@@ -76,6 +82,8 @@
                   backup=yes
                   dest=/etc/profile
       tags: install_go
+      sudo: yes
+      sudo_user: root
 
     - name: source profile
       shell: source /etc/profile
