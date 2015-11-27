@@ -32,17 +32,32 @@
     - name: check if atom editor is already downloaded
       stat: path=/tmp/atom-amd64.deb
       register: atom_file_exist
+      tags: 
+        - atom
 
     - name: download atom editor
       shell: sudo wget --directory-prefix=/tmp https://github.com/atom/atom/releases/download/{{ATOM_EDITOR_VERSION}}/atom-amd64.deb
       when: atom_file_exist.stat.exists == False
+      tags: 
+        - atom
 
     - name: install atom editor
       shell: sudo dpkg -i /tmp/atom-amd64.deb
+      tags: 
+        - atom
+
+    - name: touch atom/config.cson
+      shell: mkdir -p ~/atom && touch ~/atom/config.cson
+      tags: 
+        - atom
 
     - name: configure atom/config.cson
       template: src=templates/atom.config.cson.j2
                 dest=~/atom/config.cson
+      tags: 
+        - atom
 
     - name: clear atom files from tmp
       shell: sudo rm -rf /tmp/atom-*
+      tags: 
+        - atom
