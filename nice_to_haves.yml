@@ -51,3 +51,11 @@
                 dest=~/.atom/config.cson
       tags: 
         - atom
+
+    - name: install atom plugins/themes
+      shell: apm install {{item}}
+      with_items:
+        - atom-dark-ui 
+        - sublime-default-syntax
+      tags: 
+        - atom
