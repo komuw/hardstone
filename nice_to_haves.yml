@@ -46,14 +46,9 @@
       tags: 
         - atom
 
-    - name: touch atom/config.cson
-      shell: mkdir -p ~/atom && touch ~/atom/config.cson
-      tags: 
-        - atom
-
     - name: configure atom/config.cson
       template: src=templates/atom.config.cson.j2
-                dest=~/atom/config.cson
+                dest=~/.atom/config.cson
       tags: 
         - atom
 
