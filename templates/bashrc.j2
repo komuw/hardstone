@@ -146,3 +146,6 @@ $PATH"
 # NVM
 [[ -s "$HOME/.nvm/nvm.sh" ]] && . "$HOME/.nvm/nvm.sh"
 [[ -r $NVM_DIR/bash_completion ]] && . $NVM_DIR/bash_completion
+
+#add timestamp to terminal
+export PROMPT_COMMAND="echo -n \[\$(date '+%d-%b %H:%M:%S')\]\ "
