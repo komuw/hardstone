@@ -123,6 +123,12 @@
         - gdb
       ignore_errors: yes
 
+    - name: add nodeJs ppa
+      shell: curl -sL https://deb.nodesource.com/setup_5.x | sudo -E bash -
+
+    - name: install nodeJs
+      shell: sudo apt-get install -y nodejs
+
     - name: remove potential apt lock 
       command: sudo rm -rf /var/cache/apt/archives/lock && sudo rm -rf /var/lib/dpkg/lock && sudo rm /var/cache/debconf/*.dat
 
