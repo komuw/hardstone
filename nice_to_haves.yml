@@ -57,5 +57,10 @@
       with_items:
         - atom-dark-ui 
         - sublime-default-syntax
-      tags: 
+      tags:
         - atom
+
+    - name: install castnow terminal chromecast player
+      shell: npm install castnow -g
+      tags:
+        - chromecast
