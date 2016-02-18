@@ -64,3 +64,13 @@
       shell: npm install castnow -g
       tags:
         - chromecast
+
+    - name: update
+      shell: sudo apt-get -y update
+      tags:
+        - security
+
+    - name: add security updates
+      shell: sudo apt-get -y dist-upgrade
+      tags:
+        - security
