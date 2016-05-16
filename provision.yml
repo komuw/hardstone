@@ -79,10 +79,13 @@
     - name: Install system packages
       shell: sudo apt-get -y install {{ item }}
       with_items:
+        - gcc
+        - libssl-dev
+        - libffi-dev
         - openssh-client
         - openssh-server
         - kdiff3
-        - python-pip
+        - python-pipg
         - python-software-properties
         - software-properties-common
         - terminator
