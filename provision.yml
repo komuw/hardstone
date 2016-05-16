@@ -121,6 +121,7 @@
         - cgroup-lite 
         - redir
         - gdb
+        - hexchat #irc client
       ignore_errors: yes
 
     - name: add nodeJs ppa
