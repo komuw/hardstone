@@ -125,6 +125,7 @@
         - redir
         - gdb
         - hexchat #irc client
+        - mosh
       ignore_errors: yes
 
     - name: add nodeJs ppa
