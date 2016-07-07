@@ -216,6 +216,7 @@
         - yapf
         - ansible
         - httpie
+        - livestreamer
 
     - name: create users group
       group: name={{ USER }} state=present
