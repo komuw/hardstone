@@ -96,7 +96,9 @@
         - git
         - unrar
         - transmission
+        - libav-tools #needed by vlc for streaming
         - vlc
+        - browser-plugin-vlc
         - pep8
         - libpq-dev 
         - python2.7-dev
