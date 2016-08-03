@@ -1,0 +1,4 @@
+alias ckill='docker images -q | xargs docker rmi -f'
+alias cstop='docker stop $(docker ps -a -q)'
+alias cupb='docker-compose up --build'
+alias cup='docker-compose up'
