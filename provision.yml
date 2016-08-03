@@ -259,6 +259,10 @@
       template: src=templates/ssh_config.j2 
                 dest=~/.ssh/config
 
+    - name: configure bash aliases
+      template: src=templates/bash_aliases.j2
+                dest=~/bash_aliases
+
     - name: configure .bashrc
       template: src=templates/bashrc.j2
                 dest=~/.bashrc
