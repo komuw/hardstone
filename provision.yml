@@ -85,7 +85,8 @@
         - openssh-client
         - openssh-server
         - kdiff3
-        - python-pipg
+        - python-pip
+        - python3-pip #for docker-compose
         - python-software-properties
         - software-properties-common
         - terminator
@@ -219,6 +220,12 @@
         - ansible
         - httpie
         - livestreamer
+        - awsebcli
+    
+    - name: Install Python pip3 packages
+      shell: sudo pip3 install --upgrade {{ item }}
+      with_items:
+        - docker-compose
 
     - name: create users group
       group: name={{ USER }} state=present
