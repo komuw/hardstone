@@ -129,6 +129,7 @@
         - gdb
         - hexchat #irc client
         - mosh
+        - vnstat
       ignore_errors: yes
 
     - name: add nodeJs ppa
