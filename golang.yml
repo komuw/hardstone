@@ -10,7 +10,7 @@
   tasks:
 
     - name: check if golang is already downloaded
-      stat: path=/usr/local/go1.5.2.linux-amd64.tar.gz
+      stat: path=/usr/local/go1.7.linux-amd64.tar.gz
       register: golang_file_exist
       tags: install_go
 
@@ -20,7 +20,7 @@
       tags: install_go
 
     - name: untar golang file
-      command: sudo tar -xzf /usr/local/go1.5.2.linux-amd64.tar.gz chdir=/usr/local/
+      command: sudo tar -xzf /usr/local/go1.7.linux-amd64.tar.gz chdir=/usr/local/
       tags: install_go
 
     - name: golang profileI
