@@ -130,6 +130,7 @@
         - hexchat #irc client
         - mosh
         - vnstat
+        - psmisc #pstree
       ignore_errors: yes
 
     - name: add nodeJs ppa
