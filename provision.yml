@@ -283,6 +283,12 @@
 
     - name: create pip conf 
       shell: mkdir -p ~/.pip && touch ~/.pip/pip.conf
+ 
+    - name: create pip cache dir
+      shell: mkdir -p ~/.cache/pip executable="/bin/bash"
+
+    - name: give root group ownership of pip cache dir
+      shell: chown -R root ~/.cache/pip executable="/bin/bash"
 
     - name: configure pip cache conf
       template: src=templates/pip.conf.j2
