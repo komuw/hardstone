@@ -40,7 +40,7 @@ brew install ack \
              redis \
              tmux \
              wget \
-             xonsh
+             xonsh #this will also install python3 and pip3
 
 brew tap caskroom/cask
 
@@ -49,6 +49,7 @@ brew install caskroom/cask/brew-cask
 easy_install pip
 
 pip install -U pip
+pip3 install prompt_toolkit docker-compose
 
 printf "\n::INSTALL apts(i know)\n\n"
 brew cask install google-chrome \
@@ -80,7 +81,7 @@ pip install virtualenv \
 printf "\n::SETUP ssh key, but do not overwrite\n\n"
 cat /dev/zero | ssh-keygen -t rsa -C "komuw@Mac" -b 4096 -q -N $SSH_PASSPHRASE -f ~/.ssh/id_rsa
 
-printf "\n::SHOW me my ssh key dammint\n\n"
+printf "\n::SHOW me my ssh key damn it\n\n"
 cat ~/.ssh/id_rsa.pub
 
 printf "\n::CREATE dirs\n\n"
