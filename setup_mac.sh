@@ -49,7 +49,7 @@ brew install caskroom/cask/brew-cask
 easy_install pip
 
 pip install -U pip
-pip3 install prompt_toolkit docker-compose
+pip3 install prompt_toolkit pygments
 
 printf "\n::INSTALL apts(i know)\n\n"
 brew cask install google-chrome \
@@ -115,3 +115,8 @@ printf "\n::SET xonsh as default shell\n\n"
 grep -q "/usr/local/bin/xonsh" "/etc/shells" || sudo -u root /bin/bash -c 'echo "/usr/local/bin/xonsh" >> "/etc/shells"'
 chsh -s /usr/local/bin/xonsh
 
+printf "\n::copy over things to enable auto suggestion in xonsh\n\n"
+cp -R /usr/local/Cellar/python3/3.5.2_1/Frameworks/Python.framework/Versions/3.5/lib/python3.5/site-packages/prompt_toolkit /usr/local/Cellar/xonsh/0.4.6/libexec/lib/python3.5/site-packages
+cp -R /usr/local/Cellar/python3/3.5.2_1/Frameworks/Python.framework/Versions/3.5/lib/python3.5/site-packages/wcwidth /usr/local/Cellar/xonsh/0.4.6/libexec/lib/python3.5/site-packages
+cp -R /usr/local/Cellar/python3/3.5.2_1/Frameworks/Python.framework/Versions/3.5/lib/python3.5/site-packages/six* /usr/local/Cellar/xonsh/0.4.6/libexec/lib/python3.5/site-packages
+cp -R /usr/local/Cellar/python3/3.5.2_1/Frameworks/Python.framework/Versions/3.5/lib/python3.5/site-packages/pygments /usr/local/Cellar/xonsh/0.4.6/libexec/lib/python3.5/site-packages
