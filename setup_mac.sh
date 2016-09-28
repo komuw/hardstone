@@ -40,7 +40,7 @@ brew install ack \
              redis \
              tmux \
              wget \
-             fish
+             xonsh
 
 brew tap caskroom/cask
 
@@ -74,7 +74,8 @@ pip install virtualenv \
            httpie \
            livestreamer \
            awsebcli \
-           youtube-dl
+           youtube-dl \
+           prompt_toolkit
 
 printf "\n::SETUP ssh key, but do not overwrite\n\n"
 cat /dev/zero | ssh-keygen -t rsa -C "komuw@Mac" -b 4096 -q -N $SSH_PASSPHRASE -f ~/.ssh/id_rsa
@@ -108,7 +109,7 @@ git config --global alias.ci commit
 git config --global alias.st status
 git config --global alias.hist "log --pretty=format:'%C(yellow)[%ad]%C(reset) %C(green)[%h]%C(reset) | %C(red)%s %C(bold red){{%an}}%C(reset) %C(blue)%d%C(reset)' --graph --date=short"
 
-printf "\n::SET fish as default shell\n\n"
-grep -q "/usr/local/bin/fish" "/etc/shells" || sudo -u root /bin/bash -c 'echo "/usr/local/bin/fish" >> "/etc/shells"'
-chsh -s /usr/local/bin/fish
+printf "\n::SET xonsh as default shell\n\n"
+grep -q "/usr/local/bin/xonsh" "/etc/shells" || sudo -u root /bin/bash -c 'echo "/usr/local/bin/xonsh" >> "/etc/shells"'
+chsh -s /usr/local/bin/xonsh
 
