@@ -64,7 +64,7 @@ brew cask install google-chrome \
 
 
 printf "\n::INSTALL vagrant plugins\n\n"
-vagrant plugin install vagrant-cachier
+vagrant plugin install vagrant-cachier vagrant-vbguest
 
 printf "\n::INSTALL pip packages\n\n"
 pip install virtualenv \
