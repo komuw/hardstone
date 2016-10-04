@@ -198,7 +198,7 @@
       ignore_errors: yes
 
     - name: install vagrant cachier plugin
-      shell: vagrant plugin install vagrant-cachier
+      shell: vagrant plugin install vagrant-cachier vagrant-vbguest
       when: checkvagrantresult|success
 
     - name: download virtualbox
