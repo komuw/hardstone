@@ -77,7 +77,10 @@ pip install virtualenv \
            livestreamer \
            awsebcli \
            youtube-dl \
-           prompt_toolkit
+           prompt_toolkit \
+           pycodestyle \
+           autopep8 \
+           flake8
 
 printf "\n::SETUP ssh key, but do not overwrite\n\n"
 cat /dev/zero | ssh-keygen -t rsa -C "komuw@Mac" -b 4096 -q -N $SSH_PASSPHRASE -f ~/.ssh/id_rsa
