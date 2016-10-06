@@ -40,6 +40,7 @@ brew install ack \
              redis \
              tmux \
              wget \
+             pstree \
              xonsh #this will also install python3 and pip3
 
 brew tap caskroom/cask
