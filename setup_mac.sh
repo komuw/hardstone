@@ -88,6 +88,11 @@ cat ~/.ssh/id_rsa.pub
 printf "\n::CREATE dirs\n\n"
 mkdir -p ~/swat
 mkdir -p ~/mystuff
+mkdir -p ~/mystuff/gocode
+
+printf "\n::INSTALL golang\n\n"
+wget -nc "https://storage.googleapis.com/golang/go1.7.1.darwin-amd64.pkg"
+tar -C /usr/local -xzf golang/go1.7.1.darwin-amd64.pkg
 
 printf "\n::COPY conf files\n\n"
 cp templates/mac/atom.config.cson.j2 ~/.atom/config.cson
