@@ -126,3 +126,11 @@ cp -R /usr/local/Cellar/python3/3.5.2_1/Frameworks/Python.framework/Versions/3.5
 cp -R /usr/local/Cellar/python3/3.5.2_1/Frameworks/Python.framework/Versions/3.5/lib/python3.5/site-packages/wcwidth /usr/local/Cellar/xonsh/0.4.6/libexec/lib/python3.5/site-packages
 cp -R /usr/local/Cellar/python3/3.5.2_1/Frameworks/Python.framework/Versions/3.5/lib/python3.5/site-packages/six* /usr/local/Cellar/xonsh/0.4.6/libexec/lib/python3.5/site-packages
 cp -R /usr/local/Cellar/python3/3.5.2_1/Frameworks/Python.framework/Versions/3.5/lib/python3.5/site-packages/pygments /usr/local/Cellar/xonsh/0.4.6/libexec/lib/python3.5/site-packages
+
+printf "\n::INSTALL golang pkgs\n\n"
+go get github.com/motemen/gore                 #golang repl
+go get github.com/nsf/gocode                   #golang auto-completion
+go get github.com/k0kubun/pp                   #pretty print
+go get golang.org/x/tools/cmd/godoc            #docs
+go get github.com/derekparker/delve/cmd/dlv    #debugger
+go get github.com/mailgun/godebug              #another debugger
