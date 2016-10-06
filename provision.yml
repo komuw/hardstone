@@ -223,6 +223,10 @@
         - httpie
         - livestreamer
         - awsebcli
+        - prompt_toolkit
+        - pycodestyle #pep8
+        - autopep8
+        - flake8
     
     - name: Install Python pip3 packages
       shell: sudo pip3 install --upgrade {{ item }}
