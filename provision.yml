@@ -242,7 +242,7 @@
       ignore_errors: yes
 
     - name: create ssh-key 
-      command: ssh-keygen -t rsa -C {{ SSH_KEY_COMMENT }} -b 2048 -q -N {{ ssh_key_passphrase }} -f /home/{{USER}}/.ssh/id_rsa
+      command: ssh-keygen -t rsa -C {{ SSH_KEY_COMMENT }} -b 4096 -q -N {{ ssh_key_passphrase }} -f /home/{{USER}}/.ssh/id_rsa
       when: checksshresult|failed
 
     #- name: start ssh-agent 
