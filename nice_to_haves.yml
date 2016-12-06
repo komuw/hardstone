@@ -9,25 +9,25 @@
 
   tasks:
 
-    - name: download popcorntime io
-      get_url: >
-        url=http://mirror11.ptn.sh/build/Popcorn-Time-0.3.8-5-Linux-64.tar.xz
-        dest=/tmp
+    # - name: download popcorntime io
+    #   get_url: >
+    #     url=http://mirror11.ptn.sh/build/Popcorn-Time-0.3.8-5-Linux-64.tar.xz
+    #     dest=/tmp
 
-    - name: create popcorntime extract directory
-      shell: mkdir -p poptime chdir=/tmp
+    # - name: create popcorntime extract directory
+    #   shell: mkdir -p poptime chdir=/tmp
 
-    - name: untar popcorntime
-      shell: tar -xJf Popcorn-Time-0.3.8-5-Linux-64.tar.xz --directory=/tmp/poptime chdir=/tmp
+    # - name: untar popcorntime
+    #   shell: tar -xJf Popcorn-Time-0.3.8-5-Linux-64.tar.xz --directory=/tmp/poptime chdir=/tmp
 
-    - name: configure custom install popcorntime script(we dont like prompts. do we?)
-      template: src=templates/install_popcorntime.sh.j2
-                dest=/tmp/poptime/install_popcorntime.sh
-      ignore_errors: yes
+    # - name: configure custom install popcorntime script(we dont like prompts. do we?)
+    #   template: src=templates/install_popcorntime.sh.j2
+    #             dest=/tmp/poptime/install_popcorntime.sh
+    #   ignore_errors: yes
 
-    - name: install popcorntime
-      shell: bash install_popcorntime.sh chdir=/tmp/poptime
-      ignore_errors: yes
+    # - name: install popcorntime
+    #   shell: bash install_popcorntime.sh chdir=/tmp/poptime
+    #   ignore_errors: yes
 
     - name: check if atom editor is already downloaded
       stat: path=/tmp/atom-amd64.deb
@@ -46,6 +46,11 @@
       tags: 
         - atom
 
+    - name: create atom dir
+      shell: mkdir -p ~/.atom
+      tags: 
+        - atom
+
     - name: configure atom/config.cson
       template: src=templates/atom.config.cson.j2
                 dest=~/.atom/config.cson
@@ -56,12 +61,14 @@
       shell: apm install {{item}}
       with_items:
         - atom-dark-ui 
-        - sublime-default-syntax
+        - sub-monokai
+        - monokai
       tags:
         - atom
 
     - name: install castnow terminal chromecast player
       shell: npm install castnow -g
+      ignore_errors: yes
       tags:
         - chromecast
 

@@ -322,7 +322,6 @@
 
     - name: source profile
       shell: . ~/.profile
-      ignore_errors: yes
       sudo: no
       ignore_errors: yes
       args:
