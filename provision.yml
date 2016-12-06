@@ -375,6 +375,8 @@
     - name: add user to docker group
       shell: usermod -aG docker {{ANSIBLE_SSH_USER}} && sudo usermod -aG docker $(whoami) executable="/bin/bash"
       when: dockerresult|failed
+      become: yes
+      become_user: root
       tags: docker
 
     - name: Remove some default system packages
