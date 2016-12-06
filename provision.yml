@@ -180,20 +180,20 @@
 
     - name: download sublime-text3 
       get_url: >
-        url=http://c758482.r82.cf2.rackcdn.com/sublime-text_build-3065_amd64.deb 
+        url=https://download.sublimetext.com/sublime-text_build-3126_amd64.deb 
         dest=/tmp
 
     - name: install sublime-text3
-      command: sudo dpkg -i sublime-text_build-3065_amd64.deb chdir=/tmp
+      command: sudo dpkg -i sublime-text_build-3126_amd64.deb chdir=/tmp
       ignore_errors: yes
 
     - name: download vagrant 
       get_url: >
-        url=https://dl.bintray.com/mitchellh/vagrant/vagrant_1.7.1_x86_64.deb 
+        url=https://releases.hashicorp.com/vagrant/1.9.0/vagrant_1.9.0_x86_64.deb
         dest=/tmp
 
     - name: install vagrant
-      command: sudo dpkg -i vagrant_1.7.1_x86_64.deb chdir=/tmp
+      command: sudo dpkg -i vagrant_1.9.0_x86_64.deb chdir=/tmp
       register: checkvagrantresult
       ignore_errors: yes
 
@@ -203,11 +203,11 @@
 
     - name: download virtualbox
       get_url: >
-        url=http://download.virtualbox.org/virtualbox/4.3.30/virtualbox-4.3_4.3.30-101610~Ubuntu~raring_amd64.deb 
+        url=http://download.virtualbox.org/virtualbox/5.1.8/virtualbox-5.1_5.1.8-111374~Ubuntu~xenial_amd64.deb
         dest=/tmp
 
     - name: install virtualbox
-      command: sudo dpkg -i virtualbox-4.3_4.3.30-101610~Ubuntu~raring_amd64.deb chdir=/tmp
+      command: sudo dpkg -i virtualbox-5.1_5.1.8-111374~Ubuntu~xenial_amd64.deb chdir=/tmp
       ignore_errors: yes
 
     - name: Install Python packages
@@ -217,7 +217,6 @@
         - virtualenv
         - virtualenvwrapper
         - youtube-dl
-        - asciinema
         - yapf
         - ansible
         - httpie
@@ -232,6 +231,7 @@
       shell: sudo pip3 install --upgrade {{ item }}
       with_items:
         - docker-compose
+        - asciinema
 
     - name: create users group
       group: name={{ USER }} state=present
@@ -293,6 +293,8 @@
 
     - name: give root group ownership of pip cache dir
       shell: chown -R root ~/.cache/pip executable="/bin/bash"
+      become: yes
+      become_user: root
 
     - name: configure pip cache conf
       template: src=templates/pip.conf.j2
@@ -351,13 +353,28 @@
       notify: 
         - finally
 
+    - name: add docker apt key
+      shell: apt-key adv --keyserver hkp://ha.pool.sks-keyservers.net:80 --recv-keys 58118E89F3A912897C070ADBF76221572C52609D
+      become: yes
+      become_user: root
+      tags: docker
+
+    - name: add docker apt repo
+      apt_repository: repo='deb https://apt.dockerproject.org/repo ubuntu-xenial main' state=present update_cache=yes
+      become: yes
+      become_user: root
+      tags: docker
+
     - name: install docker
-      shell: sudo wget -qO- https://get.docker.com/ | sh
+      shell: executable="/bin/bash" apt-get -y autoremove && apt-get install -y docker-engine
+      become: yes
+      become_user: root
       when: dockerresult|failed
       tags: docker
 
-    - name: add docker group and add user to it 
-      shell: sudo usermod -aG docker {{ANSIBLE_SSH_USER}}
+    - name: add user to docker group
+      shell: usermod -aG docker {{ANSIBLE_SSH_USER}} && sudo usermod -aG docker $(whoami) executable="/bin/bash"
+      when: dockerresult|failed
       tags: docker
 
     - name: Remove some default system packages
