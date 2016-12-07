@@ -378,6 +378,18 @@
       become_user: root
       tags: docker
 
+    - name: make docker group owner of docker dir
+      shell: chown -R root:docker ~/.docker executable="/bin/bash"
+      become: yes
+      become_user: root
+      tags: docker
+ 
+    - name: add proper permissions to docker dir
+      shell: chmod -R 775 ~/.docker executable="/bin/bash"
+      become: yes
+      become_user: root
+      tags: docker
+
     - name: Remove some default system packages
       shell: sudo apt-get -y purge {{ item }}
       with_items:
