@@ -85,6 +85,18 @@
       tags: 
         - xonsh
 
+    - name: add xonsh to shells
+      lineinfile: line="/usr/local/bin/xonsh"
+                  backup=yes
+                  dest=/etc/shells
+      become: yes
+      become_user: root
+ 
+    - name: activate xonsh shell
+      shell: chsh -s $(which xonsh)
+      become: yes
+      become_user: root
+ 
     - name: update
       shell: sudo apt-get -y update
       tags:
