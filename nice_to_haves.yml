@@ -71,7 +71,12 @@
       ignore_errors: yes
       tags:
         - chromecast
-
+    
+    - name: install xonsh and dependencies
+      shell: python3 -m pip install -U xonsh ptk prompt_toolkit pygments
+      become: yes
+      become_user: root
+ 
     - name: update
       shell: sudo apt-get -y update
       tags:
