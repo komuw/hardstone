@@ -131,6 +131,7 @@
         - mosh
         - vnstat
         - psmisc #pstree
+        - openvpn
       ignore_errors: yes
 
     - name: add nodeJs ppa
