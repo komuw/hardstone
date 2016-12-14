@@ -132,6 +132,7 @@
         - vnstat
         - psmisc #pstree
         - openvpn
+        - traceroute
       ignore_errors: yes
 
     - name: add nodeJs ppa
