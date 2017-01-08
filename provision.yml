@@ -97,6 +97,9 @@
         - git
         - unrar
         - transmission
+        - transmission-cli
+        - transmission-common
+        - transmission-daemon
         - libav-tools #needed by vlc for streaming
         - vlc
         - browser-plugin-vlc
