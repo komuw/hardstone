@@ -30,5 +30,9 @@
       shell: sudo apt-get -y install pritunl-client-gtk
       tags: 
         - pritunl
-
-
+ 
+    - name: give dev instructions for steps to follow
+      debug:
+        msg: "download profile(vpn config)\n start pritunl client from apps\n click import profile (import the config file)\n click connect\n enter 2fa code and u r good to go."
+      tags: 
+        - pritunl
