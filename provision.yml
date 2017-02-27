@@ -85,6 +85,7 @@
         - openssh-client
         - openssh-server
         - kdiff3
+        - meld
         - python-pip
         - python3-pip #for docker-compose
         - python-software-properties
