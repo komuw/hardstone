@@ -11,6 +11,11 @@
   type = cat-file -t
   dump = cat-file -p
 
+[diff]
+  tool = meld
+[difftool "meld"]
+
 [merge]
-  tool = kdiff3
-[mergetool "kdiff3"]
+  tool = meld
+[mergetool "meld"]
+  keepBackup = false
