@@ -359,19 +359,25 @@
         - finally
 
     - name: add docker apt key
-      shell: apt-key adv --keyserver hkp://ha.pool.sks-keyservers.net:80 --recv-keys 58118E89F3A912897C070ADBF76221572C52609D
+      shell: curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+      become: yes
+      become_user: root
+      tags: docker
+    
+    - name: verify docker key
+      shell: sudo apt-key fingerprint 0EBFCD88
       become: yes
       become_user: root
       tags: docker
 
     - name: add docker apt repo
-      apt_repository: repo='deb https://apt.dockerproject.org/repo ubuntu-xenial main' state=present update_cache=yes
+      apt_repository: repo='deb [arch=amd64] https://download.docker.com/linux/ubuntu xenial stable' state=present update_cache=yes
       become: yes
       become_user: root
       tags: docker
 
     - name: install docker
-      shell: executable="/bin/bash" apt-get -y autoremove && apt-get install -y docker-engine
+      shell: executable="/bin/bash" apt-get -y autoremove && apt-get install -y docker-ce=*
       become: yes
       become_user: root
       when: dockerresult|failed
