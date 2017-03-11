@@ -108,7 +108,13 @@
         - golang.org/x/tools/cmd/godoc            #docs
         - github.com/derekparker/delve/cmd/dlv    #debugger
         - github.com/mailgun/godebug              #another debugger
+        - github.com/alecthomas/gometalinter      # linter of linters
       tags: go-packages
+      args:
+        executable: /bin/bash
+  
+    - name: install go linters
+      shell: gometalinter --install
       args:
         executable: /bin/bash
 
