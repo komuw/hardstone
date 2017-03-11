@@ -107,7 +107,6 @@
         - github.com/k0kubun/pp                   #pretty print
         - golang.org/x/tools/cmd/godoc            #docs
         - github.com/derekparker/delve/cmd/dlv    #debugger
-        - github.com/mailgun/godebug              #another debugger
         - github.com/alecthomas/gometalinter      # linter of linters
       tags: go-packages
       args:
