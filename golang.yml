@@ -15,12 +15,12 @@
       tags: install_go
 
     - name: download golang
-      shell: sudo wget --directory-prefix=/usr/local {{GOLANG_DOWNLOAD_URL}}
+      shell: sudo wget --directory-prefix=/usr/local https://storage.googleapis.com/golang/{{GOLANG_VERSION}}.tar.gz
       when: golang_file_exist.stat.exists == False
       tags: install_go
 
     - name: untar golang file
-      command: sudo tar -xzf /usr/local/go1.7.linux-amd64.tar.gz chdir=/usr/local/
+      command: sudo tar -xzf /usr/local/{{GOLANG_VERSION}}.tar.gz chdir=/usr/local/
       tags: install_go
 
     - name: golang profileI
