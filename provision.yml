@@ -52,6 +52,7 @@
         - "ppa:eugenesan/ppa"
         - "ppa:transmissionbt/ppa"         #transmission bittorrent
         - "ppa:mc3man/trusty-media"     #ffmpeg
+        - "ppa:mc3man/mpv-tests"        #mpv
 
       ignore_errors: yes
       register: addppasresult
@@ -103,6 +104,7 @@
         - transmission-daemon
         - libav-tools #needed by vlc for streaming
         - vlc
+        - mpv #player
         - browser-plugin-vlc
         - pep8
         - libpq-dev 
