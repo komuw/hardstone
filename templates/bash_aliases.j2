@@ -1,5 +1,8 @@
+{% raw %} # to esacpe braces in jinja2; http://jinja.pocoo.org/docs/dev/templates/#escaping
 alias cupb='docker-compose up --build'
 alias cup='docker-compose up'
 alias dstat='docker stats --format "table {{.Name}}\t{{.CPUPerc}}\t{{.MemUsage}}\t{{.MemPerc}}\t{{.NetIO}}\t{{.BlockIO}}\t{{.PIDs}}\t"'
 alias dstop='docker ps -aq | xargs docker stop'
 alias dkill='docker images -q | xargs docker rmi -f'
+{% endraw %}
+

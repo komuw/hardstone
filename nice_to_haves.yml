@@ -76,10 +76,10 @@
       shell: python3 -m pip install -U xonsh ptk prompt_toolkit pygments
       become: yes
       become_user: root
-       tags: 
+      tags: 
         - xonsh
 
-     - name: configure xonsh.config.json.j2
+    - name: configure xonsh.config.json.j2
       template: src=templates/xonsh.config.json.j2
                 dest=~/.config/xonsh/config.json
       tags: 

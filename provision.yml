@@ -188,7 +188,7 @@
 
     - name: download sublime-text3 
       get_url: >
-        url=https://download.sublimetext.com/sublime-text_build-3126_amd64.deb 
+        url=https://download.sublimetext.com/sublime-text_build-3126_amd64.deb
         dest=/tmp
 
     - name: install sublime-text3
@@ -197,11 +197,11 @@
 
     - name: download vagrant 
       get_url: >
-        url=https://releases.hashicorp.com/vagrant/1.9.0/vagrant_1.9.0_x86_64.deb
+        url=https://releases.hashicorp.com/vagrant/1.9.7/vagrant_1.9.7_x86_64.deb
         dest=/tmp
 
     - name: install vagrant
-      command: sudo dpkg -i vagrant_1.9.0_x86_64.deb chdir=/tmp
+      command: sudo dpkg -i vagrant_1.9.7_x86_64.deb chdir=/tmp
       register: checkvagrantresult
       ignore_errors: yes
 
@@ -211,11 +211,11 @@
 
     - name: download virtualbox
       get_url: >
-        url=http://download.virtualbox.org/virtualbox/5.1.8/virtualbox-5.1_5.1.8-111374~Ubuntu~xenial_amd64.deb
+        url=http://download.virtualbox.org/virtualbox/5.1.24/virtualbox-5.1_5.1.24-117012~Ubuntu~xenial_amd64.deb
         dest=/tmp
 
     - name: install virtualbox
-      command: sudo dpkg -i virtualbox-5.1_5.1.8-111374~Ubuntu~xenial_amd64.deb chdir=/tmp
+      command: sudo dpkg -i virtualbox-5.1_5.1.24-117012~Ubuntu~xenial_amd64.deb chdir=/tmp
       ignore_errors: yes
 
     - name: Install Python packages
@@ -234,6 +234,7 @@
         - pycodestyle #pep8
         - autopep8
         - flake8
+        - sewer
     
     - name: Install Python pip3 packages
       shell: sudo pip3 install --upgrade {{ item }}
@@ -250,7 +251,7 @@
       ignore_errors: yes
 
     - name: create ssh-key 
-      command: ssh-keygen -t rsa -C {{ SSH_KEY_COMMENT }} -b 4096 -q -N {{ ssh_key_passphrase }} -f /home/{{USER}}/.ssh/id_rsa
+      command: ssh-keygen -t rsa -C {{ SSH_KEY_COMMENT }} -b 8192 -q -N {{ ssh_key_passphrase }} -f /home/{{USER}}/.ssh/id_rsa
       when: checksshresult|failed
 
     #- name: start ssh-agent 
