@@ -29,6 +29,16 @@
     #   shell: bash install_popcorntime.sh chdir=/tmp/poptime
     #   ignore_errors: yes
 
+    - name: download vscode
+      shell: sudo wget --directory-prefix=/tmp wget --directory-prefix=/tmp https://go.microsoft.com/fwlink/?LinkID=760868
+      tags:
+        - vscode
+
+    - name: install vscode
+      shell: sudo dpkg -i /tmp/index.html\?LinkID\=760868
+      tags:
+        - vscode
+
     - name: check if atom editor is already downloaded
       stat: path=/tmp/atom-amd64.deb
       register: atom_file_exist
