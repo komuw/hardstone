@@ -116,6 +116,7 @@
       shell: gometalinter --install
       args:
         executable: /bin/bash
+      ignore_errors: yes
 
     - name: check if hugo(static site generator) is already downloaded
       stat: path=/tmp/hugo_0.14_amd64.deb
