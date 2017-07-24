@@ -119,7 +119,7 @@
       ignore_errors: yes
 
     - name: check if hugo(static site generator) is already downloaded
-      stat: path=/tmp/hugo_0.14_amd64.deb
+      stat: path=/tmp/hugo_0.25.1_Linux-64bit.deb
       register: hugo_file_exist
 
     - name: download hugo(static site generator)
@@ -127,7 +127,7 @@
       when: hugo_file_exist.stat.exists == False
 
     - name: install hugo
-      shell: sudo dpkg -i /tmp/hugo_0.14_amd64.deb
+      shell: sudo dpkg -i /tmp/hugo_0.25.1_Linux-64bit.deb
 
     - name: install hugo deps(pygments)
       shell: sudo pip install --upgrade Pygments
