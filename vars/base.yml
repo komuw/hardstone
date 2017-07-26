@@ -7,7 +7,7 @@ USER: 'admin'
 USER_EMAIL: 'johndoe@gmail.com'
 SSH_KEY_COMMENT: 'johndoe@gmail.com'
 
-NODE_VERSION: 0.10.32
+NODE_VERSION: 8.2.1
 NODE_ARCHITECTURE: linux-x86
 
 
@@ -15,9 +15,9 @@ ssh_config:
   - { ip_address: 8.8.8.8, host_name: 'something'}
   - { ip_address: 1.1.1.1, host_name: 'somethingelse'}
 
-GOLANG_DOWNLOAD_URL: "https://storage.googleapis.com/golang/go1.8.linux-amd64.tar.gz"
-GOLANG_VERSION: go1.8.linux-amd64
+GOLANG_DOWNLOAD_URL: "https://storage.googleapis.com/golang/go1.8.3.linux-amd64.tar.gz"
+GOLANG_VERSION: go1.8.3.linux-amd64
 
-HUGO_DOWNLOAD_URL: "https://github.com/spf13/hugo/releases/download/v0.14/hugo_0.14_amd64.deb"
+HUGO_DOWNLOAD_URL: "https://github.com/gohugoio/hugo/releases/download/v0.25.1/hugo_0.25.1_Linux-64bit.deb"
 
-ATOM_EDITOR_VERSION: "v1.12.6"
+ATOM_EDITOR_VERSION: "v1.18.0"
