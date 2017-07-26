@@ -316,6 +316,15 @@
       template: src=templates/terminator.conf.j2
                 dest=~/.config/terminator/config
 
+    - name: configure grub conf
+      template: src=etc.default.grub.j2
+                dest=/etc/default/grub
+      ignore_errors: yes
+
+    - name: update grub
+      shell: sudo update-grub executable="/bin/bash"
+      ignore_errors: yes
+
     - name: clone nvm
       git: >
         repo='https://github.com/creationix/nvm.git'
