@@ -85,7 +85,7 @@ relax home boy. this setup will install and configure:
 * popcorntime io
 
 ## NB:      
-* This project was tested on a machine running ubuntu 14.04, 64bit.
+* This project was tested on a machine running ubuntu 16.04, 64bit.
 * However, It should work for most debian machines. 
 * Some tasks will fail for 32bit machines.
 
