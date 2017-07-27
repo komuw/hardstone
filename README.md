@@ -7,7 +7,10 @@ This is my setup, it may not work for you. Feel free to modify appropriately.
 * git clone this project
 * cd into this project's directory
 * edit vars/base.yml with the values you want
-* . setup.sh
+* run: 
+```shell
+bash setup.sh
+```
 * go make a cup of coffee, this may take a while
 * your dev environment is ready
 
