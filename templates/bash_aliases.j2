@@ -4,5 +4,8 @@ alias cup='docker-compose up'
 alias dstat='docker stats --format "table {{.Name}}\t{{.CPUPerc}}\t{{.MemUsage}}\t{{.MemPerc}}\t{{.NetIO}}\t{{.BlockIO}}\t{{.PIDs}}\t"'
 alias dstop='docker ps -aq | xargs docker stop'
 alias dkill='docker images -q | xargs docker rmi -f'
+
+#tar
+alias jtar='tar -xzvf'
 {% endraw %}
 
