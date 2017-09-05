@@ -1,11 +1,11 @@
 ---
-ANSIBLE_SSH_USER: admin
+ANSIBLE_SSH_USER: komu
 
 DEFAULT_SSH_KEY_PASSPHRASE: "super_secret_pass"
 
-USER: 'admin'
-USER_EMAIL: 'johndoe@gmail.com'
-SSH_KEY_COMMENT: 'johndoe@gmail.com'
+USER: 'komu'
+USER_EMAIL: 'myemail@gmail.com'
+SSH_KEY_COMMENT: "{{USER_EMAIL}}"
 
 NODE_VERSION: 8.2.1
 NODE_ARCHITECTURE: linux-x86
