@@ -15,8 +15,7 @@ ssh_config:
   - { ip_address: 8.8.8.8, host_name: 'something'}
   - { ip_address: 1.1.1.1, host_name: 'somethingelse'}
 
-GOLANG_DOWNLOAD_URL: "https://storage.googleapis.com/golang/go1.8.3.linux-amd64.tar.gz"
-GOLANG_VERSION: go1.8.3.linux-amd64
+GOLANG_VERSION: go1.9.linux-amd64
 
 HUGO_DOWNLOAD_URL: "https://github.com/gohugoio/hugo/releases/download/v0.25.1/hugo_0.25.1_Linux-64bit.deb"
 
