@@ -134,6 +134,7 @@
         - github.com/tpng/gopkgs                  # vscode stuff
         - github.com/newhook/go-symbols           # vscode stuff
         - golang.org/x/tools/cmd/guru             # vscode stuff
+        - github.com/ramya-rao-a/go-outline       # vscode stuff
       args:
         executable: /bin/bash
       tags:
