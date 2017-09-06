@@ -17,6 +17,4 @@ ssh_config:
 
 GOLANG_VERSION: go1.9.linux-amd64
 
-HUGO_DOWNLOAD_URL: "https://github.com/gohugoio/hugo/releases/download/v0.25.1/hugo_0.25.1_Linux-64bit.deb"
-
-ATOM_EDITOR_VERSION: "v1.18.0"
+ATOM_EDITOR_VERSION: "v1.19.5"
