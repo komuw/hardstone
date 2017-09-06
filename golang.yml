@@ -157,17 +157,3 @@
       tags:
         - golang
         - golang_pkgs
-
-    - name: check if hugo(static site generator) is already downloaded
-      stat: path=/tmp/hugo_0.25.1_Linux-64bit.deb
-      register: hugo_file_exist
-
-    - name: download hugo(static site generator)
-      shell: sudo wget --directory-prefix=/tmp {{HUGO_DOWNLOAD_URL}}
-      when: hugo_file_exist.stat.exists == False
-
-    - name: install hugo
-      shell: sudo dpkg -i /tmp/hugo_0.25.1_Linux-64bit.deb
-
-    - name: install hugo deps(pygments)
-      shell: sudo pip install --upgrade Pygments
