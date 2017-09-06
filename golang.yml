@@ -151,7 +151,7 @@
         - golang_pkgs
 
     - name: install go linters
-      shell: gometalinter --install
+      shell: export GOPATH="$HOME/go" && source /etc/profile && gometalinter --install
       args:
         executable: /bin/bash
       ignore_errors: yes
