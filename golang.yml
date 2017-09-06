@@ -10,18 +10,24 @@
   tasks:
 
     - name: check if golang is already downloaded
-      stat: path=/usr/local/go1.7.linux-amd64.tar.gz
+      stat: path=/usr/local/{{GOLANG_VERSION}}.tar.gz
       register: golang_file_exist
-      tags: install_go
+      tags:
+        - install_go
+        - golang
 
     - name: download golang
       shell: sudo wget --directory-prefix=/usr/local https://storage.googleapis.com/golang/{{GOLANG_VERSION}}.tar.gz
       when: golang_file_exist.stat.exists == False
-      tags: install_go
+      tags:
+        - install_go
+        - golang
 
     - name: untar golang file
       command: sudo tar -xzf /usr/local/{{GOLANG_VERSION}}.tar.gz chdir=/usr/local/
-      tags: install_go
+      tags:
+        - install_go
+        - golang
 
     - name: golang profileI
       lineinfile: line="\n#golang"
@@ -29,31 +35,31 @@
                   dest=/etc/profile
       sudo: yes
       sudo_user: root
+      tags:
+        - golang
 
     - name: golang profileII
       lineinfile: line="export PATH=$PATH:/usr/local/go/bin"
                   backup=yes
                   dest=/etc/profile
-      tags: install_go
       sudo: yes
       sudo_user: root
+      tags:
+        - golang
 
-    - name: create golang code dir
-      shell: mkdir -p $HOME/mystuff/gocode
-      sudo: yes
-      sudo_user: "{{ansible_ssh_user}}"
-
-    - name: export golang code dir
-      lineinfile: line="export GOPATH=$HOME/mystuff/gocode"
+    - name: export golang code dir(well use the default one)
+      lineinfile: line="export GOPATH=$HOME/go"
                   backup=yes
                   dest=/etc/profile
       sudo: yes
       sudo_user: root
 
     - name: create golang code github dir
-      shell: mkdir -p $HOME/mystuff/gocode/src/github.com/komuw
+      shell: mkdir -p $HOME/go/src/github.com/komuw
       sudo: yes
       sudo_user: "{{ansible_ssh_user}}"
+      tags:
+        - golang
 
     - name: golang bashrcI
       lineinfile: line="\n#golang"
@@ -61,6 +67,8 @@
                   dest=~/.bashrc
       sudo: yes
       sudo_user: "{{ansible_ssh_user}}"
+      tags:
+        - golang
 
     - name: golang bashrcII
       lineinfile: line="export PATH=$PATH:/usr/local/go/bin"
@@ -68,22 +76,26 @@
                   dest=~/.bashrc
       sudo: yes
       sudo_user: "{{ansible_ssh_user}}"
-      tags: install_go
+      tags:
+        - golang
 
     - name: export golang code dir in bashrc
-      lineinfile: line="export GOPATH=$HOME/mystuff/gocode"
+      lineinfile: line="export GOPATH=$HOME/go"
                   backup=yes
                   dest=~/.bashrc
       sudo: yes
       sudo_user: "{{ansible_ssh_user}}"
+      tags:
+        - golang
 
     - name: add $GOPATH to $PATH
-      lineinfile: line="export PATH=$HOME/mystuff/gocode/bin:$PATH"
+      lineinfile: line="export PATH=$HOME/go/bin:$PATH"
                   backup=yes
                   dest=/etc/profile
-      tags: install_go
       sudo: yes
       sudo_user: root
+      tags:
+        - golang
 
     - name: source profile
       shell: source /etc/profile
@@ -91,6 +103,8 @@
       ignore_errors: yes
       args:
         executable: /bin/bash
+      tags:
+        - golang
 
     - name: source bashrc
       shell: source ~/.bashrc
@@ -98,9 +112,11 @@
       ignore_errors: yes
       args:
         executable: /bin/bash
+      tags:
+        - golang
 
-    - name: install some golang packages
-      shell: export GOPATH="$HOME/mystuff/gocode" && source /etc/profile && go get -u {{item}}
+    - name: go get some golang packages
+      shell: export GOPATH="$HOME/go" && source /etc/profile && go get -u {{item}}
       with_items:
         - github.com/motemen/gore                 #golang repl
         - github.com/nsf/gocode                   #golang auto-completion
@@ -108,15 +124,28 @@
         - golang.org/x/tools/cmd/godoc            #docs
         - github.com/derekparker/delve/cmd/dlv    #debugger
         - github.com/alecthomas/gometalinter      # linter of linters
-      tags: go-packages
+        - github.com/d4l3k/go-pry                 # debugger/repl
       args:
         executable: /bin/bash
-  
+      tags:
+        - golang
+
+    - name: install some golang packages
+      shell: export GOPATH="$HOME/go" && source /etc/profile && go install {{item}}
+      with_items:
+        - github.com/d4l3k/go-pry                 # debugger/repl
+      args:
+        executable: /bin/bash
+      tags:
+        - golang
+
     - name: install go linters
       shell: gometalinter --install
       args:
         executable: /bin/bash
       ignore_errors: yes
+      tags:
+        - golang
 
     - name: check if hugo(static site generator) is already downloaded
       stat: path=/tmp/hugo_0.25.1_Linux-64bit.deb

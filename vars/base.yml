@@ -1,11 +1,11 @@
 ---
-ANSIBLE_SSH_USER: admin
+ANSIBLE_SSH_USER: komu
 
 DEFAULT_SSH_KEY_PASSPHRASE: "super_secret_pass"
 
-USER: 'admin'
-USER_EMAIL: 'johndoe@gmail.com'
-SSH_KEY_COMMENT: 'johndoe@gmail.com'
+USER: 'komu'
+USER_EMAIL: 'myemail@gmail.com'
+SSH_KEY_COMMENT: "{{USER_EMAIL}}"
 
 NODE_VERSION: 8.2.1
 NODE_ARCHITECTURE: linux-x86
@@ -15,8 +15,7 @@ ssh_config:
   - { ip_address: 8.8.8.8, host_name: 'something'}
   - { ip_address: 1.1.1.1, host_name: 'somethingelse'}
 
-GOLANG_DOWNLOAD_URL: "https://storage.googleapis.com/golang/go1.8.3.linux-amd64.tar.gz"
-GOLANG_VERSION: go1.8.3.linux-amd64
+GOLANG_VERSION: go1.9.linux-amd64
 
 HUGO_DOWNLOAD_URL: "https://github.com/gohugoio/hugo/releases/download/v0.25.1/hugo_0.25.1_Linux-64bit.deb"
 
