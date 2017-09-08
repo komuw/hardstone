@@ -48,6 +48,19 @@
         - vscode
         - golang
 
+    - name: install vscode extensions
+      shell: code --install-extension {{item}}
+      with_items:
+        - magicstack.MagicPython
+        - lukehoban.Go
+        - DavidAnson.vscode-markdownlint
+        - sourcegraph.sourcegraph
+      args:
+        executable: /bin/bash
+      tags:
+        - vscode
+        - golang
+
     - name: check if atom editor is already downloaded
       stat: path=/tmp/atom-amd64.deb
       register: atom_file_exist
