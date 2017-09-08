@@ -33,17 +33,20 @@
       shell: sudo wget --directory-prefix=/tmp wget --directory-prefix=/tmp https://go.microsoft.com/fwlink/?LinkID=760868
       tags:
         - vscode
+        - golang
 
     - name: install vscode
       shell: sudo dpkg -i /tmp/index.html\?LinkID\=760868
       tags:
         - vscode
+        - golang
  
     - name: configure vscode user settings file
       template: src=templates/vscode_user_settings.j2
                 dest=~/.config/Code/User/settings.json
       tags: 
         - vscode
+        - golang
 
     - name: check if atom editor is already downloaded
       stat: path=/tmp/atom-amd64.deb
