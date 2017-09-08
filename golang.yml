@@ -125,6 +125,7 @@
         - github.com/derekparker/delve/cmd/dlv    # debugger
         - github.com/alecthomas/gometalinter      # linter of linters
         - github.com/d4l3k/go-pry                 # debugger/repl
+        - github.com/sourcegraph/go-langserver    # vscode stuff
         - github.com/golang/dep/cmd/dep           # dependency mgmnt
         - github.com/rogpeppe/godef               # vscode stuff
         - github.com/golang/lint/golint           # vscode stuff
