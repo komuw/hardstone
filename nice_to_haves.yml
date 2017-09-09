@@ -40,7 +40,7 @@
       tags:
         - vscode
         - golang
- 
+
     - name: configure vscode user settings file
       template: src=templates/vscode_user_settings.j2
                 dest=~/.config/Code/User/settings.json
