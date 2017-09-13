@@ -124,6 +124,7 @@
         - golang.org/x/tools/cmd/godoc            # docs
         - github.com/derekparker/delve/cmd/dlv    # debugger
         - github.com/rs/zerolog                   # zero allocation logger
+        - github.com/pkg/errors                   # nice error handling
         - github.com/alecthomas/gometalinter      # linter of linters
         - github.com/d4l3k/go-pry                 # debugger/repl
         - github.com/sourcegraph/go-langserver    # vscode stuff
