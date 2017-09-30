@@ -129,6 +129,7 @@
         - github.com/d4l3k/go-pry                 # debugger/repl
         - github.com/sourcegraph/go-langserver    # vscode stuff
         - github.com/golang/dep/cmd/dep           # dependency mgmnt
+        - github.com/google/gops                  # ps for golang apps
         - github.com/rogpeppe/godef               # vscode stuff
         - github.com/golang/lint/golint           # vscode stuff
         - github.com/lukehoban/go-outline         # vscode stuff
