@@ -139,6 +139,7 @@
         - psmisc #pstree
         - openvpn
         - traceroute
+        - graphviz # needed by golang pprof tool
       ignore_errors: yes
 
     - name: add nodeJs ppa
