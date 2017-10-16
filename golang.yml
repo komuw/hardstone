@@ -130,6 +130,7 @@
         - github.com/sourcegraph/go-langserver    # vscode stuff
         - github.com/golang/dep/cmd/dep           # dependency mgmnt
         - github.com/google/gops                  # ps for golang apps
+        - github.com/sanity-io/litter             # pretty print
         - github.com/rogpeppe/godef               # vscode stuff
         - github.com/golang/lint/golint           # vscode stuff
         - github.com/lukehoban/go-outline         # vscode stuff
