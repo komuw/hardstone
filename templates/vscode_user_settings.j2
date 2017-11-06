@@ -1,6 +1,17 @@
 {
-    "workbench.colorTheme": "Sublime Material Theme - Dark",
     "go.useCodeSnippetsOnFunctionSuggest": true,
     "go.autocompleteUnimportedPackages": true,
-    "go.useLanguageServer": true
+    "go.useLanguageServer": true,
+    "python.linting.pylintArgs": [
+        "--load-plugins",
+        "pylint_django"
+    ],
+    "python.formatting.formatOnSave": true,
+    "python.formatting.autopep8Args": [
+        "--experimental",
+        "--in-place",
+        "-r",
+        "-aaaaaaaaaa"
+    ],
+    "python.autoComplete.addBrackets": true
 }
