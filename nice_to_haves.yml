@@ -41,6 +41,7 @@
         - vscode
         - golang
 
+    # on MacOs it is /Users/komuw/Library/Application\ Support/Code/User/settings.json
     - name: configure vscode user settings file
       template: src=templates/vscode_user_settings.j2
                 dest=~/.config/Code/User/settings.json
