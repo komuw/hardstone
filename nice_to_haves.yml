@@ -52,6 +52,7 @@
       shell: code --install-extension {{item}}
       with_items:
         - magicstack.MagicPython
+        - donjayamanne.python
         - lukehoban.Go
         - DavidAnson.vscode-markdownlint
         - sourcegraph.sourcegraph
