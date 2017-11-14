@@ -237,6 +237,7 @@
         - flake8
         - sewer
         - Pygments
+        - pylint-django
     
     - name: Install Python pip3 packages
       shell: sudo pip3 install --upgrade {{ item }}
