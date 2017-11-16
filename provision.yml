@@ -230,6 +230,7 @@
         - ansible
         - httpie
         - livestreamer
+        - awscli
         - awsebcli
         - prompt_toolkit
         - pycodestyle #pep8
@@ -237,6 +238,7 @@
         - flake8
         - sewer
         - Pygments
+        - pylint
         - pylint-django
     
     - name: Install Python pip3 packages
