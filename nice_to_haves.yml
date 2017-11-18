@@ -57,6 +57,7 @@
         - lukehoban.Go
         - DavidAnson.vscode-markdownlint
         - sourcegraph.sourcegraph
+        - hnw.vscode-auto-open-markdown-preview
       args:
         executable: /bin/bash
       tags:
