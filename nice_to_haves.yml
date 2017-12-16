@@ -55,7 +55,6 @@
         - magicstack.MagicPython
         - ms-python.python
         - lukehoban.Go
-        - DavidAnson.vscode-markdownlint
         - sourcegraph.sourcegraph
         - hnw.vscode-auto-open-markdown-preview
       args:
