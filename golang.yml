@@ -127,7 +127,7 @@
         - github.com/pkg/errors                   # nice error handling
         - github.com/alecthomas/gometalinter      # linter of linters
         - github.com/d4l3k/go-pry                 # debugger/repl
-        - github.com/cosmos72/gomacro             # repl
+        - github.com/cosmos72/gomacro             # repl. usage: rlwrap gomacro --collect --force-overwrite --repl --very-verbose
         - github.com/sourcegraph/go-langserver    # vscode stuff
         - github.com/golang/dep/cmd/dep           # dependency mgmnt
         - github.com/google/gops                  # ps for golang apps
