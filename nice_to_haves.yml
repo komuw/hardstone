@@ -29,6 +29,12 @@
     #   shell: bash install_popcorntime.sh chdir=/tmp/poptime
     #   ignore_errors: yes
 
+    - name: configure ~/.config/pep8
+      template: src=templates/pep8.j2
+                dest=~/.config/pep8
+      tags: 
+        - pep8
+ 
     - name: download vscode
       shell: sudo wget --directory-prefix=/tmp wget --directory-prefix=/tmp https://go.microsoft.com/fwlink/?LinkID=760868
       tags:
