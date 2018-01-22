@@ -102,7 +102,7 @@ cp templates/mac/atom.config.cson.j2 ~/.atom/config.cson
 cp templates/mac/bash_aliases.j2 ~/.bash_aliases
 cp templates/mac/gitconfig.j2 ~/.ssh/config
 cp templates/mac/hgrc.j2 ~/.hgrc
-cp templates/pip.conf.j2 ~/.pip/pip.conf
+cp templates/pep8.j2 ~/.config/pep8
 cp templates/xonsh.config.json.j2 ~/.config/xonsh/config.json
 
 printf "\n::WGET sublimetext and install\n\n"
