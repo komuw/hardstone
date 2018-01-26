@@ -51,7 +51,7 @@
       with_items:
         - "ppa:eugenesan/ppa"
         - "ppa:transmissionbt/ppa"         #transmission bittorrent
-        - "ppa:mc3man/trusty-media"     #ffmpeg
+        - "ppa:jonathonf/ffmpeg-3"     #ffmpeg
         - "ppa:mc3man/mpv-tests"        #mpv
 
       ignore_errors: yes
@@ -124,9 +124,7 @@
         - tcptrack
         - wireshark
         - nano
-        - ffmpeg
         - git-flow
-        - ffmpeg
         - zip
         - lxc 
         - lxc-templates 
@@ -140,6 +138,10 @@
         - openvpn
         - traceroute
         - graphviz # needed by golang pprof tool
+        - ffmpeg
+        - libav-tools #ffmpeg tool
+        - x264 #ffmpeg tool
+        - x265 #ffmpeg tool
       ignore_errors: yes
 
     - name: add nodeJs ppa
