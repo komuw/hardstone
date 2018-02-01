@@ -41,6 +41,16 @@
         - vscode
         - golang
 
+    - name: add Dart(dev version) apt key
+      shell: sudo sh -c 'curl https://storage.googleapis.com/download.dartlang.org/linux/debian/dart_unstable.list > /etc/apt/sources.list.d/dart_unstable.list'
+      tags:
+        - dart
+ 
+    - name: install dart
+      shell: sudo apt -y update && sudo apt -y install dart
+      tags:
+        - dart
+        
     - name: install vscode
       shell: sudo dpkg -i /tmp/index.html\?LinkID\=760868
       tags:
