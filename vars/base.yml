@@ -15,6 +15,6 @@ ssh_config:
   - { ip_address: 8.8.8.8, host_name: 'something'}
   - { ip_address: 1.1.1.1, host_name: 'somethingelse'}
 
-GOLANG_VERSION: go1.9.linux-amd64
+GOLANG_VERSION: go1.10.linux-amd64
 
 ATOM_EDITOR_VERSION: "v1.19.5"
