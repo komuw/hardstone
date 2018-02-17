@@ -17,7 +17,7 @@
         - golang
 
     - name: download golang
-      shell: sudo wget --directory-prefix=/usr/local https://storage.googleapis.com/golang/{{GOLANG_VERSION}}.tar.gz
+      shell: sudo wget --directory-prefix=/usr/local https://dl.google.com/go/{{GOLANG_VERSION}}.tar.gz
       when: golang_file_exist.stat.exists == False
       tags:
         - install_go
