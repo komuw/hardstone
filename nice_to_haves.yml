@@ -73,6 +73,7 @@
         - lukehoban.Go
         - sourcegraph.sourcegraph
         - hnw.vscode-auto-open-markdown-preview
+        - Dart-Code.dart-code
       args:
         executable: /bin/bash
       tags:
