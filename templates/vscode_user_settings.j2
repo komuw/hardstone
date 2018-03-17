@@ -1,29 +1,6 @@
 {
-    "go.useCodeSnippetsOnFunctionSuggest": true,
-    "go.autocompleteUnimportedPackages": true,
-    "go.useLanguageServer": true,
     "window.zoomLevel": -2,
-    "python.formatting.autopep8Args": [
-        "--experimental",
-        "--in-place",
-        "-r",
-        "-aaaaaaaaaa"
-    ],
-    "editor.formatOnSave": true,
-    "python.linting.pylintArgs": [
-        "--load-plugins",
-        "pylint_django",
-        "--enable=E",
-        "--disable=W,R,C"
-    ],
-    "editor.minimap.enabled": false,
-    "python.linting.enabledWithoutWorkspace": false,
-    "python.disablePromptForFeatures": [
-        "pylint"
-    ],
-    "dart.allowAnalytics": false,
-    "dart.debugExternalLibraries": true,
-    "dart.debugSdkLibraries": true,
+    "window.menuBarVisibility": "default",
     "files.exclude": {
         "**/.git": true,
         "**/.svn": true,
@@ -31,5 +8,39 @@
         "**/CVS": true,
         "**/.DS_Store": true,
         "**/*.pyc": true
-    }
+    },
+    "editor.formatOnSave": true,
+    "editor.minimap.enabled": false,
+    "editor.quickSuggestions": {
+        "other": true,
+        "comments": true,
+        "strings": true
+    },
+    "editor.wordWrap": "bounded",
+    "go.useCodeSnippetsOnFunctionSuggest": true,
+    "go.autocompleteUnimportedPackages": true,
+    "go.useLanguageServer": true,
+    "python.linting.pylintArgs": [
+        "--load-plugins",
+        "pylint_django",
+        "--enable=E",
+        "--disable=W,R,C"
+    ],
+    "python.formatting.autopep8Args": [
+        "--experimental",
+        "--in-place",
+        "-r",
+        "-aaaaaaaaaa"
+    ],
+    "python.autoComplete.addBrackets": true,
+    "python.venvFolders": [
+        "envs",
+        ".pyenv",
+        ".direnv",
+        ".virtualenvs",
+        ".venv"
+    ],
+    "dart.allowAnalytics": false,
+    "dart.debugExternalLibraries": true,
+    "dart.debugSdkLibraries": true
 }
