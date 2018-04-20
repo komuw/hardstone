@@ -118,6 +118,7 @@
     - name: go get some golang packages
       shell: export GOPATH="$HOME/go" && source /etc/profile && go get -u {{item}}
       with_items:
+        - neugram.io/ng                           # golang repl and shell language
         - github.com/motemen/gore                 # golang repl
         - github.com/nsf/gocode                   # golang auto-completion
         - github.com/k0kubun/pp                   # pretty print
