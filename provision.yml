@@ -248,6 +248,9 @@
       with_items:
         - docker-compose
         - asciinema
+        - jupyter
+        - jupyterlab
+        - jupyter-console
 
     - name: create users group
       group: name={{ USER }} state=present
