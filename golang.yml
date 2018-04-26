@@ -120,6 +120,8 @@
       with_items:
         - neugram.io/ng                           # golang repl and shell language
         - github.com/motemen/gore                 # golang repl
+        - github.com/yunabe/lgo/cmd/lgo           # golang repl and jupyter notebook integration
+        - github.com/yunabe/lgo/cmd/lgo-internal
         - github.com/nsf/gocode                   # golang auto-completion
         - github.com/k0kubun/pp                   # pretty print
         - golang.org/x/tools/cmd/godoc            # docs
