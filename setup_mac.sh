@@ -103,7 +103,7 @@ cp templates/mac/bash_aliases.j2 ~/.bash_aliases
 cp templates/mac/gitconfig.j2 ~/.ssh/config
 cp templates/mac/hgrc.j2 ~/.hgrc
 cp templates/pep8.j2 ~/.config/pep8
-cp templates/xonsh.config.json.j2 ~/.config/xonsh/config.json
+cp templates/xonshrc.j2 ~/.xonshrc
 
 printf "\n::WGET sublimetext and install\n\n"
 wget -nc --directory-prefix=/tmp "https://download.sublimetext.com/Sublime%20Text%20Build%203124.dmg"
