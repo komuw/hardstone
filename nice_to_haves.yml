@@ -131,13 +131,13 @@
         - xonsh
 
     - name: create xonsh file
-      shell: mkdir -p ~/.config/xonsh && touch ~/.config/xonsh/config.json
+      shell: touch ~/.xonshrc
       tags:
         - xonsh
 
     - name: configure xonsh.config.json.j2
-      template: src=templates/xonsh.config.json.j2
-                dest=~/.config/xonsh/config.json
+      template: src=templates/xonshrc.j2
+                dest=~/.xonshrc
       tags: 
         - xonsh
 
