@@ -70,7 +70,7 @@
       with_items:
         - magicstack.MagicPython
         - ms-python.python
-        - lukehoban.Go
+        - ms-vscode.Go
         - sourcegraph.sourcegraph
         - hnw.vscode-auto-open-markdown-preview
         - Dart-Code.dart-code
