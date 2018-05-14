@@ -90,4 +90,8 @@
       tags:
         - flutter
 
-        
+    - name: check flutter version
+      shell: flutter --version
+      sudo: no
+      tags:
+        - flutter
