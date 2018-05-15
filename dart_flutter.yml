@@ -17,7 +17,7 @@
         - flutter  
 
     - name: download flutter
-      shell: sudo wget --directory-prefix=/usr/local  https://storage.googleapis.com/flutter_infra/releases/beta/linux/{{FLUTTER_VERSION}}.tar.xz
+      shell: sudo wget --directory-prefix=/usr/local https://storage.googleapis.com/flutter_infra/releases/beta/linux/{{FLUTTER_VERSION}}.tar.xz
       when: flutter_file_exist.stat.exists == False
       tags:
         - install_flutter
@@ -95,3 +95,58 @@
       sudo: no
       tags:
         - flutter
+
+    - name: download android-studio
+      shell: sudo wget -nc --directory-prefix=/usr/local https://dl.google.com/dl/android/studio/ide-zips/3.1.2.0/android-studio-ide-173.4720617-linux.zip
+      tags:
+        - install_flutter
+        - flutter
+
+    - name: unzip android-studio file
+      command: sudo unzip /usr/local/android-studio-ide-173.4720617-linux.zip chdir=/usr/local/
+      tags:
+        - install_flutter
+        - flutter
+
+    - name: install kvm(useful for android emulator acceleration)
+      shell: sudo apt -y update; sudo apt -y install qemu-kvm libvirt-bin ubuntu-vm-builder bridge-utils
+      tags:
+        - install_flutter
+        - flutter
+
+    - name: verify kvm install
+      shell: virsh list --all
+      tags:
+        - install_flutter
+        - flutter
+      ignore_errors: yes
+
+    - name: instructions for manual things to do
+      shell:
+        printf "\n 1.you can start android-studio using;
+                \n /usr/local/android-studio/bin/studio.sh
+
+                \n\n 2. accept android licenses using;
+                \n flutter doctor --android-licenses
+
+                \n\n 3. install dart/flutter plugins in android-studio;
+                \n File>Settings>Plugins
+
+                \n\n 4. select virtual device in android-studio;
+                \n Tools>AVD Manager>create a device
+                \n - if unsure; use pixel2 and oreo android version.
+                \n - make sure graphics is set to Software. the other options are hardware, automatic
+                \n  - save then
+                \n  - run/launch the avd
+                \n  - if you run; flutter devices then that avd should show up
+
+                \n\n 5. run flutter doctor
+                \n flutter doctor -v
+
+                \n\n 6. create app
+                \n flutter create hello
+
+                \n\n 7. run app
+                \n cd hello
+                \n flutter run --enable-software-rendering --skia-deterministic-rendering --trace-startup --observatory-port 8111
+                 "
