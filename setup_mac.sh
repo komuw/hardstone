@@ -68,7 +68,7 @@ printf "\n::INSTALL vagrant plugins\n\n"
 vagrant plugin install vagrant-cachier vagrant-vbguest
 
 printf "\n::INSTALL pip packages\n\n"
-pip install virtualenv \
+pip install -U virtualenv \
            virtualenvwrapper \
            pep8 \
            yapf \
@@ -91,7 +91,6 @@ cat ~/.ssh/id_rsa.pub
 printf "\n::CREATE dirs\n\n"
 mkdir -p ~/swat
 mkdir -p ~/mystuff
-mkdir -p ~/mystuff/gocode
 
 printf "\n::INSTALL golang\n\n"
 wget -nc "https://storage.googleapis.com/golang/go1.7.1.darwin-amd64.pkg"
@@ -125,10 +124,10 @@ grep -q "/usr/local/bin/xonsh" "/etc/shells" || sudo -u root /bin/bash -c 'echo 
 chsh -s /usr/local/bin/xonsh
 
 printf "\n::copy over things to enable auto suggestion in xonsh\n\n"
-cp -R /usr/local/Cellar/python3/3.5.2_1/Frameworks/Python.framework/Versions/3.5/lib/python3.5/site-packages/prompt_toolkit /usr/local/Cellar/xonsh/0.4.6/libexec/lib/python3.5/site-packages
-cp -R /usr/local/Cellar/python3/3.5.2_1/Frameworks/Python.framework/Versions/3.5/lib/python3.5/site-packages/wcwidth /usr/local/Cellar/xonsh/0.4.6/libexec/lib/python3.5/site-packages
-cp -R /usr/local/Cellar/python3/3.5.2_1/Frameworks/Python.framework/Versions/3.5/lib/python3.5/site-packages/six* /usr/local/Cellar/xonsh/0.4.6/libexec/lib/python3.5/site-packages
-cp -R /usr/local/Cellar/python3/3.5.2_1/Frameworks/Python.framework/Versions/3.5/lib/python3.5/site-packages/pygments /usr/local/Cellar/xonsh/0.4.6/libexec/lib/python3.5/site-packages
+cp -R /usr/local/Cellar/python3/3.6.5/Frameworks/Python.framework/Versions/3.6/lib/python3.6/site-packages/prompt_toolkit /usr/local/Cellar/xonsh/0.6.5/libexec/lib/python3.6/site-packages
+cp -R /usr/local/Cellar/python3/3.6.5/Frameworks/Python.framework/Versions/3.6/lib/python3.6/site-packages/wcwidth /usr/local/Cellar/xonsh/0.6.5/libexec/lib/python3.6/site-packages
+cp -R /usr/local/Cellar/python3/3.6.5/Frameworks/Python.framework/Versions/3.6/lib/python3.6/site-packages/six* /usr/local/Cellar/xonsh/0.6.5/libexec/lib/python3.6/site-packages
+cp -R /usr/local/Cellar/python3/3.6.5/Frameworks/Python.framework/Versions/3.6/lib/python3.6/site-packages/pygments /usr/local/Cellar/xonsh/0.6.5/libexec/lib/python3.6/site-packages
 
 printf "\n::INSTALL golang pkgs\n\n"
 go get github.com/motemen/gore                 #golang repl
