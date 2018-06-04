@@ -21,33 +21,34 @@ mkdir -p $HOME/go/src/github.com/komuw
 printf "\n\n  source profile"
 source /etc/profile
 
+# gomacro repl. usage: rlwrap gomacro --collect --force-overwrite --repl --very-verbose
 printf "\n\n go get some golang packages"
-export GOPATH="$HOME/go" && source /etc/profile && go get -u neugram.io/ng                           # golang repl and shell language
-                                                            \ github.com/motemen/gore                 # golang repl
-                                                            \ github.com/yunabe/lgo/cmd/lgo           # golang repl and jupyter notebook integration
-                                                            \ github.com/yunabe/lgo/cmd/lgo-internal
-                                                            \ github.com/nsf/gocode                   # golang auto-completion
-                                                            \ github.com/k0kubun/pp                   # pretty print
-                                                            \ golang.org/x/tools/cmd/godoc            # docs
-                                                            \ github.com/derekparker/delve/cmd/dlv    # debugger
-                                                            \ github.com/rs/zerolog                   # zero allocation logger
-                                                            \ github.com/pkg/errors                   # nice error handling
-                                                            \ github.com/alecthomas/gometalinter      # linter of linters
-                                                            \ github.com/d4l3k/go-pry                 # debugger/repl
-                                                            \ github.com/cosmos72/gomacro             # repl. usage: rlwrap gomacro --collect --force-overwrite --repl --very-verbose
-                                                            \ github.com/sourcegraph/go-langserver    # vscode stuff
-                                                            \ github.com/golang/dep/cmd/dep           # dependency mgmnt
-                                                            \ github.com/google/gops                  # ps for golang apps
-                                                            \ github.com/sanity-io/litter             # pretty print
-                                                            \ github.com/rogpeppe/godef               # vscode stuff
-                                                            \ github.com/golang/lint/golint           # vscode stuff
-                                                            \ github.com/lukehoban/go-outline         # vscode stuff
-                                                            \ sourcegraph.com/sqs/goreturns           # vscode stuff
-                                                            \ golang.org/x/tools/cmd/gorename         # vscode stuff
-                                                            \ github.com/tpng/gopkgs                  # vscode stuff
-                                                            \ github.com/newhook/go-symbols           # vscode stuff
-                                                            \ golang.org/x/tools/cmd/guru             # vscode stuff
-                                                            \ github.com/ramya-rao-a/go-outline       # vscode stuff
+export GOPATH="$HOME/go" && source /etc/profile && go get -u neugram.io/ng \                           
+                                                             github.com/motemen/gore \ 
+                                                             github.com/yunabe/lgo/cmd/lgo \           
+                                                             github.com/yunabe/lgo/cmd/lgo-internal \
+                                                             github.com/nsf/gocode \                   
+                                                             github.com/k0kubun/pp \                   
+                                                             golang.org/x/tools/cmd/godoc \            
+                                                             github.com/derekparker/delve/cmd/dlv \   
+                                                             github.com/rs/zerolog \                   
+                                                             github.com/pkg/errors \                  
+                                                             github.com/alecthomas/gometalinter \      
+                                                             github.com/d4l3k/go-pry \            
+                                                             github.com/cosmos72/gomacro \             
+                                                             github.com/sourcegraph/go-langserver \    
+                                                             github.com/golang/dep/cmd/dep \           
+                                                             github.com/google/gops \                  
+                                                             github.com/sanity-io/litter \             
+                                                             github.com/rogpeppe/godef \               
+                                                             github.com/golang/lint/golint \           
+                                                             github.com/lukehoban/go-outline \         
+                                                             sourcegraph.com/sqs/goreturns \           
+                                                             golang.org/x/tools/cmd/gorename \         
+                                                             github.com/tpng/gopkgs \                  
+                                                             github.com/newhook/go-symbols \           
+                                                             golang.org/x/tools/cmd/guru \             
+                                                             github.com/ramya-rao-a/go-outline       
                                                             
 
 printf "\n\n  install some golang packages"
