@@ -31,3 +31,7 @@ GRUB_CMDLINE_LINUX=""
 # remove `quiet splash` replace with `nomodeset no_console_suspend verbose debug ignore_loglevel` then press F10 to reboot.
 # You may also have to choose to boot into either recovery mode or boot using a different kernel. 
 # All this, can be selected by; rebooting, press ESC after boot sound and selecting Advanced boot settings.
+{
+    "max-concurrent-downloads": 12,
+    "max-concurrent-uploads": 5
+}

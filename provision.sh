@@ -392,66 +392,37 @@ source ~/.profile
 
 printf "\n\n add docker apt key"
 curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+printf "\n\n verify docker key"
+sudo apt-key fingerprint 0EBFCD88
+printf "\n\n add docker apt repo"
+sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
+printf "\n\n install docker"
+sudo apt-get -y autoremove && apt-get install -y docker-ce=*
+printf "\n\n add user to docker group"
+usermod -aG docker {{ANSIBLE_SSH_USER}} && sudo usermod -aG docker $(whoami)
+
+printf "\n\n create docker dir"
+mkdir -p ~/.docker
+printf "\n\n make docker group owner of docker dir"
+chown -R root:docker ~/.docker
+printf "\n\n add proper permissions to docker dir"
+chmod -R 775 ~/.docker
+
+printf "\n\n configure /etc/docker/daemon.json file"
+mkdir -p /etc/docker
+DOCKER_DAEMON_CONFIG_FILE_CONTENTS='{
+    "max-concurrent-downloads": 12,
+    "max-concurrent-uploads": 5
+}'
+DOCKER_DAEMON_CONFIG_FILE=/etc/docker/daemon.json
+touch "$DOCKER_DAEMON_CONFIG_FILE"
+grep -qF -- "$DOCKER_DAEMON_CONFIG_FILE_CONTENTS" "$DOCKER_DAEMON_CONFIG_FILE" || echo "$DOCKER_DAEMON_CONFIG_FILE_CONTENTS" >> "$DOCKER_DAEMON_CONFIG_FILE"
 
 
-    printf "\n\n add docker apt repo"
-      apt_repository: repo='deb [arch=amd64] https://download.docker.com/linux/ubuntu xenial stable' state=present update_cache=yes
-      become: yes
-      become_user: root
-      tags: docker
+printf "\n\n Remove some default system packages"
+sudo apt-get -y purge netsurf-gtk
 
-    printf "\n\n install docker
-      shell: executable="/bin/bash" apt-get -y autoremove && apt-get install -y docker-ce=*
-      become: yes
-      become_user: root
-      when: dockerresult|failed
-      tags: docker
+printf "\n\n create my stuff dir"
+mkdir -p $HOME/mystuff
 
-    printf "\n\n add user to docker group
-      shell: usermod -aG docker {{ANSIBLE_SSH_USER}} && sudo usermod -aG docker $(whoami) executable="/bin/bash"
-      when: dockerresult|failed
-      become: yes
-      become_user: root
-      tags: docker
-
-    printf "\n\n create docker dir
-      shell: mkdir -p ~/.docker executable="/bin/bash"
-      become: yes
-      become_user: root
-      tags: docker
-
-    printf "\n\n make docker group owner of docker dir
-      shell: chown -R root:docker ~/.docker executable="/bin/bash"
-      become: yes
-      become_user: root
-      tags: docker
- 
-    printf "\n\n add proper permissions to docker dir
-      shell: chmod -R 775 ~/.docker executable="/bin/bash"
-      become: yes
-      become_user: root
-      tags: docker
-
-    printf "\n\n configure /etc/docker/daemon.json file
-      template: src=etc.docker.daemon.json.j2
-                dest=/etc/docker/daemon.json
-      ignore_errors: yes
-      become: yes
-      become_user: root
-      tags: docker
-
-    printf "\n\n Remove some default system packages
-      shell: sudo apt-get -y purge {{ item }}
-      with_items:
-        \ netsurf-gtk
-
-    printf "\n\n create my stuff dir
-      shell: mkdir -p $HOME/mystuff
-
-  handlers:
-
-    printf "\n\n reinstall_chrome
-      command: sudo dpkg -i google-chrome-stable_current_amd64.deb chdir=/tmp
-
-    printf "\n\n finally
-      debug: msg="THATS IT. YOU are done."
+printf "\n\n THATS IT. YOU are done."
