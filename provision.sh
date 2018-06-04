@@ -60,72 +60,73 @@ printf "\n\n update system"
 sudo apt-get -y update
 
 printf "\n\n Install system packages"
-sudo apt-get -y install gcc \ libssl-dev
-        \ apt-transport-https
-        \ ca-certificates
-        \ libffi-dev
-        \ openssh-client
-        \ openssh-server
-        \ kdiff3
-        \ meld
-        \ python-pip
-        \ python3-pip #for docker-compose
-        \ python-software-properties
-        \ software-properties-common
-        \ terminator
-        \ lsof
-        \ telnet
-        \ curl
-        \ mercurial
-        \ git
-        \ unrar
-        \ transmission
-        \ transmission-cli
-        \ transmission-common
-        \ transmission-daemon
-        \ libav-tools #needed by vlc for streaming
-        \ vlc
-        \ mpv #player
-        \ browser-plugin-vlc
-        \ pep8
-        \ libpq-dev 
-        \ python2.7-dev
-        \ libxml2-dev 
-        \ libxslt1-dev
-        \ postgresql 
-        \ postgresql-contrib
-        \ network-manager-vpnc
-        \ vpnc
-        \ screen
-        \ build-essential
-        \ python-dev
-        \ python-setuptools
-        \ iftop
-        #\ ifconfig
-        \ tcptrack
-        \ wireshark
-        \ nano
-        \ git-flow
-        \ zip
-        \ lxc 
-        \ lxc-templates 
-        \ cgroup-lite 
-        \ redir
-        \ gdb
-        \ hexchat #irc client
-        \ mosh
-        \ vnstat
-        \ psmisc #pstree
-        \ openvpn
-        \ traceroute
-        \ graphviz # needed by golang pprof tool
-        \ ffmpeg
-        \ libav-tools #ffmpeg tool
-        \ x264 #ffmpeg tool
-        \ x265 #ffmpeg tool
-        \ gdebi
-        \ skype
-        \ sublime-text
+sudo apt-get -y install gcc \ 
+        libssl-dev \
+        apt-transport-https \
+        ca-certificates \
+        libffi-dev \
+        openssh-client \
+        openssh-server \
+        kdiff3 \
+        meld \
+        python-pip \
+        python3-pip \
+        python-software-properties \
+        software-properties- \
+        terminator \
+        lsof \
+        telnet \
+        curl \
+        mercurial \
+        git \
+        unrar \
+        transmission \
+        transmission-cli \
+        transmission-common \
+        transmission-daemon \
+        libav-tools  \
+        vlc \
+        mpv  \
+        browser-plugin-vlc \
+        pep8 \
+        libpq-dev  \
+        python2.7-dev \
+        libxml2-dev  \
+        libxslt1-dev \
+        postgresql  \
+        postgresql-contrib \
+        network-manager-vpnc \
+        vpnc \
+        screen \
+        build-essential \
+        python-dev \
+        python-setuptools \
+        iftop \
+        tcptrack \
+        wireshark \
+        nano \
+        git-flow \
+        zip \
+        lxc \ 
+        lxc-templates  \
+        cgroup-lite \ 
+        redir \
+        gdb \
+        hexchat \
+        mosh \
+        vnstat \
+        psmisc  \
+        openvpn \
+        traceroute \
+        graphviz \ 
+        ffmpeg \
+        libav-tools \ 
+        x264  \
+        x265  \
+        gdebi \
+        skype \
+        sublime-text
+# ifconfig
 
 
 printf "\n\n add nodeJs ppa"
@@ -179,31 +180,31 @@ sudo wget -nc --directory-prefix=/tmp http://download.virtualbox.org/virtualbox/
 sudo dpkg -i /tmp/virtualbox-5.2_5.2.12-122591~Ubuntu~bionic_amd64.deb
 
 printf "\n\n Install Python packages"
-sudo pip install --upgrade pip 
-        \ virtualenv
-        \ virtualenvwrapper
-        \ youtube-dl
-        \ yapf
-        \ ansible
-        \ httpie
-        \ livestreamer
-        \ awscli
-        \ awsebcli
-        \ prompt_toolkit
-        \ pycodestyle #pep8
-        \ autopep8
-        \ flake8
-        \ sewer
-        \ Pygments
-        \ pylint
-        \ pylint-django
+sudo pip install --upgrade pip \
+         virtualenv \
+         virtualenvwrapper \
+         youtube-dl \
+         yapf \
+         ansible \
+         httpie \
+         livestreamer \
+         awscli \
+         awsebcli \
+         prompt_toolkit \
+         pycodestyle  \
+         autopep8 \
+         flake8 \
+         sewer \
+         Pygments \
+         pylint \
+         pylint-django
     
 printf "\n\n Install Python pip3 packages"
-sudo pip3 install --upgrade docker-compose
-        \ asciinema
-        \ jupyter
-        \ jupyterlab
-        \ jupyter-console
+sudo pip3 install --upgrade docker-compose \
+         asciinema \
+         jupyter \
+         jupyterlab \
+         jupyter-console
 
 # printf "\n\n create users group"
 # group: name={{ USER }} state=present
