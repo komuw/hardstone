@@ -3,6 +3,14 @@
 # Set up Ansible on a Vagrant Ubuntu box, and run 
 # playbook/s to setup/provision
 
+SSH_KEY_PHRASE=$1
+
+if [ -z "$SSH_KEY_PHRASE" ]; then
+    printf "\n\n SSH_KEY_PHRASE should not be empty"
+    exit
+fi
+
+
 echo "starting setup/provisioning...."
 
 if [[ ! $(ansible --version 2> /dev/null) =~ 1\.6 ]]; then
@@ -19,4 +27,20 @@ if [[ ! $(ansible --version 2> /dev/null) =~ 1\.6 ]]; then
     sudo pip install ansible
 fi
 
-PYTHONUNBUFFERED=1 ansible-playbook main.yml -i dev --connection=local #-vvvvv
+printf "\n\n CALLING provision.sh::\n\n"
+provision.sh "$SSH_KEY_PHRASE"
+
+printf "\n\n CALLING editors.sh::\n\n"
+editors.sh
+
+printf "\n\n CALLING golang.sh::\n\n"
+golang.sh
+
+printf "\n\n CALLING dart.sh::\n\n"
+dart.sh
+
+printf "\n\n CALLING work_stuff.sh::\n\n"
+work_stuff.sh
+
+printf "\n\n CALLING xonsh.sh::\n\n"
+xonsh.sh

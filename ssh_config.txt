@@ -1,4 +1,0 @@
-deb https://repo.pritunl.com/stable/apt bionic main
-#dart and flutter
-export PATH=$PATH:/usr/local/flutter/bin
-export PATH=$PATH:/usr/lib/dart/bin
