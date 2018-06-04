@@ -64,4 +64,4 @@ code --install-extension magicstack.MagicPython \
                          sourcegraph.sourcegraph \ 
                          hnw.vscode-auto-open-markdown-preview \ 
                          Dart-Code.dart-code \ 
-                         Dart-Code.flutter \ 
+                         Dart-Code.flutter
