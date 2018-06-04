@@ -6,10 +6,9 @@ This is my setup, it may not work for you. Feel free to modify appropriately.
       
 * git clone this project
 * cd into this project's directory
-* edit vars/base.yml with the values you want
 * run: 
 ```shell
-bash setup.sh
+bash setup.sh mySshKeyPassphrase
 ```
 * go make a cup of coffee, this may take a while
 * your dev environment is ready
@@ -54,7 +53,7 @@ relax home boy. this setup will install and configure:
 * among other stuff
 
 ## NB:      
-* This project was tested on a machine running ubuntu 16.04, 64bit.
+* This project was tested on a machine running ubuntu 18.04, 64bit.
 * However, It should work for most debian machines. 
 * Some tasks will fail for 32bit machines.
 
