@@ -6,7 +6,7 @@
 echo "starting setup/provisioning...."
 
 if [[ ! $(ansible --version 2> /dev/null) =~ 1\.6 ]]; then
-    sudo apt-get update && \
+    sudo apt-get -y update && \
     sudo apt-get -y install gcc build-essential libssl-dev libffi-dev python-dev && \
     sudo apt-get -y install python-software-properties && \
     sudo apt-get -y install software-properties-common && \
