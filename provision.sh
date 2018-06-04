@@ -425,4 +425,11 @@ sudo apt-get -y purge netsurf-gtk
 printf "\n\n create my stuff dir"
 mkdir -p $HOME/mystuff
 
+
+printf "\n\n  update"
+sudo apt-get -y update
+
+printf "\n\n  add security updates"
+sudo apt-get -y dist-upgrade
+
 printf "\n\n THATS IT. YOU are done."
