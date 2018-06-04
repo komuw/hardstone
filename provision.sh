@@ -171,6 +171,9 @@ sudo dpkg -i /tmp/vagrant_2.1.1_x86_64.deb
 printf "\n\n install vagrant cachier plugin"
 vagrant plugin install vagrant-cachier vagrant-vbguest
 
+printf "\n\n install virtualbox dependencies"
+sudo apt -y install libqt5opengl5
+
 printf "\n\n download and install virtualbox"
 sudo wget -nc --directory-prefix=/tmp http://download.virtualbox.org/virtualbox/5.2.12/virtualbox-5.2_5.2.12-122591~Ubuntu~bionic_amd64.deb
 sudo dpkg -i /tmp/virtualbox-5.2_5.2.12-122591~Ubuntu~bionic_amd64.deb
