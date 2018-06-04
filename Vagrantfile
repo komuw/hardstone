@@ -9,6 +9,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.box = "bento/ubuntu-18.04"
   config.vm.box_version = "201803.24.0"
 
+  # config.vm.box = "geerlingguy/ubuntu1804"
+
   config.ssh.forward_agent = true
 
   # Ansible provisioner, but it may not work with Windows hosts.
