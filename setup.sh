@@ -33,18 +33,26 @@ fi
 
 printf "\n\n CALLING provision.sh::\n\n"
 bash provision.sh "$SSH_KEY_PHRASE"
+printf "\n\n provision.sh done::\n"
 
 printf "\n\n CALLING editors.sh::\n\n"
 bash editors.sh
+printf "\n\n editors.sh done::\n"
 
 printf "\n\n CALLING golang.sh::\n\n"
 bash golang.sh
+printf "\n\n golang.sh done::\n"
 
 printf "\n\n CALLING dart.sh::\n\n"
 bash dart.sh
+printf "\n\n dart.sh done::\n"
 
 printf "\n\n CALLING work_stuff.sh::\n\n"
 bash work_stuff.sh
+printf "\n\n work_stuff.sh done::\n"
 
 printf "\n\n CALLING xonsh.sh::\n\n"
 bash xonsh.sh
+printf "\n\n xonsh.sh done::\n"
+
+printf "\n\n WHOLE SYSTEM SUCCESFULLY SETUP.\n"
