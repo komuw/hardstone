@@ -32,27 +32,27 @@ fi
 # https://stackoverflow.com/questions/8352851/how-to-call-shell-script-from-another-shell-script
 
 printf "\n\n CALLING provision.sh::\n\n"
-bash provision.sh "$SSH_KEY_PHRASE"
+/bin/bash provision.sh "$SSH_KEY_PHRASE"
 printf "\n\n provision.sh done::\n"
 
 printf "\n\n CALLING editors.sh::\n\n"
-bash editors.sh
+/bin/bash editors.sh
 printf "\n\n editors.sh done::\n"
 
 printf "\n\n CALLING golang.sh::\n\n"
-bash golang.sh
+/bin/bash golang.sh
 printf "\n\n golang.sh done::\n"
 
 printf "\n\n CALLING dart.sh::\n\n"
-bash dart.sh
+/bin/bash dart.sh
 printf "\n\n dart.sh done::\n"
 
 printf "\n\n CALLING work_stuff.sh::\n\n"
-bash work_stuff.sh
+/bin/bash work_stuff.sh
 printf "\n\n work_stuff.sh done::\n"
 
 printf "\n\n CALLING xonsh.sh::\n\n"
-bash xonsh.sh
+/bin/bash xonsh.sh
 printf "\n\n xonsh.sh done::\n"
 
 printf "\n\n WHOLE SYSTEM SUCCESFULLY SETUP.\n"
