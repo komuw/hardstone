@@ -1,13 +1,6 @@
 #!/usr/bin/env bash
 
-
 FLUTTER_VERSION=flutter_linux_v0.3.2-beta
-
-printf "\n\n  add Dart(dev version) apt key"
-sudo sh -c 'curl https://storage.googleapis.com/download.dartlang.org/linux/debian/dart_unstable.list > /etc/apt/sources.list.d/dart_unstable.list'
-printf "\n\n  install dart"
-sudo apt -y update && sudo apt -y install dart
-
 
 printf "\n\n  download flutter"
 sudo wget -nc --directory-prefix=/usr/local "https://storage.googleapis.com/flutter_infra/releases/beta/linux/$FLUTTER_VERSION.tar.xz"
