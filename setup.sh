@@ -27,20 +27,24 @@ if [[ ! $(ansible --version 2> /dev/null) =~ 1\.6 ]]; then
     sudo pip install ansible
 fi
 
+# When using the bash command to execute the scripts below;
+# the script are executed as other processes, so variables and functions in the other scripts will not be accessible in the setup.sh script
+# https://stackoverflow.com/questions/8352851/how-to-call-shell-script-from-another-shell-script
+
 printf "\n\n CALLING provision.sh::\n\n"
-provision.sh "$SSH_KEY_PHRASE"
+bash provision.sh "$SSH_KEY_PHRASE"
 
 printf "\n\n CALLING editors.sh::\n\n"
-editors.sh
+bash editors.sh
 
 printf "\n\n CALLING golang.sh::\n\n"
-golang.sh
+bash golang.sh
 
 printf "\n\n CALLING dart.sh::\n\n"
-dart.sh
+bash dart.sh
 
 printf "\n\n CALLING work_stuff.sh::\n\n"
-work_stuff.sh
+bash work_stuff.sh
 
 printf "\n\n CALLING xonsh.sh::\n\n"
-xonsh.sh
+bash xonsh.sh
