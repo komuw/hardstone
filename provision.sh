@@ -21,18 +21,8 @@ mkdir -p /etc/apt/sources.list.d
 printf "\n\n rm skype"
 sudo apt-get -y remove skype skype-bin:i386 skype:i386
 
-
-printf "\n\n install skype dependency"
-sudo apt-get -y install sni-qt:i386
-
 printf "\n\n rm skype config"
 sudo rm -rf ~/.Skype
-
-printf "\n\n enable multiarch"
-sudo dpkg --add-architecture i386
-
-printf "\n\n add skype ppa"
-sudo add-apt-repository -y "deb http://archive.canonical.com/ $(lsb_release -sc) partner"
 
 printf "\n\n add sublime-text3 ppa"
 sudo wget -qO - https://download.sublimetext.com/sublimehq-pub.gpg | sudo apt-key add -
@@ -124,10 +114,14 @@ sudo apt-get -y install gcc \
         x264  \
         x265  \
         gdebi \
-        skype \
         sublime-text
 # ifconfig
 
+printf "\n\n download skype"
+sudo wget -nc --directory-prefix=/tmp https://repo.skype.com/latest/skypeforlinux-64.deb
+
+printf "\n\n install skype"
+sudo dpkg -i /tmp/skypeforlinux-64.deb
 
 printf "\n\n add nodeJs ppa"
 curl -sL https://deb.nodesource.com/setup_9.x | sudo -E bash -
