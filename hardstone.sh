@@ -28,7 +28,7 @@ if [[ ! $(ansible --version 2> /dev/null) =~ 1\.6 ]]; then
 fi
 
 # When using the bash command to execute the scripts below;
-# the script are executed as other processes, so variables and functions in the other scripts will not be accessible in the setup.sh script
+# the script are executed as other processes, so variables and functions in the other scripts will not be accessible in the hardstone.sh script
 # https://stackoverflow.com/questions/8352851/how-to-call-shell-script-from-another-shell-script
 
 printf "\n\n CALLING provision.sh::\n\n"

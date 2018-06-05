@@ -15,7 +15,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
   # Ansible provisioner, but it may not work with Windows hosts.
   config.vm.provision "shell" do |s|
-    s.path = "setup.sh"
+    s.path = "hardstone.sh"
     s.args = "'mySshPassphrase123'"
   end
 
