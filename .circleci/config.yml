@@ -6,14 +6,18 @@ version: 2
 jobs:
   build:
     docker:
-      - image: circleci/python:3.6
+      - image: ubuntu18.04
     working_directory: ~/repo
 
     steps:
       - checkout
 
-      # run tests!
       - run:
-          name: run tests
+          name: list directory
           command: |
-            printf "\n\n hello test.\n "
+            pwd; ls -lsha
+
+      - run:
+          name: setup
+          command: |
+            bash hardstone.sh mySshKeyPassphrase
