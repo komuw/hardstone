@@ -1,0 +1,8 @@
+version: '3'
+services:
+  redis:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - ./:/usr/src/app
