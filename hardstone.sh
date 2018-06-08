@@ -1,7 +1,5 @@
 #!/usr/bin/env bash
-#
-# Set up Ansible on a Vagrant Ubuntu box, and run 
-# playbook/s to setup/provision
+
 
 SSH_KEY_PHRASE=$1
 
