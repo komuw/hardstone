@@ -17,11 +17,10 @@ apt-get -y install gcc \
                         libffi-dev \
                         python-dev \
                         software-properties-common \
-                        python-pip
-pip install --ignore-installed -U pip jinja2 paramiko
+                        curl
+curl https://bootstrap.pypa.io/get-pip.py | python
+pip install --ignore-installed -U pip jinja2 paramiko ansible
 apt-get -y update
-apt-get -y install ansible
-pip install -U ansible
 
 # When using the bash command to execute the scripts below;
 # the script are executed as other processes, so variables and functions in the other scripts will not be accessible in the hardstone.sh script
