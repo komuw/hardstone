@@ -397,7 +397,7 @@ sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubun
 printf "\n\n install docker"
 sudo apt-get -y autoremove && apt-get install -y docker-ce=*
 printf "\n\n add user to docker group"
-usermod -aG docker {{ANSIBLE_SSH_USER}} && sudo usermod -aG docker $(whoami)
+usermod -aG docker komuw && sudo usermod -aG docker $(whoami)
 
 printf "\n\n create docker dir"
 mkdir -p ~/.docker
