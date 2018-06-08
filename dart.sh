@@ -4,16 +4,16 @@
 FLUTTER_VERSION=flutter_linux_v0.3.2-beta
 
 printf "\n\n  add Dart(dev version) apt key"
-sudo sh -c 'curl https://storage.googleapis.com/download.dartlang.org/linux/debian/dart_unstable.list > /etc/apt/sources.list.d/dart_unstable.list'
+sh -c 'curl https://storage.googleapis.com/download.dartlang.org/linux/debian/dart_unstable.list > /etc/apt/sources.list.d/dart_unstable.list'
 printf "\n\n  install dart"
-sudo apt -y update && sudo apt -y install dart
+apt -y update && apt -y install dart
 
 
 printf "\n\n  download flutter"
-sudo wget -nc --directory-prefix=/usr/local "https://storage.googleapis.com/flutter_infra/releases/beta/linux/$FLUTTER_VERSION.tar.xz"
+wget -nc --directory-prefix=/usr/local "https://storage.googleapis.com/flutter_infra/releases/beta/linux/$FLUTTER_VERSION.tar.xz"
 
 printf "\n\n  untar flutter file"
-sudo tar xf "/usr/local/$FLUTTER_VERSION.tar.xz" -C /usr/local/
+tar xf "/usr/local/$FLUTTER_VERSION.tar.xz" -C /usr/local/
 
 
 printf "\n\n add flutter profile"
@@ -34,13 +34,13 @@ printf "\n\n  check flutter version"
 flutter --version
 
 printf "\n\n  download android-studio"
-sudo wget -nc --directory-prefix=/usr/local https://dl.google.com/dl/android/studio/ide-zips/3.1.2.0/android-studio-ide-173.4720617-linux.zip
+wget -nc --directory-prefix=/usr/local https://dl.google.com/dl/android/studio/ide-zips/3.1.2.0/android-studio-ide-173.4720617-linux.zip
 
 printf "\n\n  unzip android-studio file"
-sudo unzip /usr/local/android-studio-ide-173.4720617-linux.zip -d /usr/local/android-studio/
+unzip /usr/local/android-studio-ide-173.4720617-linux.zip -d /usr/local/android-studio/
 
 printf "\n\n  install kvm(useful for android emulator acceleration)"
-sudo apt -y update; sudo apt -y install qemu-kvm libvirt-bin ubuntu-vm-builder bridge-utils
+apt -y update; apt -y install qemu-kvm libvirt-bin ubuntu-vm-builder bridge-utils
 
 printf "\n\n  verify kvm install"
 virsh list --all

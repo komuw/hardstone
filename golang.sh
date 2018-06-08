@@ -3,9 +3,9 @@
 GOLANG_VERSION=go1.10.linux-amd64
 
 printf "\n\n  download golang"
-sudo wget -nc --directory-prefix=/usr/local "https://dl.google.com/go/$GOLANG_VERSION.tar.gz"
+wget -nc --directory-prefix=/usr/local "https://dl.google.com/go/$GOLANG_VERSION.tar.gz"
 printf "\n\n  untar golang file"
-sudo tar -xzf "/usr/local/$GOLANG_VERSION.tar.gz" -C /usr/local/
+tar -xzf "/usr/local/$GOLANG_VERSION.tar.gz" -C /usr/local/
 
 printf "\n\n  golang profileI"
 GOLANG_PROFILE_CONFIG_FILE_CONTENTS='#golang

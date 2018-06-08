@@ -2,9 +2,9 @@
 
 
 printf "\n\n  download vscode"
-sudo wget -nc --directory-prefix=/tmp https://go.microsoft.com/fwlink/?LinkID=760868
+wget -nc --directory-prefix=/tmp https://go.microsoft.com/fwlink/?LinkID=760868
 printf "\n\n  install vscode"
-sudo dpkg -i /tmp/index.html\?LinkID\=760868
+dpkg -i /tmp/index.html\?LinkID\=760868
 
 # on MacOs it is /Users/komuw/Library/Application\ Support/Code/User/settings.json
 printf "\n\n  configure vscode user settings file"

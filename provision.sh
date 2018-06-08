@@ -10,23 +10,23 @@ fi
 
 
 printf "\n\n Update package cache"
-sudo apt -y update
+apt -y update
 
 printf "\n\n fix broken dependencies"
-sudo apt-get -f -y install
+apt-get -f -y install
 
 printf "\n\n create /etc/apt/sources.list.d file"
 mkdir -p /etc/apt/sources.list.d
 
 printf "\n\n rm skype"
-sudo apt-get -y remove skype skype-bin:i386 skype:i386
+apt-get -y remove skype skype-bin:i386 skype:i386
 
 printf "\n\n rm skype config"
-sudo rm -rf ~/.Skype
+rm -rf ~/.Skype
 
 printf "\n\n add sublime-text3 ppa"
-sudo wget -qO - https://download.sublimetext.com/sublimehq-pub.gpg | sudo apt-key add -
-echo "deb https://download.sublimetext.com/ apt/stable/" | sudo tee /etc/apt/sources.list.d/sublime-text.list
+wget -qO - https://download.sublimetext.com/sublimehq-pub.gpg | apt-key add -
+echo "deb https://download.sublimetext.com/ apt/stable/" | tee /etc/apt/sources.list.d/sublime-text.list
 
 printf "\n\n add some ppas"
 sudo add-apt-repository -y ppa:eugenesan/ppa \
@@ -35,22 +35,22 @@ sudo add-apt-repository -y ppa:eugenesan/ppa \
                            ppa:mc3man/mpv-tests #mpv
 
 printf "\n\n update cache"
-sudo apt-get -y update
+apt-get -y update
 
 printf "\n\n remove potential apt lock"
-sudo rm -rf /var/cache/apt/archives/lock && sudo rm -rf /var/lib/dpkg/lock && sudo rm /var/cache/debconf/*.dat
+rm -rf /var/cache/apt/archives/lock && rm -rf /var/lib/dpkg/lock && rm /var/cache/debconf/*.dat
 
 printf "\n\n fix broken dependencies"
-sudo apt-get -f -y install
+apt-get -f -y install
 
 printf "\n\n configure"
-sudo dpkg --configure -a
+dpkg --configure -a
 
 printf "\n\n update system"
-sudo apt-get -y update
+apt-get -y update
 
 printf "\n\n Install system packages"
-sudo apt-get -y install gcc \ 
+apt-get -y install gcc \ 
         libssl-dev \
         apt-transport-https \
         ca-certificates \
@@ -117,63 +117,63 @@ sudo apt-get -y install gcc \
 # ifconfig
 
 printf "\n\n download skype"
-sudo wget -nc --directory-prefix=/tmp https://repo.skype.com/latest/skypeforlinux-64.deb
+wget -nc --directory-prefix=/tmp https://repo.skype.com/latest/skypeforlinux-64.deb
 
 printf "\n\n install skype"
-sudo dpkg -i /tmp/skypeforlinux-64.deb
+dpkg -i /tmp/skypeforlinux-64.deb
 
 printf "\n\n add nodeJs ppa"
-curl -sL https://deb.nodesource.com/setup_9.x | sudo -E bash -
+curl -sL https://deb.nodesource.com/setup_9.x | -E bash -
 
 printf "\n\n install nodeJs"
-sudo apt-get install -y nodejs
+apt-get install -y nodejs
 
 printf "\n\n remove potential apt lock"
-sudo rm -rf /var/cache/apt/archives/lock && sudo rm -rf /var/lib/dpkg/lock && sudo rm /var/cache/debconf/*.dat
+rm -rf /var/cache/apt/archives/lock && rm -rf /var/lib/dpkg/lock && rm /var/cache/debconf/*.dat
 
 printf "\n\n fix broken dependencies"
-sudo apt-get -f -y install
+apt-get -f -y install
 
 printf "\n\n configure"
-sudo dpkg --configure -a
+dpkg --configure -a
 
 printf "\n\n update system"
-sudo apt-get -y update
+apt-get -y update
 
 printf "\n\n agree to ttf-mscorefonts-installer license(prepare media codecs install)"
-echo ttf-mscorefonts-installer msttcorefonts/accepted-mscorefonts-eula select true | sudo debconf-set-selections
+echo ttf-mscorefonts-installer msttcorefonts/accepted-mscorefonts-eula select true | debconf-set-selections
 
 printf "\n\n Install system packages  media codecs"
-sudo apt-get -y install ubuntu-restricted-extras
+apt-get -y install ubuntu-restricted-extras
 
 printf "\n\n update system"
-sudo apt-get -y update
+apt-get -y update
 
 printf "\n\n download google chrome"
-sudo wget -nc --directory-prefix=/tmp https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+wget -nc --directory-prefix=/tmp https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
 
 printf "\n\n install google chrome"
-sudo dpkg -i /tmp/google-chrome-stable_current_amd64.deb
+dpkg -i /tmp/google-chrome-stable_current_amd64.deb
 
 printf "\n\n fix install chrome errors"
-sudo apt-get -f -y install  
+apt-get -f -y install  
 
 printf "\n\n download and install vagrant"
-sudo wget -nc --directory-prefix=/tmp https://releases.hashicorp.com/vagrant/2.1.1/vagrant_2.1.1_x86_64.deb
-sudo dpkg -i /tmp/vagrant_2.1.1_x86_64.deb
+wget -nc --directory-prefix=/tmp https://releases.hashicorp.com/vagrant/2.1.1/vagrant_2.1.1_x86_64.deb
+dpkg -i /tmp/vagrant_2.1.1_x86_64.deb
 
 printf "\n\n install vagrant cachier plugin"
 vagrant plugin install vagrant-cachier vagrant-vbguest
 
 printf "\n\n install virtualbox dependencies"
-sudo apt -y install libqt5opengl5
+apt -y install libqt5opengl5
 
 printf "\n\n download and install virtualbox"
-sudo wget -nc --directory-prefix=/tmp http://download.virtualbox.org/virtualbox/5.2.12/virtualbox-5.2_5.2.12-122591~Ubuntu~bionic_amd64.deb
-sudo dpkg -i /tmp/virtualbox-5.2_5.2.12-122591~Ubuntu~bionic_amd64.deb
+wget -nc --directory-prefix=/tmp http://download.virtualbox.org/virtualbox/5.2.12/virtualbox-5.2_5.2.12-122591~Ubuntu~bionic_amd64.deb
+dpkg -i /tmp/virtualbox-5.2_5.2.12-122591~Ubuntu~bionic_amd64.deb
 
 printf "\n\n Install Python packages"
-sudo pip install --upgrade pip \
+pip install --upgrade pip \
          virtualenv \
          virtualenvwrapper \
          youtube-dl \
@@ -193,7 +193,7 @@ sudo pip install --upgrade pip \
          pylint-django
     
 printf "\n\n Install Python pip3 packages"
-sudo pip3 install --upgrade docker-compose \
+pip3 install --upgrade docker-compose \
          asciinema \
          jupyter \
          jupyterlab \
@@ -300,7 +300,7 @@ printf "\n\n create pip cache dir"
 mkdir -p ~/.cache && mkdir -p ~/.cache/pip
 
 printf "\n\n give root group ownership of pip cache dir"
-sudo chown -R root ~/.cache/pip
+chown -R root ~/.cache/pip
 
 
 printf "\n\n create terminator conf dir"
@@ -379,7 +379,7 @@ touch "$GRUB_CONFIG_FILE"
 grep -qF -- "$GRUB_CONFIG_FILE_CONTENTS" "$GRUB_CONFIG_FILE" || echo "$GRUB_CONFIG_FILE_CONTENTS" >> "$GRUB_CONFIG_FILE"
 
 printf "\n\n update grub"
-sudo update-grub
+update-grub
 
 printf "\n\n source bashrc"
 source ~/.bashrc
@@ -388,15 +388,15 @@ printf "\n\n source profile"
 source ~/.profile
 
 printf "\n\n add docker apt key"
-curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | apt-key add -
 printf "\n\n verify docker key"
-sudo apt-key fingerprint 0EBFCD88
+apt-key fingerprint 0EBFCD88
 printf "\n\n add docker apt repo"
-sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
+add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
 printf "\n\n install docker"
-sudo apt-get -y autoremove && apt-get install -y docker-ce=*
+apt-get -y autoremove && apt-get install -y docker-ce=*
 printf "\n\n add user to docker group"
-usermod -aG docker {{ANSIBLE_SSH_USER}} && sudo usermod -aG docker $(whoami)
+usermod -aG docker {{ANSIBLE_SSH_USER}} && usermod -aG docker $(whoami)
 
 printf "\n\n create docker dir"
 mkdir -p ~/.docker
@@ -417,16 +417,16 @@ grep -qF -- "$DOCKER_DAEMON_CONFIG_FILE_CONTENTS" "$DOCKER_DAEMON_CONFIG_FILE" |
 
 
 printf "\n\n Remove some default system packages"
-sudo apt-get -y purge netsurf-gtk
+apt-get -y purge netsurf-gtk
 
 printf "\n\n create my stuff dir"
 mkdir -p $HOME/mystuff
 
 
 printf "\n\n  update"
-sudo apt-get -y update
+apt-get -y update
 
 printf "\n\n  add security updates"
-sudo apt-get -y dist-upgrade
+apt-get -y dist-upgrade
 
 printf "\n\n THATS IT. YOU are done."

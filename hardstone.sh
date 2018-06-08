@@ -10,18 +10,18 @@ fi
 
 
 printf "\n\n starting setup/provisioning....\n"
-sudo apt-get -y update
-sudo apt-get -y install gcc \
+apt-get -y update
+apt-get -y install gcc \
                         build-essential \
                         libssl-dev \
                         libffi-dev \
                         python-dev \
                         software-properties-common \
                         python-pip
-sudo pip install --ignore-installed -U pip jinja2 paramiko
-sudo apt-get -y update
-sudo apt-get -y install ansible
-sudo pip install -U ansible
+pip install --ignore-installed -U pip jinja2 paramiko
+apt-get -y update
+apt-get -y install ansible
+pip install -U ansible
 
 # When using the bash command to execute the scripts below;
 # the script are executed as other processes, so variables and functions in the other scripts will not be accessible in the hardstone.sh script

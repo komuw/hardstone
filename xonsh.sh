@@ -30,4 +30,4 @@ touch "$ETC_SHELLS_CONFIG_FILE"
 grep -qF -- "$ETC_SHELLS_CONFIG_FILE_CONTENTS" "$ETC_SHELLS_CONFIG_FILE" || echo "$ETC_SHELLS_CONFIG_FILE_CONTENTS" >> "$ETC_SHELLS_CONFIG_FILE"
 
 printf "\n\n  activate xonsh shell"
-sudo chsh -s $(which xonsh)
+chsh -s $(which xonsh)

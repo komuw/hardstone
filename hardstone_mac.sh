@@ -120,7 +120,7 @@ git config --global alias.st status
 git config --global alias.hist "log --pretty=format:'%C(yellow)[%ad]%C(reset) %C(green)[%h]%C(reset) | %C(red)%s %C(bold red){{%an}}%C(reset) %C(blue)%d%C(reset)' --graph --date=short"
 
 printf "\n::SET xonsh as default shell\n\n"
-grep -q "/usr/local/bin/xonsh" "/etc/shells" || sudo -u root /bin/bash -c 'echo "/usr/local/bin/xonsh" >> "/etc/shells"'
+grep -q "/usr/local/bin/xonsh" "/etc/shells" || /bin/bash -c 'echo "/usr/local/bin/xonsh" >> "/etc/shells"'
 chsh -s /usr/local/bin/xonsh
 
 printf "\n::copy over things to enable auto suggestion in xonsh\n\n"
