@@ -18,7 +18,6 @@ sudo apt-get -y install gcc \
                         libssl-dev \
                         libffi-dev \
                         python-dev \
-                        python-software-properties \
                         software-properties-common \
                         python-pip
 sudo pip install --ignore-installed -U pip jinja2 paramiko

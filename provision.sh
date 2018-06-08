@@ -61,7 +61,6 @@ sudo apt-get -y install gcc \
         meld \
         python-pip \
         python3-pip \
-        python-software-properties \
         software-properties- \
         terminator \
         lsof \
