@@ -15,7 +15,7 @@ jobs:
       - run:
           name: list directory
           command: |
-            pwd; ls -lsha; which sudo; whereis sudo
+            pwd; ls -lsha
 
       - run:
           name: setup
