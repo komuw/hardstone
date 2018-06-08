@@ -6,7 +6,7 @@ version: 2
 jobs:
   build:
     docker:
-      - image: ubuntu18.04
+      - image: ubuntu:18.04
     working_directory: ~/repo
 
     steps:
