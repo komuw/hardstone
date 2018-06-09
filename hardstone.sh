@@ -17,7 +17,8 @@ apt-get -y install gcc \
                         libffi-dev \
                         python-dev \
                         software-properties-common \
-                        curl
+                        curl \
+                        wget
 curl https://bootstrap.pypa.io/get-pip.py | python - 'pip==9.0.3' # see:: https://github.com/pypa/pip/issues/5240
 pip install --ignore-installed -U pip jinja2 paramiko ansible
 apt-get -y update
