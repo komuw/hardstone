@@ -12,12 +12,12 @@ export DEBIAN_FRONTEND=noninteractive
 
 GOLANG_VERSION=go1.10.linux-amd64
 
-printf "\n\n  download golang"
+printf "\n\n  download golang\n"
 wget -nc --directory-prefix=/usr/local "https://dl.google.com/go/$GOLANG_VERSION.tar.gz"
-printf "\n\n  untar golang file"
+printf "\n\n  untar golang file\n"
 tar -xzf "/usr/local/$GOLANG_VERSION.tar.gz" -C /usr/local/
 
-printf "\n\n  golang profileI"
+printf "\n\n  golang profileI\n"
 GOLANG_PROFILE_CONFIG_FILE_CONTENTS='#golang
 export PATH=$PATH:/usr/local/go/bin
 export GOPATH=$HOME/go
@@ -25,14 +25,14 @@ export PATH=$HOME/go/bin:$PATH'
 GOLANG_PROFILE_CONFIG_FILE=/etc/profile
 grep -qF -- "$GOLANG_PROFILE_CONFIG_FILE_CONTENTS" "$GOLANG_PROFILE_CONFIG_FILE" || echo "$GOLANG_PROFILE_CONFIG_FILE_CONTENTS" >> "$GOLANG_PROFILE_CONFIG_FILE"
 
-printf "\n\n  create golang code github dir"
+printf "\n\n  create golang code github dir\n"
 mkdir -p $HOME/go/src/github.com/komuw
 
-printf "\n\n  source profile"
+printf "\n\n  source profile\n"
 source /etc/profile
 
 # gomacro repl. usage: rlwrap gomacro --collect --force-overwrite --repl --very-verbose
-printf "\n\n go get some golang packages"
+printf "\n\n go get some golang packages\n"
 export GOPATH="$HOME/go" && source /etc/profile && go get -u neugram.io/ng \
                                                              github.com/motemen/gore \
                                                              github.com/yunabe/lgo/cmd/lgo \
@@ -61,8 +61,8 @@ export GOPATH="$HOME/go" && source /etc/profile && go get -u neugram.io/ng \
                                                              github.com/ramya-rao-a/go-outline       
                                                             
 
-printf "\n\n  install some golang packages"
+printf "\n\n  install some golang packages\n"
 export GOPATH="$HOME/go" && source /etc/profile && go install github.com/d4l3k/go-pry # debugger/repl
  
-printf "\n\n  install go linters"
+printf "\n\n  install go linters\n"
 export GOPATH="$HOME/go" && source /etc/profile && gometalinter --install

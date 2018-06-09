@@ -20,23 +20,13 @@ if [ "$SSH_KEY_PHRASE" == "sshKeyPhraseNotSet"  ]; then
 fi
 
 
-printf "\n\n starting setup/provisioning....\n"
-apt-get -y update
-apt-get -y install gcc \
-                    build-essential \
-                    libssl-dev \
-                    libffi-dev \
-                    python-dev \
-                    software-properties-common \
-                    curl \
-                    wget
-curl https://bootstrap.pypa.io/get-pip.py | python - 'pip==9.0.3' # see:: https://github.com/pypa/pip/issues/5240
-pip install --ignore-installed -U pip
-apt-get -y update
-
 # When using the bash command to execute the scripts below;
 # the script are executed as other processes, so variables and functions in the other scripts will not be accessible in the hardstone.sh script
 # https://stackoverflow.com/questions/8352851/how-to-call-shell-script-from-another-shell-script
+
+printf "\n\n CALLING preRequiste.sh::\n\n"
+/bin/bash preRequiste.sh
+printf "\n\n preRequiste.sh done::\n"
 
 printf "\n\n CALLING provision.sh::\n\n"
 /bin/bash provision.sh "$SSH_KEY_PHRASE"

@@ -18,16 +18,7 @@ jobs:
       - run:
           name: setup
           command: |
-            apt-get -y update
-            apt-get -y install gcc \
-                                build-essential \
-                                libssl-dev \
-                                libffi-dev \
-                                python-dev \
-                                software-properties-common \
-                                curl \
-                                wget
-            curl https://bootstrap.pypa.io/get-pip.py | python - 'pip==9.0.3' # see:: https://github.com/pypa/pip/issues/5240
+            bash preRequiste.sh
       - run:
           name: provision
           command: |
@@ -46,16 +37,7 @@ jobs:
       - run:
           name: setup
           command: |
-            apt-get -y update
-            apt-get -y install gcc \
-                                build-essential \
-                                libssl-dev \
-                                libffi-dev \
-                                python-dev \
-                                software-properties-common \
-                                curl \
-                                wget
-            curl https://bootstrap.pypa.io/get-pip.py | python - 'pip==9.0.3' # see:: https://github.com/pypa/pip/issues/5240
+            bash preRequiste.sh
       - run:
           name: editors
           command: |
@@ -75,16 +57,7 @@ jobs:
       - run:
           name: setup
           command: |
-            apt-get -y update
-            apt-get -y install gcc \
-                                build-essential \
-                                libssl-dev \
-                                libffi-dev \
-                                python-dev \
-                                software-properties-common \
-                                curl \
-                                wget
-            curl https://bootstrap.pypa.io/get-pip.py | python - 'pip==9.0.3' # see:: https://github.com/pypa/pip/issues/5240
+            bash preRequiste.sh
       - run:
           name: golang
           command: |
@@ -103,16 +76,7 @@ jobs:
       - run:
           name: setup
           command: |
-            apt-get -y update
-            apt-get -y install gcc \
-                                build-essential \
-                                libssl-dev \
-                                libffi-dev \
-                                python-dev \
-                                software-properties-common \
-                                curl \
-                                wget
-            curl https://bootstrap.pypa.io/get-pip.py | python - 'pip==9.0.3' # see:: https://github.com/pypa/pip/issues/5240
+            bash preRequiste.sh
       - run:
           name: dart
           command: |
@@ -131,16 +95,7 @@ jobs:
       - run:
           name: setup
           command: |
-            apt-get -y update
-            apt-get -y install gcc \
-                                build-essential \
-                                libssl-dev \
-                                libffi-dev \
-                                python-dev \
-                                software-properties-common \
-                                curl \
-                                wget
-            curl https://bootstrap.pypa.io/get-pip.py | python - 'pip==9.0.3' # see:: https://github.com/pypa/pip/issues/5240
+            bash preRequiste.sh
       - run:
           name: work stuff
           command: |
@@ -159,16 +114,7 @@ jobs:
       - run:
           name: setup
           command: |
-            apt-get -y update
-            apt-get -y install gcc \
-                                build-essential \
-                                libssl-dev \
-                                libffi-dev \
-                                python-dev \
-                                software-properties-common \
-                                curl \
-                                wget
-            curl https://bootstrap.pypa.io/get-pip.py | python - 'pip==9.0.3' # see:: https://github.com/pypa/pip/issues/5240
+            bash preRequiste.sh
       - run:
           name: xonsh
           command: |
