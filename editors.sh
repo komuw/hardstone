@@ -10,13 +10,13 @@ shopt -s nullglob globstar
 export DEBIAN_FRONTEND=noninteractive
 
 
-printf "\n\n  download vscode"
-wget -nc --directory-prefix=/tmp https://go.microsoft.com/fwlink/?LinkID=760868
-printf "\n\n  install vscode"
+printf "\n\n  download vscode\n"
+wget -nc --directory-prefix=/tmp "https://go.microsoft.com/fwlink/?LinkID=760868"
+printf "\n\n  install vscode\n"
 dpkg -i /tmp/index.html\?LinkID\=760868
 
 # on MacOs it is /Users/komuw/Library/Application\ Support/Code/User/settings.json
-printf "\n\n  configure vscode user settings file"
+printf "\n\n  configure vscode user settings file\n"
 VSCODE_CONFIG_FILE_CONTENTS='{
     "window.zoomLevel": -2,
     "window.menuBarVisibility": "default",
@@ -66,7 +66,7 @@ VSCODE_CONFIG_FILE=~/.config/Code/User/settings.json
 touch "$VSCODE_CONFIG_FILE"
 grep -qF -- "$VSCODE_CONFIG_FILE_CONTENTS" "$VSCODE_CONFIG_FILE" || echo "$VSCODE_CONFIG_FILE_CONTENTS" >> "$VSCODE_CONFIG_FILE"
 
-printf "\n\n  install vscode extensions"
+printf "\n\n  install vscode extensions\n"
 code --install-extension magicstack.MagicPython \
                          ms-python.python \
                          ms-vscode.Go \
