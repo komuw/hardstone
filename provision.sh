@@ -4,52 +4,52 @@
 SSH_KEY_PHRASE=$1
 
 if [ -z "$SSH_KEY_PHRASE" ]; then
-    printf "\n\n SSH_KEY_PHRASE should not be empty"
+    printf "\n\n SSH_KEY_PHRASE should not be empty\n"
     exit
 fi
 
 
-printf "\n\n Update package cache"
+printf "\n\n Update package cache\n"
 apt -y update
 
-printf "\n\n fix broken dependencies"
+printf "\n\n fix broken dependencies\n"
 apt-get -f -y install
 
-printf "\n\n create /etc/apt/sources.list.d file"
+printf "\n\n create /etc/apt/sources.list.d file\n"
 mkdir -p /etc/apt/sources.list.d
 
-printf "\n\n rm skype"
-apt-get -y remove skype skype-bin:i386 skype:i386
+printf "\n\n rm skype\n"
+apt-get -y purge skype*
 
-printf "\n\n rm skype config"
-rm -rf ~/.Skype
+printf "\n\n rm skype config\n"
+rm -rf ~/.Skype; rm -rf ~/.skype
 
-printf "\n\n add sublime-text3 ppa"
+printf "\n\n add sublime-text3 ppa\n"
 wget -qO - https://download.sublimetext.com/sublimehq-pub.gpg | apt-key add -
 echo "deb https://download.sublimetext.com/ apt/stable/" | tee /etc/apt/sources.list.d/sublime-text.list
 
-printf "\n\n add some ppas"
+printf "\n\n add some ppas\n"
 sudo add-apt-repository -y ppa:eugenesan/ppa \
                            ppa:transmissionbt/ppa #transmission bittorrent \
                            ppa:jonathonf/ffmpeg-3 #ffmpeg \
                            ppa:mc3man/mpv-tests #mpv
 
-printf "\n\n update cache"
+printf "\n\n update cache\n"
 apt-get -y update
 
-printf "\n\n remove potential apt lock"
+printf "\n\n remove potential apt lock\n"
 rm -rf /var/cache/apt/archives/lock && rm -rf /var/lib/dpkg/lock && rm /var/cache/debconf/*.dat
 
-printf "\n\n fix broken dependencies"
+printf "\n\n fix broken dependencies\n"
 apt-get -f -y install
 
-printf "\n\n configure"
+printf "\n\n configure\n"
 dpkg --configure -a
 
-printf "\n\n update system"
+printf "\n\n update system\n"
 apt-get -y update
 
-printf "\n\n Install system packages"
+printf "\n\n Install system packages\n"
 apt-get -y install gcc \ 
         libssl-dev \
         apt-transport-https \
@@ -116,63 +116,63 @@ apt-get -y install gcc \
         sublime-text
 # ifconfig
 
-printf "\n\n download skype"
+printf "\n\n download skype\n"
 wget -nc --directory-prefix=/tmp https://repo.skype.com/latest/skypeforlinux-64.deb
 
-printf "\n\n install skype"
+printf "\n\n install skype\n"
 dpkg -i /tmp/skypeforlinux-64.deb
 
-printf "\n\n add nodeJs ppa"
+printf "\n\n add nodeJs ppa\n"
 curl -sL https://deb.nodesource.com/setup_9.x | -E bash -
 
-printf "\n\n install nodeJs"
+printf "\n\n install nodeJs\n"
 apt-get install -y nodejs
 
-printf "\n\n remove potential apt lock"
+printf "\n\n remove potential apt lock\n"
 rm -rf /var/cache/apt/archives/lock && rm -rf /var/lib/dpkg/lock && rm /var/cache/debconf/*.dat
 
-printf "\n\n fix broken dependencies"
+printf "\n\n fix broken dependencies\n"
 apt-get -f -y install
 
-printf "\n\n configure"
+printf "\n\n configure\n"
 dpkg --configure -a
 
-printf "\n\n update system"
+printf "\n\n update system\n"
 apt-get -y update
 
-printf "\n\n agree to ttf-mscorefonts-installer license(prepare media codecs install)"
+printf "\n\n agree to ttf-mscorefonts-installer license(prepare media codecs install)\n"
 echo ttf-mscorefonts-installer msttcorefonts/accepted-mscorefonts-eula select true | debconf-set-selections
 
-printf "\n\n Install system packages  media codecs"
+printf "\n\n Install system packages  media codecs\n"
 apt-get -y install ubuntu-restricted-extras
 
-printf "\n\n update system"
+printf "\n\n update system\n"
 apt-get -y update
 
-printf "\n\n download google chrome"
+printf "\n\n download google chrome\n"
 wget -nc --directory-prefix=/tmp https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
 
-printf "\n\n install google chrome"
+printf "\n\n install google chrome\n"
 dpkg -i /tmp/google-chrome-stable_current_amd64.deb
 
-printf "\n\n fix install chrome errors"
+printf "\n\n fix install chrome errors\n"
 apt-get -f -y install  
 
-printf "\n\n download and install vagrant"
+printf "\n\n download and install vagrant\n"
 wget -nc --directory-prefix=/tmp https://releases.hashicorp.com/vagrant/2.1.1/vagrant_2.1.1_x86_64.deb
 dpkg -i /tmp/vagrant_2.1.1_x86_64.deb
 
-printf "\n\n install vagrant cachier plugin"
+printf "\n\n install vagrant cachier plugin\n"
 vagrant plugin install vagrant-cachier vagrant-vbguest
 
-printf "\n\n install virtualbox dependencies"
+printf "\n\n install virtualbox dependencies\n"
 apt -y install libqt5opengl5
 
-printf "\n\n download and install virtualbox"
+printf "\n\n download and install virtualbox\n"
 wget -nc --directory-prefix=/tmp http://download.virtualbox.org/virtualbox/5.2.12/virtualbox-5.2_5.2.12-122591~Ubuntu~bionic_amd64.deb
 dpkg -i /tmp/virtualbox-5.2_5.2.12-122591~Ubuntu~bionic_amd64.deb
 
-printf "\n\n Install Python packages"
+printf "\n\n Install Python packages\n"
 pip install --upgrade pip \
          virtualenv \
          virtualenvwrapper \
@@ -192,7 +192,7 @@ pip install --upgrade pip \
          pylint \
          pylint-django
     
-printf "\n\n Install Python pip3 packages"
+printf "\n\n Install Python pip3 packages\n"
 pip3 install --upgrade docker-compose \
          asciinema \
          jupyter \
@@ -202,7 +202,7 @@ pip3 install --upgrade docker-compose \
 # printf "\n\n create users group"
 # group: name={{ USER }} state=present
 
-printf "\n\n create ssh-key"
+printf "\n\n create ssh-key\n"
 if [[ ! -e ~/.ssh/id_rsa.pub ]]; then
     ssh-keygen -t rsa -C komuwUbuntu -b 8192 -q -N "$SSH_KEY_PHRASE" -f /home/komuw/.ssh/id_rsa
 fi
@@ -213,10 +213,10 @@ fi
 #printf "\n\n load your key to the agent"
 #command: ssh-add ~/.ssh/id_rsa
 
-printf "\n\n your ssh public key is"
+printf "\n\n your ssh public key is\n"
 cat ~/.ssh/id_rsa.pub
 
-printf "\n\n configure ssh/config"
+printf "\n\n configure ssh/config\n"
 # there ought to be NO newlines in the content
 SSH_CONFIG_FILE_CONTENTS='Host *.github.com
   ForwardAgent yes
@@ -234,7 +234,7 @@ grep -qF -- "$SSH_CONFIG_FILE_CONTENTS" "$SSH_CONFIG_FILE" || echo "$SSH_CONFIG_
 # template: src=templates/bash_aliases.j2
 #         dest=~/.bash_aliases
 
-printf "\n\n configure .bashrc"
+printf "\n\n configure .bashrc\n"
 BASHRC_FILE_FILE_CONTENTS='#solve passphrase error in ssh
 #enable auto ssh-agent forwading
 #see: http://rabexc.org/posts/pitfalls-of-ssh-agents
@@ -254,8 +254,7 @@ BASHRC_FILE=~/.bashrc
 grep -qF -- "$BASHRC_FILE_FILE_CONTENTS" "$BASHRC_FILE" || echo "$BASHRC_FILE_FILE_CONTENTS" >> "$BASHRC_FILE"
 
 
-printf "\n\n configure gitconfig"
-
+printf "\n\n configure gitconfig\n"
 GIT_CONFIG_FILE_CONTENTS='[user]
 	name = komuw
 	email = komuw05@gmail.com
@@ -280,7 +279,7 @@ touch "$GIT_CONFIG_FILE"
 grep -qF -- "$GIT_CONFIG_FILE_CONTENTS" "$GIT_CONFIG_FILE" || echo "$GIT_CONFIG_FILE_CONTENTS" >> "$GIT_CONFIG_FILE"
 
 
-printf "\n\n configure hgrc(mercurial)"
+printf "\n\n configure hgrc(mercurial)\n"
 MERCURIAL_CONFIG_FILE_CONTENTS='[ui]
 username = komuw <komuw05@gmail.com>'
 MERCURIAL_CONFIG_FILE=~/.hgrc
@@ -288,7 +287,7 @@ touch "$MERCURIAL_CONFIG_FILE"
 grep -qF -- "$MERCURIAL_CONFIG_FILE_CONTENTS" "$MERCURIAL_CONFIG_FILE" || echo "$MERCURIAL_CONFIG_FILE_CONTENTS" >> "$MERCURIAL_CONFIG_FILE"
 
 
-printf "\n\n create pip conf"
+printf "\n\n create pip conf\n"
 mkdir -p ~/.pip
 PIP_CONFIG_FILE_CONTENTS='[global]
 download_cache = ~/.cache/pip'
@@ -296,14 +295,13 @@ PIP_CONFIG_FILE=~/.pip/pip.conf
 touch "$PIP_CONFIG_FILE"
 grep -qF -- "$PIP_CONFIG_FILE_CONTENTS" "$PIP_CONFIG_FILE" || echo "$PIP_CONFIG_FILE_CONTENTS" >> "$PIP_CONFIG_FILE"
 
-printf "\n\n create pip cache dir"
+printf "\n\n create pip cache dir\n"
 mkdir -p ~/.cache && mkdir -p ~/.cache/pip
 
-printf "\n\n give root group ownership of pip cache dir"
+printf "\n\n give root group ownership of pip cache dir\n"
 chown -R root ~/.cache/pip
 
-
-printf "\n\n create terminator conf dir"
+printf "\n\n create terminator conf dir\n"
 mkdir -p ~/.config && mkdir -p ~/.config/terminator
 TERMINATOR_CONFIG_FILE_CONTENTS='[global_config]
   enabled_plugins = LaunchpadCodeURLHandler, APTURLHandler, LaunchpadBugURLHandler
@@ -340,7 +338,7 @@ touch "$TERMINATOR_CONFIG_FILE"
 grep -qF -- "$TERMINATOR_CONFIG_FILE_CONTENTS" "$TERMINATOR_CONFIG_FILE" || echo "$TERMINATOR_CONFIG_FILE_CONTENTS" >> "$TERMINATOR_CONFIG_FILE"
 
 
-printf "\n\n configure grub conf"
+printf "\n\n configure grub conf\n"
 GRUB_CONFIG_FILE_CONTENTS='# If you change this file, run update-grub afterwards to update
 # /boot/grub/grub.cfg.
 # For full documentation of the options in this file, see:
@@ -378,34 +376,34 @@ GRUB_CONFIG_FILE=/etc/default/grub
 touch "$GRUB_CONFIG_FILE"
 grep -qF -- "$GRUB_CONFIG_FILE_CONTENTS" "$GRUB_CONFIG_FILE" || echo "$GRUB_CONFIG_FILE_CONTENTS" >> "$GRUB_CONFIG_FILE"
 
-printf "\n\n update grub"
+printf "\n\n update grub\n"
 update-grub
 
-printf "\n\n source bashrc"
+printf "\n\n source bashrc\n"
 source ~/.bashrc
 
-printf "\n\n source profile"
+printf "\n\n source profile\n"
 source ~/.profile
 
-printf "\n\n add docker apt key"
+printf "\n\n add docker apt key\n"
 curl -fsSL https://download.docker.com/linux/ubuntu/gpg | apt-key add -
-printf "\n\n verify docker key"
+printf "\n\n verify docker key\n"
 apt-key fingerprint 0EBFCD88
-printf "\n\n add docker apt repo"
+printf "\n\n add docker apt repo\n"
 add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
-printf "\n\n install docker"
+printf "\n\n install docker\n"
 apt-get -y autoremove && apt-get install -y docker-ce=*
-printf "\n\n add user to docker group"
+printf "\n\n add user to docker group\n"
 usermod -aG docker komuw && sudo usermod -aG docker $(whoami)
 
-printf "\n\n create docker dir"
+printf "\n\n create docker dir\n"
 mkdir -p ~/.docker
-printf "\n\n make docker group owner of docker dir"
+printf "\n\n make docker group owner of docker dir\n"
 chown -R root:docker ~/.docker
-printf "\n\n add proper permissions to docker dir"
+printf "\n\n add proper permissions to docker dir\n"
 chmod -R 775 ~/.docker
 
-printf "\n\n configure /etc/docker/daemon.json file"
+printf "\n\n configure /etc/docker/daemon.json file\n"
 mkdir -p /etc/docker
 DOCKER_DAEMON_CONFIG_FILE_CONTENTS='{
     "max-concurrent-downloads": 12,
@@ -416,17 +414,14 @@ touch "$DOCKER_DAEMON_CONFIG_FILE"
 grep -qF -- "$DOCKER_DAEMON_CONFIG_FILE_CONTENTS" "$DOCKER_DAEMON_CONFIG_FILE" || echo "$DOCKER_DAEMON_CONFIG_FILE_CONTENTS" >> "$DOCKER_DAEMON_CONFIG_FILE"
 
 
-printf "\n\n Remove some default system packages"
+printf "\n\n Remove some default system packages\n"
 apt-get -y purge netsurf-gtk
 
-printf "\n\n create my stuff dir"
+printf "\n\n create my stuff dir\n"
 mkdir -p $HOME/mystuff
 
-
-printf "\n\n  update"
+printf "\n\n  update\n"
 apt-get -y update
 
-printf "\n\n  add security updates"
+printf "\n\n  add security updates\n"
 apt-get -y dist-upgrade
-
-printf "\n\n THATS IT. YOU are done."
