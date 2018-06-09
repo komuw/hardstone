@@ -1,12 +1,18 @@
 #!/usr/bin/env bash
-set -e 
-set -o pipefail
+if test "$BASH" = "" || "$BASH" -uc "a=();true \"\${a[@]}\"" 2>/dev/null; then
+    # Bash 4.4, Zsh
+    set -euo pipefail
+else
+    # Bash 4.3 and older chokes on empty arrays with set -u.
+    set -eo pipefail
+fi
+shopt -s nullglob globstar
 
+# https://github.com/anordal/shellharden/blob/master/how_to_do_things_safely_in_bash.md
 
-SSH_KEY_PHRASE=$1
-
-if [ -z "$SSH_KEY_PHRASE" ]; then
-    printf "\n\n SSH_KEY_PHRASE should not be empty"
+SSH_KEY_PHRASE=${1:-sshKeyPhraseNotSet}
+if [ "$SSH_KEY_PHRASE" == "sshKeyPhraseNotSet"  ]; then
+    printf "\n\n SSH_KEY_PHRASE should not be empty\n"
     exit
 fi
 
