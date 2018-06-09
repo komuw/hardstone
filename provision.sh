@@ -35,12 +35,11 @@ printf "\n\n add sublime-text3 ppa\n"
 wget -qO - https://download.sublimetext.com/sublimehq-pub.gpg | apt-key add -
 echo "deb https://download.sublimetext.com/ apt/stable/" | tee /etc/apt/sources.list.d/sublime-text.list
 
-#transmission bittorrent, ffmpeg, mpv
+#transmission bittorrent, ffmpeg, mpv. add-apt-repository takes one repo as arg
 printf "\n\n add some ppas\n"
-add-apt-repository -y ppa:eugenesan/ppa \
-                      ppa:transmissionbt/ppa \
-                      ppa:jonathonf/ffmpeg-3 \
-                      ppa:mc3man/mpv-tests
+add-apt-repository -y ppa:eugenesan/ppa
+add-apt-repository -y  ppa:jonathonf/ffmpeg-3
+add-apt-repository -y  ppa:mc3man/mpv-tests
 
 printf "\n\n update cache\n"
 apt-get -y update
