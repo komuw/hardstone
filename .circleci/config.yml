@@ -17,9 +17,9 @@ jobs:
           command: |
             pwd; ls -lsha
 
-      -run:
-        name: pip version
-        command: |
+      - run:
+          name: pip version
+          command: |
             pip --version
 
       - run:
