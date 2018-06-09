@@ -60,8 +60,8 @@ grep -qF -- "$VSCODE_CONFIG_FILE_CONTENTS" "$VSCODE_CONFIG_FILE" || echo "$VSCOD
 printf "\n\n  install vscode extensions"
 code --install-extension magicstack.MagicPython \
                          ms-python.python \
-                         ms-vscode.Go \ 
-                         sourcegraph.sourcegraph \ 
-                         hnw.vscode-auto-open-markdown-preview \ 
-                         Dart-Code.dart-code \ 
+                         ms-vscode.Go \
+                         sourcegraph.sourcegraph \
+                         hnw.vscode-auto-open-markdown-preview \
+                         Dart-Code.dart-code \
                          Dart-Code.flutter

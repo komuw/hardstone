@@ -51,7 +51,7 @@ printf "\n\n update system\n"
 apt-get -y update
 
 printf "\n\n Install system packages\n"
-apt-get -y install gcc \ 
+apt-get -y install gcc \
         libssl-dev \
         apt-transport-https \
         ca-certificates \
@@ -97,9 +97,9 @@ apt-get -y install gcc \
         nano \
         git-flow \
         zip \
-        lxc \ 
+        lxc \
         lxc-templates  \
-        cgroup-lite \ 
+        cgroup-lite \
         redir \
         gdb \
         hexchat \
@@ -108,9 +108,9 @@ apt-get -y install gcc \
         psmisc  \
         openvpn \
         traceroute \
-        graphviz \ 
+        graphviz \
         ffmpeg \
-        libav-tools \ 
+        libav-tools \
         x264  \
         x265  \
         gdebi \
