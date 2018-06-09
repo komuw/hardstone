@@ -134,7 +134,7 @@ printf "\n\n install skype\n"
 dpkg -i /tmp/skypeforlinux-64.deb
 
 printf "\n\n add nodeJs ppa\n"
-curl -sL https://deb.nodesource.com/setup_9.x | -E bash -
+curl -sL https://deb.nodesource.com/setup_9.x | bash -
 
 printf "\n\n install nodeJs\n"
 apt-get install -y nodejs
