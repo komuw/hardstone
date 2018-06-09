@@ -21,15 +21,15 @@ fi
 printf "\n\n starting setup/provisioning....\n"
 apt-get -y update
 apt-get -y install gcc \
-                        build-essential \
-                        libssl-dev \
-                        libffi-dev \
-                        python-dev \
-                        software-properties-common \
-                        curl \
-                        wget
+                    build-essential \
+                    libssl-dev \
+                    libffi-dev \
+                    python-dev \
+                    software-properties-common \
+                    curl \
+                    wget
 curl https://bootstrap.pypa.io/get-pip.py | python - 'pip==9.0.3' # see:: https://github.com/pypa/pip/issues/5240
-pip install --ignore-installed -U pip jinja2 paramiko ansible
+pip install --ignore-installed -U pip
 apt-get -y update
 
 # When using the bash command to execute the scripts below;

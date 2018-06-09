@@ -18,25 +18,20 @@ jobs:
             pwd; ls -lsha
 
       - run:
-          name: pip version
-          command: |
-            pip --version
-
-      - run:
           name: setup
           command: |
             apt-get -y update
             apt-get -y install gcc \
-                                    build-essential \
-                                    libssl-dev \
-                                    libffi-dev \
-                                    python-dev \
-                                    software-properties-common \
-                                    python-pip
-            pip install --ignore-installed -U pip jinja2 paramiko
+                                build-essential \
+                                libssl-dev \
+                                libffi-dev \
+                                python-dev \
+                                software-properties-common \
+                                curl \
+                                wget
+            curl https://bootstrap.pypa.io/get-pip.py | python - 'pip==9.0.3' # see:: https://github.com/pypa/pip/issues/5240
+            pip install --ignore-installed -U pip
             apt-get -y update
-            apt-get -y install ansible
-            pip install -U ansible
 
       - run:
           name: provision
