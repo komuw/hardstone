@@ -7,6 +7,8 @@ else
     set -eo pipefail
 fi
 shopt -s nullglob globstar
+export DEBIAN_FRONTEND=noninteractive
+
 
 # https://github.com/anordal/shellharden/blob/master/how_to_do_things_safely_in_bash.md
 # http://wiki.bash-hackers.org/syntax/pe#use_a_default_value

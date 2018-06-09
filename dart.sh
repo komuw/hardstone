@@ -7,6 +7,7 @@ else
     set -eo pipefail
 fi
 shopt -s nullglob globstar
+export DEBIAN_FRONTEND=noninteractive
 
 
 FLUTTER_VERSION=flutter_linux_v0.3.2-beta

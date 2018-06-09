@@ -7,6 +7,7 @@ else
     set -eo pipefail
 fi
 shopt -s nullglob globstar
+export DEBIAN_FRONTEND=noninteractive
 
 
 SSH_KEY_PHRASE=${1:-sshKeyPhraseNotSet}

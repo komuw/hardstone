@@ -54,7 +54,7 @@ jobs:
             bash dart.sh
 
       - run:
-          name: daworkrt
+          name: work stuff
           command: |
             bash work_stuff.sh
 
