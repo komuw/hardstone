@@ -1,4 +1,6 @@
 #!/usr/bin/env bash
+set -e 
+set -o pipefail
 
 
 FLUTTER_VERSION=flutter_linux_v0.3.2-beta

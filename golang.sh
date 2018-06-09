@@ -1,4 +1,7 @@
 #!/usr/bin/env bash
+set -e 
+set -o pipefail
+
 
 GOLANG_VERSION=go1.10.linux-amd64
 

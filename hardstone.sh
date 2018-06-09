@@ -1,4 +1,6 @@
 #!/usr/bin/env bash
+set -e 
+set -o pipefail
 
 
 SSH_KEY_PHRASE=$1

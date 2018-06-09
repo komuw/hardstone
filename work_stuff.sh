@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
- 
+set -e 
+set -o pipefail
+
 
 printf "\n\n  configure pritunl source list"
 PRITUNL_CONFIG_FILE_CONTENTS='deb https://repo.pritunl.com/stable/apt bionic main'

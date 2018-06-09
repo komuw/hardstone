@@ -1,4 +1,7 @@
 #!/usr/bin/env bash
+set -e 
+set -o pipefail
+
 
 printf "\n\n  install xonsh and dependencies"
 python3 -m pip install -U xonsh ptk prompt_toolkit pygments
