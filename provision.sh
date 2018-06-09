@@ -56,6 +56,9 @@ dpkg --configure -a
 printf "\n\n update system\n"
 apt-get -y update
 
+printf "\n\n check DEBIAN_FRONTEND value.\n"
+echo $DEBIAN_FRONTEND
+
 printf "\n\n Install system packages\n"
 apt-get -y install gcc \
         libssl-dev \
