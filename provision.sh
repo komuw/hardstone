@@ -124,6 +124,9 @@ apt-get -y install gcc \
         sublime-text
 # ifconfig
 
+printf "\n\n install skype pre-requistes\n"
+apt -y install gconf-service libgconf-2-4 gnome-keyring
+
 printf "\n\n download skype\n"
 wget -nc --directory-prefix=/tmp https://repo.skype.com/latest/skypeforlinux-64.deb
 
