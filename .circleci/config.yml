@@ -4,19 +4,17 @@
 #
 version: 2
 jobs:
-  build:
+  provision:
     docker:
       - image: ubuntu:18.04
     working_directory: ~/repo
 
     steps:
       - checkout
-
       - run:
           name: list directory
           command: |
             pwd; ls -lsha
-
       - run:
           name: setup
           command: |
@@ -30,35 +28,159 @@ jobs:
                                 curl \
                                 wget
             curl https://bootstrap.pypa.io/get-pip.py | python - 'pip==9.0.3' # see:: https://github.com/pypa/pip/issues/5240
-            pip install --ignore-installed -U pip
-            apt-get -y update
-
       - run:
           name: provision
           command: |
             bash provision.sh mySShPasshphrase
 
+  editors:
+    docker:
+      - image: ubuntu:18.04
+    working_directory: ~/repo
+    steps:
+      - checkout
+      - run:
+          name: list directory
+          command: |
+            pwd; ls -lsha
+      - run:
+          name: setup
+          command: |
+            apt-get -y update
+            apt-get -y install gcc \
+                                build-essential \
+                                libssl-dev \
+                                libffi-dev \
+                                python-dev \
+                                software-properties-common \
+                                curl \
+                                wget
+            curl https://bootstrap.pypa.io/get-pip.py | python - 'pip==9.0.3' # see:: https://github.com/pypa/pip/issues/5240
       - run:
           name: editors
           command: |
             bash editors.sh
 
+
+  golang:
+    docker:
+      - image: ubuntu:18.04
+    working_directory: ~/repo
+    steps:
+      - checkout
+      - run:
+          name: list directory
+          command: |
+            pwd; ls -lsha
+      - run:
+          name: setup
+          command: |
+            apt-get -y update
+            apt-get -y install gcc \
+                                build-essential \
+                                libssl-dev \
+                                libffi-dev \
+                                python-dev \
+                                software-properties-common \
+                                curl \
+                                wget
+            curl https://bootstrap.pypa.io/get-pip.py | python - 'pip==9.0.3' # see:: https://github.com/pypa/pip/issues/5240
       - run:
           name: golang
           command: |
             bash golang.sh
 
+  dart:
+    docker:
+      - image: ubuntu:18.04
+    working_directory: ~/repo
+    steps:
+      - checkout
+      - run:
+          name: list directory
+          command: |
+            pwd; ls -lsha
+      - run:
+          name: setup
+          command: |
+            apt-get -y update
+            apt-get -y install gcc \
+                                build-essential \
+                                libssl-dev \
+                                libffi-dev \
+                                python-dev \
+                                software-properties-common \
+                                curl \
+                                wget
+            curl https://bootstrap.pypa.io/get-pip.py | python - 'pip==9.0.3' # see:: https://github.com/pypa/pip/issues/5240
       - run:
           name: dart
           command: |
             bash dart.sh
 
+  work:
+    docker:
+      - image: ubuntu:18.04
+    working_directory: ~/repo
+    steps:
+      - checkout
+      - run:
+          name: list directory
+          command: |
+            pwd; ls -lsha
+      - run:
+          name: setup
+          command: |
+            apt-get -y update
+            apt-get -y install gcc \
+                                build-essential \
+                                libssl-dev \
+                                libffi-dev \
+                                python-dev \
+                                software-properties-common \
+                                curl \
+                                wget
+            curl https://bootstrap.pypa.io/get-pip.py | python - 'pip==9.0.3' # see:: https://github.com/pypa/pip/issues/5240
       - run:
           name: work stuff
           command: |
             bash work_stuff.sh
 
+  xonsh:
+    docker:
+      - image: ubuntu:18.04
+    working_directory: ~/repo
+    steps:
+      - checkout
+      - run:
+          name: list directory
+          command: |
+            pwd; ls -lsha
+      - run:
+          name: setup
+          command: |
+            apt-get -y update
+            apt-get -y install gcc \
+                                build-essential \
+                                libssl-dev \
+                                libffi-dev \
+                                python-dev \
+                                software-properties-common \
+                                curl \
+                                wget
+            curl https://bootstrap.pypa.io/get-pip.py | python - 'pip==9.0.3' # see:: https://github.com/pypa/pip/issues/5240
       - run:
           name: xonsh
           command: |
             bash xonsh.sh
+
+workflows:
+  version: 2
+  provision-and-everything:
+    jobs:
+      - provision
+      - editors
+      - golang
+      - dart
+      - work
+      - xonsh
