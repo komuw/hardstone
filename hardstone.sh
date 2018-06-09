@@ -9,6 +9,7 @@ fi
 shopt -s nullglob globstar
 
 # https://github.com/anordal/shellharden/blob/master/how_to_do_things_safely_in_bash.md
+# http://wiki.bash-hackers.org/syntax/pe#use_a_default_value
 
 SSH_KEY_PHRASE=${1:-sshKeyPhraseNotSet}
 if [ "$SSH_KEY_PHRASE" == "sshKeyPhraseNotSet"  ]; then
