@@ -44,7 +44,7 @@ printf "\n\n update cache\n"
 apt-get -y update
 
 printf "\n\n remove potential apt lock\n"
-rm -rf /var/cache/apt/archives/lock && rm -rf /var/lib/dpkg/lock && rm /var/cache/debconf/*.dat
+rm -rf /var/cache/apt/archives/lock && rm -rf /var/lib/dpkg/lock && rm -rf /var/cache/debconf/*.dat
 
 printf "\n\n fix broken dependencies\n"
 apt-get -f -y install
@@ -79,7 +79,6 @@ apt-get -y install gcc \
         transmission-cli \
         transmission-common \
         transmission-daemon \
-        libav-tools  \
         vlc \
         mpv  \
         browser-plugin-vlc \
@@ -115,7 +114,6 @@ apt-get -y install gcc \
         traceroute \
         graphviz \
         ffmpeg \
-        libav-tools \
         x264  \
         x265  \
         gdebi \
