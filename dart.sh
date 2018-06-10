@@ -29,7 +29,7 @@ printf "\n\n add flutter profile\n"
 DART_CONFIG_FILE_CONTENTS='#dart and flutter
 export PATH=$PATH:/usr/local/flutter/bin
 export PATH=$PATH:/usr/lib/dart/bin'
-DART_CONFIG_FILE=etc/profile
+DART_CONFIG_FILE=/etc/profile
 touch "$DART_CONFIG_FILE"
 grep -qF -- "$DART_CONFIG_FILE_CONTENTS" "$DART_CONFIG_FILE" || echo "$DART_CONFIG_FILE_CONTENTS" >> "$DART_CONFIG_FILE"
 
