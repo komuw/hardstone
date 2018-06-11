@@ -140,7 +140,7 @@ printf "\n\n install nodeJs\n"
 apt-get install -y nodejs
 
 printf "\n\n remove potential apt lock\n"
-rm -rf /var/cache/apt/archives/lock && rm -rf /var/lib/dpkg/lock && rm /var/cache/debconf/*.dat
+rm -rf /var/cache/apt/archives/lock && rm -rf /var/lib/dpkg/lock && rm -rf /var/cache/debconf/*.dat
 
 printf "\n\n fix broken dependencies\n"
 apt-get -f -y install
