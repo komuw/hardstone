@@ -9,7 +9,8 @@ fi
 shopt -s nullglob globstar
 export DEBIAN_FRONTEND=noninteractive
 
-
+printf "\n\n install vscode dependencies \n"
+apt -y install libxkbfile1
 printf "\n\n  download vscode\n"
 wget -nc --directory-prefix=/tmp "https://go.microsoft.com/fwlink/?LinkID=760868"
 printf "\n\n  install vscode\n"
@@ -63,6 +64,7 @@ VSCODE_CONFIG_FILE_CONTENTS='{
     "dart.debugSdkLibraries": true
 }'
 VSCODE_CONFIG_FILE=/home/komuw/.config/Code/User/settings.json
+mkdir -p /home/komuw/.config/Code/User
 touch "$VSCODE_CONFIG_FILE"
 grep -qF -- "$VSCODE_CONFIG_FILE_CONTENTS" "$VSCODE_CONFIG_FILE" || echo "$VSCODE_CONFIG_FILE_CONTENTS" >> "$VSCODE_CONFIG_FILE"
 
