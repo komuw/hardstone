@@ -19,6 +19,12 @@ if [ "$SSH_KEY_PHRASE" == "sshKeyPhraseNotSet"  ]; then
     exit
 fi
 
+USER_PASSWORD=${2:-userPass}
+if [ "$USER_PASSWORD" == "userPass"  ]; then
+    printf "\n\n USER_PASSWORD should not be empty\n"
+    exit
+fi
+
 
 # When using the bash command to execute the scripts below;
 # the script are executed as other processes, so variables and functions in the other scripts will not be accessible in the hardstone.sh script
@@ -27,6 +33,10 @@ fi
 printf "\n\n CALLING preRequiste.sh::\n\n"
 /bin/bash preRequiste.sh
 printf "\n\n preRequiste.sh done::\n"
+
+printf "\n\n CALLING user.sh::\n\n"
+/bin/bash user.sh "$USER_PASSWORD"
+printf "\n\n user.sh done::\n"
 
 printf "\n\n CALLING provision.sh::\n\n"
 /bin/bash provision.sh "$SSH_KEY_PHRASE"

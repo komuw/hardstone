@@ -221,6 +221,7 @@ pip3 install --upgrade docker-compose \
 
 printf "\n\n create ssh-key\n"
 if [[ ! -e ~/.ssh/id_rsa.pub ]]; then
+    mkdir -p /home/komuw/.ssh
     ssh-keygen -t rsa -C komuwUbuntu -b 8192 -q -N "$SSH_KEY_PHRASE" -f /home/komuw/.ssh/id_rsa
 fi
 
