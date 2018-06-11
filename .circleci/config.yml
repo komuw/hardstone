@@ -7,7 +7,7 @@ jobs:
   provision:
     docker:
       - image: ubuntu:18.04
-    working_directory: ~/repo
+    working_directory: /home/komuw/repo
 
     steps:
       - checkout
@@ -27,7 +27,7 @@ jobs:
   editors:
     docker:
       - image: ubuntu:18.04
-    working_directory: ~/repo
+    working_directory: /home/komuw/repo
     steps:
       - checkout
       - run:
@@ -47,7 +47,7 @@ jobs:
   golang:
     docker:
       - image: ubuntu:18.04
-    working_directory: ~/repo
+    working_directory: /home/komuw/repo
     steps:
       - checkout
       - run:
@@ -66,7 +66,7 @@ jobs:
   dart:
     docker:
       - image: ubuntu:18.04
-    working_directory: ~/repo
+    working_directory: /home/komuw/repo
     steps:
       - checkout
       - run:
@@ -85,7 +85,7 @@ jobs:
   work:
     docker:
       - image: ubuntu:18.04
-    working_directory: ~/repo
+    working_directory: /home/komuw/repo
     steps:
       - checkout
       - run:
@@ -104,7 +104,7 @@ jobs:
   xonsh:
     docker:
       - image: ubuntu:18.04
-    working_directory: ~/repo
+    working_directory: /home/komuw/repo
     steps:
       - checkout
       - run:

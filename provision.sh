@@ -30,7 +30,7 @@ printf "\n\n rm skype\n"
 apt-get -y purge skype*
 
 printf "\n\n rm skype config\n"
-rm -rf ~/.Skype; rm -rf ~/.skype
+rm -rf /home/komuw/.Skype; rm -rf /home/komuw/.skype
 
 printf "\n\n add sublime-text3 ppa\n"
 wget -qO - https://download.sublimetext.com/sublimehq-pub.gpg | apt-key add -
@@ -220,7 +220,7 @@ pip3 install --upgrade docker-compose \
 # group: name={{ USER }} state=present
 
 printf "\n\n create ssh-key\n"
-if [[ ! -e ~/.ssh/id_rsa.pub ]]; then
+if [[ ! -e /home/komuw/.ssh/id_rsa.pub ]]; then
     mkdir -p /home/komuw/.ssh
     ssh-keygen -t rsa -C komuwUbuntu -b 8192 -q -N "$SSH_KEY_PHRASE" -f /home/komuw/.ssh/id_rsa
 fi
@@ -229,10 +229,10 @@ fi
 #shell: ssh-agent /bin/bash
 
 #printf "\n\n load your key to the agent"
-#command: ssh-add ~/.ssh/id_rsa
+#command: ssh-add /home/komuw/.ssh/id_rsa
 
 printf "\n\n your ssh public key is\n"
-cat ~/.ssh/id_rsa.pub
+cat /home/komuw/.ssh/id_rsa.pub
 
 printf "\n\n configure ssh/config\n"
 # there ought to be NO newlines in the content
@@ -243,14 +243,14 @@ Host *.bitbucket.org
 Host *.compute.amazonaws.com
   ForwardAgent yes
 ServerAliveInterval 60'
-SSH_CONFIG_FILE=~/.ssh/config
+SSH_CONFIG_FILE=/home/komuw/.ssh/config
 touch "$SSH_CONFIG_FILE"
 grep -qF -- "$SSH_CONFIG_FILE_CONTENTS" "$SSH_CONFIG_FILE" || echo "$SSH_CONFIG_FILE_CONTENTS" >> "$SSH_CONFIG_FILE"
 
 
 # printf "\n\n configure bash aliases"
 # template: src=templates/bash_aliases.j2
-#         dest=~/.bash_aliases
+#         dest=/home/komuw/.bash_aliases
 
 printf "\n\n configure .bashrc\n"
 BASHRC_FILE_FILE_CONTENTS='#solve passphrase error in ssh
@@ -258,17 +258,17 @@ BASHRC_FILE_FILE_CONTENTS='#solve passphrase error in ssh
 #see: http://rabexc.org/posts/pitfalls-of-ssh-agents
 ssh-add -l &>/dev/null
 if [ "$?" == 2 ]; then
-  test -r ~/.ssh-agent && \
-    eval "$(<~/.ssh-agent)" >/dev/null
+  test -r /home/komuw/.ssh-agent && \
+    eval "$(</home/komuw/.ssh-agent)" >/dev/null
   ssh-add -l &>/dev/null
   if [ "$?" == 2 ]; then
-    (umask 066; ssh-agent > ~/.ssh-agent)
-    eval "$(<~/.ssh-agent)" >/dev/null
+    (umask 066; ssh-agent > /home/komuw/.ssh-agent)
+    eval "$(</home/komuw/.ssh-agent)" >/dev/null
     ssh-add
   fi
 fi
 export HISTTIMEFORMAT="%d/%m/%Y %T "'
-BASHRC_FILE=~/.bashrc
+BASHRC_FILE=/home/komuw/.bashrc
 grep -qF -- "$BASHRC_FILE_FILE_CONTENTS" "$BASHRC_FILE" || echo "$BASHRC_FILE_FILE_CONTENTS" >> "$BASHRC_FILE"
 
 
@@ -292,7 +292,7 @@ GIT_CONFIG_FILE_CONTENTS='[user]
 [mergetool "meld"]
   keepBackup = false'
 
-GIT_CONFIG_FILE=~/.gitconfig
+GIT_CONFIG_FILE=/home/komuw/.gitconfig
 touch "$GIT_CONFIG_FILE"
 grep -qF -- "$GIT_CONFIG_FILE_CONTENTS" "$GIT_CONFIG_FILE" || echo "$GIT_CONFIG_FILE_CONTENTS" >> "$GIT_CONFIG_FILE"
 
@@ -300,27 +300,27 @@ grep -qF -- "$GIT_CONFIG_FILE_CONTENTS" "$GIT_CONFIG_FILE" || echo "$GIT_CONFIG_
 printf "\n\n configure hgrc(mercurial)\n"
 MERCURIAL_CONFIG_FILE_CONTENTS='[ui]
 username = komuw <komuw05@gmail.com>'
-MERCURIAL_CONFIG_FILE=~/.hgrc
+MERCURIAL_CONFIG_FILE=/home/komuw/.hgrc
 touch "$MERCURIAL_CONFIG_FILE"
 grep -qF -- "$MERCURIAL_CONFIG_FILE_CONTENTS" "$MERCURIAL_CONFIG_FILE" || echo "$MERCURIAL_CONFIG_FILE_CONTENTS" >> "$MERCURIAL_CONFIG_FILE"
 
 
 printf "\n\n create pip conf\n"
-mkdir -p ~/.pip
+mkdir -p /home/komuw/.pip
 PIP_CONFIG_FILE_CONTENTS='[global]
-download_cache = ~/.cache/pip'
-PIP_CONFIG_FILE=~/.pip/pip.conf
+download_cache = /home/komuw/.cache/pip'
+PIP_CONFIG_FILE=/home/komuw/.pip/pip.conf
 touch "$PIP_CONFIG_FILE"
 grep -qF -- "$PIP_CONFIG_FILE_CONTENTS" "$PIP_CONFIG_FILE" || echo "$PIP_CONFIG_FILE_CONTENTS" >> "$PIP_CONFIG_FILE"
 
 printf "\n\n create pip cache dir\n"
-mkdir -p ~/.cache && mkdir -p ~/.cache/pip
+mkdir -p /home/komuw/.cache && mkdir -p /home/komuw/.cache/pip
 
 printf "\n\n give root group ownership of pip cache dir\n"
-chown -R root ~/.cache/pip
+chown -R root /home/komuw/.cache/pip
 
 printf "\n\n create terminator conf dir\n"
-mkdir -p ~/.config && mkdir -p ~/.config/terminator
+mkdir -p /home/komuw/.config && mkdir -p /home/komuw/.config/terminator
 TERMINATOR_CONFIG_FILE_CONTENTS='[global_config]
   enabled_plugins = LaunchpadCodeURLHandler, APTURLHandler, LaunchpadBugURLHandler
 [keybindings]
@@ -351,7 +351,7 @@ TERMINATOR_CONFIG_FILE_CONTENTS='[global_config]
       type = Window
       parent = ""
 [plugins]'
-TERMINATOR_CONFIG_FILE=~/.config/terminator/config
+TERMINATOR_CONFIG_FILE=/home/komuw/.config/terminator/config
 touch "$TERMINATOR_CONFIG_FILE"
 grep -qF -- "$TERMINATOR_CONFIG_FILE_CONTENTS" "$TERMINATOR_CONFIG_FILE" || echo "$TERMINATOR_CONFIG_FILE_CONTENTS" >> "$TERMINATOR_CONFIG_FILE"
 
@@ -398,10 +398,10 @@ printf "\n\n update grub\n"
 update-grub
 
 printf "\n\n source bashrc\n"
-source ~/.bashrc
+source /home/komuw/.bashrc
 
 printf "\n\n source profile\n"
-source ~/.profile
+source /home/komuw/.profile
 
 printf "\n\n add docker apt key\n"
 curl -fsSL https://download.docker.com/linux/ubuntu/gpg | apt-key add -
@@ -415,11 +415,11 @@ printf "\n\n add user to docker group\n"
 usermod -aG docker komuw && usermod -aG docker $(whoami)
 
 printf "\n\n create docker dir\n"
-mkdir -p ~/.docker
+mkdir -p /home/komuw/.docker
 printf "\n\n make docker group owner of docker dir\n"
-chown -R root:docker ~/.docker
+chown -R root:docker /home/komuw/.docker
 printf "\n\n add proper permissions to docker dir\n"
-chmod -R 775 ~/.docker
+chmod -R 775 /home/komuw/.docker
 
 printf "\n\n configure /etc/docker/daemon.json file\n"
 mkdir -p /etc/docker

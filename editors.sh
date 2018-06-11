@@ -62,7 +62,7 @@ VSCODE_CONFIG_FILE_CONTENTS='{
     "dart.debugExternalLibraries": true,
     "dart.debugSdkLibraries": true
 }'
-VSCODE_CONFIG_FILE=~/.config/Code/User/settings.json
+VSCODE_CONFIG_FILE=/home/komuw/.config/Code/User/settings.json
 touch "$VSCODE_CONFIG_FILE"
 grep -qF -- "$VSCODE_CONFIG_FILE_CONTENTS" "$VSCODE_CONFIG_FILE" || echo "$VSCODE_CONFIG_FILE_CONTENTS" >> "$VSCODE_CONFIG_FILE"
 

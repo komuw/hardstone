@@ -93,26 +93,26 @@ pip install -U virtualenv \
            flake8
 
 printf "\n::SETUP ssh key, but do not overwrite\n\n"
-cat /dev/zero | ssh-keygen -t rsa -C "komuw@Mac" -b 4096 -q -N $SSH_PASSPHRASE -f ~/.ssh/id_rsa
+cat /dev/zero | ssh-keygen -t rsa -C "komuw@Mac" -b 4096 -q -N $SSH_PASSPHRASE -f /home/komuw/.ssh/id_rsa
 
 printf "\n::SHOW me my ssh key damn it\n\n"
-cat ~/.ssh/id_rsa.pub
+cat /home/komuw/.ssh/id_rsa.pub
 
 printf "\n::CREATE dirs\n\n"
-mkdir -p ~/swat
-mkdir -p ~/mystuff
+mkdir -p /home/komuw/swat
+mkdir -p /home/komuw/mystuff
 
 printf "\n::INSTALL golang\n\n"
 wget -nc "https://storage.googleapis.com/golang/go1.7.1.darwin-amd64.pkg"
 tar -C /usr/local -xzf golang/go1.7.1.darwin-amd64.pkg
 
 printf "\n::COPY conf files\n\n"
-cp templates/mac/atom.config.cson.j2 ~/.atom/config.cson
-cp templates/mac/bash_aliases.j2 ~/.bash_aliases
-cp templates/mac/gitconfig.j2 ~/.ssh/config
-cp templates/mac/hgrc.j2 ~/.hgrc
-cp templates/pep8.j2 ~/.config/pep8
-cp templates/xonshrc.j2 ~/.xonshrc
+cp templates/mac/atom.config.cson.j2 /home/komuw/.atom/config.cson
+cp templates/mac/bash_aliases.j2 /home/komuw/.bash_aliases
+cp templates/mac/gitconfig.j2 /home/komuw/.ssh/config
+cp templates/mac/hgrc.j2 /home/komuw/.hgrc
+cp templates/pep8.j2 /home/komuw/.config/pep8
+cp templates/xonshrc.j2 /home/komuw/.xonshrc
 
 printf "\n::WGET sublimetext and install\n\n"
 wget -nc --directory-prefix=/tmp "https://download.sublimetext.com/Sublime%20Text%20Build%203124.dmg"
