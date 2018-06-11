@@ -160,6 +160,12 @@ apt-get -y install ubuntu-restricted-extras
 printf "\n\n update system\n"
 apt-get -y update
 
+printf "\n\n install chrome dependencies\n"
+apt-get -y install libdbusmenu-glib4 \
+                   libdbusmenu-gtk3-4 \
+                   libindicator3-7 \
+                   libappindicator3-1
+
 printf "\n\n download google chrome\n"
 wget -nc --directory-prefix=/tmp https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
 
