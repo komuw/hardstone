@@ -400,9 +400,6 @@ update-grub
 printf "\n\n source bashrc\n"
 source /home/komuw/.bashrc
 
-printf "\n\n source profile\n"
-source /home/komuw/.profile
-
 printf "\n\n add docker apt key\n"
 curl -fsSL https://download.docker.com/linux/ubuntu/gpg | apt-key add -
 printf "\n\n verify docker key\n"
