@@ -33,9 +33,6 @@ DART_CONFIG_FILE=/etc/profile
 touch "$DART_CONFIG_FILE"
 grep -qF -- "$DART_CONFIG_FILE_CONTENTS" "$DART_CONFIG_FILE" || echo "$DART_CONFIG_FILE_CONTENTS" >> "$DART_CONFIG_FILE"
 
-printf "\n\n  source profile\n"
-source /etc/profile
-
 printf "\n\n  give {{ansible_ssh_user}} perms on flutter dir\n"
 chown -R komuw /usr/local/flutter
 
