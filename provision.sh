@@ -36,10 +36,11 @@ printf "\n\n add sublime-text3 ppa\n"
 wget -qO - https://download.sublimetext.com/sublimehq-pub.gpg | apt-key add -
 echo "deb https://download.sublimetext.com/ apt/stable/" | tee /etc/apt/sources.list.d/sublime-text.list
 
-#transmission bittorrent, mpv. add-apt-repository takes one repo as arg
+#transmission bittorrent, mpv, wireguard. add-apt-repository takes one repo as arg
 printf "\n\n add some ppas\n"
 add-apt-repository -y ppa:eugenesan/ppa
 add-apt-repository -y  ppa:mc3man/mpv-tests
+add-apt-repository -y ppa:wireguard/wireguard
 
 printf "\n\n update cache\n"
 apt-get -y update
@@ -121,7 +122,8 @@ apt-get -y install gcc \
         x264  \
         x265  \
         gdebi \
-        sublime-text
+        sublime-text \
+	wireguard
 # ifconfig
 
 printf "\n\n install skype pre-requistes\n"
