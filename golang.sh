@@ -30,36 +30,46 @@ mkdir -p $HOME/go/src/github.com/komuw
 
 # gomacro repl. usage: rlwrap gomacro --collect --force-overwrite --repl --very-verbose
 printf "\n\n go get some golang packages\n"
-export GOPATH="$HOME/go" && go get -u neugram.io/ng \
-                                        github.com/motemen/gore \
-                                        github.com/yunabe/lgo/cmd/lgo \
-                                        github.com/yunabe/lgo/cmd/lgo-internal \
-                                        github.com/nsf/gocode \
-                                        github.com/k0kubun/pp \
-                                        golang.org/x/tools/cmd/godoc \
-                                        github.com/derekparker/delve/cmd/dlv \
-                                        github.com/rs/zerolog \
-                                        github.com/pkg/errors \
-                                        github.com/alecthomas/gometalinter \
-                                        github.com/d4l3k/go-pry \
-                                        github.com/cosmos72/gomacro \
-                                        github.com/sourcegraph/go-langserver \
-                                        github.com/golang/dep/cmd/dep \
-                                        github.com/google/gops \
-                                        github.com/sanity-io/litter \
-                                        github.com/rogpeppe/godef \
-                                        github.com/golang/lint/golint \
-                                        github.com/lukehoban/go-outline \
-                                        sourcegraph.com/sqs/goreturns \
-                                        golang.org/x/tools/cmd/gorename \
-                                        github.com/tpng/gopkgs \
-                                        github.com/newhook/go-symbols \
-                                        golang.org/x/tools/cmd/guru \
-                                        github.com/ramya-rao-a/go-outline
-                                                            
+export GOPATH="$HOME/go" && \
+export PATH=$PATH:/usr/local/go/bin && \
+export PATH=$HOME/go/bin:$PATH && \
+go get -u -v neugram.io/ng \
+		github.com/motemen/gore \
+		github.com/yunabe/lgo/cmd/lgo \
+		github.com/yunabe/lgo/cmd/lgo-internal \
+		github.com/nsf/gocode \
+		github.com/k0kubun/pp \
+		golang.org/x/tools/cmd/godoc \
+		github.com/derekparker/delve/cmd/dlv \
+		github.com/rs/zerolog \
+		github.com/pkg/errors \
+		github.com/alecthomas/gometalinter \
+		github.com/d4l3k/go-pry \
+		github.com/cosmos72/gomacro \
+		github.com/sourcegraph/go-langserver \
+		github.com/golang/dep/cmd/dep \
+		github.com/google/gops \
+		github.com/sanity-io/litter \
+		github.com/rogpeppe/godef \
+		github.com/golang/lint/golint \
+		github.com/lukehoban/go-outline \
+		sourcegraph.com/sqs/goreturns \
+		golang.org/x/tools/cmd/gorename \
+		github.com/tpng/gopkgs \
+		github.com/newhook/go-symbols \
+		golang.org/x/tools/cmd/guru \
+		github.com/ramya-rao-a/go-outline
+		                    
 
 printf "\n\n  install some golang packages\n"
-export GOPATH="$HOME/go" && go install github.com/d4l3k/go-pry # debugger/repl
+export GOPATH="$HOME/go" && \
+export PATH=$PATH:/usr/local/go/bin && \
+export PATH=$HOME/go/bin:$PATH && \
+go install github.com/d4l3k/go-pry # debugger/repl
  
 printf "\n\n  install go linters\n"
-export GOPATH="$HOME/go" && gometalinter --install
+export GOPATH="$HOME/go" && \
+export PATH=$PATH:/usr/local/go/bin && \
+export PATH=$HOME/go/bin:$PATH && \
+gometalinter --install
+

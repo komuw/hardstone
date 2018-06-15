@@ -69,10 +69,15 @@ touch "$VSCODE_CONFIG_FILE"
 grep -qF -- "$VSCODE_CONFIG_FILE_CONTENTS" "$VSCODE_CONFIG_FILE" || echo "$VSCODE_CONFIG_FILE_CONTENTS" >> "$VSCODE_CONFIG_FILE"
 
 printf "\n\n  install vscode extensions\n"
-code --install-extension magicstack.MagicPython \
-                         ms-python.python \
-                         ms-vscode.Go \
-                         sourcegraph.sourcegraph \
-                         hnw.vscode-auto-open-markdown-preview \
-                         Dart-Code.dart-code \
-                         Dart-Code.flutter
+export GOPATH="$HOME/go" && \
+export PATH=$PATH:/usr/local/go/bin && \
+export PATH=$HOME/go/bin:$PATH
+code --user-data-dir='.' --install-extension magicstack.MagicPython
+code --user-data-dir='.' --install-extension ms-python.python
+code --user-data-dir='.' --install-extension Dart-Code.dart-code
+code --user-data-dir='.' --install-extension Dart-Code.flutter
+code --user-data-dir='.' --install-extension sourcegraph.sourcegraph
+code --user-data-dir='.' --install-extension hnw.vscode-auto-open-markdown-preview
+code --user-data-dir='.' --install-extension ms-vscode.Go
+
+

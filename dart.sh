@@ -37,6 +37,8 @@ printf "\n\n  give {{ansible_ssh_user}} perms on flutter dir\n"
 chown -R komuw /usr/local/flutter
 
 printf "\n\n  check flutter version\n"
+export PATH=$PATH:/usr/local/flutter/bin && \
+export PATH=$PATH:/usr/lib/dart/bin
 flutter --version
 
 printf "\n\n  download android-studio\n"

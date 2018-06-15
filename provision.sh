@@ -404,9 +404,11 @@ curl -fsSL https://download.docker.com/linux/ubuntu/gpg | apt-key add -
 printf "\n\n verify docker key\n"
 apt-key fingerprint 0EBFCD88
 printf "\n\n add docker apt repo\n"
-add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
+add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) test"
+printf "\n\n update system\n"
+apt -y update
 printf "\n\n install docker\n"
-apt-get -y autoremove && apt-get install -y docker-ce=*
+apt -y autoremove && apt -y install docker-ce
 printf "\n\n add user to docker group\n"
 usermod -aG docker komuw && usermod -aG docker $(whoami)
 
@@ -427,9 +429,6 @@ DOCKER_DAEMON_CONFIG_FILE=/etc/docker/daemon.json
 touch "$DOCKER_DAEMON_CONFIG_FILE"
 grep -qF -- "$DOCKER_DAEMON_CONFIG_FILE_CONTENTS" "$DOCKER_DAEMON_CONFIG_FILE" || echo "$DOCKER_DAEMON_CONFIG_FILE_CONTENTS" >> "$DOCKER_DAEMON_CONFIG_FILE"
 
-
-printf "\n\n Remove some default system packages\n"
-apt-get -y purge netsurf-gtk
 
 printf "\n\n create my stuff dir\n"
 mkdir -p $HOME/mystuff

@@ -42,13 +42,13 @@ printf "\n\n CALLING provision.sh::\n\n"
 /bin/bash provision.sh "$SSH_KEY_PHRASE"
 printf "\n\n provision.sh done::\n"
 
-printf "\n\n CALLING editors.sh::\n\n"
-/bin/bash editors.sh
-printf "\n\n editors.sh done::\n"
-
 printf "\n\n CALLING golang.sh::\n\n"
 /bin/bash golang.sh
 printf "\n\n golang.sh done::\n"
+
+printf "\n\n CALLING editors.sh::\n\n"
+/bin/bash editors.sh
+printf "\n\n editors.sh done::\n"
 
 printf "\n\n CALLING dart.sh::\n\n"
 /bin/bash dart.sh
