@@ -67,6 +67,7 @@ VSCODE_CONFIG_FILE_CONTENTS='{
 VSCODE_CONFIG_FILE=/home/komuw/.config/Code/User/settings.json
 mkdir -p /home/komuw/.config/Code/User
 touch "$VSCODE_CONFIG_FILE"
+chown -R komuw:komuw /home/komuw/.config/Code/
 grep -qF -- "$VSCODE_CONFIG_FILE_CONTENTS" "$VSCODE_CONFIG_FILE" || echo "$VSCODE_CONFIG_FILE_CONTENTS" >> "$VSCODE_CONFIG_FILE"
 
 printf "\n\n  install vscode extensions\n"
@@ -80,5 +81,3 @@ code --user-data-dir='.' --install-extension Dart-Code.flutter
 code --user-data-dir='.' --install-extension sourcegraph.sourcegraph
 code --user-data-dir='.' --install-extension hnw.vscode-auto-open-markdown-preview
 code --user-data-dir='.' --install-extension ms-vscode.Go
-
-

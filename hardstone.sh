@@ -46,9 +46,9 @@ printf "\n\n CALLING golang.sh::\n\n"
 /bin/bash golang.sh
 printf "\n\n golang.sh done::\n"
 
-printf "\n\n CALLING editors.sh::\n\n"
-/bin/bash editors.sh
-printf "\n\n editors.sh done::\n"
+printf "\n\n CALLING vscode.sh::\n\n"
+/bin/bash vscode.sh
+printf "\n\n vscode.sh done::\n"
 
 printf "\n\n CALLING dart.sh::\n\n"
 /bin/bash dart.sh

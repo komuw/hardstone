@@ -39,9 +39,9 @@ jobs:
           command: |
             bash preRequiste.sh
       - run:
-          name: editors
+          name: vscode
           command: |
-            bash editors.sh
+            bash vscode.sh
 
 
   golang:
