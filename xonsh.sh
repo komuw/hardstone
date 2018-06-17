@@ -11,7 +11,8 @@ export DEBIAN_FRONTEND=noninteractive
 
 
 printf "\n\n  install xonsh and dependencies\n"
-python3 -m pip install -U xonsh ptk prompt_toolkit pygments
+# we need prompt_toolkit < 2.0 see bug; https://github.com/xonsh/xonsh/issues/2662
+python3 -m pip install -U xonsh ptk prompt_toolkit==1.0.15 pygments
 
 printf "\n\n  configure xonsh.config.json.j2\n"
 XONSH_CONFIG_FILE_CONTENTS='# docs:
