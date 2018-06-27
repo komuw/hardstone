@@ -52,6 +52,11 @@ VSCODE_CONFIG_FILE_CONTENTS='{
         "-r",
         "-aaaaaaaaaa"
     ],
+    "python.formatting.blackArgs": [
+        "--line-length=100",
+        "--py36"
+    ],
+    "python.formatting.provider": "black",
     "python.autoComplete.addBrackets": true,
     "python.venvFolders": [
         "envs",
