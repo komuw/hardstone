@@ -43,7 +43,8 @@ VSCODE_CONFIG_FILE_CONTENTS='{
         "--load-plugins",
         "pylint_django",
         "--enable=E",
-        "--disable=W,R,C"
+        "--disable=W,R,C",
+        "--unsafe-load-any-extension=y"
     ],
     "python.formatting.autopep8Args": [
         "--experimental",
