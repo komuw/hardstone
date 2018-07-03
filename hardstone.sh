@@ -58,8 +58,14 @@ printf "\n\n CALLING work_stuff.sh::\n\n"
 /bin/bash work_stuff.sh
 printf "\n\n work_stuff.sh done::\n"
 
-printf "\n\n CALLING xonsh.sh::\n\n"
-/bin/bash xonsh.sh
-printf "\n\n xonsh.sh done::\n"
+# printf "\n\n CALLING xonsh.sh::\n\n"
+# /bin/bash xonsh.sh
+# printf "\n\n xonsh.sh done::\n"
+
+# I'm moving on from xonsh. I've experienced too many
+# issues everytime I update it, eg; https://github.com/xonsh/xonsh/issues/2662
+printf "\n\n CALLING ohmyz.sh::\n\n"
+/bin/bash ohmyz.sh
+printf "\n\n ohmyz.sh done::\n"
 
 printf "\n\n WHOLE SYSTEM SUCCESFULLY SETUP.\n"
