@@ -95,7 +95,13 @@ fi
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
 source $ZSH/oh-my-zsh.sh
-source ~/.bash_profile
-source ~/.profile
-source ~/.bashrc
-source /etc/profile
+{ # try
+
+  source ~/.bash_profile && \
+  source ~/.profile && \
+  source ~/.bashrc && \
+  source /etc/profile
+
+} || { # catch
+  printf "\nsourcing some files failed. \n"
+}
