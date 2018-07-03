@@ -27,4 +27,4 @@ printf "\n\n Add ohmyzsh config \n"
 cp templates/zshrc.j2 ~/.zshrc
 
 printf "\n\n  activate zsh shell\n"
-chsh -s /bin/zsh
+chsh -s $(which zsh)
