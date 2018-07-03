@@ -97,10 +97,11 @@ fi
 source $ZSH/oh-my-zsh.sh
 { # try
 
-  source ~/.bash_profile && \
-  source ~/.profile && \
-  source ~/.bashrc && \
-  source /etc/profile
+  source ~/.profile
+  # sourcing this other files aint working
+  # source /etc/profile && \
+  # source ~/.bashrc && \
+  # source ~/.bash_profile
 
 } || { # catch
   printf "\nsourcing some files failed. \n"
