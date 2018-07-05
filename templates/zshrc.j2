@@ -106,3 +106,28 @@ source $ZSH/oh-my-zsh.sh
 } || { # catch
   printf "\nsourcing some files failed. \n"
 }
+
+# Append this paths to $PATH
+for x ("$HOME/.nvm/bin/" \
+       "$HOME/go/bin" \
+       "/usr/local/go/bin" \
+       "/usr/local/flutter/bin" \
+       "/usr/local/sbin" \
+       "/usr/local/bin" \
+       "/usr/sbin" \
+       "/usr/bin" \
+       "/sbin:/bin" \
+       "/usr/games" \
+       "/usr/local/games" \
+       "/snap/bin" \
+       "/usr/local/lib/python2.7/dist-packages" \
+       "/usr/local/lib/python3.5/dist-packages" \
+       "/usr/local/lib/python3.6/dist-packages/" \
+       "/usr/local/lib/python3.7/dist-packages/" \
+       "/usr/lib/dart/bin" \
+       "/home/komuw/.pub-cache/bin"); \
+do path+=($x); \
+done
+
+# export PATH
+export PATH
