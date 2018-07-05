@@ -19,7 +19,7 @@ bash hardstone.sh mySshKeyPassphrase UserPassword
 * go make a cup of coffee, this may take a while
 * your dev environment is ready
 
-## How will this setup f**ck up my computer?                  
+## How will this setup mess up my computer?                  
 
 relax home boy. this setup will install and configure: 
 * openssh-client
