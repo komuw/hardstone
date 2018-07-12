@@ -25,3 +25,8 @@ apt-get -y install gcc \
 curl https://bootstrap.pypa.io/get-pip.py | python - 'pip==9.0.3' # see:: https://github.com/pypa/pip/issues/5240
 pip install --ignore-installed -U pip
 apt-get -y update
+
+printf "\n\n set locale\n"
+LOCALE_CONFIG_FILE_CONTENTS='#locale
+export LC_ALL="en_US.UTF-8"'
+grep -qF -- "$LOCALE_CONFIG_FILE_CONTENTS" /etc/profile || echo "$LOCALE_CONFIG_FILE_CONTENTS" >> /etc/profile
