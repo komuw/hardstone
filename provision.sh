@@ -226,6 +226,9 @@ if [[ ! -e /home/komuw/.ssh/id_rsa.pub ]]; then
     mkdir -p /home/komuw/.ssh
     ssh-keygen -t rsa -C komuwUbuntu -b 8192 -q -N "$SSH_KEY_PHRASE" -f /home/komuw/.ssh/id_rsa
 fi
+chmod 600 ~/.ssh/id_rsa
+chmod 600 ~/.ssh/id_rsa.pub
+chown -R komuw:komuw /home/komuw/.ssh
 
 #printf "\n\n start ssh-agent"
 #shell: ssh-agent /bin/bash
@@ -432,6 +435,7 @@ grep -qF -- "$DOCKER_DAEMON_CONFIG_FILE_CONTENTS" "$DOCKER_DAEMON_CONFIG_FILE" |
 
 printf "\n\n create my stuff dir\n"
 mkdir -p $HOME/mystuff
+chown -R komuw:komuw $HOME/mystuff
 
 printf "\n\n  update\n"
 apt-get -y update

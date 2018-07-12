@@ -10,7 +10,7 @@ shopt -s nullglob globstar
 export DEBIAN_FRONTEND=noninteractive
 
 
-FLUTTER_VERSION=flutter_linux_v0.3.2-beta
+FLUTTER_VERSION=flutter_linux_v0.5.1-beta
 
 printf "\n\n  add Dart(dev version) apt key\n"
 sh -c 'curl https://storage.googleapis.com/download.dartlang.org/linux/debian/dart_unstable.list > /etc/apt/sources.list.d/dart_unstable.list'
@@ -42,10 +42,10 @@ export PATH=$PATH:/usr/lib/dart/bin
 flutter --version
 
 printf "\n\n  download android-studio\n"
-wget -nc --directory-prefix=/usr/local https://dl.google.com/dl/android/studio/ide-zips/3.1.2.0/android-studio-ide-173.4720617-linux.zip
+wget -nc --directory-prefix=/usr/local https://dl.google.com/dl/android/studio/ide-zips/3.1.3.0/android-studio-ide-173.4819257-linux.zip
 
 printf "\n\n  unzip android-studio file\n"
-unzip /usr/local/android-studio-ide-173.4720617-linux.zip -d /usr/local/android-studio/
+unzip /usr/local/android-studio-ide-173.4819257-linux.zip -d /usr/local/android-studio/
 
 printf "\n\n  install kvm(useful for android emulator acceleration)\n"
 apt -y update; apt -y install qemu-kvm libvirt-bin ubuntu-vm-builder bridge-utils
