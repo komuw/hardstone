@@ -58,8 +58,8 @@ go get -u -v neugram.io/ng \
 		github.com/tpng/gopkgs \
 		github.com/newhook/go-symbols \
 		golang.org/x/tools/cmd/guru \
-		github.com/ramya-rao-a/go-outline
-		                    
+		github.com/ramya-rao-a/go-outline \
+		github.com/google/pprof		                    
 
 printf "\n\n  install some golang packages\n"
 export GOPATH="$HOME/go" && \
