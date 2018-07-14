@@ -30,6 +30,7 @@ mkdir -p $HOME/go/src/github.com/komuw
 
 printf "\n\n change ownership of ~/go\n"
 chown -R komuw:komuw $HOME/go
+chown -R komuw:komuw $HOME/.cache/go-build
 
 # gomacro repl. usage: rlwrap gomacro --collect --force-overwrite --repl --very-verbose
 printf "\n\n go get some golang packages\n"
