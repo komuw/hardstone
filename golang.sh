@@ -28,6 +28,9 @@ grep -qF -- "$GOLANG_PROFILE_CONFIG_FILE_CONTENTS" "$GOLANG_PROFILE_CONFIG_FILE"
 printf "\n\n  create golang code github dir\n"
 mkdir -p $HOME/go/src/github.com/komuw
 
+printf "\n\n change ownership of ~/go\n"
+chown -R komuw:komuw $HOME/go
+
 # gomacro repl. usage: rlwrap gomacro --collect --force-overwrite --repl --very-verbose
 printf "\n\n go get some golang packages\n"
 export GOPATH="$HOME/go" && \
