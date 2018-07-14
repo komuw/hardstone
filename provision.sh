@@ -123,7 +123,9 @@ apt-get -y install gcc \
         x265  \
         gdebi \
         sublime-text \
-	wireguard
+	wireguard \
+	net-tools
+
 # ifconfig
 
 printf "\n\n install skype pre-requistes\n"
