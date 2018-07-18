@@ -136,3 +136,8 @@ export PATH
 # https://github.com/zsh-users/zsh-autosuggestions
 ZSH_AUTOSUGGEST_STRATEGY=match_prev_cmd
 ######################################### 
+
+# each terminal tab should keep its own history
+# https://github.com/robbyrussell/oh-my-zsh/issues/2537
+setopt no_share_history
+unsetopt share_history
