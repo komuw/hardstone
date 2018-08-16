@@ -19,8 +19,10 @@ dpkg -i /tmp/index.html\?LinkID\=760868
 # on MacOs it is /Users/komuw/Library/Application\ Support/Code/User/settings.json
 printf "\n\n  configure vscode user settings file\n"
 mkdir -p /home/komuw/.config/Code/User
+mkdir -p /home/komuw/.vscode
 touch /home/komuw/.config/Code/User/settings.json
 chown -R komuw:komuw /home/komuw/.config/Code/
+chown -R komuw:komuw /home/komuw/.vscode
 cp templates/vscode.j2 /home/komuw/.config/Code/User/settings.json
 
 printf "\n\n  install vscode extensions\n"
