@@ -124,7 +124,8 @@ apt-get -y install gcc \
         gdebi \
         sublime-text \
 	wireguard \
-	net-tools
+	net-tools \
+	aria2
 
 # ifconfig
 
