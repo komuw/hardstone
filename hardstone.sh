@@ -68,4 +68,8 @@ printf "\n\n CALLING ohmyz.sh::\n\n"
 /bin/bash ohmyz.sh
 printf "\n\n ohmyz.sh done::\n"
 
+printf "\n\n CALLING media.sh::\n\n"
+/bin/bash media.sh
+printf "\n\n media.sh done::\n"
+
 printf "\n\n WHOLE SYSTEM SUCCESFULLY SETUP.\n"
