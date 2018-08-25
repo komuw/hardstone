@@ -10,7 +10,7 @@ shopt -s nullglob globstar
 export DEBIAN_FRONTEND=noninteractive
 
 
-GOLANG_VERSION=go1.10.linux-amd64
+GOLANG_VERSION=go1.11.linux-amd64
 
 printf "\n\n  download golang\n"
 wget -nc --directory-prefix=/usr/local "https://dl.google.com/go/$GOLANG_VERSION.tar.gz"
