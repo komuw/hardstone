@@ -103,8 +103,8 @@ mkdir -p /home/komuw/swat
 mkdir -p /home/komuw/mystuff
 
 printf "\n::INSTALL golang\n\n"
-wget -nc "https://storage.googleapis.com/golang/go1.7.1.darwin-amd64.pkg"
-tar -C /usr/local -xzf golang/go1.7.1.darwin-amd64.pkg
+wget -nc "https://storage.googleapis.com/golang/go1.11.darwin-amd64.pkg"
+tar -C /usr/local -xzf golang/go1.11.darwin-amd64.pkg
 
 printf "\n::COPY conf files\n\n"
 cp templates/mac/atom.config.cson.j2 /home/komuw/.atom/config.cson
