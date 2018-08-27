@@ -65,7 +65,7 @@ golang.org/x/tools/cmd/guru \
 github.com/ramya-rao-a/go-outline \
 github.com/google/pprof
 do
-    printf "\n\n go getting $i \n"
+    printf "\n\ngo getting $i \n"
     go get -u "$i"
     printf "DONE getting $i"
 done                    
