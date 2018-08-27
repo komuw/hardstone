@@ -65,10 +65,10 @@ golang.org/x/tools/cmd/guru \
 github.com/ramya-rao-a/go-outline \
 github.com/google/pprof
 do
-    printf "\n go getting $i \n"
+    printf "\n\n go getting $i \n"
     go get -u "$i"
-    printf "\n DONE getting $i"
-done	                    
+    printf "DONE getting $i"
+done                    
 
 printf "\n\n  install some golang packages\n"
 export GOPATH="$HOME/go" && \
