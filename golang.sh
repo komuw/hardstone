@@ -36,34 +36,39 @@ chown -R komuw:komuw $HOME/.cache/go-build
 printf "\n\n go get some golang packages\n"
 export GOPATH="$HOME/go" && \
 export PATH=$PATH:/usr/local/go/bin && \
-export PATH=$HOME/go/bin:$PATH && \
-go get -u -v neugram.io/ng \
-		github.com/motemen/gore \
-		github.com/yunabe/lgo/cmd/lgo \
-		github.com/yunabe/lgo/cmd/lgo-internal \
-		github.com/nsf/gocode \
-		github.com/k0kubun/pp \
-		golang.org/x/tools/cmd/godoc \
-		github.com/derekparker/delve/cmd/dlv \
-		github.com/rs/zerolog \
-		github.com/pkg/errors \
-		github.com/alecthomas/gometalinter \
-		github.com/d4l3k/go-pry \
-		github.com/cosmos72/gomacro \
-		github.com/sourcegraph/go-langserver \
-		github.com/golang/dep/cmd/dep \
-		github.com/google/gops \
-		github.com/sanity-io/litter \
-		github.com/rogpeppe/godef \
-		github.com/golang/lint/golint \
-		github.com/lukehoban/go-outline \
-		sourcegraph.com/sqs/goreturns \
-		golang.org/x/tools/cmd/gorename \
-		github.com/tpng/gopkgs \
-		github.com/newhook/go-symbols \
-		golang.org/x/tools/cmd/guru \
-		github.com/ramya-rao-a/go-outline \
-		github.com/google/pprof		                    
+export PATH=$HOME/go/bin:$PATH
+for i in neugram.io/ng \
+github.com/motemen/gore \
+github.com/yunabe/lgo/cmd/lgo \
+github.com/yunabe/lgo/cmd/lgo-internal \
+github.com/nsf/gocode \
+github.com/k0kubun/pp \
+golang.org/x/tools/cmd/godoc \
+github.com/derekparker/delve/cmd/dlv \
+github.com/rs/zerolog \
+github.com/pkg/errors \
+github.com/alecthomas/gometalinter \
+github.com/d4l3k/go-pry \
+github.com/cosmos72/gomacro \
+github.com/sourcegraph/go-langserver \
+github.com/golang/dep/cmd/dep \
+github.com/google/gops \
+github.com/sanity-io/litter \
+github.com/rogpeppe/godef \
+github.com/golang/lint/golint \
+github.com/lukehoban/go-outline \
+sourcegraph.com/sqs/goreturns \
+golang.org/x/tools/cmd/gorename \
+github.com/tpng/gopkgs \
+github.com/newhook/go-symbols \
+golang.org/x/tools/cmd/guru \
+github.com/ramya-rao-a/go-outline \
+github.com/google/pprof
+do
+    printf "\n go getting $i \n"
+    go get -u "$i"
+    printf "\n DONE getting $i"
+done	                    
 
 printf "\n\n  install some golang packages\n"
 export GOPATH="$HOME/go" && \
