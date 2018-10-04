@@ -55,7 +55,7 @@ github.com/golang/dep/cmd/dep \
 github.com/google/gops \
 github.com/maruel/panicparse/cmd/pp \
 github.com/sanity-io/litter \
-github.com/rogpeppe/godef \
+github.com/ianthehat/godef \
 github.com/golang/lint/golint \
 github.com/lukehoban/go-outline \
 sourcegraph.com/sqs/goreturns \
