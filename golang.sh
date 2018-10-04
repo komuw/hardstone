@@ -64,7 +64,8 @@ github.com/uudashr/gopkgs/cmd/gopkgs \
 github.com/newhook/go-symbols \
 golang.org/x/tools/cmd/guru \
 github.com/ramya-rao-a/go-outline \
-github.com/google/pprof
+github.com/google/pprof \
+github.com/rogpeppe/gohack
 do
     printf "\n\ngo getting $i \n"
     go get -u "$i"
