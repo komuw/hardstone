@@ -41,7 +41,7 @@ for i in neugram.io/ng \
 github.com/motemen/gore \
 github.com/yunabe/lgo/cmd/lgo \
 github.com/yunabe/lgo/cmd/lgo-internal \
-github.com/nsf/gocode \
+github.com/stamblerre/gocode \
 github.com/k0kubun/pp \
 golang.org/x/tools/cmd/godoc \
 github.com/derekparker/delve/cmd/dlv \
