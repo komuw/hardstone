@@ -60,7 +60,7 @@ github.com/golang/lint/golint \
 github.com/lukehoban/go-outline \
 sourcegraph.com/sqs/goreturns \
 golang.org/x/tools/cmd/gorename \
-github.com/tpng/gopkgs \
+github.com/uudashr/gopkgs/cmd/gopkgs \
 github.com/newhook/go-symbols \
 golang.org/x/tools/cmd/guru \
 github.com/ramya-rao-a/go-outline \
