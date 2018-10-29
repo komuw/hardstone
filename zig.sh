@@ -17,3 +17,5 @@ mkdir -p /usr/local/zig && tar -xf "/usr/local/zig-linux-x86_64-master.tar.xz" -
 # todo: add zig to $PATH
 printf "\n\n use zig as: \n"
 printf "\t /usr/local/zig/zig build-exe hel.zig \n"
+
+# to install on Osx: brew install zig --HEAD
