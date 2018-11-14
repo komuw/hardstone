@@ -92,6 +92,7 @@ apt-get -y install gcc \
         python2.7-dev \
         libxml2-dev  \
         libxslt1-dev \
+	postgresql-client \
         network-manager-vpnc \
         vpnc \
         screen \
