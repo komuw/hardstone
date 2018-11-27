@@ -124,7 +124,8 @@ apt-get -y install gcc \
         sublime-text \
 	wireguard \
 	net-tools \
-	aria2
+	aria2 \
+	shellcheck
 
 # ifconfig
 
