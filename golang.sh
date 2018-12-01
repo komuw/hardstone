@@ -11,6 +11,7 @@ export DEBIAN_FRONTEND=noninteractive
 
 
 GOLANG_VERSION=go1.11.linux-amd64
+GOBIN_VERSION=v0.0.4 #https://github.com/myitcv/gobin
 
 printf "\n\n  download golang\n"
 wget -nc --directory-prefix=/usr/local "https://dl.google.com/go/$GOLANG_VERSION.tar.gz"
@@ -84,3 +85,14 @@ export PATH=$PATH:/usr/local/go/bin && \
 export PATH=$HOME/go/bin:$PATH && \
 gometalinter --install
 
+
+# TODO: move to using gobin to install go tools instead of go get -u
+# gobin can then be used to install go bin packages, eg;
+# gobin github.com/google/pprof
+printf "\n\n install https://github.com/myitcv/gobin \n"
+export GOPATH="$HOME/go" && \
+export PATH=$PATH:/usr/local/go/bin && \
+export PATH=$HOME/go/bin:$PATH
+wget -nc --directory-prefix=/tmp https://github.com/myitcv/gobin/releases/download/$GOBIN_VERSION/linux-amd64
+mv /tmp/linux-amd64 /usr/local/bin/gobin
+chmod +x /usr/local/bin/gobin

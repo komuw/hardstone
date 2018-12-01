@@ -28,6 +28,8 @@ do
    esac
 done
 
+GOBIN_VERSION=v0.0.4 #https://github.com/myitcv/gobin
+
 printf "\n::INSTALL brew and stuff\n\n"
 /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 
@@ -146,3 +148,11 @@ go get github.com/k0kubun/pp                   #pretty print
 go get golang.org/x/tools/cmd/godoc            #docs
 go get github.com/derekparker/delve/cmd/dlv    #debugger
 go get github.com/mailgun/godebug              #another debugger
+
+# TODO: move to using gobin to install go tools instead of go get -u
+# gobin can then be used to install go bin packages, eg;
+# gobin github.com/google/pprof
+printf "\n\n install https://github.com/myitcv/gobin\n"
+wget -nc --directory-prefix=/tmp https://github.com/myitcv/gobin/releases/download/v0.0.4/darwin-amd64
+mv /tmp/darwin-amd64 /usr/local/bin/gobin
+chmod +x /usr/local/bin/gobin

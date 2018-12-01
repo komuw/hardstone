@@ -54,4 +54,9 @@ komuw05 [At] gmail [dot] com
 
 ## TODO:
 * make it more generic
+* run `shellcheck`;  
+```sh
+shellcheck --color=always --shell=bash golang.sh
+```  
+
 
