@@ -65,8 +65,7 @@ github.com/uudashr/gopkgs/cmd/gopkgs \
 github.com/newhook/go-symbols \
 golang.org/x/tools/cmd/guru \
 github.com/ramya-rao-a/go-outline \
-github.com/google/pprof \
-github.com/rogpeppe/gohack
+github.com/google/pprof
 do
     printf "\n\ngo getting $i \n"
     go get -u "$i"
@@ -96,3 +95,9 @@ export PATH=$HOME/go/bin:$PATH
 wget -nc --directory-prefix=/tmp https://github.com/myitcv/gobin/releases/download/$GOBIN_VERSION/linux-amd64
 mv /tmp/linux-amd64 /usr/local/bin/gobin
 chmod +x /usr/local/bin/gobin
+
+printf "\n\n gobin install some golang packages\n"
+export GOPATH="$HOME/go" && \
+export PATH=$PATH:/usr/local/go/bin && \
+export PATH=$HOME/go/bin:$PATH
+gobin github.com/rogpeppe/gohack
