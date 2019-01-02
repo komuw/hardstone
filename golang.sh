@@ -77,13 +77,6 @@ export GOPATH="$HOME/go" && \
 export PATH=$PATH:/usr/local/go/bin && \
 export PATH=$HOME/go/bin:$PATH && \
 go install github.com/d4l3k/go-pry # debugger/repl
- 
-printf "\n\n  install go linters\n"
-export GOPATH="$HOME/go" && \
-export PATH=$PATH:/usr/local/go/bin && \
-export PATH=$HOME/go/bin:$PATH && \
-gometalinter --install
-
 
 # TODO: move to using gobin to install go tools instead of go get -u
 # gobin can then be used to install go bin packages, eg;
