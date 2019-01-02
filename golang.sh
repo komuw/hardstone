@@ -101,3 +101,4 @@ export GOPATH="$HOME/go" && \
 export PATH=$PATH:/usr/local/go/bin && \
 export PATH=$HOME/go/bin:$PATH
 gobin github.com/rogpeppe/gohack
+gobin honnef.co/go/tools/cmd/staticcheck@2019.1
