@@ -45,7 +45,6 @@ github.com/yunabe/lgo/cmd/lgo-internal \
 github.com/stamblerre/gocode \
 github.com/k0kubun/pp \
 golang.org/x/tools/cmd/godoc \
-github.com/derekparker/delve/cmd/dlv \
 github.com/rs/zerolog \
 github.com/pkg/errors \
 github.com/alecthomas/gometalinter \
@@ -95,3 +94,4 @@ export PATH=$PATH:/usr/local/go/bin && \
 export PATH=$HOME/go/bin:$PATH
 gobin github.com/rogpeppe/gohack
 gobin honnef.co/go/tools/cmd/staticcheck@2019.1
+gobin github.com/go-delve/delve/cmd/dlv
