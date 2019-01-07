@@ -146,7 +146,7 @@ go get github.com/motemen/gore                 #golang repl
 go get github.com/nsf/gocode                   #golang auto-completion
 go get github.com/k0kubun/pp                   #pretty print
 go get golang.org/x/tools/cmd/godoc            #docs
-go get github.com/derekparker/delve/cmd/dlv    #debugger
+go get github.com/go-delve/delve/cmd/dlv       #debugger
 go get github.com/mailgun/godebug              #another debugger
 
 # TODO: move to using gobin to install go tools instead of go get -u
