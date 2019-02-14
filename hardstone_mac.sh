@@ -157,3 +157,10 @@ printf "\n\n install https://github.com/myitcv/gobin\n"
 wget -nc --directory-prefix=/tmp https://github.com/myitcv/gobin/releases/download/v0.0.4/darwin-amd64
 mv /tmp/darwin-amd64 /usr/local/bin/gobin
 chmod +x /usr/local/bin/gobin
+
+
+printf "\n\n install Java openJDK\n"
+wget -nc --directory-prefix=/tmp https://download.java.net/java/GA/jdk11/9/GPL/openjdk-11.0.2_osx-x64_bin.tar.gz
+tar -xzf /tmp/openjdk-11.0.2_osx-x64_bin.tar.gz -C /Library/Java/JavaVirtualMachines/
+java -version
+javac -version
