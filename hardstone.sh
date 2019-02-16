@@ -72,4 +72,8 @@ printf "\n\n CALLING media.sh::\n\n"
 /bin/bash media.sh
 printf "\n\n media.sh done::\n"
 
+printf "\n\n CALLING java.sh::\n\n"
+/bin/bash java.sh
+printf "\n\n java.sh done::\n"
+
 printf "\n\n WHOLE SYSTEM SUCCESFULLY SETUP.\n"
