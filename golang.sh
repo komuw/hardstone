@@ -10,7 +10,7 @@ shopt -s nullglob globstar
 export DEBIAN_FRONTEND=noninteractive
 
 
-GOLANG_VERSION=go1.11.linux-amd64
+GOLANG_VERSION=go1.12.linux-amd64
 GOBIN_VERSION=v0.0.4 #https://github.com/myitcv/gobin
 
 printf "\n\n  download golang\n"
