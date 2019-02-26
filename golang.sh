@@ -11,7 +11,7 @@ export DEBIAN_FRONTEND=noninteractive
 
 
 GOLANG_VERSION=go1.12.linux-amd64
-GOBIN_VERSION=v0.0.4 #https://github.com/myitcv/gobin
+GOBIN_VERSION=v0.0.7 #https://github.com/myitcv/gobin
 
 printf "\n\n  download golang\n"
 wget -nc --directory-prefix=/usr/local "https://dl.google.com/go/$GOLANG_VERSION.tar.gz"
