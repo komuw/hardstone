@@ -4,7 +4,7 @@ Host *.github.com
 Host *.bitbucket.org
   ForwardAgent yes
 
-Host *.compute.amazonaws.com
-  ForwardAgent yes
+# ForwardAgent is harmful
+# https://heipei.io/2015/02/26/SSH-Agent-Forwarding-considered-harmful/
 
 ServerAliveInterval 60
