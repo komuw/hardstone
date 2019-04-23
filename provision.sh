@@ -252,8 +252,10 @@ SSH_CONFIG_FILE_CONTENTS='Host *.github.com
   ForwardAgent yes
 Host *.bitbucket.org
   ForwardAgent yes
-Host *.compute.amazonaws.com
-  ForwardAgent yes
+
+# ForwardAgent is harmful
+# https://heipei.io/2015/02/26/SSH-Agent-Forwarding-considered-harmful/
+
 ServerAliveInterval 60'
 SSH_CONFIG_FILE=/home/komuw/.ssh/config
 touch "$SSH_CONFIG_FILE"
