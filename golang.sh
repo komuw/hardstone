@@ -49,7 +49,6 @@ github.com/pkg/errors \
 github.com/alecthomas/gometalinter \
 github.com/d4l3k/go-pry \
 github.com/cosmos72/gomacro \
-github.com/sourcegraph/go-langserver \
 github.com/golang/dep/cmd/dep \
 github.com/google/gops \
 github.com/maruel/panicparse/cmd/pp \
