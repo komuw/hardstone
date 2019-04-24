@@ -92,3 +92,4 @@ export PATH=$HOME/go/bin:$PATH
 gobin github.com/rogpeppe/gohack
 gobin honnef.co/go/tools/cmd/staticcheck@2019.1
 gobin github.com/go-delve/delve/cmd/dlv
+gobin golang.org/x/tools/cmd/gopls
