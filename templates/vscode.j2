@@ -1,5 +1,5 @@
 {
-    "window.zoomLevel": -2,
+    "window.zoomLevel": -1,
     "window.menuBarVisibility": "default",
     "files.exclude": {
         "**/.git": true,
@@ -16,26 +16,17 @@
         "comments": true,
         "strings": true
     },
-    "go.autocompleteUnimportedPackages": true,
     "go.useLanguageServer": true,
-    "go.alternateTools": {
-        "go-langserver": "gopls"
-    },
-    "go.languageServerExperimentalFeatures": {
-        "format": true,
-        "autoComplete": true
-    },
-    "gopls": { //VSCode will complain about the "gopls" settings, but they will still work: https://github.com/golang/go/wiki/gopls
-        "enablePlaceholders": true, // add parameter placeholders when completing a function
-        "enhancedHover": true, // experimental to improve quality of hover (will be on by default soon)
-    },
-    "go.useCodeSnippetsOnFunctionSuggest": true,
     "[go]": {
-        "editor.snippetSuggestions": "bottom",
+        "editor.snippetSuggestions": "none",
         "editor.formatOnSave": true,
         "editor.codeActionsOnSave": {
             "source.organizeImports": true
         },
+    },
+    "gopls": {
+        "usePlaceholders": true, // add parameter placeholders when completing a function
+        "enhancedHover": true, // experimental to improve quality of hover (will be on by default soon)
     },
     "python.linting.pylintArgs": [
         "--load-plugins",
