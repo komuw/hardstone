@@ -16,9 +16,18 @@
         "comments": true,
         "strings": true
     },
-    "go.useCodeSnippetsOnFunctionSuggest": true,
-    "go.autocompleteUnimportedPackages": true,
     "go.useLanguageServer": true,
+    "[go]": {
+        "editor.snippetSuggestions": "none",
+        "editor.formatOnSave": true,
+        "editor.codeActionsOnSave": {
+            "source.organizeImports": true
+        },
+    },
+    "gopls": {
+        "usePlaceholders": true, // add parameter placeholders when completing a function
+        "enhancedHover": true, // experimental to improve quality of hover (will be on by default soon)
+    },
     "python.linting.pylintArgs": [
         "--load-plugins",
         "pylint_django",
@@ -47,5 +56,8 @@
     ],
     "dart.allowAnalytics": false,
     "dart.debugExternalLibraries": true,
-    "dart.debugSdkLibraries": true
+    "dart.debugSdkLibraries": true,
+    "breadcrumbs.enabled": true,
+    "python.jediEnabled": false, // this enables us to use MS lang server: https://code.visualstudio.com/docs/python/settings-reference
+    "editor.suggestSelection": "first",
 }
