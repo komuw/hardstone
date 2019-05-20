@@ -411,6 +411,7 @@ grep -qF -- "$GRUB_CONFIG_FILE_CONTENTS" "$GRUB_CONFIG_FILE" || echo "$GRUB_CONF
 printf "\n\n update grub\n"
 update-grub
 
+# NB: do not install docker from snap, it is broken
 printf "\n\n add docker apt key\n"
 curl -fsSL https://download.docker.com/linux/ubuntu/gpg | apt-key add -
 printf "\n\n verify docker key\n"
