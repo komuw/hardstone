@@ -195,8 +195,8 @@ wget -nc --directory-prefix=/tmp http://download.virtualbox.org/virtualbox/5.2.1
 dpkg -i /tmp/virtualbox-5.2_5.2.12-122591~Ubuntu~bionic_amd64.deb
 
 printf "\n\n install bat(https://github.com/sharkdp/bat)\n"
-wget -nc --directory-prefix=/tmp https://github.com/sharkdp/bat/releases/download/v0.9.0/bat_0.9.0_amd64.deb
-dpkg -i /tmp/bat_0.9.0_amd64.deb
+wget -nc --directory-prefix=/tmp https://github.com/sharkdp/bat/releases/download/v0.11.0/bat_0.11.0_amd64.deb
+dpkg -i /tmp/bat_0.11.0_amd64.deb
 
 printf "\n\n Install Python packages\n"
 pip install --upgrade pip \
