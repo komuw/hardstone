@@ -164,3 +164,5 @@ wget -nc --directory-prefix=/tmp https://download.java.net/java/GA/jdk12.0.1/69c
 tar -xzf /tmp/openjdk-11.0.2_osx-x64_bin.tar.gz -C /Library/Java/JavaVirtualMachines/
 java -version
 javac -version
+
+brew install gradle
