@@ -89,7 +89,7 @@ export GOPATH="$HOME/go" && \
 export PATH=$PATH:/usr/local/go/bin && \
 export PATH=$HOME/go/bin:$PATH
 gobin github.com/rogpeppe/gohack
-gobin honnef.co/go/tools/cmd/staticcheck@2019.1
+gobin honnef.co/go/tools/cmd/staticcheck@2019.2
 gobin github.com/go-delve/delve/cmd/dlv
 gobin golang.org/x/tools/cmd/gopls
 
