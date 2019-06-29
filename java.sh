@@ -11,8 +11,9 @@ export DEBIAN_FRONTEND=noninteractive
 
 printf "\n\n install Java openJDK\n"
 apt -y update
-apt -y install default-jre
-apt -y install default-jdk
+apt -y purge default-jre default-jdk
+wget -nc --directory-prefix=/tmp https://cdn.azul.com/zulu/bin/zulu12.2.3-ca-jdk12.0.1-linux_amd64.deb
+dpkg -i /tmp/zulu12.2.3-ca-jdk12.0.1-linux_amd64.deb
 
 printf "\n\n install intellij idea\n"
 snap install intellij-idea-community --classic 
