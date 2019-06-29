@@ -13,3 +13,6 @@ printf "\n\n install Java openJDK\n"
 apt -y update
 apt -y install default-jre
 apt -y install default-jdk
+
+printf "\n\n install intellij idea\n"
+snap install intellij-idea-community --classic 
