@@ -9,7 +9,7 @@ fi
 shopt -s nullglob globstar
 export DEBIAN_FRONTEND=noninteractive
 
-printf "\n\n install Java openJDK\n"
+printf "\n\n install Java Zulu openJDK\n"
 apt -y update
 apt -y purge default-jre default-jdk
 wget -nc --directory-prefix=/tmp https://cdn.azul.com/zulu/bin/zulu12.2.3-ca-jdk12.0.1-linux_amd64.deb
