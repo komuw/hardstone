@@ -20,4 +20,3 @@ snap install intellij-idea-community --classic
 printf "\n\n install gradle\n"
 wget -nc --directory-prefix=/tmp https://services.gradle.org/distributions/gradle-5.5-bin.zip
 unzip /tmp/gradle-5.5-bin.zip -d /usr/local
-cp /usr/local/gradle-5.5/bin/gradle /usr/local/bin
