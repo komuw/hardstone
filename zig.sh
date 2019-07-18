@@ -9,6 +9,9 @@ fi
 shopt -s nullglob globstar
 export DEBIAN_FRONTEND=noninteractive
 
+printf "\n\n remove any current zig files\n"
+rm -rf /usr/local/zig /usr/local/zig-linux-*
+
 printf "\n\n  download zig from master branch(change when zig gets to ver1)\n"
 wget -nc --directory-prefix=/usr/local https://ziglang.org/builds/zig-linux-x86_64-master.tar.xz
 printf "\n\n  untar zig file\n"
