@@ -13,9 +13,10 @@ printf "\n\n remove any current zig files\n"
 rm -rf /usr/local/zig /usr/local/zig-linux-*
 
 printf "\n\n  download zig from master branch(change when zig gets to ver1)\n"
-wget -nc --directory-prefix=/usr/local https://ziglang.org/builds/zig-linux-x86_64-master.tar.xz
+# TODO: parse content from https://ziglang.org/download/index.json
+wget -nc --directory-prefix=/usr/local https://ziglang.org/builds/zig-linux-x86_64-0.4.0+3879bebc.tar.xz
 printf "\n\n  untar zig file\n"
-mkdir -p /usr/local/zig && tar -xf "/usr/local/zig-linux-x86_64-master.tar.xz" -C /usr/local/zig --strip-components 1
+mkdir -p /usr/local/zig && tar -xf /usr/local/zig-linux-x86_64-*.tar.xz -C /usr/local/zig --strip-components 1
 
 # todo: add zig to $PATH
 printf "\n\n use zig as: \n"
