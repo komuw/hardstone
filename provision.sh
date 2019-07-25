@@ -125,7 +125,8 @@ apt-get -y install gcc \
 	wireguard \
 	net-tools \
 	aria2 \
-	shellcheck
+	shellcheck \
+	rlwrap
 
 # ifconfig
 
