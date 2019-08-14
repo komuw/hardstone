@@ -9,11 +9,12 @@ fi
 shopt -s nullglob globstar
 export DEBIAN_FRONTEND=noninteractive
 
-printf "\n\n install Java Zulu openJDK\n"
+printf "\n\n install Amazon Corretto openJDK\n"
+# java 11 is an LTS
 apt -y update
 apt -y purge default-jre default-jdk
-wget -nc --directory-prefix=/tmp https://cdn.azul.com/zulu/bin/zulu12.2.3-ca-jdk12.0.1-linux_amd64.deb
-dpkg -i /tmp/zulu12.2.3-ca-jdk12.0.1-linux_amd64.deb
+wget -nc --directory-prefix=/tmp https://d3pxv6yz143wms.cloudfront.net/11.0.4.11.1/java-11-amazon-corretto-jdk_11.0.4.11-1_amd64.deb
+dpkg -i /tmp/java-11-amazon-corretto-jdk_11.0.4.11-1_amd64.deb
 
 printf "\n\n install intellij idea\n"
 snap install intellij-idea-community --classic 
