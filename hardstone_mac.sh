@@ -158,10 +158,10 @@ wget -nc --directory-prefix=/tmp https://github.com/myitcv/gobin/releases/downlo
 mv /tmp/darwin-amd64 /usr/local/bin/gobin
 chmod +x /usr/local/bin/gobin
 
-
-printf "\n\n install Java openJDK\n"
-wget -nc --directory-prefix=/tmp https://download.java.net/java/GA/jdk12.0.1/69cfe15208a647278a19ef0990eea691/12/GPL/openjdk-12.0.1_osx-x64_bin.tar.gz
-tar -xzf /tmp/openjdk-11.0.2_osx-x64_bin.tar.gz -C /Library/Java/JavaVirtualMachines/
+printf "\n\n install Java AWS Corretto openJDK\n"
+# java11 is an LTS
+wget -nc --directory-prefix=/tmp https://d3pxv6yz143wms.cloudfront.net/11.0.4.11.1/amazon-corretto-11.0.4.11.1-macosx-x64.tar.gz
+tar -xzf /tmp/amazon-corretto-11.0.4.11.1-macosx-x64.tar.gz -C /Library/Java/JavaVirtualMachines/
 java -version
 javac -version
 
