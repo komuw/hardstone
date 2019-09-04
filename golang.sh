@@ -46,3 +46,7 @@ gobin github.com/google/pprof
 printf "\n\n install gotip https://godoc.org/golang.org/dl/gotip \n"
 go get golang.org/dl/gotip
 gotip download
+
+printf "\n\n change ownership of ~/go\n"
+chown -R komuw:komuw $HOME/go
+chown -R komuw:komuw $HOME/.cache/go-build
