@@ -92,7 +92,7 @@ apt-get -y install gcc \
         python2.7-dev \
         libxml2-dev  \
         libxslt1-dev \
-	postgresql-client \
+	      postgresql-client \
         network-manager-vpnc \
         vpnc \
         screen \
@@ -122,11 +122,11 @@ apt-get -y install gcc \
         x265  \
         gdebi \
         sublime-text \
-	wireguard \
-	net-tools \
-	aria2 \
-	shellcheck \
-	rlwrap
+        wireguard \
+        net-tools \
+        aria2 \
+        shellcheck \
+        rlwrap
 
 # ifconfig
 
