@@ -42,6 +42,7 @@ gobin golang.org/x/tools/cmd/gopls
 gobin github.com/containous/yaegi/cmd/yaegi # yaegi repl. usage: rlwrap yaegi
 gobin github.com/maruel/panicparse/cmd/pp
 gobin github.com/google/pprof
+gobin github.com/rs/curlie
 
 printf "\n\n install gotip https://godoc.org/golang.org/dl/gotip \n"
 go get golang.org/dl/gotip
