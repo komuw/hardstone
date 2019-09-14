@@ -344,7 +344,7 @@ TERMINATOR_CONFIG_FILE_CONTENTS='[global_config]
 [profiles]
   [[default]]
     use_system_font = False
-    background_darkness = 0.77
+    background_darkness = 0.94
     background_type = transparent
     background_image = None
     foreground_color = "#00ff00"
