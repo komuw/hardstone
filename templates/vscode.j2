@@ -16,6 +16,7 @@
         "comments": true,
         "strings": true
     },
+    // docs: https://github.com/golang/tools/blob/master/gopls/doc/vscode.md
     "go.useLanguageServer": true,
     "[go]": {
         "editor.snippetSuggestions": "none",
@@ -26,7 +27,7 @@
     },
     "gopls": {
         "usePlaceholders": true, // add parameter placeholders when completing a function
-        "enhancedHover": true, // experimental to improve quality of hover (will be on by default soon)
+        "completionDocumentation": true // for documentation in completion items
     },
     "python.linting.pylintArgs": [
         "--load-plugins",
