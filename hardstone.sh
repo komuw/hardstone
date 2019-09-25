@@ -76,4 +76,8 @@ printf "\n\n CALLING java.sh::\n\n"
 /bin/bash java.sh
 printf "\n\n java.sh done::\n"
 
+printf "\n\n CALLING anki.sh::\n\n"
+/bin/bash anki.sh
+printf "\n\n anki.sh done::\n"
+
 printf "\n\n WHOLE SYSTEM SUCCESFULLY SETUP.\n"
