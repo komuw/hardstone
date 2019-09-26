@@ -37,3 +37,4 @@ code --user-data-dir='.' --install-extension sourcegraph.sourcegraph
 code --user-data-dir='.' --install-extension hnw.vscode-auto-open-markdown-preview
 code --user-data-dir='.' --install-extension ms-vscode.Go
 code --user-data-dir='.' --install-extension vscjava.vscode-java-pack
+code --user-data-dir='.' --install-extension ms-vscode.cpptools
