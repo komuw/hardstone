@@ -43,6 +43,7 @@ gobin -u github.com/containous/yaegi/cmd/yaegi # yaegi repl. usage: rlwrap yaegi
 gobin -u github.com/maruel/panicparse/cmd/pp
 gobin -u github.com/google/pprof
 gobin -u github.com/rs/curlie
+gobin -u github.com/tsenart/vegeta
 
 printf "\n\n install gotip https://godoc.org/golang.org/dl/gotip \n"
 go get golang.org/dl/gotip
