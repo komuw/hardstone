@@ -51,4 +51,4 @@ gotip download
 printf "\n\n change ownership of ~/go\n"
 go version
 chown -R komuw:komuw $HOME/go
-chown -R komuw:komuw $HOME/.cache/go-build
+chown -R komuw:komuw $HOME/.cache/
