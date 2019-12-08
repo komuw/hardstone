@@ -87,12 +87,11 @@ apt-get -y install gcc \
         vlc \
         mpv  \
         browser-plugin-vlc \
-        pep8 \
         libpq-dev  \
         python2.7-dev \
         libxml2-dev  \
         libxslt1-dev \
-	      postgresql-client \
+	postgresql-client \
         network-manager-vpnc \
         vpnc \
         screen \
