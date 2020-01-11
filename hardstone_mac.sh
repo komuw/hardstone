@@ -164,5 +164,11 @@ wget -nc --directory-prefix=/tmp https://d3pxv6yz143wms.cloudfront.net/11.0.4.11
 tar -xzf /tmp/amazon-corretto-11.0.4.11.1-macosx-x64.tar.gz -C /Library/Java/JavaVirtualMachines/
 java -version
 javac -version
-
 brew install gradle
+
+
+printf "\n\n install peco\n"
+wget -nc --directory-prefix=/tmp https://github.com/peco/peco/releases/download/v0.5.7/peco_darwin_amd64.zip
+unzip /tmp/peco_darwin_amd64.zip -d /tmp/
+mv /tmp/peco_darwin_amd64/peco /usr/local/bin/peco
+chmod +x /usr/local/bin/peco

@@ -80,4 +80,9 @@ printf "\n\n CALLING anki.sh::\n\n"
 /bin/bash anki.sh
 printf "\n\n anki.sh done::\n"
 
+printf "\n\n CALLING tools.sh::\n\n"
+/bin/bash tools.sh
+printf "\n\n tools.sh done::\n"
+
+
 printf "\n\n WHOLE SYSTEM SUCCESFULLY SETUP.\n"
