@@ -172,3 +172,9 @@ wget -nc --directory-prefix=/tmp https://github.com/peco/peco/releases/download/
 unzip /tmp/peco_darwin_amd64.zip -d /tmp/
 mv /tmp/peco_darwin_amd64/peco /usr/local/bin/peco
 chmod +x /usr/local/bin/peco
+
+printf "\n\n install ripgrep\n"
+wget -nc --directory-prefix=/tmp "https://github.com/BurntSushi/ripgrep/releases/download/11.0.2/ripgrep-11.0.2-x86_64-apple-darwin.tar.gz"
+tar -xzf /tmp/ripgrep-11.0.2-x86_64-apple-darwin.tar.gz -C /tmp 
+mv /tmp/ripgrep-11.0.2-x86_64-apple-darwin/rg /usr/local/bin/rg
+chmod +x /usr/local/bin/rg
