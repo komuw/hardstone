@@ -16,3 +16,7 @@ wget -nc --directory-prefix=/tmp "https://github.com/peco/peco/releases/download
 tar -xzf /tmp/peco_linux_amd64.tar.gz -C /tmp 
 mv /tmp/peco_linux_amd64/peco /usr/local/bin/peco
 chmod +x /usr/local/bin/peco
+
+printf "\n\n install ripgrep\n"
+wget -nc --directory-prefix=/tmp "https://github.com/BurntSushi/ripgrep/releases/download/11.0.2/ripgrep_11.0.2_amd64.deb"
+dpkg -i /tmp/ripgrep_11.0.2_amd64.deb
