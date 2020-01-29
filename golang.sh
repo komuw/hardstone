@@ -38,7 +38,7 @@ export PATH=$HOME/go/bin:$PATH
 gobin -u github.com/rogpeppe/gohack
 gobin -u honnef.co/go/tools/cmd/staticcheck@2019.2.3
 gobin -u github.com/go-delve/delve/cmd/dlv
-gobin -u golang.org/x/tools/cmd/gopls
+gobin -u golang.org/x/tools/gopls
 gobin -u github.com/containous/yaegi/cmd/yaegi # yaegi repl. usage: rlwrap yaegi
 gobin -u github.com/maruel/panicparse/cmd/pp
 gobin -u github.com/google/pprof
