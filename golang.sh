@@ -39,15 +39,15 @@ gobin -u github.com/rogpeppe/gohack
 gobin -u honnef.co/go/tools/cmd/staticcheck@2020.1.3
 gobin -u github.com/go-delve/delve/cmd/dlv
 gobin -u golang.org/x/tools/gopls
-gobin -u github.com/containous/yaegi/cmd/yaegi # yaegi repl. usage: rlwrap yaegi
+# gobin -u github.com/containous/yaegi/cmd/yaegi # yaegi repl. usage: rlwrap yaegi
 gobin -u github.com/maruel/panicparse/cmd/pp
 gobin -u github.com/google/pprof
 gobin -u github.com/rs/curlie
 gobin -u github.com/tsenart/vegeta
 
 printf "\n\n install gotip https://godoc.org/golang.org/dl/gotip \n"
-go get golang.org/dl/gotip
-gotip download
+# go get golang.org/dl/gotip
+# gotip download
 
 printf "\n\n change ownership of ~/go\n"
 go version
