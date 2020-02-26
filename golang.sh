@@ -10,7 +10,7 @@ shopt -s nullglob globstar
 export DEBIAN_FRONTEND=noninteractive
 
 
-GOLANG_VERSION=go1.13.linux-amd64
+GOLANG_VERSION=go1.14.linux-amd64
 
 printf "\n\n  download golang\n"
 wget -nc --directory-prefix=/usr/local "https://dl.google.com/go/$GOLANG_VERSION.tar.gz"
@@ -36,7 +36,7 @@ export GOPATH="$HOME/go" && \
 export PATH=$PATH:/usr/local/go/bin && \
 export PATH=$HOME/go/bin:$PATH
 gobin -u github.com/rogpeppe/gohack
-gobin -u honnef.co/go/tools/cmd/staticcheck@2019.2.3
+gobin -u honnef.co/go/tools/cmd/staticcheck@2020.1.3
 gobin -u github.com/go-delve/delve/cmd/dlv
 gobin -u golang.org/x/tools/gopls
 gobin -u github.com/containous/yaegi/cmd/yaegi # yaegi repl. usage: rlwrap yaegi
