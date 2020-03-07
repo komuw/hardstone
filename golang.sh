@@ -41,6 +41,7 @@ gobin -u github.com/go-delve/delve/cmd/dlv
 gobin -u golang.org/x/tools/gopls
 # gobin -u github.com/containous/yaegi/cmd/yaegi # yaegi repl. usage: rlwrap yaegi
 gobin -u github.com/maruel/panicparse/cmd/pp
+gobin -u github.com/securego/gosec/cmd/gosec
 gobin -u github.com/google/pprof
 gobin -u github.com/rs/curlie
 gobin -u github.com/tsenart/vegeta
