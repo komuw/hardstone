@@ -1,8 +1,9 @@
+# ssh -T git@github.com
 Host *.github.com
-  ForwardAgent yes
+  ForwardAgent no
 
 Host *.bitbucket.org
-  ForwardAgent yes
+  ForwardAgent no
 
 # ForwardAgent is harmful
 # https://heipei.io/2015/02/26/SSH-Agent-Forwarding-considered-harmful/

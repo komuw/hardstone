@@ -93,7 +93,6 @@ apt-get -y install gcc \
         ca-certificates \
         libffi-dev \
         openssh-client \
-        openssh-server \
         kdiff3 \
         meld \
         python-pip \
@@ -117,7 +116,7 @@ apt-get -y install gcc \
         python2.7-dev \
         libxml2-dev  \
         libxslt1-dev \
-	postgresql-client \
+	      postgresql-client \
         network-manager-vpnc \
         vpnc \
         screen \
@@ -139,7 +138,6 @@ apt-get -y install gcc \
         mosh \
         vnstat \
         psmisc  \
-        openvpn \
         traceroute \
         graphviz \
         ffmpeg \
@@ -165,7 +163,7 @@ printf "\n\n install skype\n"
 dpkg -i /tmp/skypeforlinux-64.deb
 
 printf "\n\n add nodeJs ppa\n"
-curl -sL https://deb.nodesource.com/setup_9.x | bash -
+curl -sL https://deb.nodesource.com/setup_13.x | bash -
 
 printf "\n\n install nodeJs\n"
 apt-get install -y nodejs
@@ -206,19 +204,13 @@ dpkg -i /tmp/google-chrome-stable_current_amd64.deb
 printf "\n\n fix install chrome errors\n"
 apt-get -f -y install  
 
-printf "\n\n download and install vagrant\n"
-wget -nc --directory-prefix=/tmp https://releases.hashicorp.com/vagrant/2.1.1/vagrant_2.1.1_x86_64.deb
-dpkg -i /tmp/vagrant_2.1.1_x86_64.deb
-
-printf "\n\n install vagrant cachier plugin\n"
-vagrant plugin install vagrant-cachier vagrant-vbguest
-
 printf "\n\n install virtualbox dependencies\n"
 apt -y install libqt5opengl5
 
 printf "\n\n download and install virtualbox\n"
-wget -nc --directory-prefix=/tmp http://download.virtualbox.org/virtualbox/5.2.12/virtualbox-5.2_5.2.12-122591~Ubuntu~bionic_amd64.deb
-dpkg -i /tmp/virtualbox-5.2_5.2.12-122591~Ubuntu~bionic_amd64.deb
+wget -nc --directory-prefix=/tmp -O virtualbox_amd64.deb "http://download.virtualbox.org/virtualbox/6.1.4/virtualbox-6.1_6.1.4-136177~Ubuntu~$(lsb_release -cs)_amd64.deb"
+
+dpkg -i /tmp/virtualbox_amd64.deb
 
 printf "\n\n install bat(https://github.com/sharkdp/bat)\n"
 wget -nc --directory-prefix=/tmp https://github.com/sharkdp/bat/releases/download/v0.12.1/bat_0.12.1_amd64.deb
@@ -295,10 +287,12 @@ cat /home/komuw/.ssh/personal_work_id_rsa.pub
 
 printf "\n\n configure ssh/config\n"
 # there ought to be NO newlines in the content
-SSH_CONFIG_FILE_CONTENTS='Host *.github.com
-  ForwardAgent yes
+SSH_CONFIG_FILE_CONTENTS='
+# ssh -T git@github.com
+Host *.github.com
+  ForwardAgent no
 Host *.bitbucket.org
-  ForwardAgent yes
+  ForwardAgent no
 
 # ForwardAgent is harmful
 # https://heipei.io/2015/02/26/SSH-Agent-Forwarding-considered-harmful/
