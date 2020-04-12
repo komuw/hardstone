@@ -96,10 +96,10 @@ pip install -U virtualenv \
            flake8
 
 printf "\n::SETUP ssh key, but do not overwrite\n\n"
-cat /dev/zero | ssh-keygen -t rsa -C "komuw@Mac" -b 4096 -q -N $SSH_PASSPHRASE -f /home/komuw/.ssh/id_rsa
+cat /dev/zero | ssh-keygen -t rsa -C "komuw@Mac" -b 4096 -q -N $SSH_PASSPHRASE -f /home/komuw/.ssh/personal_id_rsa
 
 printf "\n::SHOW me my ssh key damn it\n\n"
-cat /home/komuw/.ssh/id_rsa.pub
+cat /home/komuw/.ssh/personal_id_rsa.pub
 
 printf "\n::CREATE dirs\n\n"
 mkdir -p /home/komuw/swat

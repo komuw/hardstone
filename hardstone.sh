@@ -13,13 +13,30 @@ export DEBIAN_FRONTEND=noninteractive
 # https://github.com/anordal/shellharden/blob/master/how_to_do_things_safely_in_bash.md
 # http://wiki.bash-hackers.org/syntax/pe#use_a_default_value
 
-SSH_KEY_PHRASE=${1:-sshKeyPhraseNotSet}
-if [ "$SSH_KEY_PHRASE" == "sshKeyPhraseNotSet"  ]; then
-    printf "\n\n SSH_KEY_PHRASE should not be empty\n"
+SSH_KEY_PHRASE_PERSONAL=${1:-sshKeyPhrasePersonalNotSet}
+if [ "$SSH_KEY_PHRASE_PERSONAL" == "sshKeyPhrasePersonalNotSet"  ]; then
+    printf "\n\n SSH_KEY_PHRASE_PERSONAL should not be empty\n"
     exit
 fi
 
-USER_PASSWORD=${2:-userPass}
+SSH_KEY_PHRASE_PERSONAL_WORK=${2:-sshKeyPhrasePersonalWorkNotSet}
+if [ "$SSH_KEY_PHRASE_PERSONAL_WORK" == "sshKeyPhrasePersonalWorkNotSet"  ]; then
+    printf "\n\n SSH_KEY_PHRASE_PERSONAL_WORK should not be empty\n"
+    exit
+fi
+
+PERSONAL_WORK_EMAIL=${3:-PERSONAL_WORK_EMAILNotSet}
+if [ "$PERSONAL_WORK_EMAIL" == "PERSONAL_WORK_EMAILNotSet"  ]; then
+    printf "\n\n PERSONAL_WORK_EMAIL should not be empty\n"
+    exit
+fi
+
+PERSONAL_WORK_NAME=${4:-PERSONAL_WORK_NAMENotSet}
+if [ "$PERSONAL_WORK_NAME" == "PERSONAL_WORK_NAMENotSet"  ]; then
+    printf "\n\n PERSONAL_WORK_NAME should not be empty\n"
+    exit
+fi
+USER_PASSWORD=${5:-userPass}
 if [ "$USER_PASSWORD" == "userPass"  ]; then
     printf "\n\n USER_PASSWORD should not be empty\n"
     exit
@@ -39,7 +56,7 @@ printf "\n\n CALLING user.sh::\n\n"
 printf "\n\n user.sh done::\n"
 
 printf "\n\n CALLING provision.sh::\n\n"
-/bin/bash provision.sh "$SSH_KEY_PHRASE"
+/bin/bash provision.sh "$SSH_KEY_PHRASE_PERSONAL" "$SSH_KEY_PHRASE_PERSONAL_WORK" "$PERSONAL_WORK_EMAIL" "$PERSONAL_WORK_NAME"
 printf "\n\n provision.sh done::\n"
 
 printf "\n\n CALLING golang.sh::\n\n"

@@ -10,12 +10,38 @@ shopt -s nullglob globstar
 export DEBIAN_FRONTEND=noninteractive
 
 
-SSH_KEY_PHRASE=${1:-sshKeyPhraseNotSet}
-if [ "$SSH_KEY_PHRASE" == "sshKeyPhraseNotSet"  ]; then
-    printf "\n\n SSH_KEY_PHRASE should not be empty\n"
+SSH_KEY_PHRASE_PERSONAL=${1:-sshKeyPhrasePersonalNotSet}
+if [ "$SSH_KEY_PHRASE_PERSONAL" == "sshKeyPhrasePersonalNotSet"  ]; then
+    printf "\n\n SSH_KEY_PHRASE_PERSONAL should not be empty\n"
     exit
 fi
 
+SSH_KEY_PHRASE_PERSONAL_WORK=${2:-sshKeyPhrasePersonalWorkNotSet}
+if [ "$SSH_KEY_PHRASE_PERSONAL_WORK" == "sshKeyPhrasePersonalWorkNotSet"  ]; then
+    printf "\n\n SSH_KEY_PHRASE_PERSONAL_WORK should not be empty\n"
+    exit
+fi
+
+PERSONAL_WORK_EMAIL=${3:-PERSONAL_WORK_EMAILNotSet}
+if [ "$PERSONAL_WORK_EMAIL" == "PERSONAL_WORK_EMAILNotSet"  ]; then
+    printf "\n\n PERSONAL_WORK_EMAIL should not be empty\n"
+    exit
+fi
+
+PERSONAL_WORK_NAME=${4:-PERSONAL_WORK_NAMENotSet}
+if [ "$PERSONAL_WORK_NAME" == "PERSONAL_WORK_NAMENotSet"  ]; then
+    printf "\n\n PERSONAL_WORK_NAME should not be empty\n"
+    exit
+fi
+
+
+printf "\n\n create my stuff dir\n"
+mkdir -p $HOME/mystuff
+chown -R komuw:komuw $HOME/mystuff
+
+printf "\n\n create personalWork dir\n"
+mkdir -p $HOME/personalWork
+chown -R komuw:komuw $HOME/personalWork
 
 printf "\n\n Update package cache\n"
 apt -y update
@@ -228,23 +254,44 @@ pip3 install --upgrade docker-compose \
 # printf "\n\n create users group"
 # group: name={{ USER }} state=present
 
-printf "\n\n create ssh-key\n"
-if [[ ! -e /home/komuw/.ssh/id_rsa.pub ]]; then
+printf "\n\n create personal ssh-key\n"
+if [[ ! -e /home/komuw/.ssh/personal_id_rsa.pub ]]; then
     mkdir -p /home/komuw/.ssh
-    ssh-keygen -t rsa -C komuwUbuntu -b 8192 -q -N "$SSH_KEY_PHRASE" -f /home/komuw/.ssh/id_rsa
+    ssh-keygen -t rsa -C komuwUbuntu -b 8192 -q -N "$SSH_KEY_PHRASE_PERSONAL" -f /home/komuw/.ssh/personal_id_rsa
 fi
-chmod 600 ~/.ssh/id_rsa
-chmod 600 ~/.ssh/id_rsa.pub
+chmod 600 ~/.ssh/personal_id_rsa
+chmod 600 ~/.ssh/personal_id_rsa.pub
 chown -R komuw:komuw /home/komuw/.ssh
 
 #printf "\n\n start ssh-agent"
 #shell: ssh-agent /bin/bash
 
 #printf "\n\n load your key to the agent"
-#command: ssh-add /home/komuw/.ssh/id_rsa
+#command: ssh-add /home/komuw/.ssh/personal_id_rsa
 
 printf "\n\n your ssh public key is\n"
-cat /home/komuw/.ssh/id_rsa.pub
+cat /home/komuw/.ssh/personal_id_rsa.pub
+
+
+########################## personal work ssh key ##################
+printf "\n\n create personal work ssh-key\n"
+if [[ ! -e /home/komuw/.ssh/personal_work_id_rsa.pub ]]; then
+    mkdir -p /home/komuw/.ssh
+    ssh-keygen -t rsa -C "$PERSONAL_WORK_EMAIL" -b 8192 -q -N "$SSH_KEY_PHRASE_PERSONAL" -f /home/komuw/.ssh/personal_work_id_rsa
+fi
+chmod 600 ~/.ssh/personal_work_id_rsa
+chmod 600 ~/.ssh/personal_work_id_rsa.pub
+chown -R komuw:komuw /home/komuw/.ssh
+
+#printf "\n\n start ssh-agent"
+#shell: ssh-agent /bin/bash
+
+#printf "\n\n load your key to the agent"
+#command: ssh-add /home/komuw/.ssh/personal_work_id_rsa
+
+printf "\n\n your ssh public key for personal work is\n"
+cat /home/komuw/.ssh/personal_work_id_rsa.pub
+########################## personal work ssh key ##################
 
 printf "\n\n configure ssh/config\n"
 # there ought to be NO newlines in the content
@@ -287,9 +334,15 @@ grep -qF -- "$BASHRC_FILE_FILE_CONTENTS" "$BASHRC_FILE" || echo "$BASHRC_FILE_FI
 
 
 printf "\n\n configure gitconfig\n"
-GIT_CONFIG_FILE_CONTENTS='[user]
-	name = komuw
-	email = komuw05@gmail.com
+GIT_CONFIG_FILE_CONTENTS='
+# https://blog.jiayu.co/2019/02/conditional-git-configuration/
+
+[includeIf "gitdir:~/personalWork/"]
+	path = ~/personalWork/.gitconfig
+
+[includeIf "gitdir:~/mystuff/"]
+	path = ~/mystuff/.gitconfig
+
 [alias]
   co = checkout
   ci = commit
@@ -309,6 +362,28 @@ GIT_CONFIG_FILE_CONTENTS='[user]
 GIT_CONFIG_FILE=/home/komuw/.gitconfig
 touch "$GIT_CONFIG_FILE"
 grep -qF -- "$GIT_CONFIG_FILE_CONTENTS" "$GIT_CONFIG_FILE" || echo "$GIT_CONFIG_FILE_CONTENTS" >> "$GIT_CONFIG_FILE"
+
+
+printf "\n\n configure ~/mystuff/ gitconfig\n"
+MYSTUFF_GIT_CONFIG_FILE_CONTENTS='
+[user]
+    name = komuw
+    email = komuw05@gmail.com'
+
+MYSTUFF_GIT_CONFIG_FILE=/home/komuw/mystuff/.gitconfig
+touch "$MYSTUFF_GIT_CONFIG_FILE"
+grep -qF -- "$MYSTUFF_GIT_CONFIG_FILE_CONTENTS" "$MYSTUFF_GIT_CONFIG_FILE" || echo "$MYSTUFF_GIT_CONFIG_FILE_CONTENTS" >> "$MYSTUFF_GIT_CONFIG_FILE"
+
+
+printf "\n\n configure ~/personalWork/ gitconfig\n"
+PERSONAL_WORK_GIT_CONFIG_FILE_CONTENTS='
+[user]
+    name = "$PERSONAL_WORK_NAME"
+    email = "$PERSONAL_WORK_EMAIL"'
+
+PERSONAL_WORK_GIT_CONFIG_FILE=/home/komuw/personalWork/.gitconfig
+touch "$PERSONAL_WORK_GIT_CONFIG_FILE"
+grep -qF -- "$PERSONAL_WORK_GIT_CONFIG_FILE_CONTENTS" "$PERSONAL_WORK_GIT_CONFIG_FILE" || echo "$PERSONAL_WORK_GIT_CONFIG_FILE_CONTENTS" >> "$PERSONAL_WORK_GIT_CONFIG_FILE"
 
 
 printf "\n\n configure hgrc(mercurial)\n"
@@ -442,10 +517,6 @@ DOCKER_DAEMON_CONFIG_FILE=/etc/docker/daemon.json
 touch "$DOCKER_DAEMON_CONFIG_FILE"
 grep -qF -- "$DOCKER_DAEMON_CONFIG_FILE_CONTENTS" "$DOCKER_DAEMON_CONFIG_FILE" || echo "$DOCKER_DAEMON_CONFIG_FILE_CONTENTS" >> "$DOCKER_DAEMON_CONFIG_FILE"
 
-
-printf "\n\n create my stuff dir\n"
-mkdir -p $HOME/mystuff
-chown -R komuw:komuw $HOME/mystuff
 
 printf "\n\n  update\n"
 apt-get -y update
