@@ -143,9 +143,9 @@ apt-get -y install gcc \
         net-tools \
         aria2 \
         shellcheck \
-        rlwrap
-
-# ifconfig
+        rlwrap \
+        tree
+        # ifconfig
 
 printf "\n\n install skype pre-requistes\n"
 apt -y install gconf-service libgconf-2-4 gnome-keyring
