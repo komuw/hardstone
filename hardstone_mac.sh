@@ -81,19 +81,10 @@ printf "\n::INSTALL vagrant plugins\n\n"
 vagrant plugin install vagrant-cachier vagrant-vbguest
 
 printf "\n::INSTALL pip packages\n\n"
-pip install -U virtualenv \
-           virtualenvwrapper \
-           pep8 \
-           yapf \
-           ansible==1.9.4 \
+pip3 install -U \
            httpie \
            livestreamer \
-           awsebcli \
-           youtube-dl \
-           prompt_toolkit \
-           pycodestyle \
-           autopep8 \
-           flake8
+           youtube-dl
 
 printf "\n::SETUP ssh key, but do not overwrite\n\n"
 cat /dev/zero | ssh-keygen -t rsa -C "komuw@Mac" -b 4096 -q -N $SSH_PASSPHRASE -f /home/komuw/.ssh/personal_id_rsa

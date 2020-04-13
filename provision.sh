@@ -91,7 +91,6 @@ apt-get -y install gcc \
         openssh-client \
         kdiff3 \
         meld \
-        python-pip \
         python3-pip \
         software-properties- \
         terminator \
@@ -210,32 +209,17 @@ printf "\n\n install bat(https://github.com/sharkdp/bat)\n"
 wget -nc --output-document=/tmp/bat_amd64.deb https://github.com/sharkdp/bat/releases/download/v0.13.0/bat_0.13.0_amd64.deb
 dpkg -i /tmp/bat_amd64.deb
 
-printf "\n\n Install Python packages\n"
-pip install --upgrade pip \
-         virtualenv \
-         virtualenvwrapper \
+printf "\n\n Install Python pip3 packages\n"
+pip3 install --upgrade pip # upgrade  pip3 gloablly
+python3 -m venv ~/.global_venv
+source ~/.global_venv/bin/activate && pip3 install --upgrade \
          youtube-dl \
-         yapf \
-         ansible \
+         docker-compose \
+         asciinema \
          httpie \
          livestreamer \
          awscli \
-         awsebcli \
-         prompt_toolkit \
-         pycodestyle  \
-         autopep8 \
-         flake8 \
-         sewer \
-         Pygments \
-         pylint \
-         pylint-django
-    
-printf "\n\n Install Python pip3 packages\n"
-pip3 install --upgrade docker-compose \
-         asciinema \
-         jupyter \
-         jupyterlab \
-         jupyter-console
+         sewer
 
 # printf "\n\n create users group"
 # group: name={{ USER }} state=present
@@ -505,9 +489,11 @@ DOCKER_DAEMON_CONFIG_FILE=/etc/docker/daemon.json
 touch "$DOCKER_DAEMON_CONFIG_FILE"
 grep -qF -- "$DOCKER_DAEMON_CONFIG_FILE_CONTENTS" "$DOCKER_DAEMON_CONFIG_FILE" || echo "$DOCKER_DAEMON_CONFIG_FILE_CONTENTS" >> "$DOCKER_DAEMON_CONFIG_FILE"
 
-
 printf "\n\n  update\n"
 apt-get -y update
 
-printf "\n\n  add security updates\n"
+printf "\n\n add security updates\n"
 apt-get -y dist-upgrade
+
+printf "\n\n clear /tmp directory\n"
+rm -rf /tmp/*
