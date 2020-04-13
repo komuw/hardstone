@@ -22,8 +22,8 @@ apt-get -y install gcc \
                     curl \
                     wget \
                     git
-curl https://bootstrap.pypa.io/get-pip.py | python - 'pip==9.0.3' # see:: https://github.com/pypa/pip/issues/5240
-pip install --ignore-installed -U pip
+
+# If you need pip see:: https://github.com/pypa/pip/issues/5240
 apt-get -y update
 
 printf "\n\n set locale\n"
