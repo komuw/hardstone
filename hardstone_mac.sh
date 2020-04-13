@@ -106,8 +106,8 @@ mkdir -p /home/komuw/swat
 mkdir -p /home/komuw/mystuff
 
 printf "\n::INSTALL golang\n\n"
-wget -nc "https://storage.googleapis.com/golang/go1.11.darwin-amd64.pkg"
-tar -C /usr/local -xzf golang/go1.11.darwin-amd64.pkg
+wget -nc --output-document=/tmp/go_amd64.pkg "https://storage.googleapis.com/golang/go1.11.darwin-amd64.pkg"
+tar -C /usr/local -xzf /tmp/go_amd64.pkg
 
 printf "\n::COPY conf files\n\n"
 cp templates/mac/atom.config.cson.j2 /home/komuw/.atom/config.cson
@@ -116,12 +116,6 @@ cp templates/mac/gitconfig.j2 /home/komuw/.ssh/config
 cp templates/mac/hgrc.j2 /home/komuw/.hgrc
 cp templates/pep8.j2 /home/komuw/.config/pep8
 cp templates/xonshrc.j2 /home/komuw/.xonshrc
-
-printf "\n::WGET sublimetext and install\n\n"
-wget -nc --directory-prefix=/tmp "https://download.sublimetext.com/Sublime%20Text%20Build%203124.dmg"
-hdiutil mount "Sublime Text Build 3124.dmg" || printf "\n already installed\n"
-cp -R "/Volumes/Sublime Text" /Applications || printf "\n already installed\n"
-cd ~ && hdiutil unmount "/Volumes/Sublime Text" || printf "\n already installed\n"
 
 printf "\n::git config\n\n"
 git config --global user.name "komuW"
@@ -154,27 +148,27 @@ go get github.com/mailgun/godebug              #another debugger
 # gobin can then be used to install go bin packages, eg;
 # gobin github.com/google/pprof
 printf "\n\n install https://github.com/myitcv/gobin\n"
-wget -nc --directory-prefix=/tmp https://github.com/myitcv/gobin/releases/download/v0.0.4/darwin-amd64
-mv /tmp/darwin-amd64 /usr/local/bin/gobin
+wget -nc --output-document=/tmp/gobin https://github.com/myitcv/gobin/releases/download/v0.0.4/darwin-amd64
+mv /tmp/gobin /usr/local/bin/gobin
 chmod +x /usr/local/bin/gobin
 
 printf "\n\n install Java AWS Corretto openJDK\n"
 # java11 is an LTS
-wget -nc --directory-prefix=/tmp https://d3pxv6yz143wms.cloudfront.net/11.0.4.11.1/amazon-corretto-11.0.4.11.1-macosx-x64.tar.gz
-tar -xzf /tmp/amazon-corretto-11.0.4.11.1-macosx-x64.tar.gz -C /Library/Java/JavaVirtualMachines/
+wget -nc --output-document=/tmp/amazon_corretto.tar.gz https://d3pxv6yz143wms.cloudfront.net/11.0.4.11.1/amazon-corretto-11.0.4.11.1-macosx-x64.tar.gz
+tar -xzf /tmp/amazon_corretto.tar.gz -C /Library/Java/JavaVirtualMachines/
 java -version
 javac -version
 brew install gradle
 
 
 printf "\n\n install peco\n"
-wget -nc --directory-prefix=/tmp https://github.com/peco/peco/releases/download/v0.5.7/peco_darwin_amd64.zip
-unzip /tmp/peco_darwin_amd64.zip -d /tmp/
+wget -nc --output-document=/tmp/peco.zip https://github.com/peco/peco/releases/download/v0.5.7/peco_darwin_amd64.zip
+unzip /tmp/peco.zip -d /tmp/
 mv /tmp/peco_darwin_amd64/peco /usr/local/bin/peco
 chmod +x /usr/local/bin/peco
 
 printf "\n\n install ripgrep\n"
-wget -nc --directory-prefix=/tmp "https://github.com/BurntSushi/ripgrep/releases/download/11.0.2/ripgrep-11.0.2-x86_64-apple-darwin.tar.gz"
-tar -xzf /tmp/ripgrep-11.0.2-x86_64-apple-darwin.tar.gz -C /tmp 
+wget -nc --output-document=/tmp/ripgrep.tar.gz "https://github.com/BurntSushi/ripgrep/releases/download/12.0.1/ripgrep-12.0.1-x86_64-apple-darwin.tar.gz"
+tar -xzf /tmp/ripgrep.tar.gz -C /tmp 
 mv /tmp/ripgrep-11.0.2-x86_64-apple-darwin/rg /usr/local/bin/rg
 chmod +x /usr/local/bin/rg

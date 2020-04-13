@@ -12,11 +12,11 @@ export DEBIAN_FRONTEND=noninteractive
 
 PECO_VERSION=v0.5.7
 printf "\n\n install peco\n"
-wget -nc --directory-prefix=/tmp "https://github.com/peco/peco/releases/download/$PECO_VERSION/peco_linux_amd64.tar.gz"
+wget -nc --output-document=/tmp/peco_linux_amd64.tar.gz "https://github.com/peco/peco/releases/download/$PECO_VERSION/peco_linux_amd64.tar.gz"
 tar -xzf /tmp/peco_linux_amd64.tar.gz -C /tmp 
 mv /tmp/peco_linux_amd64/peco /usr/local/bin/peco
 chmod +x /usr/local/bin/peco
 
 printf "\n\n install ripgrep\n"
-wget -nc --directory-prefix=/tmp "https://github.com/BurntSushi/ripgrep/releases/download/11.0.2/ripgrep_11.0.2_amd64.deb"
-dpkg -i /tmp/ripgrep_11.0.2_amd64.deb
+wget -nc --output-document=/tmp/ripgrep_amd64.deb "https://github.com/BurntSushi/ripgrep/releases/download/12.0.1/ripgrep_12.0.1_amd64.deb"
+dpkg -i /tmp/ripgrep_amd64.deb

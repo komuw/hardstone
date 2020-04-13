@@ -13,7 +13,7 @@ export DEBIAN_FRONTEND=noninteractive
 GOLANG_VERSION=go1.14.linux-amd64
 
 printf "\n\n  download golang\n"
-wget -nc --directory-prefix=/usr/local "https://dl.google.com/go/$GOLANG_VERSION.tar.gz"
+wget -nc --output-document="/usr/local/$GOLANG_VERSION.tar.gz" "https://dl.google.com/go/$GOLANG_VERSION.tar.gz"
 printf "\n\n  untar golang file\n"
 tar -xzf "/usr/local/$GOLANG_VERSION.tar.gz" -C /usr/local/
 

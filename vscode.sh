@@ -12,9 +12,9 @@ export DEBIAN_FRONTEND=noninteractive
 printf "\n\n install vscode dependencies \n"
 apt -y install libxkbfile1
 printf "\n\n  download vscode\n"
-wget -nc --directory-prefix=/tmp "https://go.microsoft.com/fwlink/?LinkID=760868"
+wget -nc --output-document=/tmp/vscode.deb "https://go.microsoft.com/fwlink/?LinkID=760868"
 printf "\n\n  install vscode\n"
-dpkg -i /tmp/index.html\?LinkID\=760868
+dpkg -i /tmp/vscode.deb
 
 # on MacOs it is /Users/komuw/Library/Application\ Support/Code/User/settings.json
 printf "\n\n  configure vscode user settings file\n"

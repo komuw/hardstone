@@ -10,13 +10,13 @@ shopt -s nullglob globstar
 export DEBIAN_FRONTEND=noninteractive
 
 printf "\n\n remove any current zig files\n"
-rm -rf /usr/local/zig /usr/local/zig-linux-*
+rm -rf /usr/local/zig /usr/local/zig.*
 
 printf "\n\n  download zig from master branch(change when zig gets to ver1)\n"
 # TODO: parse content from https://ziglang.org/download/index.json
-wget -nc --directory-prefix=/usr/local https://ziglang.org/builds/zig-linux-x86_64-0.4.0+3879bebc.tar.xz
+wget -nc --output-document=/usr/local/zig.tar.xz https://ziglang.org/builds/zig-linux-x86_64-0.5.0+b8796be79.tar.xz
 printf "\n\n  untar zig file\n"
-mkdir -p /usr/local/zig && tar -xf /usr/local/zig-linux-x86_64-*.tar.xz -C /usr/local/zig --strip-components 1
+mkdir -p /usr/local/zig && tar -xf /usr/local/zig.tar.xz -C /usr/local/zig --strip-components 1
 
 # todo: add zig to $PATH
 printf "\n\n use zig as: \n"

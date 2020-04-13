@@ -58,10 +58,6 @@ apt-get -y purge skype*
 printf "\n\n rm skype config\n"
 rm -rf /home/komuw/.Skype; rm -rf /home/komuw/.skype
 
-printf "\n\n add sublime-text3 ppa\n"
-wget -qO - https://download.sublimetext.com/sublimehq-pub.gpg | apt-key add -
-echo "deb https://download.sublimetext.com/ apt/stable/" | tee /etc/apt/sources.list.d/sublime-text.list
-
 #transmission bittorrent, mpv, wireguard. add-apt-repository takes one repo as arg
 printf "\n\n add some ppas\n"
 add-apt-repository -y ppa:eugenesan/ppa
@@ -144,7 +140,6 @@ apt-get -y install gcc \
         x264  \
         x265  \
         gdebi \
-        sublime-text \
         wireguard \
         net-tools \
         aria2 \
@@ -157,10 +152,10 @@ printf "\n\n install skype pre-requistes\n"
 apt -y install gconf-service libgconf-2-4 gnome-keyring
 
 printf "\n\n download skype\n"
-wget -nc --directory-prefix=/tmp https://repo.skype.com/latest/skypeforlinux-64.deb
+wget -nc --output-document=/tmp/skype.deb https://repo.skype.com/latest/skypeforlinux-64.deb
 
 printf "\n\n install skype\n"
-dpkg -i /tmp/skypeforlinux-64.deb
+dpkg -i /tmp/skype.deb
 
 printf "\n\n add nodeJs ppa\n"
 curl -sL https://deb.nodesource.com/setup_13.x | bash -
@@ -196,10 +191,10 @@ apt-get -y install libdbusmenu-glib4 \
                    libappindicator3-1
 
 printf "\n\n download google chrome\n"
-wget -nc --directory-prefix=/tmp https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+wget -nc --output-document=/tmp/google_chrome_stable_amd64.deb https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
 
 printf "\n\n install google chrome\n"
-dpkg -i /tmp/google-chrome-stable_current_amd64.deb
+dpkg -i /tmp/google_chrome_stable_amd64.deb
 
 printf "\n\n fix install chrome errors\n"
 apt-get -f -y install  
@@ -208,13 +203,12 @@ printf "\n\n install virtualbox dependencies\n"
 apt -y install libqt5opengl5
 
 printf "\n\n download and install virtualbox\n"
-wget -nc --directory-prefix=/tmp -O virtualbox_amd64.deb "http://download.virtualbox.org/virtualbox/6.1.4/virtualbox-6.1_6.1.4-136177~Ubuntu~$(lsb_release -cs)_amd64.deb"
-
+wget -nc --output-document=/tmp/virtualbox_amd64.deb "http://download.virtualbox.org/virtualbox/6.1.4/virtualbox-6.1_6.1.4-136177~Ubuntu~$(lsb_release -cs)_amd64.deb"
 dpkg -i /tmp/virtualbox_amd64.deb
 
 printf "\n\n install bat(https://github.com/sharkdp/bat)\n"
-wget -nc --directory-prefix=/tmp https://github.com/sharkdp/bat/releases/download/v0.12.1/bat_0.12.1_amd64.deb
-dpkg -i /tmp/bat_0.12.1_amd64.deb
+wget -nc --output-document=/tmp/bat_amd64.deb https://github.com/sharkdp/bat/releases/download/v0.13.0/bat_0.13.0_amd64.deb
+dpkg -i /tmp/bat_amd64.deb
 
 printf "\n\n Install Python packages\n"
 pip install --upgrade pip \
