@@ -6,107 +6,94 @@ else
     # Bash 4.3 and older chokes on empty arrays with set -u.
     set -eo pipefail
 fi
-shopt -s nullglob globstar
 export DEBIAN_FRONTEND=noninteractive
 
 
-while :
-do
-   case "$1"
-     in
-     --ssh_passphrase)
-     SSH_PASSPHRASE="$2"
-     shift 2
-     ;;
-     --) # End of all options
-          shift
-          break
-          ;;
-     *)  # No more options
-          break
-          ;;
-   esac
-done
 
-GOBIN_VERSION=v0.0.4 #https://github.com/myitcv/gobin
-
-printf "\n::INSTALL brew and stuff\n\n"
-/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
-
-printf "\n::PRELIMINARY setup\n\n"
-brew install ack \
-             autojump \
-             automake \
-             colordiff \
-             curl \
-             git \
-             git-flow \
-             hub icoutils \
-             imagemagick \
-             libmemcached \
-             memcached \
-             openssl \
-             ossp-uuid \
-             qt \
-             readline \
-             redis \
-             tmux \
-             wget \
-             pstree \
-             bat \
-             xonsh #this will also install python3 and pip3
-
-brew tap caskroom/cask
-
-brew install caskroom/cask/brew-cask
-
-easy_install pip
-
-pip install -U pip
-pip3 install prompt_toolkit pygments
-
-printf "\n::INSTALL apts(i know)\n\n"
-brew cask install google-chrome \
-                  vagrant \
-                  docker \
-                  vlc \
-                  git \
-                  hexchat \
-                  mosh \
-                  virtualbox \
-                  iterm2
+SSH_KEY_PHRASE_PERSONAL=${1:-sshKeyPhrasePersonalNotSet}
+if [ "$SSH_KEY_PHRASE_PERSONAL" == "sshKeyPhrasePersonalNotSet"  ]; then
+    printf "\n\n SSH_KEY_PHRASE_PERSONAL should not be empty\n"
+    exit
+fi
 
 
-printf "\n::INSTALL vagrant plugins\n\n"
-vagrant plugin install vagrant-cachier vagrant-vbguest
 
-printf "\n::INSTALL pip packages\n\n"
-pip3 install -U \
-           httpie \
-           livestreamer \
-           youtube-dl
+# printf "\n::INSTALL brew and stuff\n\n"
+# /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+# brew analytics off
+# brew update
+# brew cask install iterm2
 
-printf "\n::SETUP ssh key, but do not overwrite\n\n"
-cat /dev/zero | ssh-keygen -t rsa -C "komuw@Mac" -b 4096 -q -N $SSH_PASSPHRASE -f /home/komuw/.ssh/personal_id_rsa
+# printf "\n::INSTALL some apps via brew\n\n"
+# brew install ack \
+#              autojump \
+#              automake \
+#              colordiff \
+#              curl \
+#              imagemagick \
+#              ossp-uuid \
+#              qt \
+#              readline \
+#              wget \
+#              pstree \
+#              bat
+
+
+printf "\n\n create personal ssh-key\n"
+if [[ ! -e /Users/komuw/.ssh/personal_id_rsa.pub ]]; then
+    mkdir -p /Users/komuw/.ssh
+    ssh-keygen -t rsa -C "komuw@Mac" -b 8192 -q -N "$SSH_KEY_PHRASE_PERSONAL" -f /Users/komuw/.ssh/personal_id_rsa
+fi
+chmod 600 ~/.ssh/personal_id_rsa
+chmod 600 ~/.ssh/personal_id_rsa.pub
+chown -R komuw:staff /Users/komuw/.ssh
 
 printf "\n::SHOW me my ssh key damn it\n\n"
-cat /home/komuw/.ssh/personal_id_rsa.pub
+cat /Users/komuw/.ssh/personal_id_rsa.pub
+
 
 printf "\n::CREATE dirs\n\n"
-mkdir -p /home/komuw/swat
-mkdir -p /home/komuw/mystuff
+mkdir -p /Users/komuw/swat
+mkdir -p /Users/komuw/mystuff
+
 
 printf "\n::INSTALL golang\n\n"
-wget -nc --output-document=/tmp/go_amd64.pkg "https://storage.googleapis.com/golang/go1.11.darwin-amd64.pkg"
-tar -C /usr/local -xzf /tmp/go_amd64.pkg
+brew install golang
+
+
+printf "\n\n install https://github.com/myitcv/gobin \n"
+export PATH=$PATH:/usr/local/go/bin && \
+export PATH=$HOME/go/bin:$PATH
+go get -u github.com/myitcv/gobin
+
+printf "\n\n gobin install some golang packages\n"
+export PATH=$PATH:/usr/local/go/bin && \
+export PATH=$HOME/go/bin:$PATH
+gobin -u github.com/rogpeppe/gohack
+gobin -u honnef.co/go/tools/cmd/staticcheck@2020.1.4
+gobin -u github.com/go-delve/delve/cmd/dlv
+gobin -u golang.org/x/tools/gopls
+gobin -u github.com/containous/yaegi/cmd/yaegi # yaegi repl. usage: rlwrap yaegi
+gobin -u github.com/maruel/panicparse/cmd/pp
+gobin -u github.com/securego/gosec/cmd/gosec
+gobin -u github.com/google/pprof
+gobin -u github.com/rs/curlie
+gobin -u github.com/tsenart/vegeta
+
+
+printf "\n::INSTALL dartlang \n\n"
+brew tap dart-lang/dart
+brew install dart --head
+brew update
+brew upgrade dart
+
 
 printf "\n::COPY conf files\n\n"
-cp templates/mac/atom.config.cson.j2 /home/komuw/.atom/config.cson
-cp templates/mac/bash_aliases.j2 /home/komuw/.bash_aliases
-cp templates/mac/gitconfig.j2 /home/komuw/.ssh/config
-cp templates/mac/hgrc.j2 /home/komuw/.hgrc
-cp templates/pep8.j2 /home/komuw/.config/pep8
-cp templates/xonshrc.j2 /home/komuw/.xonshrc
+cp templates/mac/bash_aliases.j2 /Users/komuw/.bash_aliases
+cp templates/mac/gitconfig.j2 /Users/komuw/.ssh/config
+cp templates/mac/hgrc.j2 /Users/komuw/.hgrc
+cp templates/pep8.j2 /Users/komuw/.config/pep8
+
 
 printf "\n::git config\n\n"
 git config --global user.name "komuW"
@@ -117,49 +104,50 @@ git config --global alias.ci commit
 git config --global alias.st status
 git config --global alias.hist "log --pretty=format:'%C(yellow)[%ad]%C(reset) %C(green)[%h]%C(reset) | %C(red)%s %C(bold red){{%an}}%C(reset) %C(blue)%d%C(reset)' --graph --date=short"
 
-printf "\n::SET xonsh as default shell\n\n"
-grep -q "/usr/local/bin/xonsh" "/etc/shells" || /bin/bash -c 'echo "/usr/local/bin/xonsh" >> "/etc/shells"'
-chsh -s /usr/local/bin/xonsh
-
-printf "\n::copy over things to enable auto suggestion in xonsh\n\n"
-cp -R /usr/local/Cellar/python3/3.6.5/Frameworks/Python.framework/Versions/3.6/lib/python3.6/site-packages/prompt_toolkit /usr/local/Cellar/xonsh/0.6.5/libexec/lib/python3.6/site-packages
-cp -R /usr/local/Cellar/python3/3.6.5/Frameworks/Python.framework/Versions/3.6/lib/python3.6/site-packages/wcwidth /usr/local/Cellar/xonsh/0.6.5/libexec/lib/python3.6/site-packages
-cp -R /usr/local/Cellar/python3/3.6.5/Frameworks/Python.framework/Versions/3.6/lib/python3.6/site-packages/six* /usr/local/Cellar/xonsh/0.6.5/libexec/lib/python3.6/site-packages
-cp -R /usr/local/Cellar/python3/3.6.5/Frameworks/Python.framework/Versions/3.6/lib/python3.6/site-packages/pygments /usr/local/Cellar/xonsh/0.6.5/libexec/lib/python3.6/site-packages
-
-printf "\n::INSTALL golang pkgs\n\n"
-go get github.com/motemen/gore                 #golang repl
-go get github.com/nsf/gocode                   #golang auto-completion
-go get github.com/k0kubun/pp                   #pretty print
-go get golang.org/x/tools/cmd/godoc            #docs
-go get github.com/go-delve/delve/cmd/dlv       #debugger
-go get github.com/mailgun/godebug              #another debugger
-
-# TODO: move to using gobin to install go tools instead of go get -u
-# gobin can then be used to install go bin packages, eg;
-# gobin github.com/google/pprof
-printf "\n\n install https://github.com/myitcv/gobin\n"
-wget -nc --output-document=/tmp/gobin https://github.com/myitcv/gobin/releases/download/v0.0.4/darwin-amd64
-mv /tmp/gobin /usr/local/bin/gobin
-chmod +x /usr/local/bin/gobin
 
 printf "\n\n install Java AWS Corretto openJDK\n"
 # java11 is an LTS
-wget -nc --output-document=/tmp/amazon_corretto.tar.gz https://d3pxv6yz143wms.cloudfront.net/11.0.4.11.1/amazon-corretto-11.0.4.11.1-macosx-x64.tar.gz
+if [[ ! -e /tmp/amazon_corretto.tar.gz ]]; then
+    wget --output-document=/tmp/amazon_corretto.tar.gz https://corretto.aws/downloads/latest/amazon-corretto-11-x64-macos-jdk.tar.gz
+fi
 tar -xzf /tmp/amazon_corretto.tar.gz -C /Library/Java/JavaVirtualMachines/
 java -version
 javac -version
 brew install gradle
 
-
-printf "\n\n install peco\n"
-wget -nc --output-document=/tmp/peco.zip https://github.com/peco/peco/releases/download/v0.5.7/peco_darwin_amd64.zip
-unzip /tmp/peco.zip -d /tmp/
-mv /tmp/peco_darwin_amd64/peco /usr/local/bin/peco
-chmod +x /usr/local/bin/peco
-
 printf "\n\n install ripgrep\n"
-wget -nc --output-document=/tmp/ripgrep.tar.gz "https://github.com/BurntSushi/ripgrep/releases/download/12.0.1/ripgrep-12.0.1-x86_64-apple-darwin.tar.gz"
+if [[ ! -e /tmp/ripgrep.tar.gz ]]; then
+    wget --output-document=/tmp/ripgrep.tar.gz "https://github.com/BurntSushi/ripgrep/releases/download/12.1.1/ripgrep-12.1.1-x86_64-apple-darwin.tar.gz"
+fi
 tar -xzf /tmp/ripgrep.tar.gz -C /tmp 
-mv /tmp/ripgrep-11.0.2-x86_64-apple-darwin/rg /usr/local/bin/rg
+mv /tmp/rripgrep-12.1.1-x86_64-apple-darwin/rg /usr/local/bin/rg
 chmod +x /usr/local/bin/rg
+
+
+
+printf "\n\n install Zsh \n"
+brew install zsh
+chsh -s $(which zsh)
+
+printf "\n\n Install ohmyzsh \n"
+rm -rf ~/.oh-my-zsh
+git clone https://github.com/robbyrussell/oh-my-zsh.git ~/.oh-my-zsh
+
+printf "\n\n Install ohmyzsh plugins \n"
+git clone https://github.com/zsh-users/zsh-autosuggestions ~/.oh-my-zsh/custom/plugins/zsh-autosuggestions
+git clone https://github.com/zsh-users/zsh-completions ~/.oh-my-zsh/custom/plugins/zsh-completions
+
+printf "\n\n Add ohmyzsh config \n"
+cp templates/zshrc.j2 ~/.zshrc
+
+printf "\n\n change ownership of ohmyzsh dirs \n"
+chown -R komuw:staff /Users/komuw/.zshrc
+chown -R komuw:staff ~/.oh-my-zsh
+
+
+printf "\n\n Install awscli \n"
+curl "https://awscli.amazonaws.com/AWSCLIV2.pkg" -o "AWSCLIV2.pkg"
+# this will install it inside /Applications/
+sudo installer -pkg AWSCLIV2.pkg -target /
+
+

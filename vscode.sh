@@ -29,12 +29,9 @@ printf "\n\n  install vscode extensions\n"
 export GOPATH="$HOME/go" && \
 export PATH=$PATH:/usr/local/go/bin && \
 export PATH=$HOME/go/bin:$PATH
-code --user-data-dir='.' --install-extension magicstack.MagicPython
 code --user-data-dir='.' --install-extension ms-python.python
 code --user-data-dir='.' --install-extension Dart-Code.dart-code
 code --user-data-dir='.' --install-extension Dart-Code.flutter
-code --user-data-dir='.' --install-extension sourcegraph.sourcegraph
 code --user-data-dir='.' --install-extension hnw.vscode-auto-open-markdown-preview
 code --user-data-dir='.' --install-extension ms-vscode.Go
-code --user-data-dir='.' --install-extension vscjava.vscode-java-pack
 code --user-data-dir='.' --install-extension ms-vscode.cpptools

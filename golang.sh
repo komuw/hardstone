@@ -17,13 +17,6 @@ wget -nc --output-document="/usr/local/$GOLANG_VERSION.tar.gz" "https://dl.googl
 printf "\n\n  untar golang file\n"
 tar -xzf "/usr/local/$GOLANG_VERSION.tar.gz" -C /usr/local/
 
-printf "\n\n  golang profileI\n"
-GOLANG_PROFILE_CONFIG_FILE_CONTENTS="#golang
-export PATH=$PATH:/usr/local/go/bin
-export GOPATH=$HOME/go
-export PATH=$HOME/go/bin:$PATH"
-GOLANG_PROFILE_CONFIG_FILE=/etc/profile
-grep -qF -- "$GOLANG_PROFILE_CONFIG_FILE_CONTENTS" "$GOLANG_PROFILE_CONFIG_FILE" || echo "$GOLANG_PROFILE_CONFIG_FILE_CONTENTS" >> "$GOLANG_PROFILE_CONFIG_FILE"
 
 printf "\n\n install https://github.com/myitcv/gobin \n"
 export GOPATH="$HOME/go" && \
@@ -36,7 +29,7 @@ export GOPATH="$HOME/go" && \
 export PATH=$PATH:/usr/local/go/bin && \
 export PATH=$HOME/go/bin:$PATH
 gobin -u github.com/rogpeppe/gohack
-gobin -u honnef.co/go/tools/cmd/staticcheck@2020.1.3
+gobin -u honnef.co/go/tools/cmd/staticcheck@2020.1.4
 gobin -u github.com/go-delve/delve/cmd/dlv
 gobin -u golang.org/x/tools/gopls
 gobin -u github.com/containous/yaegi/cmd/yaegi # yaegi repl. usage: rlwrap yaegi
@@ -54,3 +47,5 @@ printf "\n\n change ownership of ~/go\n"
 go version
 chown -R komuw:komuw $HOME/go
 chown -R komuw:komuw $HOME/.cache/
+
+
