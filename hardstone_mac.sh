@@ -125,6 +125,14 @@ mv /tmp/ripgrep-12.1.1-x86_64-apple-darwin/rg /usr/local/bin/rg
 chmod +x /usr/local/bin/rg
 
 
+printf "\n\n install kubectx\n"
+if [[ ! -e /tmp/kubectx.tar.gz ]]; then
+    wget --output-document=/tmp/kubectx.tar.gz "https://github.com/ahmetb/kubectx/releases/download/v0.9.1/kubectx_v0.9.1_darwin_x86_64.tar.gz"
+fi
+tar -xzf /tmp/kubectx.tar.gz -C /tmp
+mv /tmp/kubectx /usr/local/bin/kubectx
+chmod +x /usr/local/bin/kubectx
+
 
 printf "\n\n install Zsh \n"
 brew install zsh
