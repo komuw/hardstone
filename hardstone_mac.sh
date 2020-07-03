@@ -128,7 +128,7 @@ chmod +x /usr/local/bin/rg
 
 printf "\n\n install Zsh \n"
 brew install zsh
-chsh -s $(which zsh)
+chsh -s /bin/zsh
 
 printf "\n\n Install ohmyzsh \n"
 rm -rf ~/.oh-my-zsh
