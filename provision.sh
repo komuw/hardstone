@@ -264,21 +264,7 @@ cat /home/komuw/.ssh/personal_work_id_rsa.pub
 ########################## personal work ssh key ##################
 
 printf "\n\n configure ssh/config\n"
-# there ought to be NO newlines in the content
-SSH_CONFIG_FILE_CONTENTS='
-# ssh -T git@github.com
-Host *.github.com
-  ForwardAgent no
-Host *.bitbucket.org
-  ForwardAgent no
-
-# ForwardAgent is harmful
-# https://heipei.io/2015/02/26/SSH-Agent-Forwarding-considered-harmful/
-
-ServerAliveInterval 60'
-SSH_CONFIG_FILE=/home/komuw/.ssh/config
-touch "$SSH_CONFIG_FILE"
-grep -qF -- "$SSH_CONFIG_FILE_CONTENTS" "$SSH_CONFIG_FILE" || echo "$SSH_CONFIG_FILE_CONTENTS" >> "$SSH_CONFIG_FILE"
+cp templates/ssh_conf.j2 /home/komuw/.ssh/config
 
 
 # printf "\n\n configure bash aliases"
@@ -286,6 +272,7 @@ grep -qF -- "$SSH_CONFIG_FILE_CONTENTS" "$SSH_CONFIG_FILE" || echo "$SSH_CONFIG_
 #         dest=/home/komuw/.bash_aliases
 
 printf "\n\n configure .bashrc\n"
+# there ought to be NO newlines in the content
 BASHRC_FILE_FILE_CONTENTS='#solve passphrase error in ssh
 #enable auto ssh-agent forwading
 #see: http://rabexc.org/posts/pitfalls-of-ssh-agents

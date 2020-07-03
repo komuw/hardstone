@@ -18,25 +18,25 @@ fi
 
 
 
-# printf "\n::INSTALL brew and stuff\n\n"
-# /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
-# brew analytics off
-# brew update
-# brew cask install iterm2
+printf "\n::INSTALL brew and stuff\n\n"
+/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+brew analytics off
+brew update
+brew cask install iterm2
 
-# printf "\n::INSTALL some apps via brew\n\n"
-# brew install ack \
-#              autojump \
-#              automake \
-#              colordiff \
-#              curl \
-#              imagemagick \
-#              ossp-uuid \
-#              qt \
-#              readline \
-#              wget \
-#              pstree \
-#              bat
+printf "\n::INSTALL some apps via brew\n\n"
+brew install ack \
+             autojump \
+             automake \
+             colordiff \
+             curl \
+             imagemagick \
+             ossp-uuid \
+             qt \
+             readline \
+             wget \
+             pstree \
+             bat
 
 
 printf "\n\n create personal ssh-key\n"
@@ -89,10 +89,9 @@ brew upgrade dart
 
 
 printf "\n::COPY conf files\n\n"
+cp templates/ssh_conf.j2 /Users/komuw/.ssh/config
 cp templates/mac/bash_aliases.j2 /Users/komuw/.bash_aliases
-cp templates/mac/gitconfig.j2 /Users/komuw/.ssh/config
 cp templates/mac/hgrc.j2 /Users/komuw/.hgrc
-cp templates/pep8.j2 /Users/komuw/.config/pep8
 
 
 printf "\n::git config\n\n"
@@ -110,6 +109,8 @@ printf "\n\n install Java AWS Corretto openJDK\n"
 if [[ ! -e /tmp/amazon_corretto.tar.gz ]]; then
     wget --output-document=/tmp/amazon_corretto.tar.gz https://corretto.aws/downloads/latest/amazon-corretto-11-x64-macos-jdk.tar.gz
 fi
+mkdir -p /Library/Java/JavaVirtualMachines/
+sudo chown -R komuw:staff /Library/Java/JavaVirtualMachines/
 tar -xzf /tmp/amazon_corretto.tar.gz -C /Library/Java/JavaVirtualMachines/
 java -version
 javac -version
@@ -120,7 +121,7 @@ if [[ ! -e /tmp/ripgrep.tar.gz ]]; then
     wget --output-document=/tmp/ripgrep.tar.gz "https://github.com/BurntSushi/ripgrep/releases/download/12.1.1/ripgrep-12.1.1-x86_64-apple-darwin.tar.gz"
 fi
 tar -xzf /tmp/ripgrep.tar.gz -C /tmp 
-mv /tmp/rripgrep-12.1.1-x86_64-apple-darwin/rg /usr/local/bin/rg
+mv /tmp/ripgrep-12.1.1-x86_64-apple-darwin/rg /usr/local/bin/rg
 chmod +x /usr/local/bin/rg
 
 
@@ -141,13 +142,14 @@ printf "\n\n Add ohmyzsh config \n"
 cp templates/zshrc.j2 ~/.zshrc
 
 printf "\n\n change ownership of ohmyzsh dirs \n"
-chown -R komuw:staff /Users/komuw/.zshrc
-chown -R komuw:staff ~/.oh-my-zsh
+sudo chown -R komuw:staff /Users/komuw/.zshrc
+sudo chown -R komuw:staff ~/.oh-my-zsh
+
 
 
 printf "\n\n Install awscli \n"
-curl "https://awscli.amazonaws.com/AWSCLIV2.pkg" -o "AWSCLIV2.pkg"
+curl "https://awscli.amazonaws.com/AWSCLIV2.pkg" -o "/tmp/AWSCLIV2.pkg"
 # this will install it inside /Applications/
-sudo installer -pkg AWSCLIV2.pkg -target /
+sudo installer -pkg /tmp/AWSCLIV2.pkg -target /
 
 

@@ -1,0 +1,10 @@
+# ssh -T git@github.com
+Host *.github.com
+  ForwardAgent no
+Host *.bitbucket.org
+  ForwardAgent no
+
+# ForwardAgent is harmful
+# https://heipei.io/2015/02/26/SSH-Agent-Forwarding-considered-harmful/
+
+ServerAliveInterval 60
