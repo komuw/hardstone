@@ -169,3 +169,20 @@ if [[ ! -e /tmp/pritunl.pkg.zip ]]; then
 fi
 unzip /tmp/pritunl.pkg.zip -d /tmp/pritunl
 sudo installer -pkg /tmp/pritunl/Pritunl.pkg -target /
+
+
+printf "\n\n Add `ecr_login` bash helper function \n"
+BASHRC_PROFILE_FILE_CONTENTS="""
+function ecr_login () {
+  # login to AWS ECR.
+  local profile="\$1" # escape so that they remain
+  local aws_account_id="\$2"
+
+  aws --profile "$profile" --region eu-west-1 ecr get-login-password | \
+  docker login --username AWS --password-stdin "$aws_account_id".dkr.ecr.eu-west-1.amazonaws.com
+}"""
+BASHRC_PROFILE_FILE=/Users/komuw/.bash_profile
+if  ! grep -q "ecr_login" "$BASHRC_PROFILE_FILE"; then
+  echo "adding ecr_login bash helper function."
+  echo "$BASHRC_PROFILE_FILE_CONTENTS" >> "$BASHRC_PROFILE_FILE"
+fi
