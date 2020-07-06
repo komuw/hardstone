@@ -104,11 +104,10 @@ alias pip="pip3"
 source $ZSH/oh-my-zsh.sh
 { # try
 
-  source ~/.profile
+  source ~/.profile; source ~/.bash_profile
   # sourcing this other files aint working
   # source /etc/profile && \
   # source ~/.bashrc && \
-  # source ~/.bash_profile
 
 } || { # catch
   printf "\nsourcing some files failed. \n"
