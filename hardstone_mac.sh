@@ -36,7 +36,8 @@ brew install ack \
              readline \
              wget \
              pstree \
-             bat
+             bat \
+             shellcheck
 
 
 printf "\n\n create personal ssh-key\n"
@@ -124,18 +125,6 @@ tar -xzf /tmp/ripgrep.tar.gz -C /tmp
 mv /tmp/ripgrep-12.1.1-x86_64-apple-darwin/rg /usr/local/bin/rg
 chmod +x /usr/local/bin/rg
 
-
-printf "\n\n install kubectx\n"
-if [[ ! -e /tmp/kubectx.tar.gz ]]; then
-    wget --output-document=/tmp/kubectx.tar.gz "https://github.com/ahmetb/kubectx/releases/download/v0.9.1/kubectx_v0.9.1_darwin_x86_64.tar.gz"
-fi
-tar -xzf /tmp/kubectx.tar.gz -C /tmp
-mv /tmp/kubectx /usr/local/bin/kubectx
-chmod +x /usr/local/bin/kubectx
-
-printf "\n\n install poetry\n"
-curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/1.0.5/get-poetry.py | python3
-
 printf "\n\n install Zsh \n"
 brew install zsh
 chsh -s /bin/zsh
@@ -162,4 +151,21 @@ curl "https://awscli.amazonaws.com/AWSCLIV2.pkg" -o "/tmp/AWSCLIV2.pkg"
 # this will install it inside /Applications/
 sudo installer -pkg /tmp/AWSCLIV2.pkg -target /
 
+printf "\n\n install kubectx\n"
+if [[ ! -e /tmp/kubectx.tar.gz ]]; then
+    wget --output-document=/tmp/kubectx.tar.gz "https://github.com/ahmetb/kubectx/releases/download/v0.9.1/kubectx_v0.9.1_darwin_x86_64.tar.gz"
+fi
+tar -xzf /tmp/kubectx.tar.gz -C /tmp
+mv /tmp/kubectx /usr/local/bin/kubectx
+chmod +x /usr/local/bin/kubectx
 
+printf "\n\n install poetry\n"
+curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/1.0.5/get-poetry.py | python3
+
+
+printf "\n\n install Pritunl\n"
+if [[ ! -e /tmp/pritunl.pkg.zip ]]; then
+    wget --output-document=/tmp/pritunl.pkg.zip "https://github.com/pritunl/pritunl-client-electron/releases/download/1.0.2440.93/Pritunl.pkg.zip"
+fi
+unzip /tmp/pritunl.pkg.zip -d /tmp/pritunl
+sudo installer -pkg /tmp/pritunl/Pritunl.pkg -target /
