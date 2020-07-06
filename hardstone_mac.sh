@@ -133,6 +133,8 @@ tar -xzf /tmp/kubectx.tar.gz -C /tmp
 mv /tmp/kubectx /usr/local/bin/kubectx
 chmod +x /usr/local/bin/kubectx
 
+printf "\n\n install poetry\n"
+curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/1.0.5/get-poetry.py | python3
 
 printf "\n\n install Zsh \n"
 brew install zsh
