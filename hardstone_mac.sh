@@ -37,7 +37,8 @@ brew install ack \
              wget \
              pstree \
              bat \
-             shellcheck
+             shellcheck \
+             terraform
 
 
 printf "\n\n create personal ssh-key\n"
