@@ -88,6 +88,7 @@ brew tap dart-lang/dart
 brew install dart --head
 brew update
 brew upgrade dart
+brew reinstall --force dart
 
 
 printf "\n::COPY conf files\n\n"
