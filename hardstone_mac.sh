@@ -61,7 +61,9 @@ mkdir -p /Users/komuw/mystuff
 
 
 printf "\n::INSTALL golang\n\n"
-brew install golang
+wget --output-document=/tmp/golang.pkg https://golang.org/dl/go1.15.1.darwin-amd64.pkg
+# this will install it inside /Applications/
+sudo installer -pkg /tmp/golang.pkg -target /
 
 
 printf "\n\n install https://github.com/myitcv/gobin \n"
