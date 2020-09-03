@@ -182,9 +182,8 @@ function ecr_login () {
   # login to AWS ECR.
   local profile="\$1" # escape so that they remain
   local aws_account_id="\$2"
-
-  aws --profile "$profile" --region eu-west-1 ecr get-login-password | \
-  docker login --username AWS --password-stdin "$aws_account_id".dkr.ecr.eu-west-1.amazonaws.com
+  aws --profile "\$profile" --region eu-west-1 ecr get-login-password | \
+  docker login --username AWS --password-stdin "\$aws_account_id".dkr.ecr.eu-west-1.amazonaws.com
 }"""
 BASHRC_PROFILE_FILE=/Users/komuw/.bash_profile
 if  ! grep -q "ecr_login" "$BASHRC_PROFILE_FILE"; then
