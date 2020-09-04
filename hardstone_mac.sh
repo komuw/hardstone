@@ -78,6 +78,7 @@ gobin -u github.com/rogpeppe/gohack
 gobin -u honnef.co/go/tools/cmd/staticcheck@2020.1.4
 gobin -u github.com/go-delve/delve/cmd/dlv
 gobin -u golang.org/x/tools/gopls
+gobin -u golang.org/x/tools/cmd/godex
 gobin -u github.com/containous/yaegi/cmd/yaegi # yaegi repl. usage: rlwrap yaegi
 gobin -u github.com/maruel/panicparse/v2/cmd/pp
 gobin -u github.com/securego/gosec/cmd/gosec
