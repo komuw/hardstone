@@ -18,3 +18,5 @@ sudo apt -y install android-tools-adb
 printf "\n\n install showmax"
 printf "\n\n 1. go to https://apkpure.com and download showmax"
 printf "\n\n 2. then install it as `adb install showmax.apk`"
+
+printf "/n/n NB: anbox does not currently support video playback. \n So showmax wont work. https://github.com/anbox/anbox/issues/956"
