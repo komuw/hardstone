@@ -29,7 +29,7 @@ export GOPATH="$HOME/go" && \
 export PATH=$PATH:/usr/local/go/bin && \
 export PATH=$HOME/go/bin:$PATH
 gobin -u github.com/rogpeppe/gohack
-gobin -u honnef.co/go/tools/cmd/staticcheck@2020.1.4
+gobin -u honnef.co/go/tools/cmd/staticcheck@2020.1.6
 gobin -u github.com/go-delve/delve/cmd/dlv
 gobin -u golang.org/x/tools/gopls
 gobin -u golang.org/x/tools/cmd/godex
