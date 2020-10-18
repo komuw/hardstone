@@ -191,3 +191,21 @@ if  ! grep -q "ecr_login" "$BASHRC_PROFILE_FILE"; then
   echo "adding ecr_login bash helper function."
   echo "$BASHRC_PROFILE_FILE_CONTENTS" >> "$BASHRC_PROFILE_FILE"
 fi
+
+
+
+install_zig() {
+    printf "\n\n  download zig from master branch(change when zig gets to ver1)\n"
+    # TODO: parse content from https://ziglang.org/download/index.json
+    wget -nc --output-document=/usr/local/zig.tar.xz https://ziglang.org/builds/zig-macos-x86_64-0.6.0+b0684bf08.tar.xz
+    printf "\n\n  untar zig file\n"
+    mkdir -p /usr/local/zig && tar -xf /usr/local/zig.tar.xz -C /usr/local/zig --strip-components 1
+
+    # todo: add zig to $PATH
+    printf "\n\n use zig as: \n"
+    printf "\t /usr/local/zig/zig build-exe hel.zig \n"
+
+    # to install on Osx u can also use: brew install zig --HEAD
+}
+
+install_zig
