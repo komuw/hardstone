@@ -110,6 +110,32 @@ git config --global alias.ci commit
 git config --global alias.st status
 git config --global alias.hist "log --pretty=format:'%C(yellow)[%ad]%C(reset) %C(green)[%h]%C(reset) | %C(red)%s %C(bold red){{%an}}%C(reset) %C(blue)%d%C(reset)' --graph --date=short"
 
+printf "\n\n configure gitattributes\n"
+rm -rf ~/.gitattributes
+touch ~/.gitattributes
+echo '*.c     diff=cpp
+*.h     diff=cpp
+*.c++   diff=cpp
+*.h++   diff=cpp
+*.cpp   diff=cpp
+*.hpp   diff=cpp
+*.cc    diff=cpp
+*.hh    diff=cpp
+*.cs    diff=csharp
+*.css   diff=css
+*.html  diff=html
+*.xhtml diff=html
+*.ex    diff=elixir
+*.exs   diff=elixir
+*.go    diff=golang
+*.php   diff=php
+*.pl    diff=perl
+*.py    diff=python
+*.md    diff=markdown
+*.rb    diff=ruby
+*.rake  diff=ruby
+*.rs    diff=rust' >> ~/.gitattributes
+
 
 printf "\n\n install Java AWS Corretto openJDK\n"
 # java11 is an LTS

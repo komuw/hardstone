@@ -344,6 +344,35 @@ PERSONAL_WORK_GIT_CONFIG_FILE=/home/komuw/personalWork/.gitconfig
 touch "$PERSONAL_WORK_GIT_CONFIG_FILE"
 grep -qF -- "$PERSONAL_WORK_GIT_CONFIG_FILE_CONTENTS" "$PERSONAL_WORK_GIT_CONFIG_FILE" || echo "$PERSONAL_WORK_GIT_CONFIG_FILE_CONTENTS" >> "$PERSONAL_WORK_GIT_CONFIG_FILE"
 
+printf "\n\n configure gitattributes\n"
+GIT_ATTRIBUTES_FILE_CONTENTS='
+*.c     diff=cpp
+*.h     diff=cpp
+*.c++   diff=cpp
+*.h++   diff=cpp
+*.cpp   diff=cpp
+*.hpp   diff=cpp
+*.cc    diff=cpp
+*.hh    diff=cpp
+*.cs    diff=csharp
+*.css   diff=css
+*.html  diff=html
+*.xhtml diff=html
+*.ex    diff=elixir
+*.exs   diff=elixir
+*.go    diff=golang
+*.php   diff=php
+*.pl    diff=perl
+*.py    diff=python
+*.md    diff=markdown
+*.rb    diff=ruby
+*.rake  diff=ruby
+*.rs    diff=rust'
+
+GIT_ATTRIBUTES_FILE=/home/komuw/mystuff/.gitattributes
+touch "$GIT_ATTRIBUTES_FILE"
+grep -qF -- "$GIT_ATTRIBUTES_FILE_CONTENTS" "$GIT_ATTRIBUTES_FILE" || echo "$GIT_ATTRIBUTES_FILE_CONTENTS" >> "$GIT_ATTRIBUTES_FILE"
+
 
 printf "\n\n configure hgrc(mercurial)\n"
 MERCURIAL_CONFIG_FILE_CONTENTS='[ui]
