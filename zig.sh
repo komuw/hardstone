@@ -12,11 +12,14 @@ export DEBIAN_FRONTEND=noninteractive
 
 install_zig() {
     printf "\n\n remove any current zig files\n"
-    rm -rf /usr/local/zigDir && mkdir -p /usr/local/zigDir
+    sudo rm -rf /usr/local/zigDir && sudo mkdir -p /usr/local/zigDir && sudo chown -R komuw /usr/local/zigDir
 
     printf "\n\n  download zig from master branch(change when zig gets to ver1)\n"
     # TODO: parse content from https://ziglang.org/download/index.json
-    wget -nc --output-document=/usr/local/zigDir/zig.tar.xz https://ziglang.org/builds/zig-macos-x86_64-0.6.0+0011def2b.tar.xz
+    LATEST_ZIG_MASTER=$(curl -s 'https://ziglang.org/download/index.json' | python3 -c "import sys, json; print(json.load(sys.stdin)['master']['x86_64-macos']['tarball'])")
+    printf "\nLATEST_ZIG_MASTER is: $LATEST_ZIG_MASTER\n"
+
+    wget -nc --output-document=/usr/local/zigDir/zig.tar.xz $LATEST_ZIG_MASTER
     printf "\n\n  untar zig file\n"
     tar -xf /usr/local/zigDir/zig.tar.xz -C /usr/local/zigDir --strip-components 1
 
