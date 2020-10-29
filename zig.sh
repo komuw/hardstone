@@ -16,7 +16,7 @@ install_zig() {
 
     printf "\n\n  download zig from master branch(change when zig gets to ver1)\n"
     # TODO: parse content from https://ziglang.org/download/index.json
-    LATEST_ZIG_MASTER=$(curl -s 'https://ziglang.org/download/index.json' | python3 -c "import sys, json; print(json.load(sys.stdin)['master']['x86_64-macos']['tarball'])")
+    LATEST_ZIG_MASTER=$(curl -s 'https://ziglang.org/download/index.json' | python3 -c "import sys, json; print(json.load(sys.stdin)['master']['x86_64-linux']['tarball'])")
     printf "\nLATEST_ZIG_MASTER is: $LATEST_ZIG_MASTER\n"
 
     wget -nc --output-document=/usr/local/zigDir/zig.tar.xz $LATEST_ZIG_MASTER
