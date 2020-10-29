@@ -30,6 +30,7 @@ export GOPATH="$HOME/go" && \
 export PATH=$PATH:/usr/local/go/bin && \
 export PATH=$HOME/go/bin:$PATH
 code --user-data-dir='.' --install-extension ms-python.python
+code --user-data-dir='.' --install-extension ms-python.vscode-pylance
 code --user-data-dir='.' --install-extension Dart-Code.dart-code
 code --user-data-dir='.' --install-extension Dart-Code.flutter
 code --user-data-dir='.' --install-extension hnw.vscode-auto-open-markdown-preview
