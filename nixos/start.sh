@@ -77,29 +77,11 @@ clear_stuff(){
     # garbage collect them
     /nix/var/nix/profiles/default/bin/nix-collect-garbage -d
     /nix/var/nix/profiles/default/bin/nix-store --optimise
-    /nix/var/nix/profiles/default/bin/nix-store --verify --check-contents   
+    # ref: https://nixos.org/manual/nix/unstable/command-ref/nix-store.html
+    /nix/var/nix/profiles/default/bin/nix-store --verify --repair
 }
 
 printf "\n\n 3. Uninstall all ubuntu packages \n"
 apt-get purge -y --force-yes `dpkg --get-selections | awk '{print $1}'`
 
 
-
-
-# okay(){
-#   NIX_VERSION=2.3.6
-#   wget https://nixos.org/releases/nix/nix-${NIX_VERSION}/nix-${NIX_VERSION}-x86_64-linux.tar.xz \
-#   && tar xf nix-${NIX_VERSION}-x86_64-linux.tar.xz \
-#   && addgroup --gid 30000 nixbld \
-#   && for i in $(seq 1 30); do adduser --no-create-home --uid $i --ingroup nixbld --disabled-password --disabled-login --force-badname --gecos "" "NixBuildUser$i"; done                          
-  
-#   mkdir -p -m 0755 /etc/nix \
-#   && mkdir -p -m 0755 /nix && USER=root sh nix-${NIX_VERSION}-x86_64-linux/install \
-#   && ln -s /nix/var/nix/profiles/default/etc/profile.d/nix.sh /etc/profile.d/ \
-#   && rm -r /nix-${NIX_VERSION}-x86_64-linux* \
-#   && rm -rf /var/cache/apk/* \
-#   && /nix/var/nix/profiles/default/bin/nix-collect-garbage --delete-old \
-#   && /nix/var/nix/profiles/default/bin/nix-store --optimise \
-#   && /nix/var/nix/profiles/default/bin/nix-store --verify --check-contents
-#   #   && echo 'sandbox = false' > /etc/nix/nix.conf \
-# }
