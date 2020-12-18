@@ -80,8 +80,16 @@ clear_stuff(){
     # ref: https://nixos.org/manual/nix/unstable/command-ref/nix-store.html
     /nix/var/nix/profiles/default/bin/nix-store --verify --repair
 }
+clear_stuff
 
-printf "\n\n 3. Uninstall all ubuntu packages \n"
-apt-get purge -y --force-yes `dpkg --get-selections | awk '{print $1}'`
+uninstall_non_essential_apt_packages(){
+    printf "\n\n 5. list all non-essential apt packages \n"
+    echo `dpkg-query -Wf '${Package;-40}${Priority}\n' | grep -i optional | awk '{print $1}'`
+
+    printf "\n\n uninstall all non-essential apt packages \n"
+    apt purge -y `dpkg-query -Wf '${Package;-40}${Priority}\n' | grep -i optional | awk '{print $1}'`
+}
+uninstall_non_essential_apt_packages
+
 
 
