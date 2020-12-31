@@ -10,13 +10,11 @@ shopt -s nullglob globstar
 export DEBIAN_FRONTEND=noninteractive
 
 
-PECO_VERSION=v0.5.7
-printf "\n\n install peco\n"
-wget -nc --output-document=/tmp/peco_linux_amd64.tar.gz "https://github.com/peco/peco/releases/download/$PECO_VERSION/peco_linux_amd64.tar.gz"
-tar -xzf /tmp/peco_linux_amd64.tar.gz -C /tmp 
-mv /tmp/peco_linux_amd64/peco /usr/local/bin/peco
-chmod +x /usr/local/bin/peco
-
 printf "\n\n install ripgrep\n"
-wget -nc --output-document=/tmp/ripgrep_amd64.deb "https://github.com/BurntSushi/ripgrep/releases/download/12.0.1/ripgrep_12.0.1_amd64.deb"
+wget -nc --output-document=/tmp/ripgrep_amd64.deb "https://github.com/BurntSushi/ripgrep/releases/download/12.1.1/ripgrep_12.1.1_amd64.deb"
 dpkg -i /tmp/ripgrep_amd64.deb
+
+
+printf "\n\n install mozilla rr debugger\n"
+wget -nc --output-document=/tmp/rr_amd64.deb "https://github.com/rr-debugger/rr/releases/download/5.4.0/rr-5.4.0-Linux-x86_64.deb"
+dpkg -i /tmp/rr_amd64.deb
