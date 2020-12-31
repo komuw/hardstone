@@ -217,7 +217,8 @@ source ~/.global_venv/bin/activate && pip3 install --upgrade \
          docker-compose \
          asciinema \
          httpie \
-         livestreamer \
+         # livestreamer replacement
+         streamlink \
          awscli \
          sewer
 
