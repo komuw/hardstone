@@ -1,8 +1,4 @@
 #!/usr/bin/env bash
-if test "$BASH" = "" || "$BASH" -uc "a=();true \"\${a[@]}\"" 2>/dev/null; then
-    # Bash 4.4, Zsh
-    set -eo pipefail
-fi
 shopt -s nullglob globstar
 export DEBIAN_FRONTEND=noninteractive
 
@@ -18,30 +14,30 @@ export DEBIAN_FRONTEND=noninteractive
 
 
 install_nix_pre_requistes(){
-    printf "\n\n 1. install nix-installation pre-requistes A \n" 
+    printf "\t\n\n 1. install nix-installation pre-requistes A \n" 
     apt -y update;apt -y install tzdata sudo
 
-    printf "\n\n 1.1 nix-installation pre-requistes: tzdata config A \n" 
+    printf "\t\n\n 1.1 nix-installation pre-requistes: tzdata config A \n" 
     echo "tzdata tzdata/Areas select Africa
     tzdata tzdata/Zones/Africa select Nairobi" >> /tmp/tzdata_preseed.txt
     debconf-set-selections /tmp/tzdata_preseed.txt
     rm -rf /etc/timezone; echo "Africa/Nairobi" >> /etc/timezone
     sudo dpkg-reconfigure --frontend noninteractive tzdata
 
-    printf "\n\n 1.2 install nix-installation pre-requistes B \n" 
+    printf "\t\n\n 1.2 install nix-installation pre-requistes B \n" 
     apt -y update;apt -y install curl xz-utils
 }
 install_nix_pre_requistes
 
 un_install_nix() {
     # see: https://nixos.org/manual/nix/stable/#sect-single-user-installation
-    printf "\n\n uninstall nix \n"
+    printf "\t\n\n uninstall nix \n"
     rm -rf /nix
 }
 
 upgrade_nix() {
     # see: https://nixos.org/manual/nix/stable/#ch-upgrading-nix
-    printf "\n\n upgrade nix \n"
+    printf "\t\n\n upgrade nix \n"
     /nix/var/nix/profiles/default/bin/nix-channel --update
 }
 
@@ -50,7 +46,7 @@ upgrade_nix() {
 # https://nixos.org/manual/nix/unstable/command-ref/conf-file.html
 install_nix() {
     NIX_PACKAGE_MANAGER_VERSION=2.3.10
-    printf "\n\n 2. install Nix package manager version %s \n" "$NIX_PACKAGE_MANAGER_VERSION"
+    printf "\t\n\n 2. install Nix package manager version %s \n" "$NIX_PACKAGE_MANAGER_VERSION"
     # This is a single-user installation: https://nixos.org/manual/nix/stable/#sect-single-user-installation
     # meaning that /nix is owned by the invoking user. Do not run as root.
     # The script will invoke sudo to create /nix
@@ -65,7 +61,7 @@ install_nix
 
 
 setup_nix_ca_bundle(){
-    printf "\n\n 3. setup Nix CA bundle \n"
+    printf "\t\n\n 3. setup Nix CA bundle \n"
     CURL_CA_BUNDLE=$(find /nix -name ca-bundle.crt |tail -n 1)
     # TODO: maybe this export should also be done in /etc/profile?
     export CURL_CA_BUNDLE=$CURL_CA_BUNDLE
@@ -74,7 +70,7 @@ setup_nix_ca_bundle
 
 
 clear_stuff(){
-    printf "\n\n 4. clear stuff \n"
+    printf "\t\n\n 4. clear stuff \n"
     apt -y clean
     rm -rf /var/lib/apt/lists/*
     # The Nix store sometimes contains entries which are no longer useful.
@@ -220,7 +216,7 @@ util-linux
 xz-utils
 zlib1g:amd64" >> /tmp/BASE_PACKAGES.txt
     cat /tmp/BASE_PACKAGES.txt | sort >> /tmp/SORTED_BASE_PACKAGES.txt
-    printf "\n\n base packages are; \n"
+    printf "\t\n\n base packages are; \n"
     cat /tmp/SORTED_BASE_PACKAGES.txt
 
     # install a dummy package so that there will always be a diff
@@ -228,13 +224,13 @@ zlib1g:amd64" >> /tmp/BASE_PACKAGES.txt
     apt -y update;apt -y install cowsay
 
     ALL_CURRENTLY_INSTALLED_PACKAGES=$(dpkg --get-selections | awk '{print $1}')
-    printf "\n\n all currently installed packages; \n"
+    printf "\t\n\n all currently installed packages; \n"
     echo "$ALL_CURRENTLY_INSTALLED_PACKAGES"
     echo "$ALL_CURRENTLY_INSTALLED_PACKAGES" | tr " " "\n" >> /tmp/ALL_CURRENTLY_INSTALLED_PACKAGES.txt
     cat /tmp/ALL_CURRENTLY_INSTALLED_PACKAGES.txt | sort >> /tmp/SORTED_ALL_CURRENTLY_INSTALLED_PACKAGES.txt
 
     PACKAGES_TO_REMOVE=$(diff /tmp/SORTED_BASE_PACKAGES.txt /tmp/SORTED_ALL_CURRENTLY_INSTALLED_PACKAGES.txt | grep '>' | awk '{print $2}')
-    printf "\n\n packages to be removed are; \n"
+    printf "\t\n\n packages to be removed are; \n"
     echo "$PACKAGES_TO_REMOVE"
 
     apt purge -y $PACKAGES_TO_REMOVE
