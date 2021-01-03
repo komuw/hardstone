@@ -234,7 +234,6 @@ zlib1g:amd64" >> /tmp/BASE_PACKAGES.txt
     printf "\n\n packages to be removed are; \n"
     echo $PACKAGES_TO_REMOVE
 
-
     apt purge -y $PACKAGES_TO_REMOVE
     rm -rf /tmp/*.txt
 }
