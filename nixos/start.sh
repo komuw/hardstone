@@ -50,7 +50,7 @@ upgrade_nix() {
 # https://nixos.org/manual/nix/unstable/command-ref/conf-file.html
 install_nix() {
     NIX_PACKAGE_MANAGER_VERSION=2.3.10
-    printf "\n\n 2. install Nix package manager version $NIX_PACKAGE_MANAGER_VERSION \n"
+    printf "\n\n 2. install Nix package manager version %s \n" "$NIX_PACKAGE_MANAGER_VERSION"
     # This is a single-user installation: https://nixos.org/manual/nix/stable/#sect-single-user-installation
     # meaning that /nix is owned by the invoking user. Do not run as root.
     # The script will invoke sudo to create /nix
@@ -227,15 +227,15 @@ zlib1g:amd64" >> /tmp/BASE_PACKAGES.txt
     # between the currently installed packages & the base packages
     apt -y update;apt -y install cowsay
 
-    ALL_CURRENTLY_INSTALLED_PACKAGES=`dpkg --get-selections | awk '{print $1}'`
+    ALL_CURRENTLY_INSTALLED_PACKAGES=$(dpkg --get-selections | awk '{print $1}')
     printf "\n\n all currently installed packages; \n"
-    echo $ALL_CURRENTLY_INSTALLED_PACKAGES
-    echo $ALL_CURRENTLY_INSTALLED_PACKAGES | tr " " "\n" >> /tmp/ALL_CURRENTLY_INSTALLED_PACKAGES.txt
+    echo "$ALL_CURRENTLY_INSTALLED_PACKAGES"
+    echo "$ALL_CURRENTLY_INSTALLED_PACKAGES" | tr " " "\n" >> /tmp/ALL_CURRENTLY_INSTALLED_PACKAGES.txt
     cat /tmp/ALL_CURRENTLY_INSTALLED_PACKAGES.txt | sort >> /tmp/SORTED_ALL_CURRENTLY_INSTALLED_PACKAGES.txt
 
-    PACKAGES_TO_REMOVE=`diff /tmp/SORTED_BASE_PACKAGES.txt /tmp/SORTED_ALL_CURRENTLY_INSTALLED_PACKAGES.txt | grep '>' | awk '{print $2}'`
+    PACKAGES_TO_REMOVE=$(diff /tmp/SORTED_BASE_PACKAGES.txt /tmp/SORTED_ALL_CURRENTLY_INSTALLED_PACKAGES.txt | grep '>' | awk '{print $2}')
     printf "\n\n packages to be removed are; \n"
-    echo $PACKAGES_TO_REMOVE
+    echo "$PACKAGES_TO_REMOVE"
 
     apt purge -y $PACKAGES_TO_REMOVE
     rm -rf /tmp/*.txt
