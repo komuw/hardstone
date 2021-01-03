@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 if test "$BASH" = "" || "$BASH" -uc "a=();true \"\${a[@]}\"" 2>/dev/null; then
     # Bash 4.4, Zsh
-    set -eo pipefail
+    set -euo pipefail
 fi
 shopt -s nullglob globstar
 export DEBIAN_FRONTEND=noninteractive
