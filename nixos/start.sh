@@ -45,6 +45,7 @@ upgrade_nix() {
 }
 
 
+# TODO: install particular version of nix
 # TODO: come up with my own nix config file(/etc/nix/nix.conf)
 # https://nixos.org/manual/nix/unstable/command-ref/conf-file.html
 install_nix() {
