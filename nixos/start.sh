@@ -6,8 +6,10 @@ fi
 shopt -s nullglob globstar
 export DEBIAN_FRONTEND=noninteractive
 
-# START
-# docker run -it ubuntu:20.04 bash
+# Usage:
+# 1. docker build -t hardstone-nix .
+# 2. docker run -it hardstone-nix
+# 3. bash start.sh
 
 
 # TODO: setup ntp; https://help.ubuntu.com/community/UbuntuTime
