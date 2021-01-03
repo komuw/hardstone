@@ -239,4 +239,3 @@ zlib1g:amd64" >> /tmp/BASE_PACKAGES.txt
 }
 uninstall_non_essential_apt_packages
 
-
