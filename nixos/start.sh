@@ -10,6 +10,7 @@ export DEBIAN_FRONTEND=noninteractive
 # 1. docker build -t hardstone-nix .
 # 2. docker run -it hardstone-nix
 # 3. bash start.sh
+# 4. docker-compose run my_nix_env
 
 
 # TODO: setup ntp; https://help.ubuntu.com/community/UbuntuTime
