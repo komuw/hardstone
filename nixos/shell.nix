@@ -18,5 +18,7 @@ pkgs.mkShell {
     pkgs.zsh
     pkgs.mpv
     pkgs.vlc
+    pkgs.nano
   ];
 }
+
