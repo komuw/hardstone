@@ -87,21 +87,6 @@ clear_stuff(){
 clear_stuff
 
 
-
-echo "base-files
-apt
-base-passwd" >> old.txt
-
-echo "apt
-vlc
-base-passwd
-skype" >> new.txt
-
-cat old.txt | sort >> sorted_old.txt
-cat new.txt | sort >> sorted_new.txt
-diff sorted_old.txt sorted_new.txt | grep '>' | awk '{print $2}' # the packages to remove
-PACKAGES_TO_REMOVE=`diff sorted_old.txt sorted_new.txt | grep '>' | awk '{print $2}'`
-
 uninstall_non_essential_apt_packages(){
     rm -rf /tmp/*.txt
 
@@ -241,18 +226,16 @@ zlib1g:amd64" >> /tmp/BASE_PACKAGES.txt
     ALL_CURRENTLY_INSTALLED_PACKAGES=`dpkg --get-selections | awk '{print $1}'`
     printf "\n\n all currently installed packages; \n"
     echo $ALL_CURRENTLY_INSTALLED_PACKAGES
+    echo $ALL_CURRENTLY_INSTALLED_PACKAGES | tr " " "\n" >> /tmp/ALL_CURRENTLY_INSTALLED_PACKAGES.txt
+    cat /tmp/ALL_CURRENTLY_INSTALLED_PACKAGES.txt | sort >> /tmp/SORTED_ALL_CURRENTLY_INSTALLED_PACKAGES.txt
 
-    diff /tmp/SORTED_BASE_PACKAGES.txt new.txt | grep '>' | awk '{print $2}' # to remove
+    PACKAGES_TO_REMOVE=`diff /tmp/SORTED_BASE_PACKAGES.txt /tmp/SORTED_ALL_CURRENTLY_INSTALLED_PACKAGES.txt | grep '>' | awk '{print $2}'`
+    printf "\n\n packages to be removed are; \n"
+    echo $PACKAGES_TO_REMOVE
 
 
-    printf "\n\n 5. list all non-essential apt packages \n"
-    echo `dpkg-query -Wf '${Package;-40}${Priority}\n' | grep -i optional | awk '{print $1}'`
-
-    printf "\n\n uninstall all non-essential apt packages \n"
-    apt purge -y `dpkg-query -Wf '${Package;-40}${Priority}\n' | grep -i optional | awk '{print $1}'`
+    apt purge -y $PACKAGES_TO_REMOVE
 }
 uninstall_non_essential_apt_packages
-
-
 
 
