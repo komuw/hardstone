@@ -15,5 +15,8 @@ pkgs.mkShell {
     pkgs.which
     pkgs.htop
     pkgs.zlib
+    pkgs.zsh
+    pkgs.mpv
+    pkgs.vlc
   ];
 }
