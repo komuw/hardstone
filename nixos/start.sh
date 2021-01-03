@@ -38,6 +38,7 @@ un_install_nix() {
     printf "\n\n uninstall nix \n"
     rm -rf /nix
 }
+
 upgrade_nix() {
     # see: https://nixos.org/manual/nix/stable/#ch-upgrading-nix
     printf "\n\n upgrade nix \n"
@@ -57,14 +58,16 @@ install_nix() {
     un_install_nix
     rm -rf /etc/nix/nix.conf; mkdir -p /etc/nix/; echo "build-users-group =" >> /etc/nix/nix.conf # see: https://github.com/NixOS/nix/issues/697
     sh <(curl -L https://nixos.org/nix/install) --no-daemon
-    source ~/.nix-profile/etc/profile.d/nix.sh
-    upgrade_nix
+    source ~/.nix-profile/etc/profile.d/nix.sh 
+    upgrade_nix 
 }
 install_nix
+
 
 setup_nix_ca_bundle(){
     printf "\n\n 3. setup Nix CA bundle \n"
     CURL_CA_BUNDLE=$(find /nix -name ca-bundle.crt |tail -n 1)
+    # TODO: maybe this export should also be done in /etc/profile?
     export CURL_CA_BUNDLE=$CURL_CA_BUNDLE
 }
 setup_nix_ca_bundle
