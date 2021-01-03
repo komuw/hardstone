@@ -36,9 +36,12 @@ un_install_nix() {
 }
 
 upgrade_nix() {
-    # see: https://nixos.org/manual/nix/stable/#ch-upgrading-nix
+    # see:
+    # 1. https://nixos.org/manual/nix/stable/#ch-upgrading-nix
+    # 2. https://nixos.org/manual/nix/stable/#sec-nix-channel
     printf "\t\n\n upgrade nix \n"
     /nix/var/nix/profiles/default/bin/nix-channel --update
+    /nix/var/nix/profiles/default/bin/nix-channel --list
 }
 
 
@@ -238,3 +241,6 @@ zlib1g:amd64" >> /tmp/BASE_PACKAGES.txt
 }
 uninstall_non_essential_apt_packages
 
+
+# The main command for package management is nix-env.
+# See: https://nixos.org/manual/nix/stable/#ch-basic-package-mgmt
