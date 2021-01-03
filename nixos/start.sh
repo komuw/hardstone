@@ -55,7 +55,7 @@ install_nix() {
     un_install_nix
     rm -rf /etc/nix/nix.conf; mkdir -p /etc/nix/; echo "build-users-group =" >> /etc/nix/nix.conf # see: https://github.com/NixOS/nix/issues/697
     sh <(curl -L https://releases.nixos.org/nix/nix-$NIX_PACKAGE_MANAGER_VERSION/install) --no-daemon
-    source ~/.nix-profile/etc/profile.d/nix.sh 
+    . ~/.nix-profile/etc/profile.d/nix.sh # source a file
     upgrade_nix 
 }
 install_nix
