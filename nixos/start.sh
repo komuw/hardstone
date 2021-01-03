@@ -42,6 +42,11 @@ upgrade_nix() {
     printf "\t\n\n upgrade nix \n"
     /nix/var/nix/profiles/default/bin/nix-channel --update
     /nix/var/nix/profiles/default/bin/nix-channel --list
+
+    # Channels are a way of distributing Nix software, but they are being phased out.
+    # Even though they are still used by default,
+    # it is recommended to avoid channels and <nixpkgs> by always setting NIX_PATH= to be empty.
+    # see: https://nixos.org/guides/towards-reproducibility-pinning-nixpkgs.html#pinning-nixpkgs
 }
 
 
