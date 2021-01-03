@@ -43,18 +43,18 @@ upgrade_nix() {
 }
 
 
-# TODO: install particular version of nix
 # TODO: come up with my own nix config file(/etc/nix/nix.conf)
 # https://nixos.org/manual/nix/unstable/command-ref/conf-file.html
 install_nix() {
-    printf "\n\n 2. install Nix \n"
+    NIX_PACKAGE_MANAGER_VERSION=2.3.10
+    printf "\n\n 2. install Nix package manager version $NIX_PACKAGE_MANAGER_VERSION \n"
     # This is a single-user installation: https://nixos.org/manual/nix/stable/#sect-single-user-installation
     # meaning that /nix is owned by the invoking user. Do not run as root.
     # The script will invoke sudo to create /nix
     # The install script will modify the first writable file from amongst ~/.bash_profile, ~/.bash_login and ~/.profile to source ~/.nix-profile/etc/profile.d/nix.sh
     un_install_nix
     rm -rf /etc/nix/nix.conf; mkdir -p /etc/nix/; echo "build-users-group =" >> /etc/nix/nix.conf # see: https://github.com/NixOS/nix/issues/697
-    sh <(curl -L https://nixos.org/nix/install) --no-daemon
+    sh <(curl -L https://releases.nixos.org/nix/nix-$NIX_PACKAGE_MANAGER_VERSION/install) --no-daemon
     source ~/.nix-profile/etc/profile.d/nix.sh 
     upgrade_nix 
 }
