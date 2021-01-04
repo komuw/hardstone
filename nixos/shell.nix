@@ -7,7 +7,8 @@
 
     usage:
     - from this directory, run;
-        /nix/var/nix/profiles/default/bin/nix-shell
+        THE_USER=$(whoami)
+        /nix/var/nix/profiles/per-user/$THE_USER/profile/bin/nix-shell
 */
 
 pkgs.mkShell {

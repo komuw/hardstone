@@ -249,7 +249,7 @@ zlib1g:amd64" >> /tmp/BASE_PACKAGES.txt
 
     # install a dummy package so that there will always be a diff
     # between the currently installed packages & the base packages
-    apt -y update;apt -y install cowsay
+    sudo apt -y update;sudo apt -y install cowsay
 
     ALL_CURRENTLY_INSTALLED_PACKAGES=$(dpkg --get-selections | awk '{print $1}')
     printf "\t\n\n all currently installed packages; \n"
@@ -261,7 +261,7 @@ zlib1g:amd64" >> /tmp/BASE_PACKAGES.txt
     printf "\t\n\n packages to be removed are; \n"
     echo "$PACKAGES_TO_REMOVE"
 
-    apt purge -y $PACKAGES_TO_REMOVE
+    sudo apt purge -y $PACKAGES_TO_REMOVE
     sudo rm -rf /tmp/*.txt
 }
 uninstall_non_essential_apt_packages
