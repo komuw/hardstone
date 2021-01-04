@@ -112,6 +112,30 @@ clear_stuff(){
 clear_stuff
 
 
+
+create_nix_aliases(){
+    touch ~/.bash_aliases # touch is silent if file already exists
+
+    echo "
+    ##### nix package manager aliases #####
+    alias nix='/nix/var/nix/profiles/per-user/$THE_USER/profile/bin/nix'
+    alias nix-build='/nix/var/nix/profiles/per-user/$THE_USER/profile/bin/nix-build'
+    alias nix-channel='/nix/var/nix/profiles/per-user/$THE_USER/profile/bin/nix-channel'
+    alias nix-collect-garbage='/nix/var/nix/profiles/per-user/$THE_USER/profile/bin/nix-collect-garbage'
+    alias nix-copy-closure='/nix/var/nix/profiles/per-user/$THE_USER/profile/bin/nix-copy-closure'
+    alias nix-daemon='/nix/var/nix/profiles/per-user/$THE_USER/profile/bin/nix-daemon'
+    alias nix-env='/nix/var/nix/profiles/per-user/$THE_USER/profile/bin/nix-env'
+    alias nix-hash='/nix/var/nix/profiles/per-user/$THE_USER/profile/bin/nix-hash'
+    alias nix-instantiate='/nix/var/nix/profiles/per-user/$THE_USER/profile/bin/nix-instantiate'
+    alias nix--prefetch-url='/nix/var/nix/profiles/per-user/$THE_USER/profile/bin/nix--prefetch-url'
+    alias nix-shell='/nix/var/nix/profiles/per-user/$THE_USER/profile/bin/nix-shell'
+    alias nix-store='/nix/var/nix/profiles/per-user/$THE_USER/profile/bin/nix-store'
+    ##### nix package manager aliases #####" | sudo tee ~/.bash_aliases
+    . ~/.bash_aliases
+}
+create_nix_aliases
+
+
 # TODO: make it possible to run this dunction
 uninstall_non_essential_apt_packages(){
     sudo rm -rf /tmp/*.txt
