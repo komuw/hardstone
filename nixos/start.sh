@@ -111,6 +111,8 @@ clear_stuff(){
 clear_stuff
 
 
+
+
 uninstall_non_essential_apt_packages(){
     sudo rm -rf /tmp/*.txt
 
@@ -119,112 +121,61 @@ uninstall_non_essential_apt_packages(){
     # TODO: We should install a fresh ubuntu 20.04 in a laptop
     #       And then profile what packages it has by default, and see which ones we SHOULD add to this list.
     #       We do not want to remove essential packages, eg those that deal with WIFI etc
-    echo "adduser
-init
-apt
-base-files
+    #       Use `dpkg-query -Wf '${Package;-40}${Priority}\n' | sort -b -k2,2 -k1,1` to find out
+    #       https://askubuntu.com/questions/79665/keep-only-essential-packages
+    # REQUIRED_PACKAGES.
+    # Found by running: `dpkg-query -Wf '${Package;-40}${Priority}\n' | sort -b -k2,2 -k1,1 | grep required |  awk '{print $1}'``
+    echo "base-files
 base-passwd
 bash
 bsdutils
-bzip2
-ca-certificates
 coreutils
-curl
 dash
 debconf
 debianutils
 diffutils
 dpkg
 e2fsprogs
-fdisk
 findutils
-gcc-10-base:amd64
-gpgv
+gcc-10-base
 grep
 gzip
 hostname
 init-system-helpers
-krb5-locales
-libacl1:amd64
-libapt-pkg6.0:amd64
-libasn1-8-heimdal:amd64
-libattr1:amd64
+libacl1
+libattr1
 libaudit-common
-libaudit1:amd64
-libblkid1:amd64
-libbrotli1:amd64
-libbz2-1.0:amd64
+libaudit1
+libbz2-1.0
 libc-bin
-libc6:amd64
-libcap-ng0:amd64
-libcom-err2:amd64
-libcrypt1:amd64
-libcurl4:amd64
-libdb5.3:amd64
-libdebconfclient0:amd64
-libext2fs2:amd64
-libfdisk1:amd64
-libffi7:amd64
-libgcc-s1:amd64
-libgcrypt20:amd64
-libgmp10:amd64
-libgnutls30:amd64
-libgpg-error0:amd64
-libgssapi-krb5-2:amd64
-libgssapi3-heimdal:amd64
-libhcrypto4-heimdal:amd64
-libheimbase1-heimdal:amd64
-libheimntlm0-heimdal:amd64
-libhogweed5:amd64
-libhx509-5-heimdal:amd64
-libidn2-0:amd64
-libk5crypto3:amd64
-libkeyutils1:amd64
-libkrb5-26-heimdal:amd64
-libkrb5-3:amd64
-libkrb5support0:amd64
-libldap-2.4-2:amd64
-libldap-common
-liblz4-1:amd64
-liblzma5:amd64
-libmount1:amd64
-libncurses6:amd64
-libncursesw6:amd64
-libnettle7:amd64
-libnghttp2-14:amd64
-libp11-kit0:amd64
-libpam-modules:amd64
+libcap-ng0
+libcom-err2
+libcrypt1
+libdb5.3
+libdebconfclient0
+libext2fs2
+libgcrypt20
+libgpg-error0
+liblocale-gettext-perl
+liblz4-1
+libncurses6
+libncursesw6
+libpam-modules
 libpam-modules-bin
 libpam-runtime
-libpam0g:amd64
-libpcre2-8-0:amd64
-libpcre3:amd64
-libprocps8:amd64
-libpsl5:amd64
-libroken18-heimdal:amd64
-librtmp1:amd64
-libsasl2-2:amd64
-libsasl2-modules:amd64
-libsasl2-modules-db:amd64
-libseccomp2:amd64
-libselinux1:amd64
+libpcre2-8-0
+libpcre3
+libprocps8
+libselinux1
 libsemanage-common
-libsemanage1:amd64
-libsepol1:amd64
-libsmartcols1:amd64
-libsqlite3-0:amd64
-libss2:amd64
-libssh-4:amd64
-libssl1.1:amd64
-libstdc++6:amd64
-libsystemd0:amd64
-libtasn1-6:amd64
-libtinfo6:amd64
-libudev1:amd64
-libunistring2:amd64
-libuuid1:amd64
-libwind0-heimdal:amd64
-libzstd1:amd64
+libsemanage1
+libsepol1
+libss2
+libtext-charwidth-perl
+libtext-iconv-perl
+libtext-wrapi18n-perl
+libtinfo6
+libzstd1
 login
 logsave
 lsb-base
@@ -232,21 +183,58 @@ mawk
 mount
 ncurses-base
 ncurses-bin
-openssl
 passwd
 perl-base
 procps
-publicsuffix
 sed
 sensible-utils
-sudo
 sysvinit-utils
 tar
 tzdata
-ubuntu-keyring
 util-linux
-xz-utils
-zlib1g:amd64" >> /tmp/BASE_PACKAGES.txt
+zlib1g"  >> /tmp/REQUIRED_PACKAGES.txt
+
+    # IMPORTANT_PACKAGES.
+    # Found by running: `dpkg-query -Wf '${Package;-40}${Priority}\n' | sort -b -k2,2 -k1,1 | grep important |  awk '{print $1}'`
+    echo "adduser
+apt
+apt-utils
+bsdmainutils
+cpio
+cron
+debconf-i18n
+dmidecode
+fdisk
+gpgv
+groff-base
+info
+init
+install-info
+iproute2
+iputils-ping
+isc-dhcp-client
+isc-dhcp-common
+kmod
+less
+libcap2-bin
+libmnl0
+libreadline8
+logrotate
+man-db
+nano
+netbase
+netcat-openbsd
+readline-common
+rsyslog
+systemd
+systemd-sysv
+ubuntu-advantage-tools
+ubuntu-keyring
+udev
+vim-common
+vim-tiny" >> /tmp/IMPORTANT_PACKAGES.txt
+
+    cat /tmp/REQUIRED_PACKAGES.txt /tmp/IMPORTANT_PACKAGES.txt > /tmp/BASE_PACKAGES.txt
     cat /tmp/BASE_PACKAGES.txt | sort >> /tmp/SORTED_BASE_PACKAGES.txt
     printf "\t\n\n base packages are; \n"
     cat /tmp/SORTED_BASE_PACKAGES.txt
@@ -266,7 +254,7 @@ zlib1g:amd64" >> /tmp/BASE_PACKAGES.txt
     echo "$PACKAGES_TO_REMOVE"
 
     sudo apt purge -y $PACKAGES_TO_REMOVE
-    sudo rm -rf /tmp/*.txt
+    # sudo rm -rf /tmp/*.txt
 }
 uninstall_non_essential_apt_packages
 
