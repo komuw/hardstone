@@ -50,8 +50,13 @@ upgrade_nix() {
 }
 
 
-# TODO: come up with my own nix config file(/etc/nix/nix.conf)
-# https://nixos.org/manual/nix/unstable/command-ref/conf-file.html
+create_nix_conf_file(){
+    printf "\t\n\n create nix conf file(/etc/nix/nix.conf) \n"
+    rm -rf /etc/nix/nix.conf
+    mkdir -p /etc/nix/
+    cp etc.nix.nix.conf /etc/nix/nix.conf
+}
+
 install_nix() {
     NIX_PACKAGE_MANAGER_VERSION=2.3.10
     printf "\t\n\n 2. install Nix package manager version %s \n" "$NIX_PACKAGE_MANAGER_VERSION"
@@ -60,7 +65,7 @@ install_nix() {
     # The script will invoke sudo to create /nix
     # The install script will modify the first writable file from amongst ~/.bash_profile, ~/.bash_login and ~/.profile to source ~/.nix-profile/etc/profile.d/nix.sh
     un_install_nix
-    rm -rf /etc/nix/nix.conf; mkdir -p /etc/nix/; echo "build-users-group =" >> /etc/nix/nix.conf # see: https://github.com/NixOS/nix/issues/697
+    create_nix_conf_file
     sh <(curl -L https://releases.nixos.org/nix/nix-$NIX_PACKAGE_MANAGER_VERSION/install) --no-daemon
     . ~/.nix-profile/etc/profile.d/nix.sh # source a file
     upgrade_nix 
