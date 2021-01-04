@@ -13,17 +13,22 @@ export DEBIAN_FRONTEND=noninteractive
 
 
 
-install_nix_pre_requistes(){
-    printf "\t\n\n 1. install nix-installation pre-requistes A \n" 
-    apt -y update;apt -y install tzdata sudo
-
+configure_timezone(){
     printf "\t\n\n 1.1 nix-installation pre-requistes: tzdata config A \n" 
+
     echo "tzdata tzdata/Areas select Africa
     tzdata tzdata/Zones/Africa select Nairobi" >> /tmp/tzdata_preseed.txt
     debconf-set-selections /tmp/tzdata_preseed.txt
     rm -rf /etc/timezone; echo "Africa/Nairobi" >> /etc/timezone
     ln -sf /usr/share/zoneinfo/Africa/Nairobi /etc/localtime
     sudo dpkg-reconfigure --frontend noninteractive tzdata
+}
+
+install_nix_pre_requistes(){
+    printf "\t\n\n 1. install nix-installation pre-requistes A \n"
+    apt -y update;apt -y install tzdata sudo
+
+    configure_timezone
 
     printf "\t\n\n 1.2 install nix-installation pre-requistes B \n" 
     apt -y update;apt -y install curl xz-utils
@@ -65,10 +70,13 @@ install_nix() {
     # meaning that /nix is owned by the invoking user. Do not run as root.
     # The script will invoke sudo to create /nix
     # The install script will modify the first writable file from amongst ~/.bash_profile, ~/.bash_login and ~/.profile to source ~/.nix-profile/etc/profile.d/nix.sh
+
     un_install_nix
     create_nix_conf_file
+
     sh <(curl -L https://releases.nixos.org/nix/nix-$NIX_PACKAGE_MANAGER_VERSION/install) --no-daemon
     . ~/.nix-profile/etc/profile.d/nix.sh # source a file
+
     upgrade_nix 
 }
 install_nix
