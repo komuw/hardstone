@@ -99,8 +99,8 @@ setup_nix_ca_bundle
 
 clear_stuff(){
     printf "\t\n\n 4. clear stuff \n"
-    apt -y clean
-    rm -rf /var/lib/apt/lists/*
+    sudo apt -y clean
+    sudo rm -rf /var/lib/apt/lists/*
     # The Nix store sometimes contains entries which are no longer useful.
     # garbage collect them
     /nix/var/nix/profiles/per-user/$THE_USER/profile/bin/nix-collect-garbage -d
