@@ -16,7 +16,7 @@ THE_USER=$(whoami)
 configure_timezone(){
     printf "\t\n\n 1.1 nix-installation pre-requistes: tzdata config A \n" 
 
-    rm -rf /tmp/*.txt
+    sudo rm -rf /tmp/*.txt
 
     echo "tzdata tzdata/Areas select Africa
     tzdata tzdata/Zones/Africa select Nairobi" | sudo tee /tmp/tzdata_preseed.txt
@@ -112,7 +112,7 @@ clear_stuff
 
 
 uninstall_non_essential_apt_packages(){
-    rm -rf /tmp/*.txt
+    sudo rm -rf /tmp/*.txt
 
     # This are the packages that come with a clean install of ubuntu:20.04 docker image.
     # We should not remove this, else bad things can happen.
@@ -262,7 +262,7 @@ zlib1g:amd64" >> /tmp/BASE_PACKAGES.txt
     echo "$PACKAGES_TO_REMOVE"
 
     apt purge -y $PACKAGES_TO_REMOVE
-    rm -rf /tmp/*.txt
+    sudo rm -rf /tmp/*.txt
 }
 uninstall_non_essential_apt_packages
 
