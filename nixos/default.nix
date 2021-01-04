@@ -20,6 +20,9 @@ pkgs.mkShell {
     pkgs.mpv
     pkgs.vlc
     pkgs.nano
+    pkgs.micro
   ];
 }
+
+
 
