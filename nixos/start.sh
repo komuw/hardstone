@@ -12,26 +12,31 @@ export DEBIAN_FRONTEND=noninteractive
 # TODO: setup ntp; https://help.ubuntu.com/community/UbuntuTime
 
 
-
 configure_timezone(){
     printf "\t\n\n 1.1 nix-installation pre-requistes: tzdata config A \n" 
 
+    rm -rf /tmp/*.txt
+
     echo "tzdata tzdata/Areas select Africa
-    tzdata tzdata/Zones/Africa select Nairobi" >> /tmp/tzdata_preseed.txt
+    tzdata tzdata/Zones/Africa select Nairobi" | sudo tee /tmp/tzdata_preseed.txt
     debconf-set-selections /tmp/tzdata_preseed.txt
-    rm -rf /etc/timezone; echo "Africa/Nairobi" >> /etc/timezone
-    ln -sf /usr/share/zoneinfo/Africa/Nairobi /etc/localtime
+
+    sudo rm -rf /etc/timezone
+    echo "Africa/Nairobi" | sudo tee /etc/timezone
+    sudo ln -sf /usr/share/zoneinfo/Africa/Nairobi /etc/localtime
+
+    sudo apt -y update;sudo apt -y install tzdata
     sudo dpkg-reconfigure --frontend noninteractive tzdata
 }
 
 install_nix_pre_requistes(){
     printf "\t\n\n 1. install nix-installation pre-requistes A \n"
-    apt -y update;apt -y install tzdata sudo
+    sudo apt -y update;sudo apt -y install sudo
 
     configure_timezone
 
     printf "\t\n\n 1.2 install nix-installation pre-requistes B \n" 
-    apt -y update;apt -y install curl xz-utils
+    sudo apt -y update; sudo apt -y install curl xz-utils
 }
 install_nix_pre_requistes
 
