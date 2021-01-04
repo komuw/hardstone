@@ -112,8 +112,7 @@ clear_stuff(){
 clear_stuff
 
 
-
-
+# TODO: make it possible to run this dunction
 uninstall_non_essential_apt_packages(){
     sudo rm -rf /tmp/*.txt
 
@@ -145,7 +144,7 @@ uninstall_non_essential_apt_packages(){
     sudo apt purge -y $EXTRA_PACKAGES_AND_OPTIONAL_PACKAGES_MINUS_GRUB
     clear_stuff
 }
-uninstall_non_essential_apt_packages
+# uninstall_non_essential_apt_packages
 
 
 # The main command for package management is nix-env.
