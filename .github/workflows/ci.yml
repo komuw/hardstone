@@ -1,0 +1,29 @@
+# DOCS: https://help.github.com/en/articles/workflow-syntax-for-github-actions
+
+name: hardstone ci
+on: [pull_request, push]
+
+jobs:
+
+  run_tests:
+    name: run_tests
+    timeout-minutes: 3
+    strategy:
+      matrix:
+        platform: [ubuntu-20.04]
+    runs-on: ${{ matrix.platform }}
+    steps:
+
+      - name: Check out code
+        uses: actions/checkout@v2
+
+      - name: tests and benchmarks
+        run: |
+          go test -timeout 1m -race -run=XXXX -bench=. ./...
+          go test -timeout 1m -v -race ./...
+
+      - name: test coverage
+        run: |
+          pwd
+          ls -lsha $HOME/work/
+          bash $HOME/work/hardstone/nixos/start.sh
