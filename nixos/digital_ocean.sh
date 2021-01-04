@@ -11,4 +11,8 @@ digital_ocean_user(){
 }
 digital_ocean_user
 
-git clone https://github.com/komuw/hardstone.gi
+git clone https://github.com/komuw/hardstone.git
+cd hardstone/
+git checkout nix
+cd nixos/
+bash start.sh
