@@ -21,4 +21,4 @@ jobs:
         run: |
           pwd
           ls -lsha $HOME/work/
-          bash $HOME/work/hardstone/nixos/start.sh
+          bash $HOME/work/hardstone/hardstone/nixos/start.sh
