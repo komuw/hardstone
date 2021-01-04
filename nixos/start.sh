@@ -116,6 +116,9 @@ uninstall_non_essential_apt_packages(){
 
     # This are the packages that come with a clean install of ubuntu:20.04 docker image.
     # We should not remove this, else bad things can happen.
+    # TODO: We should install a fresh ubuntu 20.04 in a laptop
+    #       And then profile what packages it has by default, and see which ones we SHOULD add to this list.
+    #       We do not want to remove essential packages, eg those that deal with WIFI etc
     echo "adduser
 apt
 base-files
