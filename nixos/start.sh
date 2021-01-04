@@ -11,6 +11,7 @@ export DEBIAN_FRONTEND=noninteractive
 
 # TODO: setup ntp; https://help.ubuntu.com/community/UbuntuTime
 
+THE_USER=$(whoami)
 
 configure_timezone(){
     printf "\t\n\n 1.1 nix-installation pre-requistes: tzdata config A \n" 
@@ -43,7 +44,7 @@ install_nix_pre_requistes
 un_install_nix() {
     # see: https://nixos.org/manual/nix/stable/#sect-single-user-installation
     printf "\t\n\n uninstall nix \n"
-    rm -rf /nix
+    sudo rm -rf /nix
 }
 
 upgrade_nix() {
@@ -51,8 +52,8 @@ upgrade_nix() {
     # 1. https://nixos.org/manual/nix/stable/#ch-upgrading-nix
     # 2. https://nixos.org/manual/nix/stable/#sec-nix-channel
     printf "\t\n\n upgrade nix \n"
-    /nix/var/nix/profiles/default/bin/nix-channel --update
-    /nix/var/nix/profiles/default/bin/nix-channel --list
+    /nix/var/nix/profiles/per-user/$THE_USER/profile/bin/nix-channel --update
+    /nix/var/nix/profiles/per-user/$THE_USER/profile/bin/nix-channel --list
 
     # Channels are a way of distributing Nix software, but they are being phased out.
     # Even though they are still used by default,
@@ -63,9 +64,9 @@ upgrade_nix() {
 
 create_nix_conf_file(){
     printf "\t\n\n create nix conf file(/etc/nix/nix.conf) \n"
-    rm -rf /etc/nix/nix.conf
-    mkdir -p /etc/nix/
-    cp etc.nix.nix.conf /etc/nix/nix.conf
+    sudo rm -rf /etc/nix/nix.conf
+    sudo mkdir -p /etc/nix/
+    sudo cp etc.nix.nix.conf /etc/nix/nix.conf
 }
 
 install_nix() {
@@ -102,10 +103,10 @@ clear_stuff(){
     rm -rf /var/lib/apt/lists/*
     # The Nix store sometimes contains entries which are no longer useful.
     # garbage collect them
-    /nix/var/nix/profiles/default/bin/nix-collect-garbage -d
-    /nix/var/nix/profiles/default/bin/nix-store --optimise
+    /nix/var/nix/profiles/per-user/$THE_USER/profile/bin/nix-collect-garbage -d
+    /nix/var/nix/profiles/per-user/$THE_USER/profile/bin/nix-store --optimise
     # ref: https://nixos.org/manual/nix/unstable/command-ref/nix-store.html
-    /nix/var/nix/profiles/default/bin/nix-store --verify --repair
+    /nix/var/nix/profiles/per-user/$THE_USER/profile/bin/nix-store --verify --repair
 }
 clear_stuff
 
