@@ -9,3 +9,6 @@ digital_ocean_user(){
     rsync --archive --chown=my_dummy_user:my_dummy_user ~/.ssh /home/my_dummy_user
     passwd -d my_dummy_user
 }
+digital_ocean_user
+
+git clone https://github.com/komuw/hardstone.gi
