@@ -120,6 +120,7 @@ uninstall_non_essential_apt_packages(){
     #       And then profile what packages it has by default, and see which ones we SHOULD add to this list.
     #       We do not want to remove essential packages, eg those that deal with WIFI etc
     echo "adduser
+init
 apt
 base-files
 base-passwd
