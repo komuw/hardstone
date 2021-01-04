@@ -22,6 +22,7 @@ install_nix_pre_requistes(){
     tzdata tzdata/Zones/Africa select Nairobi" >> /tmp/tzdata_preseed.txt
     debconf-set-selections /tmp/tzdata_preseed.txt
     rm -rf /etc/timezone; echo "Africa/Nairobi" >> /etc/timezone
+    ln -sf /usr/share/zoneinfo/Africa/Nairobi /etc/localtime
     sudo dpkg-reconfigure --frontend noninteractive tzdata
 
     printf "\t\n\n 1.2 install nix-installation pre-requistes B \n" 
