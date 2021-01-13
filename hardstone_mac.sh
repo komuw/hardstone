@@ -38,7 +38,7 @@ brew install ack \
              pstree \
              bat \
              shellcheck \
-             terraform \
+             tfenv \
              rlwrap
 
 
@@ -240,3 +240,12 @@ install_zig() {
 }
 
 install_zig
+
+
+install_terraform(){
+    printf "\n\n install terraform\n"
+    tfenv install latest
+    tfenv install 0.13.5
+    tfenv use latest
+}
+install_terraform
