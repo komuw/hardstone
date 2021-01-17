@@ -157,6 +157,15 @@ tar -xzf /tmp/ripgrep.tar.gz -C /tmp
 mv /tmp/ripgrep-12.1.1-x86_64-apple-darwin/rg /usr/local/bin/rg
 chmod +x /usr/local/bin/rg
 
+printf "\n\n install ripgrep-all(rga)\n"
+if [[ ! -e /tmp/rga.tar.gz ]]; then
+    wget --output-document=/tmp/rga.tar.gz "https://github.com/phiresky/ripgrep-all/releases/download/v0.9.6/ripgrep_all-v0.9.6-x86_64-apple-darwin.tar.gz"
+fi
+tar -xzf /tmp/rga.tar.gz -C /tmp
+mv /tmp/ripgrep_all-v0.9.6-x86_64-apple-darwin/rga /usr/local/bin/rga
+chmod +x /usr/local/bin/rga
+
+
 printf "\n\n install Zsh \n"
 brew install zsh
 chsh -s /bin/zsh
