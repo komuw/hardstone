@@ -52,6 +52,9 @@ upgrade_nix() {
     # 1. https://nixos.org/manual/nix/stable/#ch-upgrading-nix
     # 2. https://nixos.org/manual/nix/stable/#sec-nix-channel
     printf "\t\n\n upgrade nix \n"
+    /nix/var/nix/profiles/per-user/$THE_USER/profile/bin/nix-channel --list
+    nix-channel --remove nixpkgs
+    /nix/var/nix/profiles/per-user/$THE_USER/profile/bin/nix-channel --add "https://nixos.org/channels/nixpkgs-unstable" nixpkgs-unstable # TODO: use a stable/specific version
     /nix/var/nix/profiles/per-user/$THE_USER/profile/bin/nix-channel --update
     /nix/var/nix/profiles/per-user/$THE_USER/profile/bin/nix-channel --list
 
