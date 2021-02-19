@@ -26,9 +26,6 @@ chown -R komuw:komuw /home/komuw/.vscode
 cp templates/vscode.j2 /home/komuw/.config/Code/User/settings.json
 
 printf "\n\n  install vscode extensions\n"
-export GOPATH="$HOME/go" && \
-export PATH=$PATH:/usr/local/go/bin && \
-export PATH=$HOME/go/bin:$PATH
 code --user-data-dir='.' --install-extension ms-python.python
 code --user-data-dir='.' --install-extension ms-python.vscode-pylance
 code --user-data-dir='.' --install-extension Dart-Code.dart-code
