@@ -311,11 +311,14 @@ GIT_CONFIG_FILE_CONTENTS='
   hist = log --pretty=format:\"%h %ad | %s%d [%an]\" --graph --date=short
   type = cat-file -t
   dump = cat-file -p
+
 [diff]
   tool = meld
 [difftool "meld"]
+
 [merge]
   tool = meld
+  conflictstyle = diff3
 [mergetool "meld"]
   keepBackup = false'
 
