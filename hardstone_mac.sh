@@ -253,3 +253,22 @@ install_terraform(){
     tfenv use latest
 }
 install_terraform
+
+install_gleamLang() {
+    GLEAM_VERSION="https://github.com/gleam-lang/gleam/releases/download/v0.14.3/gleam-v0.14.3-macos.tar.gz"
+
+    printf "\n\n remove any current gleam \n"
+    sudo rm -rf /usr/local/bin/gleam /tmp/gleam /tmp/gleam.tar.gz
+
+    printf "\n\n  download gleam \n"
+    wget -nc --output-document=/tmp/gleam.tar.gz "$GLEAM_VERSION"
+
+    printf "\n\n  untar gleam file\n"
+    tar -xvf /tmp/gleam.tar.gz -C /tmp/
+
+    printf "\n\n add gleam to PATH: \n"
+    chmod +x /tmp/gleam
+    mv /tmp/gleam /usr/local/bin/gleam 
+}
+
+install_gleamLang
