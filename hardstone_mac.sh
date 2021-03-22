@@ -268,7 +268,12 @@ install_gleamLang() {
 
     printf "\n\n add gleam to PATH: \n"
     chmod +x /tmp/gleam
-    mv /tmp/gleam /usr/local/bin/gleam 
+    mv /tmp/gleam /usr/local/bin/gleam
+
+    printf "\n\n install erlang & rebar3 \n"
+    brew update
+    brew install erlang
+    brew install rebar3
 }
 
 install_gleamLang
