@@ -64,7 +64,7 @@ create_nix_conf_file
 
 install_nix() {
     NIX_PACKAGE_MANAGER_VERSION=2.3.10
-    printf "\n\n\t 5. install_nix %s \n" "$NIX_PACKAGE_MANAGER_VERSION"
+    printf "\n\n\t 5. install_nix version%s \n" "$NIX_PACKAGE_MANAGER_VERSION"
 
     # This is a single-user installation: https://nixos.org/manual/nix/stable/#sect-single-user-installation
     # meaning that /nix is owned by the invoking user. Do not run as root.
