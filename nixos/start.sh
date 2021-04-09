@@ -1,6 +1,8 @@
 #!/usr/bin/env bash
 shopt -s nullglob globstar
 set -x # have bash print command been ran
+set -e # fail if any command fails
+
 export DEBIAN_FRONTEND=noninteractive
 
 # Usage:
