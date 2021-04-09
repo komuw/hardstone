@@ -139,7 +139,7 @@ create_nix_aliases(){
 create_nix_aliases
 
 
-# TODO: make it possible to run this dunction
+# TODO: make it possible to run this function
 uninstall_non_essential_apt_packages(){
     sudo rm -rf /tmp/*.txt
 
@@ -176,4 +176,6 @@ uninstall_non_essential_apt_packages(){
 
 # The main command for package management is nix-env.
 # See: https://nixos.org/manual/nix/stable/#ch-basic-package-mgmt
+# Although others think it should not be widely recommended
+# https://news.ycombinator.com/item?id=26748696
 
