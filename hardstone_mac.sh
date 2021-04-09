@@ -61,30 +61,25 @@ mkdir -p /Users/komuw/mystuff
 
 
 printf "\n::INSTALL golang\n\n"
-wget --output-document=/tmp/golang.pkg https://golang.org/dl/go1.15.1.darwin-amd64.pkg
+wget --output-document=/tmp/golang.pkg https://golang.org/dl/go1.16.darwin-amd64.pkg
 # this will install it inside /Applications/
 sudo installer -pkg /tmp/golang.pkg -target /
 
 
-printf "\n\n install https://github.com/myitcv/gobin \n"
+printf "\n\n go install some golang packages\n"
 export PATH=$PATH:/usr/local/go/bin && \
 export PATH=$HOME/go/bin:$PATH
-go get -u github.com/myitcv/gobin
-
-printf "\n\n gobin install some golang packages\n"
-export PATH=$PATH:/usr/local/go/bin && \
-export PATH=$HOME/go/bin:$PATH
-gobin -u github.com/rogpeppe/gohack
-gobin -u honnef.co/go/tools/cmd/staticcheck
-gobin -u github.com/go-delve/delve/cmd/dlv
-gobin -u golang.org/x/tools/gopls
-gobin -u golang.org/x/tools/cmd/godex
-gobin -u github.com/containous/yaegi/cmd/yaegi # yaegi repl. usage: rlwrap yaegi
-gobin -u github.com/maruel/panicparse/v2/cmd/pp
-gobin -u github.com/securego/gosec/cmd/gosec
-gobin -u github.com/google/pprof
-gobin -u github.com/rs/curlie
-gobin -u github.com/tsenart/vegeta
+go install github.com/rogpeppe/gohack@latest
+go install honnef.co/go/tools/cmd/staticcheck@latest
+go install github.com/go-delve/delve/cmd/dlv@latest
+go install golang.org/x/tools/gopls@latest
+go install golang.org/x/tools/cmd/godex@latest
+go install github.com/traefik/yaegi/cmd/yaegi@latest # yaegi repl. usage: rlwrap yaegi
+go install github.com/maruel/panicparse/v2/cmd/pp@latest
+go install github.com/securego/gosec/cmd/gosec@latest
+go install github.com/google/pprof@latest
+go install github.com/rs/curlie@latest
+go install github.com/tsenart/vegeta@latest
 
 
 printf "\n::INSTALL dartlang \n\n"
@@ -258,3 +253,27 @@ install_terraform(){
     tfenv use latest
 }
 install_terraform
+
+install_gleamLang() {
+    GLEAM_VERSION="https://github.com/gleam-lang/gleam/releases/download/v0.14.3/gleam-v0.14.3-macos.tar.gz"
+
+    printf "\n\n remove any current gleam \n"
+    sudo rm -rf /usr/local/bin/gleam /tmp/gleam /tmp/gleam.tar.gz
+
+    printf "\n\n  download gleam \n"
+    wget -nc --output-document=/tmp/gleam.tar.gz "$GLEAM_VERSION"
+
+    printf "\n\n  untar gleam file\n"
+    tar -xvf /tmp/gleam.tar.gz -C /tmp/
+
+    printf "\n\n add gleam to PATH: \n"
+    chmod +x /tmp/gleam
+    mv /tmp/gleam /usr/local/bin/gleam
+
+    printf "\n\n install erlang & rebar3 \n"
+    brew update
+    brew install erlang
+    brew install rebar3
+}
+
+install_gleamLang
