@@ -27,14 +27,17 @@ let
   
   htopPath = ./htop.nix;
   vlcPath = ./htop.nix;
+  preRequistePath  = ./preRequiste.nix;
 
   inputs = basePackages 
+    ++ lib.optional (builtins.pathExists preRequistePath) (import preRequistePath {}).inputs
     ++ lib.optional (builtins.pathExists htopPath) (import htopPath {}).inputs
     ++ lib.optional (builtins.pathExists vlcPath) (import vlcPath {}).inputs;
 
   baseHooks = "echo 'hello from default.nix;'";
 
   shellHooks = baseHooks
+    + lib.optionalString (builtins.pathExists preRequistePath) (import preRequistePath {}).hooks
     + lib.optionalString (builtins.pathExists htopPath) (import htopPath {}).hooks
     + lib.optionalString (builtins.pathExists vlcPath) (import vlcPath {}).hooks;
 
