@@ -8,11 +8,11 @@ export DEBIAN_FRONTEND=noninteractive
 # Usage:
 # 1. docker build -t hardstone-nix .
 # 2. docker run -it hardstone-nix
-# 3. bash start.sh
+# 3. bash start.sh && nix-shell pkgs/
 # or:
 # 1. docker-compose run my_nix_env
 # or:
-# 1. docker-compose run my_nix_env bash && bash start.sh
+# 1. docker-compose run my_nix_env bash && bash start.sh && nix-shell pkgs/
 
 
 # TODO: setup ntp; https://help.ubuntu.com/community/UbuntuTime

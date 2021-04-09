@@ -5,4 +5,4 @@ services:
       context: .
     volumes:
       - ./:/usr/src/app
-    command: bash -c "/usr/src/app/start.sh"
+    command: bash -c "/usr/src/app/start.sh && nix-shell pkgs/"
