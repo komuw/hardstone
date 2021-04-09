@@ -7,7 +7,10 @@ export DEBIAN_FRONTEND=noninteractive
 # 1. docker build -t hardstone-nix .
 # 2. docker run -it hardstone-nix
 # 3. bash start.sh
-# 4. docker-compose run my_nix_env
+# or:
+# 1. docker-compose run my_nix_env
+# or:
+# 1. docker-compose run my_nix_env bash && bash start.sh
 
 
 # TODO: setup ntp; https://help.ubuntu.com/community/UbuntuTime
@@ -15,7 +18,7 @@ export DEBIAN_FRONTEND=noninteractive
 THE_USER=$(whoami)
 
 configure_timezone(){
-    printf "\t\n\n 1.1 nix-installation pre-requistes: tzdata config A \n" 
+    printf "\n\n\t 1. configure_timezone \n"
 
     sudo rm -rf /tmp/*.txt
 
@@ -30,31 +33,56 @@ configure_timezone(){
     sudo apt -y update;sudo apt -y install tzdata
     sudo dpkg-reconfigure --frontend noninteractive tzdata
 }
+configure_timezone
 
 install_nix_pre_requistes(){
-    printf "\t\n\n 1. install nix-installation pre-requistes A \n"
+    printf "\n\n\t 2. install_nix_pre_requistes \n"
+
     sudo apt -y update;sudo apt -y install sudo
-
-    configure_timezone
-
-    printf "\t\n\n 1.2 install nix-installation pre-requistes B \n" 
     sudo apt -y update; sudo apt -y install curl xz-utils
 }
 install_nix_pre_requistes
 
 un_install_nix() {
+    printf "\n\n\t 3. un_install_nix \n"
+
     # see: https://nixos.org/manual/nix/stable/#sect-single-user-installation
-    printf "\t\n\n uninstall nix \n"
     sudo rm -rf /nix
 }
+un_install_nix
+
+create_nix_conf_file(){
+    printf "\n\n\t 4. create_nix_conf_file \n"
+
+    sudo rm -rf /etc/nix/nix.conf
+    sudo mkdir -p /etc/nix/
+    sudo cp etc.nix.nix.conf /etc/nix/nix.conf
+}
+create_nix_conf_file
+
+install_nix() {
+    NIX_PACKAGE_MANAGER_VERSION=2.3.10
+    printf "\n\n\t 5. install_nix %s \n" "$NIX_PACKAGE_MANAGER_VERSION"
+
+    # This is a single-user installation: https://nixos.org/manual/nix/stable/#sect-single-user-installation
+    # meaning that /nix is owned by the invoking user. Do not run as root.
+    # The script will invoke sudo to create /nix
+    # The install script will modify the first writable file from amongst ~/.bash_profile, ~/.bash_login and ~/.profile to source ~/.nix-profile/etc/profile.d/nix.sh
+
+    sh <(curl -L https://releases.nixos.org/nix/nix-$NIX_PACKAGE_MANAGER_VERSION/install) --no-daemon
+    . ~/.nix-profile/etc/profile.d/nix.sh # source a file
+    . /home/$THE_USER/.nix-profile/etc/profile.d/nix.sh # source a file
+}
+install_nix
 
 upgrade_nix() {
+    printf "\n\n\t 6. upgrade_nix \n"
+
     # see:
     # 1. https://nixos.org/manual/nix/stable/#ch-upgrading-nix
     # 2. https://nixos.org/manual/nix/stable/#sec-nix-channel
-    printf "\t\n\n upgrade nix \n"
     /nix/var/nix/profiles/per-user/$THE_USER/profile/bin/nix-channel --list
-    nix-channel --remove nixpkgs
+    /nix/var/nix/profiles/per-user/$THE_USER/profile/bin/nix-channel --remove nixpkgs
     /nix/var/nix/profiles/per-user/$THE_USER/profile/bin/nix-channel --add "https://nixos.org/channels/nixpkgs-unstable" nixpkgs-unstable # TODO: use a stable/specific version
     /nix/var/nix/profiles/per-user/$THE_USER/profile/bin/nix-channel --update
     /nix/var/nix/profiles/per-user/$THE_USER/profile/bin/nix-channel --list
@@ -64,45 +92,20 @@ upgrade_nix() {
     # it is recommended to avoid channels and <nixpkgs> by always setting NIX_PATH= to be empty.
     # see: https://nixos.org/guides/towards-reproducibility-pinning-nixpkgs.html#pinning-nixpkgs
 }
-
-
-create_nix_conf_file(){
-    printf "\t\n\n create nix conf file(/etc/nix/nix.conf) \n"
-    sudo rm -rf /etc/nix/nix.conf
-    sudo mkdir -p /etc/nix/
-    sudo cp etc.nix.nix.conf /etc/nix/nix.conf
-}
-
-install_nix() {
-    NIX_PACKAGE_MANAGER_VERSION=2.3.10
-    printf "\t\n\n 2. install Nix package manager version %s \n" "$NIX_PACKAGE_MANAGER_VERSION"
-    # This is a single-user installation: https://nixos.org/manual/nix/stable/#sect-single-user-installation
-    # meaning that /nix is owned by the invoking user. Do not run as root.
-    # The script will invoke sudo to create /nix
-    # The install script will modify the first writable file from amongst ~/.bash_profile, ~/.bash_login and ~/.profile to source ~/.nix-profile/etc/profile.d/nix.sh
-
-    un_install_nix
-    create_nix_conf_file
-
-    sh <(curl -L https://releases.nixos.org/nix/nix-$NIX_PACKAGE_MANAGER_VERSION/install) --no-daemon
-    . ~/.nix-profile/etc/profile.d/nix.sh # source a file
-
-    upgrade_nix 
-}
-install_nix
-
+upgrade_nix
 
 setup_nix_ca_bundle(){
-    printf "\t\n\n 3. setup Nix CA bundle \n"
+    printf "\n\n\t 7. setup_nix_ca_bundle \n"
+
     CURL_CA_BUNDLE=$(find /nix -name ca-bundle.crt |tail -n 1)
     # TODO: maybe this export should also be done in /etc/profile?
     export CURL_CA_BUNDLE=$CURL_CA_BUNDLE
 }
 setup_nix_ca_bundle
 
-
 clear_stuff(){
-    printf "\t\n\n 4. clear stuff \n"
+    printf "\n\n\t 8. clear_stuff \n"
+
     sudo apt -y autoremove
     sudo apt -y clean
     sudo rm -rf /var/lib/apt/lists/*
@@ -118,6 +121,8 @@ clear_stuff
 
 
 create_nix_aliases(){
+    printf "\n\n\t 9. create_nix_aliases \n"
+
     touch ~/.bash_aliases # touch is silent if file already exists
 
     echo "##### nix package manager aliases #####
@@ -134,13 +139,16 @@ alias nix--prefetch-url='/nix/var/nix/profiles/per-user/$THE_USER/profile/bin/ni
 alias nix-shell='/nix/var/nix/profiles/per-user/$THE_USER/profile/bin/nix-shell'
 alias nix-store='/nix/var/nix/profiles/per-user/$THE_USER/profile/bin/nix-store'
 ##### nix package manager aliases #####" | sudo tee ~/.bash_aliases
-    . ~/.bash_aliases
+
+    . ~/.bash_aliases # source a file
 }
 create_nix_aliases
 
 
 # TODO: make it possible to run this function
 uninstall_non_essential_apt_packages(){
+    printf "\n\n\t 10. uninstall_non_essential_apt_packages \n"
+
     sudo rm -rf /tmp/*.txt
 
     # This are the packages that come with a clean install of ubuntu:20.04 docker image.
@@ -165,7 +173,6 @@ uninstall_non_essential_apt_packages(){
     EXTRA_PACKAGES_AND_OPTIONAL_PACKAGES_MINUS_GRUB=$(echo $EXTRA_PACKAGES_AND_OPTIONAL_PACKAGES_MINUS_LINUX_KERNEL | tr " " "\n" | grep --invert-match grub- | tr "\n" " ")
     # TODO: add more exclusions
 
-    printf "\t\n\n packages to be removed are; \n"
     echo "$EXTRA_PACKAGES_AND_OPTIONAL_PACKAGES_MINUS_GRUB"
     sudo apt -y autoremove
     sudo apt purge -y $EXTRA_PACKAGES_AND_OPTIONAL_PACKAGES_MINUS_GRUB
@@ -174,8 +181,21 @@ uninstall_non_essential_apt_packages(){
 # uninstall_non_essential_apt_packages
 
 
+source_files(){
+    printf "\n\n\t 11. source_files \n"
+
+    . ~/.nix-profile/etc/profile.d/nix.sh
+    . /home/$THE_USER/.nix-profile/etc/profile.d/nix.sh
+    . ~/.bash_aliases
+
+    source ~/.nix-profile/etc/profile.d/nix.sh
+    source /home/$THE_USER/.nix-profile/etc/profile.d/nix.sh
+    source ~/.bash_aliases
+
+}
+source_files
+
 # The main command for package management is nix-env.
 # See: https://nixos.org/manual/nix/stable/#ch-basic-package-mgmt
 # Although others think it should not be widely recommended
 # https://news.ycombinator.com/item?id=26748696
-
