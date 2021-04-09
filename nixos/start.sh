@@ -192,7 +192,6 @@ source_files(){
     source ~/.nix-profile/etc/profile.d/nix.sh
     source /home/$THE_USER/.nix-profile/etc/profile.d/nix.sh
     source ~/.bash_aliases
-
 }
 source_files
 
