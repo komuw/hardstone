@@ -26,7 +26,7 @@ configure_timezone(){
 
     echo "tzdata tzdata/Areas select Africa
     tzdata tzdata/Zones/Africa select Nairobi" | sudo tee /tmp/tzdata_preseed.txt
-    debconf-set-selections /tmp/tzdata_preseed.txt
+    sudo debconf-set-selections /tmp/tzdata_preseed.txt
 
     sudo rm -rf /etc/timezone
     echo "Africa/Nairobi" | sudo tee /etc/timezone
