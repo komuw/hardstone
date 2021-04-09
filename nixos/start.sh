@@ -73,7 +73,6 @@ install_nix() {
 
     sh <(curl -L https://releases.nixos.org/nix/nix-$NIX_PACKAGE_MANAGER_VERSION/install) --no-daemon
     . ~/.nix-profile/etc/profile.d/nix.sh # source a file
-    . /home/$THE_USER/.nix-profile/etc/profile.d/nix.sh # source a file
 }
 install_nix
 
