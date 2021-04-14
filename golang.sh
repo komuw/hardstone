@@ -30,6 +30,7 @@ go install github.com/securego/gosec/cmd/gosec@latest
 go install github.com/google/pprof@latest
 go install github.com/rs/curlie@latest
 go install github.com/tsenart/vegeta@latest
+go install mvdan.cc/gofumpt@latest
 
 printf "\n\n install gotip https://godoc.org/golang.org/dl/gotip \n"
 # go get golang.org/dl/gotip
