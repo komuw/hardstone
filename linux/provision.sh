@@ -58,6 +58,9 @@ apt-get -y purge skype*
 printf "\n\n rm skype config\n"
 rm -rf /home/komuw/.Skype; rm -rf /home/komuw/.skype
 
+printf "\n\n rm custome ppas\n"
+rm -rf /etc/apt/sources.list.d/*
+
 # add-apt-repository takes one repo as arg
 printf "\n\n add some ppas\n"
 add-apt-repository -y ppa:eugenesan/ppa                                                              # I don't know which package requires this ppa
