@@ -60,11 +60,6 @@ apt-get -f -y install
 printf "\n\n create /etc/apt/sources.list.d file\n"
 mkdir -p /etc/apt/sources.list.d
 
-printf "\n\n rm skype\n"
-apt-get -y purge skype*
-
-printf "\n\n rm skype config\n"
-rm -rf /home/komuw/.Skype; rm -rf /home/komuw/.skype
 
 # add-apt-repository takes one repo as arg
 printf "\n\n add some ppas\n"
@@ -144,12 +139,16 @@ apt-get -y install gcc \
         tree
         # ifconfig
 
-printf "\n\n install skype pre-requistes\n"
-apt -y install gconf-service libgconf-2-4 gnome-keyring
+install_skype(){
+    printf "\n\n install skype\n"
 
-printf "\n\n install skype\n"
-wget -nc --output-document=/tmp/skype.deb https://repo.skype.com/latest/skypeforlinux-64.deb
-dpkg -i /tmp/skype.deb
+    apt-get -y purge skype*
+    rm -rf /home/komuw/.Skype; rm -rf /home/komuw/.skype
+    apt -y install gconf-service libgconf-2-4 gnome-keyring # pre-requistes
+    wget -nc --output-document=/tmp/skype.deb https://go.skype.com/skypeforlinux-64.deb
+    dpkg -i /tmp/skype.deb
+}
+install_skype
 
 printf "\n\n remove potential apt lock\n"
 rm -rf /var/cache/apt/archives/lock && rm -rf /var/lib/dpkg/lock && rm -rf /var/cache/debconf/*.dat
