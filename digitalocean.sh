@@ -21,3 +21,6 @@ wget -nc --output-document=$HOME/stuff/hardstone.zip https://github.com/komuw/ha
 unzip hardstone.zip
 mv hardstone-master/ hardstone
 cd $HOME/stuff/hardstone
+
+screen -S hardstone
+screen -ls
