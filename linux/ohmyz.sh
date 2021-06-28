@@ -24,7 +24,7 @@ git clone https://github.com/zsh-users/zsh-autosuggestions ~/.oh-my-zsh/custom/p
 git clone https://github.com/zsh-users/zsh-completions ~/.oh-my-zsh/custom/plugins/zsh-completions
 
 printf "\n\n Add ohmyzsh config \n"
-cp templates/zshrc.j2 ~/.zshrc
+cp ../templates/zshrc.j2 ~/.zshrc
 
 printf "\n\n change ownership of ohmyzsh dirs \n"
 chown -R komuw:komuw /home/komuw/.zshrc

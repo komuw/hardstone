@@ -265,11 +265,11 @@ cat /home/komuw/.ssh/personal_work_id_rsa.pub
 ########################## personal work ssh key ##################
 
 printf "\n\n configure ssh/config\n"
-cp templates/ssh_conf.j2 /home/komuw/.ssh/config
+cp ../templates/ssh_conf.j2 /home/komuw/.ssh/config
 
 
 # printf "\n\n configure bash aliases"
-# template: src=templates/bash_aliases.j2
+# template: src=../templates/bash_aliases.j2
 #         dest=/home/komuw/.bash_aliases
 
 printf "\n\n configure .bashrc\n"

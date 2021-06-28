@@ -23,7 +23,7 @@ mkdir -p /home/komuw/.vscode
 touch /home/komuw/.config/Code/User/settings.json
 chown -R komuw:komuw /home/komuw/.config/Code/
 chown -R komuw:komuw /home/komuw/.vscode
-cp templates/vscode.j2 /home/komuw/.config/Code/User/settings.json
+cp ../templates/vscode.j2 /home/komuw/.config/Code/User/settings.json
 
 printf "\n\n  install vscode extensions\n"
 code --user-data-dir='.' --install-extension ms-python.python
