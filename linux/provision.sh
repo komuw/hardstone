@@ -63,8 +63,10 @@ rm -rf /etc/apt/sources.list.d/*
 
 # add-apt-repository takes one repo as arg
 printf "\n\n add some ppas\n"
-add-apt-repository -y ppa:eugenesan/ppa                                                              # I don't know which package requires this ppa
-add-apt-repository -y ppa:mc3man/mpv-tests                                                           # for mpv player
+# TODO: as of ubuntu 21.04, it looks like these ppas are not neccesary
+# add-apt-repository -y ppa:eugenesan/ppa                                                              # I don't know which package requires this ppa
+# add-apt-repository -y ppa:mc3man/mpv-tests                                                           # for mpv player
+
 apt-get -y update
 rm -rf /var/cache/apt/archives/lock && rm -rf /var/lib/dpkg/lock && rm -rf /var/cache/debconf/*.dat  # remove potential apt lock
 apt-get -f -y install                                                                                # fix broken dependencies
