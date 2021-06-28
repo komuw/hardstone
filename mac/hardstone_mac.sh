@@ -174,7 +174,20 @@ EOF
       echo "adding vscode to path."
       echo "$BASHRC_PROFILE_FILE_CONTENTS" >> "$BASHRC_PROFILE_FILE"
     fi
+
+    printf "\n\n  install vscode extensions\n"
+    code --user-data-dir='.' --install-extension ms-python.python
+    code --user-data-dir='.' --install-extension ms-python.vscode-pylance
+    code --user-data-dir='.' --install-extension dart-code.dart-code
+    code --user-data-dir='.' --install-extension dart-code.flutter
+    code --user-data-dir='.' --install-extension donaldtone.auto-open-markdown-preview-single
+    code --user-data-dir='.' --install-extension golang.go
+    code --user-data-dir='.' --install-extension ms-azuretools.vscode-docker
+    code --user-data-dir='.' --install-extension hashicorp.terraform
+    # code --user-data-dir='.' --install-extension ms-vscode.cpptools
+    code --list-extensions
 }
+install_vscode
 
 
 install_golang(){

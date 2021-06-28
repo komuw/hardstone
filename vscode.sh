@@ -28,8 +28,12 @@ cp templates/vscode.j2 /home/komuw/.config/Code/User/settings.json
 printf "\n\n  install vscode extensions\n"
 code --user-data-dir='.' --install-extension ms-python.python
 code --user-data-dir='.' --install-extension ms-python.vscode-pylance
-code --user-data-dir='.' --install-extension Dart-Code.dart-code
-code --user-data-dir='.' --install-extension Dart-Code.flutter
-code --user-data-dir='.' --install-extension hnw.vscode-auto-open-markdown-preview
-code --user-data-dir='.' --install-extension ms-vscode.Go
-code --user-data-dir='.' --install-extension ms-vscode.cpptools
+code --user-data-dir='.' --install-extension dart-code.dart-code
+code --user-data-dir='.' --install-extension dart-code.flutter
+code --user-data-dir='.' --install-extension donaldtone.auto-open-markdown-preview-single
+code --user-data-dir='.' --install-extension golang.go
+code --user-data-dir='.' --install-extension ms-azuretools.vscode-docker
+code --user-data-dir='.' --install-extension hashicorp.terraform
+# code --user-data-dir='.' --install-extension ms-vscode.cpptools
+code --list-extensions
+
