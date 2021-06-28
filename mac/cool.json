@@ -1,0 +1,75 @@
+{
+    "window.menuBarVisibility": "default",
+    "files.exclude": {
+        "**/.git": true,
+        "**/.svn": true,
+        "**/.hg": true,
+        "**/CVS": true,
+        "**/.DS_Store": true,
+        "**/*.pyc": true
+    },
+    "editor.formatOnSave": true,
+    "editor.minimap.enabled": false,
+    "editor.quickSuggestions": {
+        "other": true,
+        "comments": true,
+        "strings": true
+    },
+    // docs: https://github.com/golang/tools/blob/master/gopls/doc/vscode.md
+    "go.useLanguageServer": true,
+    "[go]": {
+        "editor.snippetSuggestions": "none",
+        "editor.formatOnSave": true,
+        "editor.codeActionsOnSave": {
+            "source.organizeImports": true
+        },
+    },
+    "gopls": {
+        "usePlaceholders": true, // add parameter placeholders when completing a function
+        // ----- Experimental settings -----
+        "completeUnimported": true, // autocomplete unimported packages
+        "deepCompletion": true, // deep completion
+        // ----- Experimental settings -----
+    },
+    "python.linting.pylintArgs": [
+        "--load-plugins",
+        "pylint_django",
+        "--enable=E",
+        "--disable=W,R,C",
+        "--unsafe-load-any-extension=y"
+    ],
+    "python.formatting.autopep8Args": [
+        "--experimental",
+        "--in-place",
+        "-r",
+        "-aaaaaaaaaa"
+    ],
+    "python.formatting.blackArgs": [
+        "--line-length=100",
+        "--py36"
+    ],
+    "python.formatting.provider": "black",
+    "python.autoComplete.addBrackets": true,
+    "python.analysis.completeFunctionParens": true,
+    "python.languageServer": "Pylance",
+    "python.defaultInterpreterPath": "python",
+    "python.venvFolders": [
+        "envs",
+        ".pyenv",
+        ".direnv",
+        ".virtualenvs",
+        ".venv"
+    ],
+    // https://github.com/Dart-Code/Dart-Code/blob/master/package.json
+    "dart.allowAnalytics": false,
+    "dart.debugExternalLibraries": true,
+    "dart.debugSdkLibraries": true,
+    "breadcrumbs.enabled": true,
+    "python.jediEnabled": false, // this enables us to use MS lang server: https://code.visualstudio.com/docs/python/settings-reference
+    "editor.suggestSelection": "first",
+    "workbench.editorAssociations": {
+        "*.ipynb": "jupyter.notebook.ipynb"
+    },
+    "go.toolsManagement.autoUpdate": true,
+    "window.zoomLevel": -3,
+}

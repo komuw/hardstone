@@ -186,6 +186,10 @@ EOF
     code --user-data-dir='.' --install-extension hashicorp.terraform
     # code --user-data-dir='.' --install-extension ms-vscode.cpptools
     code --list-extensions
+
+    # https://code.visualstudio.com/docs/getstarted/settings#_settings-file-locations
+    rm -rf "$HOME/Library/Application Support/Code/User/settings.json"
+    cp ../templates/vscode.j2 "$HOME/Library/Application Support/Code/User/settings.json"
 }
 install_vscode
 
