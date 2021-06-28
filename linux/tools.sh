@@ -27,3 +27,10 @@ chmod +x /usr/local/bin/rga
 printf "\n\n install mozilla rr debugger\n"
 wget -nc --output-document=/tmp/rr_amd64.deb "https://github.com/rr-debugger/rr/releases/download/5.4.0/rr-5.4.0-Linux-x86_64.deb"
 dpkg -i /tmp/rr_amd64.deb
+
+# install_nodeJs(){
+#     printf "\n\n install nodeJs\n"
+#     curl -fsSL https://deb.nodesource.com/setup_16.x | bash -
+#     apt-get install -y nodejs
+# }
+# install_nodeJs

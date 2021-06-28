@@ -146,10 +146,6 @@ printf "\n\n install skype\n"
 wget -nc --output-document=/tmp/skype.deb https://repo.skype.com/latest/skypeforlinux-64.deb
 dpkg -i /tmp/skype.deb
 
-printf "\n\n install nodeJs\n"
-curl -fsSL https://deb.nodesource.com/setup_16.x | bash -
-apt-get install -y nodejs
-
 printf "\n\n remove potential apt lock\n"
 rm -rf /var/cache/apt/archives/lock && rm -rf /var/lib/dpkg/lock && rm -rf /var/cache/debconf/*.dat
 
