@@ -61,7 +61,7 @@ rm -rf /home/komuw/.Skype; rm -rf /home/komuw/.skype
 #transmission bittorrent, mpv, wireguard. add-apt-repository takes one repo as arg
 printf "\n\n add some ppas\n"
 add-apt-repository -y ppa:eugenesan/ppa
-add-apt-repository -y  ppa:mc3man/mpv-tests
+add-apt-repository -y ppa:mc3man/mpv-tests
 add-apt-repository -y ppa:wireguard/wireguard
 
 printf "\n\n update cache\n"
