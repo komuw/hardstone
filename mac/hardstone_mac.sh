@@ -160,7 +160,22 @@ install_vscode(){
     wget -nc --output-document=/tmp/vscode.zip https://code.visualstudio.com/sha/download?build=stable&os=darwin-universal
     unzip /tmp/vscode.zip -d /tmp/vscode
     mv "/tmp/vscode/Visual Studio Code.app/" /Applications/
+
+    BASHRC_PROFILE_FILE=/Users/komuw/.bash_profile
+    BASHRC_PROFILE_FILE_CONTENTS=$(cat <<-EOF
+
+# Add Visual Studio Code to path
+# https://code.visualstudio.com/docs/setup/mac
+export PATH="\$PATH:/Applications/Visual Studio Code.app/Contents/Resources/app/bin"
+EOF
+)
+
+    if  ! grep -q "Add Visual Studio Code to path" "$BASHRC_PROFILE_FILE"; then
+      echo "adding vscode to path."
+      echo "$BASHRC_PROFILE_FILE_CONTENTS" >> "$BASHRC_PROFILE_FILE"
+    fi
 }
+
 
 install_golang(){
     printf "\n::INSTALL golang\n\n"
