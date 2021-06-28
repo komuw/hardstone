@@ -11,7 +11,7 @@ shopt -s nullglob globstar
 export DEBIAN_FRONTEND=noninteractive && \
 apt -y update && \
 apt -y install python && \
-apt -y install python-pip nano wget unzip curl screen
+apt -y install python3-pip nano wget unzip curl screen
 
 rm -rf $HOME/stuff
 mkdir -p $HOME/stuff
