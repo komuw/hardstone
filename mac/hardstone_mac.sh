@@ -154,6 +154,14 @@ chmod +x /usr/local/bin/kubectx
 printf "\n\n install poetry\n"
 curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/1.1.7/get-poetry.py | python3
 
+
+install_vscode(){
+    printf "\n::INSTALL Vscode\n\n"
+    wget -nc --output-document=/tmp/vscode.zip https://code.visualstudio.com/sha/download?build=stable&os=darwin-universal
+    unzip /tmp/vscode.zip -d /tmp/vscode
+    mv "/tmp/vscode/Visual Studio Code.app/" /Applications/
+}
+
 install_golang(){
     printf "\n::INSTALL golang\n\n"
     wget --output-document=/tmp/golang.pkg https://golang.org/dl/go1.16.darwin-amd64.pkg
