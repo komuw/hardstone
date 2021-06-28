@@ -10,7 +10,7 @@ jobs:
     timeout-minutes: 8
     strategy:
       matrix:
-        platform: [ubuntu-20.04]
+        platform: [ubuntu-21.04]
     runs-on: ${{ matrix.platform }}
     steps:
 
