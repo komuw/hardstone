@@ -60,9 +60,9 @@ mkdir -p /Users/komuw/work
 mkdir -p /Users/komuw/mystuff
 
 printf "\n::COPY conf files\n\n"
-cp templates/ssh_conf.j2 /Users/komuw/.ssh/config
-cp templates/mac/bash_aliases.j2 /Users/komuw/.bash_aliases
-cp templates/mac/hgrc.j2 /Users/komuw/.hgrc
+cp ../templates/ssh_conf.j2 /Users/komuw/.ssh/config
+cp ../templates/mac/bash_aliases.j2 /Users/komuw/.bash_aliases
+cp ../templates/mac/hgrc.j2 /Users/komuw/.hgrc
 
 
 printf "\n::git config\n\n"
@@ -131,7 +131,7 @@ git clone https://github.com/zsh-users/zsh-autosuggestions ~/.oh-my-zsh/custom/p
 git clone https://github.com/zsh-users/zsh-completions ~/.oh-my-zsh/custom/plugins/zsh-completions
 
 printf "\n\n Add ohmyzsh config \n"
-cp templates/zshrc.j2 ~/.zshrc
+cp ../templates/zshrc.j2 ~/.zshrc
 
 printf "\n\n change ownership of ohmyzsh dirs \n"
 sudo chown -R komuw:staff /Users/komuw/.zshrc
