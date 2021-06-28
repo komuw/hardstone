@@ -75,10 +75,6 @@ printf "\n\n CALLING work_stuff.sh::\n\n"
 /bin/bash work_stuff.sh
 printf "\n\n work_stuff.sh done::\n"
 
-# printf "\n\n CALLING xonsh.sh::\n\n"
-# /bin/bash xonsh.sh
-# printf "\n\n xonsh.sh done::\n"
-
 # I'm moving on from xonsh. I've experienced too many
 # issues everytime I update it, eg; https://github.com/xonsh/xonsh/issues/2662
 printf "\n\n CALLING ohmyz.sh::\n\n"
@@ -93,13 +89,17 @@ printf "\n\n CALLING java.sh::\n\n"
 /bin/bash java.sh
 printf "\n\n java.sh done::\n"
 
-printf "\n\n CALLING anki.sh::\n\n"
-/bin/bash anki.sh
-printf "\n\n anki.sh done::\n"
-
 printf "\n\n CALLING tools.sh::\n\n"
 /bin/bash tools.sh
 printf "\n\n tools.sh done::\n"
+
+# printf "\n\n CALLING xonsh.sh::\n\n"
+# /bin/bash xonsh.sh
+# printf "\n\n xonsh.sh done::\n"
+
+# printf "\n\n CALLING anki.sh::\n\n"
+# /bin/bash anki.sh
+# printf "\n\n anki.sh done::\n"
 
 
 printf "\n\n WHOLE SYSTEM SUCCESFULLY SETUP.\n"

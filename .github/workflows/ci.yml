@@ -1,0 +1,57 @@
+# DOCS: https://help.github.com/en/articles/workflow-syntax-for-github-actions
+
+name: ote ci
+on: [pull_request, push]
+
+jobs:
+
+  preRequiste:
+    name: preRequiste
+    timeout-minutes: 7
+    strategy:
+      matrix:
+        platform: [ubuntu-21.04]
+    runs-on: ${{ matrix.platform }}
+    steps:
+
+      - name: Check out code into the directory
+        uses: actions/checkout@v2
+
+      - name: tests and benchmarks
+        run: |
+          /bin/bash preRequiste.sh
+
+
+  user:
+    name: user
+    timeout-minutes: 7
+    strategy:
+      matrix:
+        platform: [ubuntu-21.04]
+    runs-on: ${{ matrix.platform }}
+    steps:
+
+      - name: Check out code into the directory
+        uses: actions/checkout@v2
+
+      - name: tests and benchmarks
+        run: |
+          /bin/bash user.sh myDummyPassword
+
+
+  provision:
+    name: provision
+    timeout-minutes: 7
+    strategy:
+      matrix:
+        platform: [ubuntu-21.04]
+    runs-on: ${{ matrix.platform }}
+    steps:
+
+      - name: Check out code into the directory
+        uses: actions/checkout@v2
+
+      - name: tests and benchmarks
+        run: |
+          /bin/bash provision.sh SSH_KEY_PHRASE_PERSONAL SSH_KEY_PHRASE_PERSONAL_WORK PERSONAL_WORK_EMAIL PERSONAL_WORK_NAME
+
