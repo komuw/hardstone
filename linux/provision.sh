@@ -136,7 +136,8 @@ apt-get -y install gcc \
         aria2 \
         shellcheck \
         rlwrap \
-        tree
+        tree \
+        streamlink # livestreamer replacement
         # ifconfig
 
 install_skype(){
@@ -189,14 +190,12 @@ dpkg -i /tmp/bat_amd64.deb
 
 printf "\n\n Install Python pip3 packages\n"
 pip3 install --upgrade pip # upgrade  pip3 gloablly
-python3 -m venv ~/.global_venv
+python3 -m venv ~/.global_venv --without-pip # https://askubuntu.com/questions/879437/ensurepip-is-disabled-in-debian-ubuntu-for-the-system-python
 source ~/.global_venv/bin/activate && pip3 install --upgrade \
          youtube-dl \
          docker-compose \
          asciinema \
          httpie \
-         # livestreamer replacement
-         streamlink \
          awscli \
          sewer
 
