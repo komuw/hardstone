@@ -7,78 +7,53 @@ jobs:
 
   preRequiste:
     name: preRequiste
-    timeout-minutes: 8
+    timeout-minutes: 7
     strategy:
       matrix:
-        platform: [ubuntu-21.04]
+        platform: [ubuntu-20.04]
     runs-on: ${{ matrix.platform }}
     steps:
 
-      - name: Check out code
+      - name: Check out code into the directory
         uses: actions/checkout@v2
 
-      - name: test coverage
+      - name: tests and benchmarks
         run: |
           pwd
-          ls -lsha $HOME/work/
+          ls -lsha
+          /bin/bash preRequiste.sh
 
 
-# # DOCS: https://help.github.com/en/articles/workflow-syntax-for-github-actions
+  user:
+    name: user
+    timeout-minutes: 7
+    strategy:
+      matrix:
+        platform: [ubuntu-20.04]
+    runs-on: ${{ matrix.platform }}
+    steps:
 
-# name: hardstone ci
-# on: [pull_request, push]
+      - name: Check out code into the directory
+        uses: actions/checkout@v2
 
-# jobs:
-
-#   preRequiste:
-#     name: preRequiste
-#     timeout-minutes: 7
-#     strategy:
-#       matrix:
-#         platform: [ubuntu-21.04]
-#     runs-on: ${{ matrix.platform }}
-#     steps:
-
-#       - name: Check out code into the directory
-#         uses: actions/checkout@v2
-
-#       - name: tests and benchmarks
-#         run: |
-#           pwd
-#           ls -lsha
-#           /bin/bash preRequiste.sh
+      - name: tests and benchmarks
+        run: |
+          /bin/bash user.sh myDummyPassword
 
 
-#   user:
-#     name: user
-#     timeout-minutes: 7
-#     strategy:
-#       matrix:
-#         platform: [ubuntu-21.04]
-#     runs-on: ${{ matrix.platform }}
-#     steps:
+  provision:
+    name: provision
+    timeout-minutes: 7
+    strategy:
+      matrix:
+        platform: [ubuntu-20.04]
+    runs-on: ${{ matrix.platform }}
+    steps:
 
-#       - name: Check out code into the directory
-#         uses: actions/checkout@v2
+      - name: Check out code into the directory
+        uses: actions/checkout@v2
 
-#       - name: tests and benchmarks
-#         run: |
-#           /bin/bash user.sh myDummyPassword
-
-
-#   provision:
-#     name: provision
-#     timeout-minutes: 7
-#     strategy:
-#       matrix:
-#         platform: [ubuntu-21.04]
-#     runs-on: ${{ matrix.platform }}
-#     steps:
-
-#       - name: Check out code into the directory
-#         uses: actions/checkout@v2
-
-#       - name: tests and benchmarks
-#         run: |
-#           /bin/bash provision.sh SSH_KEY_PHRASE_PERSONAL SSH_KEY_PHRASE_PERSONAL_WORK PERSONAL_WORK_EMAIL PERSONAL_WORK_NAME
+      - name: tests and benchmarks
+        run: |
+          /bin/bash provision.sh SSH_KEY_PHRASE_PERSONAL SSH_KEY_PHRASE_PERSONAL_WORK PERSONAL_WORK_EMAIL PERSONAL_WORK_NAME
 
