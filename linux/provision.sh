@@ -43,6 +43,10 @@ printf "\n\n create personalWork dir\n"
 mkdir -p $HOME/personalWork
 chown -R komuw:komuw $HOME/personalWork
 
+
+printf "\n\n rm custome ppas\n"
+rm -rf /etc/apt/sources.list.d/*
+
 printf "\n\n Update package cache\n"
 apt -y update
 
@@ -57,9 +61,6 @@ apt-get -y purge skype*
 
 printf "\n\n rm skype config\n"
 rm -rf /home/komuw/.Skype; rm -rf /home/komuw/.skype
-
-printf "\n\n rm custome ppas\n"
-rm -rf /etc/apt/sources.list.d/*
 
 # add-apt-repository takes one repo as arg
 printf "\n\n add some ppas\n"
