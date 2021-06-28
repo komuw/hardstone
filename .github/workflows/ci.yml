@@ -7,7 +7,7 @@ jobs:
 
   preRequiste:
     name: preRequiste
-    timeout-minutes: 3
+    timeout-minutes: 8
     strategy:
       matrix:
         platform: [ubuntu-20.04]
