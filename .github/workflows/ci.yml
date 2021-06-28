@@ -5,8 +5,8 @@ on: [pull_request, push]
 
 jobs:
 
-  run_tests:
-    name: run_tests
+  preRequiste:
+    name: preRequiste
     timeout-minutes: 3
     strategy:
       matrix:
