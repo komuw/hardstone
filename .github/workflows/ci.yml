@@ -19,8 +19,11 @@ jobs:
 
       - name: tests and benchmarks
         run: |
+          echo ""
           pwd
           ls -lsha
+          echo ""
+          echo ""
           /bin/bash linux/preRequiste.sh
 
 
