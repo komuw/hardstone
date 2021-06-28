@@ -13,6 +13,7 @@ export DEBIAN_FRONTEND=noninteractive
 printf "\n\n starting setup/provisioning....\n"
 printf "\n\n install pre-requiste stuff reequired by the other scripts. \nthe other scripts should be able to run in parallel....\n"
 rm -rf /etc/apt/sources.list.d/*
+rm -rf /tmp/*
 apt-get -y update
 apt-get -y install gcc \
                     build-essential \

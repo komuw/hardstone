@@ -35,6 +35,10 @@ if [ "$PERSONAL_WORK_NAME" == "PERSONAL_WORK_NAMENotSet"  ]; then
 fi
 
 
+printf "\n\n clear /tmp directory\n"
+rm -rf /tmp/*
+
+
 printf "\n\n create my stuff dir\n"
 mkdir -p $HOME/mystuff
 chown -R komuw:komuw $HOME/mystuff
