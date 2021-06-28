@@ -7,7 +7,7 @@ jobs:
 
   preRequiste:
     name: preRequiste
-    timeout-minutes: 7
+    timeout-minutes: 8
     strategy:
       matrix:
         platform: [ubuntu-20.04]
@@ -21,12 +21,12 @@ jobs:
         run: |
           pwd
           ls -lsha
-          /bin/bash preRequiste.sh
+          /bin/bash linux/preRequiste.sh
 
 
   user:
     name: user
-    timeout-minutes: 7
+    timeout-minutes: 8
     strategy:
       matrix:
         platform: [ubuntu-20.04]
@@ -38,12 +38,12 @@ jobs:
 
       - name: tests and benchmarks
         run: |
-          /bin/bash user.sh myDummyPassword
+          /bin/bash linux/user.sh myDummyPassword
 
 
   provision:
     name: provision
-    timeout-minutes: 7
+    timeout-minutes: 8
     strategy:
       matrix:
         platform: [ubuntu-20.04]
@@ -55,5 +55,5 @@ jobs:
 
       - name: tests and benchmarks
         run: |
-          /bin/bash provision.sh SSH_KEY_PHRASE_PERSONAL SSH_KEY_PHRASE_PERSONAL_WORK PERSONAL_WORK_EMAIL PERSONAL_WORK_NAME
+          /bin/bash linux/provision.sh SSH_KEY_PHRASE_PERSONAL SSH_KEY_PHRASE_PERSONAL_WORK PERSONAL_WORK_EMAIL PERSONAL_WORK_NAME
 
