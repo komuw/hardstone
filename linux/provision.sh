@@ -208,8 +208,8 @@ if [[ ! -e /home/$MY_NAME/.ssh/personal_id_rsa.pub ]]; then
     mkdir -p /home/$MY_NAME/.ssh
     ssh-keygen -t rsa -C komuwUbuntu -b 8192 -q -N "$SSH_KEY_PHRASE_PERSONAL" -f /home/$MY_NAME/.ssh/personal_id_rsa
 fi
-chmod 600 ~/.ssh/personal_id_rsa
-chmod 600 ~/.ssh/personal_id_rsa.pub
+chmod 600 /home/$MY_NAME/.ssh/personal_id_rsa
+chmod 600 /home/$MY_NAME/.ssh/personal_id_rsa.pub
 chown -R $MY_NAME:$MY_NAME /home/$MY_NAME/.ssh
 
 #printf "\n\n start ssh-agent"
@@ -228,8 +228,8 @@ if [[ ! -e /home/$MY_NAME/.ssh/personal_work_id_rsa.pub ]]; then
     mkdir -p /home/$MY_NAME/.ssh
     ssh-keygen -t rsa -C "$PERSONAL_WORK_EMAIL" -b 8192 -q -N "$SSH_KEY_PHRASE_PERSONAL" -f /home/$MY_NAME/.ssh/personal_work_id_rsa
 fi
-chmod 600 ~/.ssh/personal_work_id_rsa
-chmod 600 ~/.ssh/personal_work_id_rsa.pub
+chmod 600 /home/$MY_NAME/.ssh/personal_work_id_rsa
+chmod 600 /home/$MY_NAME/.ssh/personal_work_id_rsa.pub
 chown -R $MY_NAME:$MY_NAME /home/$MY_NAME/.ssh
 
 #printf "\n\n start ssh-agent"
