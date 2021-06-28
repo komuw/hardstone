@@ -58,26 +58,18 @@ apt-get -y purge skype*
 printf "\n\n rm skype config\n"
 rm -rf /home/komuw/.Skype; rm -rf /home/komuw/.skype
 
-#transmission bittorrent, mpv, wireguard. add-apt-repository takes one repo as arg
+# add-apt-repository takes one repo as arg
 printf "\n\n add some ppas\n"
-add-apt-repository -y ppa:eugenesan/ppa
-add-apt-repository -y ppa:mc3man/mpv-tests
-add-apt-repository -y ppa:wireguard/wireguard
-
-printf "\n\n update cache\n"
+add-apt-repository -y ppa:eugenesan/ppa                                                              # I don't know which package requires this ppa
+add-apt-repository -y ppa:mc3man/mpv-tests                                                           # for mpv player
 apt-get -y update
+rm -rf /var/cache/apt/archives/lock && rm -rf /var/lib/dpkg/lock && rm -rf /var/cache/debconf/*.dat  # remove potential apt lock
+apt-get -f -y install                                                                                # fix broken dependencies
+dpkg --configure -a                                                                                  # configure
+apt-get -y update                                                                                    # update system
 
-printf "\n\n remove potential apt lock\n"
-rm -rf /var/cache/apt/archives/lock && rm -rf /var/lib/dpkg/lock && rm -rf /var/cache/debconf/*.dat
-
-printf "\n\n fix broken dependencies\n"
-apt-get -f -y install
-
-printf "\n\n configure\n"
-dpkg --configure -a
-
-printf "\n\n update system\n"
-apt-get -y update
+printf "\n\n Install mpv\n"
+apt-get -y install mpv
 
 printf "\n\n check DEBIAN_FRONTEND value.\n"
 echo $DEBIAN_FRONTEND
@@ -105,7 +97,6 @@ apt-get -y install gcc \
         transmission-common \
         transmission-daemon \
         vlc \
-        mpv  \
         libpq-dev  \
         python2.7-dev \
         libxml2-dev  \
