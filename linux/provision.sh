@@ -9,6 +9,7 @@ fi
 shopt -s nullglob globstar
 export DEBIAN_FRONTEND=noninteractive
 
+MY_NAME=$(whoami)
 
 SSH_KEY_PHRASE_PERSONAL=${1:-sshKeyPhrasePersonalNotSet}
 if [ "$SSH_KEY_PHRASE_PERSONAL" == "sshKeyPhrasePersonalNotSet"  ]; then
@@ -41,11 +42,11 @@ rm -rf /tmp/*
 
 printf "\n\n create my stuff dir\n"
 mkdir -p $HOME/mystuff
-chown -R komuw:komuw $HOME/mystuff
+chown -R $MY_NAME:$MY_NAME $HOME/mystuff
 
 printf "\n\n create personalWork dir\n"
 mkdir -p $HOME/personalWork
-chown -R komuw:komuw $HOME/personalWork
+chown -R $MY_NAME:$MY_NAME $HOME/personalWork
 
 
 printf "\n\n rm custome ppas\n"
@@ -146,7 +147,7 @@ install_skype(){
     apt-key del 1F3045A5DF7587C3 # https://askubuntu.com/questions/1348146/invalid-signature-from-repo-skype-com-how-can-i-clear-this/1348149
     curl https://repo.skype.com/data/SKYPE-GPG-KEY | apt-key add -
     apt-get -y purge skype*
-    rm -rf /home/komuw/.Skype; rm -rf /home/komuw/.skype
+    rm -rf /home/$MY_NAME/.Skype; rm -rf /home/$MY_NAME/.skype
     apt -y install gconf-service libgconf-2-4 gnome-keyring # pre-requistes
     wget -nc --output-document=/tmp/skype.deb https://go.skype.com/skypeforlinux-64.deb
     dpkg -i /tmp/skype.deb
@@ -203,51 +204,51 @@ source ~/.global_venv/bin/activate && pip3 install --upgrade \
 # group: name={{ USER }} state=present
 
 printf "\n\n create personal ssh-key\n"
-if [[ ! -e /home/komuw/.ssh/personal_id_rsa.pub ]]; then
-    mkdir -p /home/komuw/.ssh
-    ssh-keygen -t rsa -C komuwUbuntu -b 8192 -q -N "$SSH_KEY_PHRASE_PERSONAL" -f /home/komuw/.ssh/personal_id_rsa
+if [[ ! -e /home/$MY_NAME/.ssh/personal_id_rsa.pub ]]; then
+    mkdir -p /home/$MY_NAME/.ssh
+    ssh-keygen -t rsa -C komuwUbuntu -b 8192 -q -N "$SSH_KEY_PHRASE_PERSONAL" -f /home/$MY_NAME/.ssh/personal_id_rsa
 fi
 chmod 600 ~/.ssh/personal_id_rsa
 chmod 600 ~/.ssh/personal_id_rsa.pub
-chown -R komuw:komuw /home/komuw/.ssh
+chown -R $MY_NAME:$MY_NAME /home/$MY_NAME/.ssh
 
 #printf "\n\n start ssh-agent"
 #shell: ssh-agent /bin/bash
 
 #printf "\n\n load your key to the agent"
-#command: ssh-add /home/komuw/.ssh/personal_id_rsa
+#command: ssh-add /home/$MY_NAME/.ssh/personal_id_rsa
 
 printf "\n\n your ssh public key is\n"
-cat /home/komuw/.ssh/personal_id_rsa.pub
+cat /home/$MY_NAME/.ssh/personal_id_rsa.pub
 
 
 ########################## personal work ssh key ##################
 printf "\n\n create personal work ssh-key\n"
-if [[ ! -e /home/komuw/.ssh/personal_work_id_rsa.pub ]]; then
-    mkdir -p /home/komuw/.ssh
-    ssh-keygen -t rsa -C "$PERSONAL_WORK_EMAIL" -b 8192 -q -N "$SSH_KEY_PHRASE_PERSONAL" -f /home/komuw/.ssh/personal_work_id_rsa
+if [[ ! -e /home/$MY_NAME/.ssh/personal_work_id_rsa.pub ]]; then
+    mkdir -p /home/$MY_NAME/.ssh
+    ssh-keygen -t rsa -C "$PERSONAL_WORK_EMAIL" -b 8192 -q -N "$SSH_KEY_PHRASE_PERSONAL" -f /home/$MY_NAME/.ssh/personal_work_id_rsa
 fi
 chmod 600 ~/.ssh/personal_work_id_rsa
 chmod 600 ~/.ssh/personal_work_id_rsa.pub
-chown -R komuw:komuw /home/komuw/.ssh
+chown -R $MY_NAME:$MY_NAME /home/$MY_NAME/.ssh
 
 #printf "\n\n start ssh-agent"
 #shell: ssh-agent /bin/bash
 
 #printf "\n\n load your key to the agent"
-#command: ssh-add /home/komuw/.ssh/personal_work_id_rsa
+#command: ssh-add /home/$MY_NAME/.ssh/personal_work_id_rsa
 
 printf "\n\n your ssh public key for personal work is\n"
-cat /home/komuw/.ssh/personal_work_id_rsa.pub
+cat /home/$MY_NAME/.ssh/personal_work_id_rsa.pub
 ########################## personal work ssh key ##################
 
 printf "\n\n configure ssh/config\n"
-cp ../templates/ssh_conf.j2 /home/komuw/.ssh/config
+cp ../templates/ssh_conf.j2 /home/$MY_NAME/.ssh/config
 
 
 # printf "\n\n configure bash aliases"
 # template: src=../templates/bash_aliases.j2
-#         dest=/home/komuw/.bash_aliases
+#         dest=/home/$MY_NAME/.bash_aliases
 
 printf "\n\n configure .bashrc\n"
 # there ought to be NO newlines in the content
@@ -256,17 +257,17 @@ BASHRC_FILE_FILE_CONTENTS='#solve passphrase error in ssh
 #see: http://rabexc.org/posts/pitfalls-of-ssh-agents
 ssh-add -l &>/dev/null
 if [ "$?" == 2 ]; then
-  test -r /home/komuw/.ssh-agent && \
-    eval "$(</home/komuw/.ssh-agent)" >/dev/null
+  test -r /home/$MY_NAME/.ssh-agent && \
+    eval "$(</home/$MY_NAME/.ssh-agent)" >/dev/null
   ssh-add -l &>/dev/null
   if [ "$?" == 2 ]; then
-    (umask 066; ssh-agent > /home/komuw/.ssh-agent)
-    eval "$(</home/komuw/.ssh-agent)" >/dev/null
+    (umask 066; ssh-agent > /home/$MY_NAME/.ssh-agent)
+    eval "$(</home/$MY_NAME/.ssh-agent)" >/dev/null
     ssh-add
   fi
 fi
 export HISTTIMEFORMAT="%d/%m/%Y %T "'
-BASHRC_FILE=/home/komuw/.bashrc
+BASHRC_FILE=/home/$MY_NAME/.bashrc
 grep -qF -- "$BASHRC_FILE_FILE_CONTENTS" "$BASHRC_FILE" || echo "$BASHRC_FILE_FILE_CONTENTS" >> "$BASHRC_FILE"
 
 
@@ -299,7 +300,7 @@ GIT_CONFIG_FILE_CONTENTS='
 [mergetool "meld"]
   keepBackup = false'
 
-GIT_CONFIG_FILE=/home/komuw/.gitconfig
+GIT_CONFIG_FILE=/home/$MY_NAME/.gitconfig
 touch "$GIT_CONFIG_FILE"
 grep -qF -- "$GIT_CONFIG_FILE_CONTENTS" "$GIT_CONFIG_FILE" || echo "$GIT_CONFIG_FILE_CONTENTS" >> "$GIT_CONFIG_FILE"
 
@@ -307,10 +308,10 @@ grep -qF -- "$GIT_CONFIG_FILE_CONTENTS" "$GIT_CONFIG_FILE" || echo "$GIT_CONFIG_
 printf "\n\n configure ~/mystuff/ gitconfig\n"
 MYSTUFF_GIT_CONFIG_FILE_CONTENTS='
 [user]
-    name = komuw
+    name = $MY_NAME
     email = komuw05@gmail.com'
 
-MYSTUFF_GIT_CONFIG_FILE=/home/komuw/mystuff/.gitconfig
+MYSTUFF_GIT_CONFIG_FILE=/home/$MY_NAME/mystuff/.gitconfig
 touch "$MYSTUFF_GIT_CONFIG_FILE"
 grep -qF -- "$MYSTUFF_GIT_CONFIG_FILE_CONTENTS" "$MYSTUFF_GIT_CONFIG_FILE" || echo "$MYSTUFF_GIT_CONFIG_FILE_CONTENTS" >> "$MYSTUFF_GIT_CONFIG_FILE"
 
@@ -321,7 +322,7 @@ PERSONAL_WORK_GIT_CONFIG_FILE_CONTENTS='
     name = "$PERSONAL_WORK_NAME"
     email = "$PERSONAL_WORK_EMAIL"'
 
-PERSONAL_WORK_GIT_CONFIG_FILE=/home/komuw/personalWork/.gitconfig
+PERSONAL_WORK_GIT_CONFIG_FILE=/home/$MY_NAME/personalWork/.gitconfig
 touch "$PERSONAL_WORK_GIT_CONFIG_FILE"
 grep -qF -- "$PERSONAL_WORK_GIT_CONFIG_FILE_CONTENTS" "$PERSONAL_WORK_GIT_CONFIG_FILE" || echo "$PERSONAL_WORK_GIT_CONFIG_FILE_CONTENTS" >> "$PERSONAL_WORK_GIT_CONFIG_FILE"
 
@@ -350,35 +351,35 @@ GIT_ATTRIBUTES_FILE_CONTENTS='
 *.rake  diff=ruby
 *.rs    diff=rust'
 
-GIT_ATTRIBUTES_FILE=/home/komuw/mystuff/.gitattributes
+GIT_ATTRIBUTES_FILE=/home/$MY_NAME/mystuff/.gitattributes
 touch "$GIT_ATTRIBUTES_FILE"
 grep -qF -- "$GIT_ATTRIBUTES_FILE_CONTENTS" "$GIT_ATTRIBUTES_FILE" || echo "$GIT_ATTRIBUTES_FILE_CONTENTS" >> "$GIT_ATTRIBUTES_FILE"
 
 
 printf "\n\n configure hgrc(mercurial)\n"
 MERCURIAL_CONFIG_FILE_CONTENTS='[ui]
-username = komuw <komuw05@gmail.com>'
-MERCURIAL_CONFIG_FILE=/home/komuw/.hgrc
+username = $MY_NAME <komuw05@gmail.com>'
+MERCURIAL_CONFIG_FILE=/home/$MY_NAME/.hgrc
 touch "$MERCURIAL_CONFIG_FILE"
 grep -qF -- "$MERCURIAL_CONFIG_FILE_CONTENTS" "$MERCURIAL_CONFIG_FILE" || echo "$MERCURIAL_CONFIG_FILE_CONTENTS" >> "$MERCURIAL_CONFIG_FILE"
 
 
 printf "\n\n create pip conf\n"
-mkdir -p /home/komuw/.pip
+mkdir -p /home/$MY_NAME/.pip
 PIP_CONFIG_FILE_CONTENTS='[global]
-download_cache = /home/komuw/.cache/pip'
-PIP_CONFIG_FILE=/home/komuw/.pip/pip.conf
+download_cache = /home/$MY_NAME/.cache/pip'
+PIP_CONFIG_FILE=/home/$MY_NAME/.pip/pip.conf
 touch "$PIP_CONFIG_FILE"
 grep -qF -- "$PIP_CONFIG_FILE_CONTENTS" "$PIP_CONFIG_FILE" || echo "$PIP_CONFIG_FILE_CONTENTS" >> "$PIP_CONFIG_FILE"
 
 printf "\n\n create pip cache dir\n"
-mkdir -p /home/komuw/.cache && mkdir -p /home/komuw/.cache/pip
+mkdir -p /home/$MY_NAME/.cache && mkdir -p /home/$MY_NAME/.cache/pip
 
 printf "\n\n give root group ownership of pip cache dir\n"
-chown -R root /home/komuw/.cache/pip
+chown -R root /home/$MY_NAME/.cache/pip
 
 printf "\n\n create terminator conf dir\n"
-mkdir -p /home/komuw/.config && mkdir -p /home/komuw/.config/terminator
+mkdir -p /home/$MY_NAME/.config && mkdir -p /home/$MY_NAME/.config/terminator
 TERMINATOR_CONFIG_FILE_CONTENTS='[global_config]
   enabled_plugins = LaunchpadCodeURLHandler, APTURLHandler, LaunchpadBugURLHandler
 [keybindings]
@@ -409,7 +410,7 @@ TERMINATOR_CONFIG_FILE_CONTENTS='[global_config]
       type = Window
       parent = ""
 [plugins]'
-TERMINATOR_CONFIG_FILE=/home/komuw/.config/terminator/config
+TERMINATOR_CONFIG_FILE=/home/$MY_NAME/.config/terminator/config
 touch "$TERMINATOR_CONFIG_FILE"
 grep -qF -- "$TERMINATOR_CONFIG_FILE_CONTENTS" "$TERMINATOR_CONFIG_FILE" || echo "$TERMINATOR_CONFIG_FILE_CONTENTS" >> "$TERMINATOR_CONFIG_FILE"
 
@@ -463,15 +464,15 @@ apt-key fingerprint 0EBFCD88                                                    
 add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"  # add docker repo
 apt -y update
 apt -y install docker-ce
-usermod -aG docker komuw && usermod -aG docker $(whoami)                                                  # add user to docker group
+usermod -aG docker $MY_NAME && usermod -aG docker $(whoami)                                                  # add user to docker group
 
 
 printf "\n\n create docker dir\n"
-mkdir -p /home/komuw/.docker
+mkdir -p /home/$MY_NAME/.docker
 printf "\n\n make docker group owner of docker dir\n"
-chown -R root:docker /home/komuw/.docker
+chown -R root:docker /home/$MY_NAME/.docker
 printf "\n\n add proper permissions to docker dir\n"
-chmod -R 775 /home/komuw/.docker
+chmod -R 775 /home/$MY_NAME/.docker
 
 printf "\n\n configure /etc/docker/daemon.json file\n"
 mkdir -p /etc/docker

@@ -9,6 +9,9 @@ fi
 shopt -s nullglob globstar
 export DEBIAN_FRONTEND=noninteractive
 
+MY_NAME=$(whoami)
+
+
 printf "\n\n install vscode dependencies \n"
 apt -y install libxkbfile1
 printf "\n\n  download vscode\n"
@@ -16,14 +19,14 @@ wget -nc --output-document=/tmp/vscode.deb "https://go.microsoft.com/fwlink/?Lin
 printf "\n\n  install vscode\n"
 dpkg -i /tmp/vscode.deb
 
-# on MacOs it is /Users/komuw/Library/Application\ Support/Code/User/settings.json
+# on MacOs it is /Users/$MY_NAME/Library/Application\ Support/Code/User/settings.json
 printf "\n\n  configure vscode user settings file\n"
-mkdir -p /home/komuw/.config/Code/User
-mkdir -p /home/komuw/.vscode
-touch /home/komuw/.config/Code/User/settings.json
-chown -R komuw:komuw /home/komuw/.config/Code/
-chown -R komuw:komuw /home/komuw/.vscode
-cp ../templates/vscode.j2 /home/komuw/.config/Code/User/settings.json
+mkdir -p /home/$MY_NAME/.config/Code/User
+mkdir -p /home/$MY_NAME/.vscode
+touch /home/$MY_NAME/.config/Code/User/settings.json
+chown -R $MY_NAME:$MY_NAME /home/$MY_NAME/.config/Code/
+chown -R $MY_NAME:$MY_NAME /home/$MY_NAME/.vscode
+cp ../templates/vscode.j2 /home/$MY_NAME/.config/Code/User/settings.json
 
 printf "\n\n  install vscode extensions\n"
 code --user-data-dir='.' --install-extension ms-python.python

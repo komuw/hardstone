@@ -9,6 +9,8 @@ fi
 shopt -s nullglob globstar
 export DEBIAN_FRONTEND=noninteractive
 
+MY_NAME=$(whoami)
+
 printf "\n\n update cache\n"
 apt-get -y update
 
@@ -27,8 +29,8 @@ printf "\n\n Add ohmyzsh config \n"
 cp ../templates/zshrc.j2 ~/.zshrc
 
 printf "\n\n change ownership of ohmyzsh dirs \n"
-chown -R komuw:komuw /home/komuw/.zshrc
-chown -R komuw:komuw ~/.oh-my-zsh
+chown -R $MY_NAME:$MY_NAME /home/$MY_NAME/.zshrc
+chown -R $MY_NAME:$MY_NAME ~/.oh-my-zsh
 
 printf "\n\n  activate zsh shell\n"
 chsh -s $(which zsh)

@@ -9,6 +9,7 @@ fi
 shopt -s nullglob globstar
 export DEBIAN_FRONTEND=noninteractive
 
+MY_NAME=$(whoami)
 
 FLUTTER_VERSION=flutter_linux_2.2.2-stable
 
@@ -34,7 +35,7 @@ touch "$DART_CONFIG_FILE"
 grep -qF -- "$DART_CONFIG_FILE_CONTENTS" "$DART_CONFIG_FILE" || echo "$DART_CONFIG_FILE_CONTENTS" >> "$DART_CONFIG_FILE"
 
 printf "\n\n  give user perms on flutter dir\n"
-chown -R komuw /usr/local/flutter
+chown -R $MY_NAME /usr/local/flutter
 
 printf "\n\n  check flutter version\n"
 export PATH=$PATH:/usr/local/flutter/bin && \

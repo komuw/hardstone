@@ -9,14 +9,15 @@ fi
 shopt -s nullglob globstar
 export DEBIAN_FRONTEND=noninteractive
 
+MY_NAME=$(whoami)
 
 printf "\n\n  install xonsh and dependencies\n"
 # we need prompt_toolkit < 2.0 see bug; https://github.com/xonsh/xonsh/issues/2662
 python3 -m pip install -U xonsh ptk prompt_toolkit==1.0.15 pygments
 
 printf "\n\n  configure xonsh.config.json.j2\n"
-touch /home/komuw/.xonshrc
-cp ../templates/xonsh.j2 /home/komuw/.xonshrc
+touch /home/$MY_NAME/.xonshrc
+cp ../templates/xonsh.j2 /home/$MY_NAME/.xonshrc
 
 printf "\n\n  add xonsh to shells\n"
 ETC_SHELLS_CONFIG_FILE_CONTENTS='/usr/local/bin/xonsh'

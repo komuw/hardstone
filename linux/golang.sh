@@ -9,7 +9,7 @@ fi
 shopt -s nullglob globstar
 export DEBIAN_FRONTEND=noninteractive
 
-
+MY_NAME=$(whoami)
 GOLANG_VERSION=go1.16.linux-amd64
 
 printf "\n\n  download golang\n"
@@ -38,5 +38,5 @@ gotip download
 
 printf "\n\n change ownership of ~/go\n"
 go version
-chown -R komuw:komuw $HOME/go
-chown -R komuw:komuw $HOME/.cache/
+chown -R $MY_NAME:$MY_NAME $HOME/go
+chown -R $MY_NAME:$MY_NAME $HOME/.cache/
