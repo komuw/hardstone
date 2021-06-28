@@ -36,4 +36,3 @@ code --user-data-dir='.' --install-extension ms-azuretools.vscode-docker
 code --user-data-dir='.' --install-extension hashicorp.terraform
 # code --user-data-dir='.' --install-extension ms-vscode.cpptools
 code --list-extensions
-
