@@ -8,7 +8,7 @@ else
 fi
 export DEBIAN_FRONTEND=noninteractive
 
-
+MY_NAME=$(whoami)
 
 SSH_KEY_PHRASE_PERSONAL=${1:-sshKeyPhrasePersonalNotSet}
 if [ "$SSH_KEY_PHRASE_PERSONAL" == "sshKeyPhrasePersonalNotSet"  ]; then
@@ -43,31 +43,31 @@ brew install ack \
 
 
 printf "\n\n create personal ssh-key\n"
-if [[ ! -e /Users/komuw/.ssh/personal_id_rsa.pub ]]; then
-    mkdir -p /Users/komuw/.ssh
-    ssh-keygen -t rsa -C "komuw@Mac" -b 8192 -q -N "$SSH_KEY_PHRASE_PERSONAL" -f /Users/komuw/.ssh/personal_id_rsa
+if [[ ! -e /Users/$MY_NAME/.ssh/personal_id_rsa.pub ]]; then
+    mkdir -p /Users/$MY_NAME/.ssh
+    ssh-keygen -t rsa -C "$MY_NAME@Mac" -b 8192 -q -N "$SSH_KEY_PHRASE_PERSONAL" -f /Users/$MY_NAME/.ssh/personal_id_rsa
 fi
 chmod 600 ~/.ssh/personal_id_rsa
 chmod 600 ~/.ssh/personal_id_rsa.pub
-chown -R komuw:staff /Users/komuw/.ssh
+chown -R $MY_NAME:staff /Users/$MY_NAME/.ssh
 
 printf "\n::SHOW me my ssh key damn it\n\n"
-cat /Users/komuw/.ssh/personal_id_rsa.pub
+cat /Users/$MY_NAME/.ssh/personal_id_rsa.pub
 
 
 printf "\n::CREATE dirs\n\n"
-mkdir -p /Users/komuw/work
-mkdir -p /Users/komuw/mystuff
+mkdir -p /Users/$MY_NAME/work
+mkdir -p /Users/$MY_NAME/mystuff
 
 printf "\n::COPY conf files\n\n"
-cp ../templates/ssh_conf.j2 /Users/komuw/.ssh/config
-cp ../templates/mac/bash_aliases.j2 /Users/komuw/.bash_aliases
-cp ../templates/mac/hgrc.j2 /Users/komuw/.hgrc
+cp ../templates/ssh_conf.j2 /Users/$MY_NAME/.ssh/config
+cp ../templates/mac/bash_aliases.j2 /Users/$MY_NAME/.bash_aliases
+cp ../templates/mac/hgrc.j2 /Users/$MY_NAME/.hgrc
 
 
 printf "\n::git config\n\n"
-git config --global user.name "komuW"
-git config --global user.email "komuw05@gmail.com"
+git config --global user.name "$MY_NAME"
+git config --global user.email "$MY_NAME05@gmail.com"
 git config --global alias.co checkout
 git config --global alias.br branch
 git config --global alias.ci commit
@@ -134,8 +134,8 @@ printf "\n\n Add ohmyzsh config \n"
 cp ../templates/zshrc.j2 ~/.zshrc
 
 printf "\n\n change ownership of ohmyzsh dirs \n"
-sudo chown -R komuw:staff /Users/komuw/.zshrc
-sudo chown -R komuw:staff ~/.oh-my-zsh
+sudo chown -R $MY_NAME:staff /Users/$MY_NAME/.zshrc
+sudo chown -R $MY_NAME:staff ~/.oh-my-zsh
 
 
 printf "\n\n Install awscli \n"
@@ -161,7 +161,7 @@ install_vscode(){
     unzip /tmp/vscode.zip -d /tmp/vscode
     mv "/tmp/vscode/Visual Studio Code.app/" /Applications/
 
-    BASHRC_PROFILE_FILE=/Users/komuw/.bash_profile
+    BASHRC_PROFILE_FILE=/Users/$MY_NAME/.bash_profile
     BASHRC_PROFILE_FILE_CONTENTS=$(cat <<-EOF
 
 # Add Visual Studio Code to path
@@ -247,7 +247,7 @@ install_terraform
 #   aws --profile "\$profile" --region eu-west-1 ecr get-login-password | \
 #   docker login --username AWS --password-stdin "\$aws_account_id".dkr.ecr.eu-west-1.amazonaws.com
 # }"""
-# BASHRC_PROFILE_FILE=/Users/komuw/.bash_profile
+# BASHRC_PROFILE_FILE=/Users/$MY_NAME/.bash_profile
 # if  ! grep -q "ecr_login" "$BASHRC_PROFILE_FILE"; then
 #   echo "adding ecr_login bash helper function."
 #   echo "$BASHRC_PROFILE_FILE_CONTENTS" >> "$BASHRC_PROFILE_FILE"
@@ -272,7 +272,7 @@ install_terraform
 #         wget --output-document=/tmp/amazon_corretto.tar.gz https://corretto.aws/downloads/latest/amazon-corretto-11-x64-macos-jdk.tar.gz
 #     fi
 #     mkdir -p /Library/Java/JavaVirtualMachines/
-#     sudo chown -R komuw:staff /Library/Java/JavaVirtualMachines/
+#     sudo chown -R $MY_NAME:staff /Library/Java/JavaVirtualMachines/
 #     tar -xzf /tmp/amazon_corretto.tar.gz -C /Library/Java/JavaVirtualMachines/
 #     java -version
 #     javac -version
@@ -282,7 +282,7 @@ install_terraform
 
 # install_zig() {
 #     printf "\n\n remove any current zig files\n"
-#     sudo rm -rf /usr/local/zigDir && sudo mkdir -p /usr/local/zigDir && sudo chown -R komuw /usr/local/zigDir
+#     sudo rm -rf /usr/local/zigDir && sudo mkdir -p /usr/local/zigDir && sudo chown -R $MY_NAME /usr/local/zigDir
 
 #     printf "\n\n  download zig from master branch(change when zig gets to ver1)\n"
 #     # TODO: parse content from https://ziglang.org/download/index.json
