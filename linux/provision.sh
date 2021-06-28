@@ -106,14 +106,11 @@ apt-get -y install gcc \
         transmission-daemon \
         vlc \
         mpv  \
-        browser-plugin-vlc \
         libpq-dev  \
         python2.7-dev \
         libxml2-dev  \
         libxslt1-dev \
 	      postgresql-client \
-        network-manager-vpnc \
-        vpnc \
         screen \
         build-essential \
         python-dev \
@@ -122,7 +119,6 @@ apt-get -y install gcc \
         tcptrack \
         wireshark \
         nano \
-        git-flow \
         zip \
         lxc \
         lxc-templates  \
@@ -150,16 +146,12 @@ apt-get -y install gcc \
 printf "\n\n install skype pre-requistes\n"
 apt -y install gconf-service libgconf-2-4 gnome-keyring
 
-printf "\n\n download skype\n"
-wget -nc --output-document=/tmp/skype.deb https://repo.skype.com/latest/skypeforlinux-64.deb
-
 printf "\n\n install skype\n"
+wget -nc --output-document=/tmp/skype.deb https://repo.skype.com/latest/skypeforlinux-64.deb
 dpkg -i /tmp/skype.deb
 
-printf "\n\n add nodeJs ppa\n"
-curl -sL https://deb.nodesource.com/setup_13.x | bash -
-
 printf "\n\n install nodeJs\n"
+curl -fsSL https://deb.nodesource.com/setup_16.x | bash -
 apt-get install -y nodejs
 
 printf "\n\n remove potential apt lock\n"
@@ -183,30 +175,18 @@ apt-get -y install ubuntu-restricted-extras
 printf "\n\n update system\n"
 apt-get -y update
 
-printf "\n\n install chrome dependencies\n"
+printf "\n\n install google chrome\n"
+# install chrome dependencies
 apt-get -y install libdbusmenu-glib4 \
                    libdbusmenu-gtk3-4 \
                    libindicator3-7 \
                    libappindicator3-1
-
-printf "\n\n download google chrome\n"
 wget -nc --output-document=/tmp/google_chrome_stable_amd64.deb https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
-
-printf "\n\n install google chrome\n"
 dpkg -i /tmp/google_chrome_stable_amd64.deb
-
-printf "\n\n fix install chrome errors\n"
-apt-get -f -y install  
-
-printf "\n\n install virtualbox dependencies\n"
-apt -y install libqt5opengl5
-
-printf "\n\n download and install virtualbox\n"
-wget -nc --output-document=/tmp/virtualbox_amd64.deb "http://download.virtualbox.org/virtualbox/6.1.4/virtualbox-6.1_6.1.4-136177~Ubuntu~$(lsb_release -cs)_amd64.deb"
-dpkg -i /tmp/virtualbox_amd64.deb
+apt-get -f -y install # fix install chrome errors
 
 printf "\n\n install bat(https://github.com/sharkdp/bat)\n"
-wget -nc --output-document=/tmp/bat_amd64.deb https://github.com/sharkdp/bat/releases/download/v0.13.0/bat_0.13.0_amd64.deb
+wget -nc --output-document=/tmp/bat_amd64.deb https://github.com/sharkdp/bat/releases/download/v0.18.1/bat_0.18.1_amd64.deb
 dpkg -i /tmp/bat_amd64.deb
 
 printf "\n\n Install Python pip3 packages\n"
