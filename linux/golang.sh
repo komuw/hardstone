@@ -33,12 +33,10 @@ go install github.com/tsenart/vegeta@latest
 go install mvdan.cc/gofumpt@latest
 
 printf "\n\n install gotip https://godoc.org/golang.org/dl/gotip \n"
-# go get golang.org/dl/gotip
-# gotip download
+go install golang.org/dl/gotip@latest
+gotip download
 
 printf "\n\n change ownership of ~/go\n"
 go version
 chown -R komuw:komuw $HOME/go
 chown -R komuw:komuw $HOME/.cache/
-
-

@@ -7,7 +7,7 @@ jobs:
 
   preRequiste:
     name: preRequiste
-    timeout-minutes: 7
+    timeout-minutes: 8
     strategy:
       matrix:
         platform: [ubuntu-20.04]
@@ -17,16 +17,19 @@ jobs:
       - name: Check out code into the directory
         uses: actions/checkout@v2
 
-      - name: tests and benchmarks
+      - name: preRequiste
         run: |
+          echo ""
           pwd
           ls -lsha
-          /bin/bash preRequiste.sh
+          echo ""
+          echo ""
+          sudo /bin/bash linux/preRequiste.sh
 
 
   user:
     name: user
-    timeout-minutes: 7
+    timeout-minutes: 8
     strategy:
       matrix:
         platform: [ubuntu-20.04]
@@ -36,14 +39,14 @@ jobs:
       - name: Check out code into the directory
         uses: actions/checkout@v2
 
-      - name: tests and benchmarks
+      - name: user
         run: |
-          /bin/bash user.sh myDummyPassword
+          sudo /bin/bash linux/user.sh myDummyPassword
 
 
   provision:
     name: provision
-    timeout-minutes: 7
+    timeout-minutes: 8
     strategy:
       matrix:
         platform: [ubuntu-20.04]
@@ -53,7 +56,7 @@ jobs:
       - name: Check out code into the directory
         uses: actions/checkout@v2
 
-      - name: tests and benchmarks
+      - name: provision
         run: |
-          /bin/bash provision.sh SSH_KEY_PHRASE_PERSONAL SSH_KEY_PHRASE_PERSONAL_WORK PERSONAL_WORK_EMAIL PERSONAL_WORK_NAME
+          sudo /bin/bash linux/provision.sh SSH_KEY_PHRASE_PERSONAL SSH_KEY_PHRASE_PERSONAL_WORK PERSONAL_WORK_EMAIL PERSONAL_WORK_NAME
 

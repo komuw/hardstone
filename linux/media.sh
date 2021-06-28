@@ -9,5 +9,7 @@ fi
 shopt -s nullglob globstar
 export DEBIAN_FRONTEND=noninteractive
 
-printf "\n\n  install acestreamplayer\n"
-snap install acestreamplayer
+# printf "\n\n  install acestreamplayer\n"
+# snap install acestreamplayer
+
+printf "\n\n nothing to do in media.sh \n"
