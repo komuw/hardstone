@@ -142,7 +142,7 @@ apt-get -y install gcc \
 install_skype(){
     printf "\n\n install skype\n"
 
-    apt-key del 1F3045A5DF7587C3
+    apt-key del 1F3045A5DF7587C3 # https://askubuntu.com/questions/1348146/invalid-signature-from-repo-skype-com-how-can-i-clear-this/1348149
     curl https://repo.skype.com/data/SKYPE-GPG-KEY | apt-key add -
     apt-get -y purge skype*
     rm -rf /home/komuw/.Skype; rm -rf /home/komuw/.skype
