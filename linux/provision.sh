@@ -459,18 +459,15 @@ printf "\n\n update grub\n"
 update-grub
 
 # NB: do not install docker from snap, it is broken
-printf "\n\n add docker apt key\n"
-curl -fsSL https://download.docker.com/linux/ubuntu/gpg | apt-key add -
-printf "\n\n verify docker key\n"
-apt-key fingerprint 0EBFCD88
-printf "\n\n add docker apt repo\n"
-add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) test"
-printf "\n\n update system\n"
-apt -y update
 printf "\n\n install docker\n"
-apt -y autoremove && apt -y install docker-ce
-printf "\n\n add user to docker group\n"
-usermod -aG docker komuw && usermod -aG docker $(whoami)
+apt -y remove docker docker-engine docker.io containerd runc
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | apt-key add -                                   # add key
+apt-key fingerprint 0EBFCD88                                                                              # verify key
+add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"  # add docker repo
+apt -y update
+apt -y install docker-ce
+usermod -aG docker komuw && usermod -aG docker $(whoami)                                                  # add user to docker group
+
 
 printf "\n\n create docker dir\n"
 mkdir -p /home/komuw/.docker
