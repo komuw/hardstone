@@ -142,6 +142,8 @@ apt-get -y install gcc \
 install_skype(){
     printf "\n\n install skype\n"
 
+    apt-key del 1F3045A5DF7587C3
+    curl https://repo.skype.com/data/SKYPE-GPG-KEY | apt-key add -
     apt-get -y purge skype*
     rm -rf /home/komuw/.Skype; rm -rf /home/komuw/.skype
     apt -y install gconf-service libgconf-2-4 gnome-keyring # pre-requistes
