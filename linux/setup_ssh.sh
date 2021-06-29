@@ -35,7 +35,7 @@ create_personal_ssh_key(){
     printf "\n\n create personal ssh-key\n"
     if [[ ! -e /home/$MY_NAME/.ssh/personal_id_rsa.pub ]]; then
         mkdir -p /home/$MY_NAME/.ssh
-        ssh-keygen -t rsa -C komuwUbuntu -b 8192 -q -N "$SSH_KEY_PHRASE_PERSONAL" -f /home/$MY_NAME/.ssh/personal_id_rsa
+        ssh-keygen -t rsa -C "$MY_NAME@Ubuntu" -b 8192 -q -N "$SSH_KEY_PHRASE_PERSONAL" -f /home/$MY_NAME/.ssh/personal_id_rsa
     fi
     chmod 600 /home/$MY_NAME/.ssh/personal_id_rsa
     chmod 600 /home/$MY_NAME/.ssh/personal_id_rsa.pub
