@@ -9,6 +9,8 @@ fi
 shopt -s nullglob globstar
 export DEBIAN_FRONTEND=noninteractive
 
+MY_NAME=$(whoami)
+
 
 setup_pip(){
     printf "\n\n setup_pip config \n"
