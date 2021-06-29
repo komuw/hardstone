@@ -194,7 +194,7 @@ GRUB_CMDLINE_LINUX=""
 #GRUB_DISABLE_RECOVERY="true"
 # Uncomment to get a beep at grub start
 #GRUB_INIT_TUNE="480 440 1"
-# To edit boot parameters before/during booting; reboot, after the boot sound, press ESC key once, click 'e' key to edit,
+# To edit boot parameters before/during booting; reboot, after the boot sound, press ESC key once, click `e` key to edit,
 # remove `quiet splash` replace with `nomodeset no_console_suspend verbose debug ignore_loglevel` then press F10 to reboot.
 # You may also have to choose to boot into either recovery mode or boot using a different kernel. 
 # All this, can be selected by; rebooting, press ESC after boot sound and selecting Advanced boot settings.'
