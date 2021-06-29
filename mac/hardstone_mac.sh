@@ -193,6 +193,13 @@ EOF
 }
 install_vscode
 
+install_zoom(){
+    printf "\n::INSTALL zoom\n\n"
+    wget --output-document=/tmp/zoom.pkg https://zoom.us/client/latest/Zoom.pkg
+    # this will install it inside /Applications/
+    sudo installer -pkg /tmp/zoom.pkg -target /
+}
+install_zoom
 
 install_golang(){
     printf "\n::INSTALL golang\n\n"
