@@ -13,7 +13,9 @@ MY_NAME=$(whoami)
 
 FLUTTER_VERSION=flutter_linux_2.2.2-stable
 
+
 printf "\n\n  install dart"
+sudo sh -c 'wget -qO- https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add -'
 sudo sh -c 'curl https://storage.googleapis.com/download.dartlang.org/linux/debian/dart_unstable.list > /etc/apt/sources.list.d/dart_unstable.list'
 sudo apt -y update
 sudo apt -y install dart
@@ -23,14 +25,6 @@ sudo wget -nc --output-document="/usr/local/flutter.tar.xz" "https://storage.goo
 
 printf "\n\n  untar flutter file\n"
 sudo tar xf "/usr/local/flutter.tar.xz" -C /usr/local/
-
-printf "\n\n add flutter profile\n"
-DART_CONFIG_FILE_CONTENTS='#dart and flutter
-export PATH=$PATH:/usr/local/flutter/bin
-export PATH=$PATH:/usr/lib/dart/bin'
-DART_CONFIG_FILE=/etc/profile
-sudo touch "$DART_CONFIG_FILE"
-grep -qF -- "$DART_CONFIG_FILE_CONTENTS" "$DART_CONFIG_FILE" || echo "$DART_CONFIG_FILE_CONTENTS" >> "$DART_CONFIG_FILE"
 
 printf "\n\n  give user perms on flutter dir\n"
 sudo chown -R $MY_NAME /usr/local/flutter
