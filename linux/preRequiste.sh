@@ -9,6 +9,11 @@ fi
 shopt -s nullglob globstar
 export DEBIAN_FRONTEND=noninteractive
 
+# MY_NAME=$(whoami)
+
+
+# printf "\n\n add current user to sudo group\n"
+# sudo usermod -aG sudo $MY_NAME
 
 printf "\n\n starting setup/provisioning....\n"
 printf "\n\n install pre-requiste stuff reequired by the other scripts. \nthe other scripts should be able to run in parallel....\n"
