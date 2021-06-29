@@ -16,14 +16,14 @@ apt -y update && \
 apt -y install python && \
 apt -y install python3-pip nano wget unzip curl screen
 
-rm -rf /home/$MY_NAME/stuff
-mkdir -p /home/$MY_NAME/stuff
-cd /home/$MY_NAME/stuff
+rm -rf /home/$MY_NAME/installDir
+mkdir -p /home/$MY_NAME/installDir
+cd /home/$MY_NAME/installDir
 
-wget -nc --output-document=/home/$MY_NAME/stuff/hardstone.zip https://github.com/komuw/hardstone/archive/refs/heads/master.zip
+wget -nc --output-document=/home/$MY_NAME/installDir/hardstone.zip https://github.com/komuw/hardstone/archive/refs/heads/master.zip
 unzip hardstone.zip
 mv hardstone-master/ hardstone
-cd /home/$MY_NAME/stuff/hardstone/linux/
+cd /home/$MY_NAME/installDir/hardstone/linux/
 
 screen -S hardstone
 screen -ls
