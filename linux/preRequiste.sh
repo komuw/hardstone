@@ -34,6 +34,9 @@ sudo apt-get -y install gcc \
 sudo apt-get -y update
 
 printf "\n\n set locale\n"
-LOCALE_CONFIG_FILE_CONTENTS='#locale
+sudo chown -R $MY_NAME:sudo /etc/profile
+LOCALE_CONFIG_FILE_CONTENTS='
+
+#locale
 export LC_ALL="en_US.UTF-8"'
 grep -qF -- "$LOCALE_CONFIG_FILE_CONTENTS" /etc/profile || echo "$LOCALE_CONFIG_FILE_CONTENTS" >> /etc/profile
