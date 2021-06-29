@@ -58,8 +58,16 @@ printf "\n\n CALLING user.sh::\n\n"
 printf "\n\n user.sh done::\n"
 
 printf "\n\n CALLING provision.sh::\n\n"
-/bin/bash provision.sh "$SSH_KEY_PHRASE_PERSONAL" "$SSH_KEY_PHRASE_PERSONAL_WORK" "$PERSONAL_WORK_EMAIL" "$PERSONAL_WORK_NAME"
+/bin/bash provision.sh
 printf "\n\n provision.sh done::\n"
+
+printf "\n\n CALLING version_control.sh::\n\n"
+/bin/bash version_control.sh "$PERSONAL_WORK_EMAIL" "$PERSONAL_WORK_NAME"
+printf "\n\n version_control.sh done::\n"
+
+printf "\n\n CALLING setup_ssh.sh::\n\n"
+/bin/bash setup_ssh.sh "$SSH_KEY_PHRASE_PERSONAL" "$SSH_KEY_PHRASE_PERSONAL_WORK" "$PERSONAL_WORK_EMAIL"
+printf "\n\n setup_ssh.sh done::\n"
 
 printf "\n\n CALLING golang.sh::\n\n"
 /bin/bash golang.sh

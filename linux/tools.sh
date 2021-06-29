@@ -10,6 +10,21 @@ shopt -s nullglob globstar
 export DEBIAN_FRONTEND=noninteractive
 
 
+setup_pip(){
+    printf "\n\n setup_pip config \n"
+
+    mkdir -p /home/$MY_NAME/.pip
+    PIP_CONFIG_FILE_CONTENTS='[global]
+    download_cache = /home/$MY_NAME/.cache/pip'
+    PIP_CONFIG_FILE=/home/$MY_NAME/.pip/pip.conf
+    touch "$PIP_CONFIG_FILE"
+    grep -qF -- "$PIP_CONFIG_FILE_CONTENTS" "$PIP_CONFIG_FILE" || echo "$PIP_CONFIG_FILE_CONTENTS" >> "$PIP_CONFIG_FILE"
+
+    mkdir -p /home/$MY_NAME/.cache && mkdir -p /home/$MY_NAME/.cache/pip # cache directory
+    chown -R $MY_NAME /home/$MY_NAME/.cache/pip # give $MY_NAME  group ownership of pip cache dir
+}
+setup_pip
+
 install_python3_packages(){
     printf "\n\n Install Python pip3 packages\n"
     pip3 install --upgrade pip # upgrade  pip3 gloablly
@@ -73,7 +88,7 @@ install_docker(){
     printf "\n\n create docker dir\n"
     mkdir -p /home/$MY_NAME/.docker
     printf "\n\n make docker group owner of docker dir\n"
-    chown -R root:docker /home/$MY_NAME/.docker
+    chown -R $MY_NAME:docker /home/$MY_NAME/.docker
     printf "\n\n add proper permissions to docker dir\n"
     chmod -R 775 /home/$MY_NAME/.docker
 

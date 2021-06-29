@@ -11,34 +11,12 @@ export DEBIAN_FRONTEND=noninteractive
 
 MY_NAME=$(whoami)
 
-SSH_KEY_PHRASE_PERSONAL=${1:-sshKeyPhrasePersonalNotSet}
-if [ "$SSH_KEY_PHRASE_PERSONAL" == "sshKeyPhrasePersonalNotSet"  ]; then
-    printf "\n\n SSH_KEY_PHRASE_PERSONAL should not be empty\n"
-    exit
-fi
-
-SSH_KEY_PHRASE_PERSONAL_WORK=${2:-sshKeyPhrasePersonalWorkNotSet}
-if [ "$SSH_KEY_PHRASE_PERSONAL_WORK" == "sshKeyPhrasePersonalWorkNotSet"  ]; then
-    printf "\n\n SSH_KEY_PHRASE_PERSONAL_WORK should not be empty\n"
-    exit
-fi
-
-PERSONAL_WORK_EMAIL=${3:-PERSONAL_WORK_EMAILNotSet}
-if [ "$PERSONAL_WORK_EMAIL" == "PERSONAL_WORK_EMAILNotSet"  ]; then
-    printf "\n\n PERSONAL_WORK_EMAIL should not be empty\n"
-    exit
-fi
-
-PERSONAL_WORK_NAME=${4:-PERSONAL_WORK_NAMENotSet}
-if [ "$PERSONAL_WORK_NAME" == "PERSONAL_WORK_NAMENotSet"  ]; then
-    printf "\n\n PERSONAL_WORK_NAME should not be empty\n"
-    exit
-fi
-
 
 printf "\n\n clear /tmp directory\n"
 rm -rf /tmp/*
 
+printf "\n\n rm custome ppas\n"
+rm -rf /etc/apt/sources.list.d/*
 
 printf "\n\n create my stuff dir\n"
 mkdir -p /home/$MY_NAME/mystuff
@@ -48,10 +26,6 @@ printf "\n\n create personalWork dir\n"
 mkdir -p /home/$MY_NAME/personalWork
 chown -R $MY_NAME:$MY_NAME /home/$MY_NAME/personalWork
 
-
-printf "\n\n rm custome ppas\n"
-rm -rf /etc/apt/sources.list.d/*
-
 printf "\n\n Update package cache\n"
 apt -y update
 
@@ -60,7 +34,6 @@ apt-get -f -y install
 
 printf "\n\n create /etc/apt/sources.list.d file\n"
 mkdir -p /etc/apt/sources.list.d
-
 
 # add-apt-repository takes one repo as arg
 printf "\n\n add some ppas\n"
@@ -76,9 +49,6 @@ apt-get -y update                                                               
 
 printf "\n\n Install mpv\n"
 apt-get -y install mpv
-
-printf "\n\n check DEBIAN_FRONTEND value.\n"
-echo $DEBIAN_FRONTEND
 
 printf "\n\n Install system packages\n"
 apt-get -y install gcc \
@@ -153,167 +123,8 @@ dpkg --configure -a
 printf "\n\n update system\n"
 apt-get -y update
 
-
-printf "\n\n create personal ssh-key\n"
-if [[ ! -e /home/$MY_NAME/.ssh/personal_id_rsa.pub ]]; then
-    mkdir -p /home/$MY_NAME/.ssh
-    ssh-keygen -t rsa -C komuwUbuntu -b 8192 -q -N "$SSH_KEY_PHRASE_PERSONAL" -f /home/$MY_NAME/.ssh/personal_id_rsa
-fi
-chmod 600 /home/$MY_NAME/.ssh/personal_id_rsa
-chmod 600 /home/$MY_NAME/.ssh/personal_id_rsa.pub
-chown -R $MY_NAME:$MY_NAME /home/$MY_NAME/.ssh
-
-printf "\n\n your ssh public key is\n"
-cat /home/$MY_NAME/.ssh/personal_id_rsa.pub
-
-
-########################## personal work ssh key ##################
-printf "\n\n create personal work ssh-key\n"
-if [[ ! -e /home/$MY_NAME/.ssh/personal_work_id_rsa.pub ]]; then
-    mkdir -p /home/$MY_NAME/.ssh
-    ssh-keygen -t rsa -C "$PERSONAL_WORK_EMAIL" -b 8192 -q -N "$SSH_KEY_PHRASE_PERSONAL" -f /home/$MY_NAME/.ssh/personal_work_id_rsa
-fi
-chmod 600 /home/$MY_NAME/.ssh/personal_work_id_rsa
-chmod 600 /home/$MY_NAME/.ssh/personal_work_id_rsa.pub
-chown -R $MY_NAME:$MY_NAME /home/$MY_NAME/.ssh
-
-
-printf "\n\n your ssh public key for personal work is\n"
-cat /home/$MY_NAME/.ssh/personal_work_id_rsa.pub
-########################## personal work ssh key ##################
-
-printf "\n\n configure ssh/config\n"
-cp ../templates/ssh_conf.j2 /home/$MY_NAME/.ssh/config
-
-printf "\n\n configure .bashrc\n"
-# there ought to be NO newlines in the content
-BASHRC_FILE_FILE_CONTENTS='#solve passphrase error in ssh
-#enable auto ssh-agent forwading
-#see: http://rabexc.org/posts/pitfalls-of-ssh-agents
-ssh-add -l &>/dev/null
-if [ "$?" == 2 ]; then
-  test -r /home/$MY_NAME/.ssh-agent && \
-    eval "$(</home/$MY_NAME/.ssh-agent)" >/dev/null
-  ssh-add -l &>/dev/null
-  if [ "$?" == 2 ]; then
-    (umask 066; ssh-agent > /home/$MY_NAME/.ssh-agent)
-    eval "$(</home/$MY_NAME/.ssh-agent)" >/dev/null
-    ssh-add
-  fi
-fi
-export HISTTIMEFORMAT="%d/%m/%Y %T "'
-BASHRC_FILE=/home/$MY_NAME/.bashrc
-grep -qF -- "$BASHRC_FILE_FILE_CONTENTS" "$BASHRC_FILE" || echo "$BASHRC_FILE_FILE_CONTENTS" >> "$BASHRC_FILE"
-
-
-printf "\n\n configure gitconfig\n"
-GIT_CONFIG_FILE_CONTENTS='
-# https://blog.jiayu.co/2019/02/conditional-git-configuration/
-
-[includeIf "gitdir:~/personalWork/"]
-	path = ~/personalWork/.gitconfig
-
-[includeIf "gitdir:~/mystuff/"]
-	path = ~/mystuff/.gitconfig
-
-[alias]
-  co = checkout
-  ci = commit
-  st = status
-  br = branch
-  hist = log --pretty=format:\"%h %ad | %s%d [%an]\" --graph --date=short
-  type = cat-file -t
-  dump = cat-file -p
-
-[diff]
-  tool = meld
-[difftool "meld"]
-
-[merge]
-  tool = meld
-  conflictstyle = diff3
-[mergetool "meld"]
-  keepBackup = false'
-
-GIT_CONFIG_FILE=/home/$MY_NAME/.gitconfig
-touch "$GIT_CONFIG_FILE"
-grep -qF -- "$GIT_CONFIG_FILE_CONTENTS" "$GIT_CONFIG_FILE" || echo "$GIT_CONFIG_FILE_CONTENTS" >> "$GIT_CONFIG_FILE"
-
-
-printf "\n\n configure ~/mystuff/ gitconfig\n"
-MYSTUFF_GIT_CONFIG_FILE_CONTENTS='
-[user]
-    name = $MY_NAME
-    email = komuw05@gmail.com'
-
-MYSTUFF_GIT_CONFIG_FILE=/home/$MY_NAME/mystuff/.gitconfig
-touch "$MYSTUFF_GIT_CONFIG_FILE"
-grep -qF -- "$MYSTUFF_GIT_CONFIG_FILE_CONTENTS" "$MYSTUFF_GIT_CONFIG_FILE" || echo "$MYSTUFF_GIT_CONFIG_FILE_CONTENTS" >> "$MYSTUFF_GIT_CONFIG_FILE"
-
-
-printf "\n\n configure ~/personalWork/ gitconfig\n"
-PERSONAL_WORK_GIT_CONFIG_FILE_CONTENTS='
-[user]
-    name = "$PERSONAL_WORK_NAME"
-    email = "$PERSONAL_WORK_EMAIL"'
-
-PERSONAL_WORK_GIT_CONFIG_FILE=/home/$MY_NAME/personalWork/.gitconfig
-touch "$PERSONAL_WORK_GIT_CONFIG_FILE"
-grep -qF -- "$PERSONAL_WORK_GIT_CONFIG_FILE_CONTENTS" "$PERSONAL_WORK_GIT_CONFIG_FILE" || echo "$PERSONAL_WORK_GIT_CONFIG_FILE_CONTENTS" >> "$PERSONAL_WORK_GIT_CONFIG_FILE"
-
-printf "\n\n configure gitattributes\n"
-GIT_ATTRIBUTES_FILE_CONTENTS='
-*.c     diff=cpp
-*.h     diff=cpp
-*.c++   diff=cpp
-*.h++   diff=cpp
-*.cpp   diff=cpp
-*.hpp   diff=cpp
-*.cc    diff=cpp
-*.hh    diff=cpp
-*.cs    diff=csharp
-*.css   diff=css
-*.html  diff=html
-*.xhtml diff=html
-*.ex    diff=elixir
-*.exs   diff=elixir
-*.go    diff=golang
-*.php   diff=php
-*.pl    diff=perl
-*.py    diff=python
-*.md    diff=markdown
-*.rb    diff=ruby
-*.rake  diff=ruby
-*.rs    diff=rust'
-
-GIT_ATTRIBUTES_FILE=/home/$MY_NAME/mystuff/.gitattributes
-touch "$GIT_ATTRIBUTES_FILE"
-grep -qF -- "$GIT_ATTRIBUTES_FILE_CONTENTS" "$GIT_ATTRIBUTES_FILE" || echo "$GIT_ATTRIBUTES_FILE_CONTENTS" >> "$GIT_ATTRIBUTES_FILE"
-
-
-printf "\n\n configure hgrc(mercurial)\n"
-MERCURIAL_CONFIG_FILE_CONTENTS='[ui]
-username = $MY_NAME <komuw05@gmail.com>'
-MERCURIAL_CONFIG_FILE=/home/$MY_NAME/.hgrc
-touch "$MERCURIAL_CONFIG_FILE"
-grep -qF -- "$MERCURIAL_CONFIG_FILE_CONTENTS" "$MERCURIAL_CONFIG_FILE" || echo "$MERCURIAL_CONFIG_FILE_CONTENTS" >> "$MERCURIAL_CONFIG_FILE"
-
-
-printf "\n\n create pip conf\n"
-mkdir -p /home/$MY_NAME/.pip
-PIP_CONFIG_FILE_CONTENTS='[global]
-download_cache = /home/$MY_NAME/.cache/pip'
-PIP_CONFIG_FILE=/home/$MY_NAME/.pip/pip.conf
-touch "$PIP_CONFIG_FILE"
-grep -qF -- "$PIP_CONFIG_FILE_CONTENTS" "$PIP_CONFIG_FILE" || echo "$PIP_CONFIG_FILE_CONTENTS" >> "$PIP_CONFIG_FILE"
-
-printf "\n\n create pip cache dir\n"
-mkdir -p /home/$MY_NAME/.cache && mkdir -p /home/$MY_NAME/.cache/pip
-
-printf "\n\n give root group ownership of pip cache dir\n"
-chown -R root /home/$MY_NAME/.cache/pip
-
-printf "\n\n create terminator conf dir\n"
+setup_terminator_conf(){
+  printf "\n\n create terminator conf dir\n"
 mkdir -p /home/$MY_NAME/.config && mkdir -p /home/$MY_NAME/.config/terminator
 TERMINATOR_CONFIG_FILE_CONTENTS='[global_config]
   enabled_plugins = LaunchpadCodeURLHandler, APTURLHandler, LaunchpadBugURLHandler
@@ -348,8 +159,11 @@ TERMINATOR_CONFIG_FILE_CONTENTS='[global_config]
 TERMINATOR_CONFIG_FILE=/home/$MY_NAME/.config/terminator/config
 touch "$TERMINATOR_CONFIG_FILE"
 grep -qF -- "$TERMINATOR_CONFIG_FILE_CONTENTS" "$TERMINATOR_CONFIG_FILE" || echo "$TERMINATOR_CONFIG_FILE_CONTENTS" >> "$TERMINATOR_CONFIG_FILE"
+}
+setup_terminator_conf
 
 
+setup_grub_conf(){
 printf "\n\n configure grub conf\n"
 GRUB_CONFIG_FILE_CONTENTS='# If you change this file, run update-grub afterwards to update
 # /boot/grub/grub.cfg.
@@ -390,7 +204,8 @@ grep -qF -- "$GRUB_CONFIG_FILE_CONTENTS" "$GRUB_CONFIG_FILE" || echo "$GRUB_CONF
 
 printf "\n\n update grub\n"
 update-grub
-
+}
+setup_grub_conf
 
 printf "\n\n  update\n"
 apt-get -y update
