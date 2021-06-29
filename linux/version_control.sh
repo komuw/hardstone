@@ -11,13 +11,13 @@ export DEBIAN_FRONTEND=noninteractive
 
 MY_NAME=$(whoami)
 
-PERSONAL_WORK_EMAIL=${3:-PERSONAL_WORK_EMAILNotSet}
+PERSONAL_WORK_EMAIL=${1:-PERSONAL_WORK_EMAILNotSet}
 if [ "$PERSONAL_WORK_EMAIL" == "PERSONAL_WORK_EMAILNotSet"  ]; then
     printf "\n\n PERSONAL_WORK_EMAIL should not be empty\n"
     exit
 fi
 
-PERSONAL_WORK_NAME=${4:-PERSONAL_WORK_NAMENotSet}
+PERSONAL_WORK_NAME=${2:-PERSONAL_WORK_NAMENotSet}
 if [ "$PERSONAL_WORK_NAME" == "PERSONAL_WORK_NAMENotSet"  ]; then
     printf "\n\n PERSONAL_WORK_NAME should not be empty\n"
     exit
