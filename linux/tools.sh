@@ -122,7 +122,7 @@ install_ripgrep_all(){
         wget --output-document=/tmp/rga.tar.gz "https://github.com/phiresky/ripgrep-all/releases/download/v0.9.6/ripgrep_all-v0.9.6-x86_64-unknown-linux-musl.tar.gz"
     fi
     tar -xzf /tmp/rga.tar.gz -C /tmp
-    mv /tmp/ripgrep_all-v0.9.6-x86_64-unknown-linux-musl/rga /usr/local/bin/rga
+    sudo mv /tmp/ripgrep_all-v0.9.6-x86_64-unknown-linux-musl/rga /usr/local/bin/rga
     chmod +x /usr/local/bin/rga
 }
 install_ripgrep_all
