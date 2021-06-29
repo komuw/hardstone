@@ -35,7 +35,7 @@ printf "\n\n go install some golang packages\n"
 
 printf "\n\n install gotip https://godoc.org/golang.org/dl/gotip \n"
 /usr/local/go/bin/go install golang.org/dl/gotip@latest
-/home/$MY_NAME/go/bin/gotip download
+# /home/$MY_NAME/go/bin/gotip download
 
 printf "\n\n change ownership of ~/go\n"
 /usr/local/go/bin/go version
