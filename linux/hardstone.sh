@@ -70,7 +70,7 @@ printf "\n\n CALLING setup_ssh.sh::\n\n"
 printf "\n\n setup_ssh.sh done::\n"
 
 printf "\n\n CALLING golang.sh::\n\n"
-/bin/bash golang.sh
+sudo /bin/bash golang.sh
 printf "\n\n golang.sh done::\n"
 
 printf "\n\n CALLING vscode.sh::\n\n"
