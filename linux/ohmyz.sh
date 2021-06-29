@@ -18,19 +18,19 @@ printf "\n\n Install zsh \n"
 apt-get -y install zsh
 
 printf "\n\n Install ohmyzsh \n"
-rm -rf ~/.oh-my-zsh
-git clone https://github.com/robbyrussell/oh-my-zsh.git ~/.oh-my-zsh
+rm -rf /home/$MY_NAME/.oh-my-zsh
+git clone https://github.com/robbyrussell/oh-my-zsh.git /home/$MY_NAME/.oh-my-zsh
 
 printf "\n\n Install ohmyzsh plugins \n"
-git clone https://github.com/zsh-users/zsh-autosuggestions ~/.oh-my-zsh/custom/plugins/zsh-autosuggestions
-git clone https://github.com/zsh-users/zsh-completions ~/.oh-my-zsh/custom/plugins/zsh-completions
+git clone https://github.com/zsh-users/zsh-autosuggestions /home/$MY_NAME/.oh-my-zsh/custom/plugins/zsh-autosuggestions
+git clone https://github.com/zsh-users/zsh-completions /home/$MY_NAME/.oh-my-zsh/custom/plugins/zsh-completions
 
 printf "\n\n Add ohmyzsh config \n"
-cp ../templates/zshrc.j2 ~/.zshrc
+cp ../templates/zshrc.j2 /home/$MY_NAME/.zshrc
 
 printf "\n\n change ownership of ohmyzsh dirs \n"
 chown -R $MY_NAME:$MY_NAME /home/$MY_NAME/.zshrc
-chown -R $MY_NAME:$MY_NAME ~/.oh-my-zsh
+chown -R $MY_NAME:$MY_NAME /home/$MY_NAME/.oh-my-zsh
 
 printf "\n\n  activate zsh shell\n"
 chsh -s $(which zsh)
