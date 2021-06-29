@@ -50,7 +50,7 @@ fi
 # https://stackoverflow.com/questions/8352851/how-to-call-shell-script-from-another-shell-script
 
 printf "\n\n CALLING preRequiste.sh::\n\n"
-/bin/bash preRequiste.sh
+sudo /bin/bash preRequiste.sh
 printf "\n\n preRequiste.sh done::\n"
 
 printf "\n\n CALLING user.sh::\n\n"
@@ -58,7 +58,7 @@ printf "\n\n CALLING user.sh::\n\n"
 printf "\n\n user.sh done::\n"
 
 printf "\n\n CALLING provision.sh::\n\n"
-/bin/bash provision.sh
+sudo /bin/bash provision.sh
 printf "\n\n provision.sh done::\n"
 
 printf "\n\n CALLING version_control.sh::\n\n"
