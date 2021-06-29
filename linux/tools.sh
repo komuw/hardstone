@@ -136,6 +136,13 @@ install_mozilla_rr
 
 install_zoom(){
     printf "\n\n install zoom\n"
+
+    sudo apt -y update
+    # install zoom dependencies
+    sudo apt-get -y install libgl1-mesa-glx \
+                        libegl1-mesa \
+                        libxcb-xtest0
+
     wget -nc --output-document=/tmp/zoom_amd64.deb https://zoom.us/client/latest/zoom_amd64.deb
     sudo dpkg -i /tmp/zoom_amd64.deb
 }

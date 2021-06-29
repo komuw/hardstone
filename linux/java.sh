@@ -12,8 +12,8 @@ export DEBIAN_FRONTEND=noninteractive
 # install_java(){
 #     printf "\n\n install Amazon Corretto openJDK\n"
 #     # java 11 is an LTS
-#     apt -y update
-#     apt -y purge default-jre default-jdk
+#     sudo apt -y update
+#     sudo apt -y purge default-jre default-jdk
 #     wget -nc --output-document=/tmp/java_amazon_corretto_jdk_amd64.deb https://corretto.aws/downloads/latest/amazon-corretto-11-x64-linux-jdk.deb
 #     sudo dpkg -i /tmp/java_amazon_corretto_jdk_amd64.deb
 

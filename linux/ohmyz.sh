@@ -12,10 +12,10 @@ export DEBIAN_FRONTEND=noninteractive
 MY_NAME=$(whoami)
 
 printf "\n\n update cache\n"
-apt-get -y update
+sudo apt-get -y update
 
 printf "\n\n Install zsh \n"
-apt-get -y install zsh
+sudo apt-get -y install zsh
 
 printf "\n\n Install ohmyzsh \n"
 rm -rf /home/$MY_NAME/.oh-my-zsh
