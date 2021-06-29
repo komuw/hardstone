@@ -13,12 +13,11 @@ MY_NAME=$(whoami)
 GOLANG_VERSION=go1.16.linux-amd64
 
 printf "\n\n  download golang\n"
-rm -rf "/usr/local/$GOLANG_VERSION.tar.gz"
-rm -rf /usr/local/go
-wget -nc --output-document="/usr/local/$GOLANG_VERSION.tar.gz" "https://dl.google.com/go/$GOLANG_VERSION.tar.gz"
+sudo rm -rf "/usr/local/$GOLANG_VERSION.tar.gz"
+sudo rm -rf /usr/local/go
+sudo wget -nc --output-document="/usr/local/$GOLANG_VERSION.tar.gz" "https://dl.google.com/go/$GOLANG_VERSION.tar.gz"
 printf "\n\n  untar golang file\n"
-tar -xzf "/usr/local/$GOLANG_VERSION.tar.gz" -C /usr/local/
-
+sudo tar -xzf "/usr/local/$GOLANG_VERSION.tar.gz" -C /usr/local/
 
 printf "\n\n go install some golang packages\n"
 /usr/local/go/bin/go install github.com/rogpeppe/gohack@latest
@@ -36,7 +35,7 @@ printf "\n\n go install some golang packages\n"
 
 printf "\n\n install gotip https://godoc.org/golang.org/dl/gotip \n"
 /usr/local/go/bin/go install golang.org/dl/gotip@latest
-gotip download
+/home/$MY_NAME/go/bin/gotip download
 
 printf "\n\n change ownership of ~/go\n"
 /usr/local/go/bin/go version

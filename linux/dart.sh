@@ -13,29 +13,27 @@ MY_NAME=$(whoami)
 
 FLUTTER_VERSION=flutter_linux_2.2.2-stable
 
-printf "\n\n  add Dart(dev version) apt key\n"
-sh -c 'curl https://storage.googleapis.com/download.dartlang.org/linux/debian/dart_unstable.list > /etc/apt/sources.list.d/dart_unstable.list'
 printf "\n\n  install dart"
-apt -y update && apt -y install dart
-
+sudo sh -c 'curl https://storage.googleapis.com/download.dartlang.org/linux/debian/dart_unstable.list > /etc/apt/sources.list.d/dart_unstable.list'
+sudo apt -y update
+sudo apt -y install dart
 
 printf "\n\n  download flutter\n"
-wget -nc --output-document="/usr/local/flutter.tar.xz" "https://storage.googleapis.com/flutter_infra_release/releases/stable/linux/$FLUTTER_VERSION.tar.xz"
+sudo wget -nc --output-document="/usr/local/flutter.tar.xz" "https://storage.googleapis.com/flutter_infra_release/releases/stable/linux/$FLUTTER_VERSION.tar.xz"
 
 printf "\n\n  untar flutter file\n"
-tar xf "/usr/local/flutter.tar.xz" -C /usr/local/
-
+sudo tar xf "/usr/local/flutter.tar.xz" -C /usr/local/
 
 printf "\n\n add flutter profile\n"
 DART_CONFIG_FILE_CONTENTS='#dart and flutter
 export PATH=$PATH:/usr/local/flutter/bin
 export PATH=$PATH:/usr/lib/dart/bin'
 DART_CONFIG_FILE=/etc/profile
-touch "$DART_CONFIG_FILE"
+sudo touch "$DART_CONFIG_FILE"
 grep -qF -- "$DART_CONFIG_FILE_CONTENTS" "$DART_CONFIG_FILE" || echo "$DART_CONFIG_FILE_CONTENTS" >> "$DART_CONFIG_FILE"
 
 printf "\n\n  give user perms on flutter dir\n"
-chown -R $MY_NAME /usr/local/flutter
+sudo chown -R $MY_NAME /usr/local/flutter
 
 printf "\n\n  check flutter version\n"
 export PATH=$PATH:/usr/local/flutter/bin && \

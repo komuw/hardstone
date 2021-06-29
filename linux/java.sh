@@ -15,7 +15,7 @@ export DEBIAN_FRONTEND=noninteractive
 #     apt -y update
 #     apt -y purge default-jre default-jdk
 #     wget -nc --output-document=/tmp/java_amazon_corretto_jdk_amd64.deb https://corretto.aws/downloads/latest/amazon-corretto-11-x64-linux-jdk.deb
-#     dpkg -i /tmp/java_amazon_corretto_jdk_amd64.deb
+#     sudo dpkg -i /tmp/java_amazon_corretto_jdk_amd64.deb
 
 #     printf "\n\n install intellij idea\n"
 #     snap install intellij-idea-community --classic 

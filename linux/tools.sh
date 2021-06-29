@@ -20,8 +20,8 @@ setup_pip(){
     touch "$PIP_CONFIG_FILE"
     grep -qF -- "$PIP_CONFIG_FILE_CONTENTS" "$PIP_CONFIG_FILE" || echo "$PIP_CONFIG_FILE_CONTENTS" >> "$PIP_CONFIG_FILE"
 
-    mkdir -p /home/$MY_NAME/.cache && mkdir -p /home/$MY_NAME/.cache/pip # cache directory
-    chown -R $MY_NAME /home/$MY_NAME/.cache/pip # give $MY_NAME  group ownership of pip cache dir
+    mkdir -p /home/$MY_NAME/.cache && mkdir -p /home/$MY_NAME/.cache/pip  # cache directory
+    chown -R $MY_NAME /home/$MY_NAME/.cache/pip                           # give $MY_NAME  group ownership of pip cache dir
 }
 setup_pip
 
@@ -42,7 +42,7 @@ install_python3_packages
 install_bat(){
     printf "\n\n install bat(https://github.com/sharkdp/bat)\n"
     wget -nc --output-document=/tmp/bat_amd64.deb https://github.com/sharkdp/bat/releases/download/v0.18.1/bat_0.18.1_amd64.deb
-    dpkg -i /tmp/bat_amd64.deb
+    sudo dpkg -i /tmp/bat_amd64.deb
 }
 install_bat
 
@@ -56,7 +56,7 @@ install_google_chrome(){
                         libindicator3-7 \
                         libappindicator3-1
     wget -nc --output-document=/tmp/google_chrome_stable_amd64.deb https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
-    dpkg -i /tmp/google_chrome_stable_amd64.deb
+    sudo dpkg -i /tmp/google_chrome_stable_amd64.deb
     apt-get -f -y install # fix install chrome errors
 }
 install_google_chrome
@@ -71,7 +71,7 @@ install_skype(){
     rm -rf /home/$MY_NAME/.Skype; rm -rf /home/$MY_NAME/.skype
     apt -y install gconf-service libgconf-2-4 gnome-keyring # pre-requistes
     wget -nc --output-document=/tmp/skype.deb https://go.skype.com/skypeforlinux-64.deb
-    dpkg -i /tmp/skype.deb
+    sudo dpkg -i /tmp/skype.deb
 }
 install_skype
 
@@ -107,7 +107,7 @@ install_docker
 install_ripgrep(){
     printf "\n\n install ripgrep\n"
     wget -nc --output-document=/tmp/ripgrep_amd64.deb "https://github.com/BurntSushi/ripgrep/releases/download/12.1.1/ripgrep_12.1.1_amd64.deb"
-    dpkg -i /tmp/ripgrep_amd64.deb
+    sudo dpkg -i /tmp/ripgrep_amd64.deb
 }
 install_ripgrep
 
@@ -125,14 +125,14 @@ install_ripgrep_all
 install_mozilla_rr(){
     printf "\n\n install mozilla rr debugger\n"
     wget -nc --output-document=/tmp/rr_amd64.deb "https://github.com/rr-debugger/rr/releases/download/5.4.0/rr-5.4.0-Linux-x86_64.deb"
-    dpkg -i /tmp/rr_amd64.deb
+    sudo dpkg -i /tmp/rr_amd64.deb
 }
 install_mozilla_rr
 
 install_zoom(){
     printf "\n\n install zoom\n"
     wget -nc --output-document=/tmp/zoom_amd64.deb https://zoom.us/client/latest/zoom_amd64.deb
-    dpkg -i /tmp/zoom_amd64.deb
+    sudo dpkg -i /tmp/zoom_amd64.deb
 }
 install_zoom
 

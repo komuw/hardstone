@@ -13,10 +13,10 @@ MY_NAME=$(whoami)
 
 
 printf "\n\n clear /tmp directory\n"
-rm -rf /tmp/*
+sudo rm -rf /tmp/*
 
 printf "\n\n rm custome ppas\n"
-rm -rf /etc/apt/sources.list.d/*
+sudo rm -rf /etc/apt/sources.list.d/*
 
 printf "\n\n create my stuff dir\n"
 mkdir -p /home/$MY_NAME/mystuff
@@ -27,13 +27,13 @@ mkdir -p /home/$MY_NAME/personalWork
 chown -R $MY_NAME:$MY_NAME /home/$MY_NAME/personalWork
 
 printf "\n\n Update package cache\n"
-apt -y update
+sudo apt -y update
 
 printf "\n\n fix broken dependencies\n"
-apt-get -f -y install
+sudo apt-get -f -y install
 
 printf "\n\n create /etc/apt/sources.list.d file\n"
-mkdir -p /etc/apt/sources.list.d
+sudo mkdir -p /etc/apt/sources.list.d
 
 # add-apt-repository takes one repo as arg
 printf "\n\n add some ppas\n"
@@ -41,17 +41,17 @@ printf "\n\n add some ppas\n"
 # add-apt-repository -y ppa:eugenesan/ppa                                                              # I don't know which package requires this ppa
 # add-apt-repository -y ppa:mc3man/mpv-tests                                                           # for mpv player
 
-apt-get -y update
-rm -rf /var/cache/apt/archives/lock && rm -rf /var/lib/dpkg/lock && rm -rf /var/cache/debconf/*.dat  # remove potential apt lock
-apt-get -f -y install                                                                                # fix broken dependencies
-dpkg --configure -a                                                                                  # configure
-apt-get -y update                                                                                    # update system
+sudo apt-get -y update
+sudo rm -rf /var/cache/apt/archives/lock && sudo rm -rf /var/lib/dpkg/lock && sudo rm -rf /var/cache/debconf/*.dat  # remove potential apt lock
+sudo apt-get -f -y install                                                                                          # fix broken dependencies
+sudo dpkg --configure -a                                                                                            # configure
+sudo apt-get -y update                                                                                              # update system
 
 printf "\n\n Install mpv\n"
-apt-get -y install mpv
+sudo apt-get -y install mpv
 
 printf "\n\n Install system packages\n"
-apt-get -y install gcc \
+sudo apt-get -y install gcc \
         libssl-dev \
         apt-transport-https \
         ca-certificates \
@@ -112,16 +112,16 @@ apt-get -y install gcc \
         # ifconfig
 
 printf "\n\n remove potential apt lock\n"
-rm -rf /var/cache/apt/archives/lock && rm -rf /var/lib/dpkg/lock && rm -rf /var/cache/debconf/*.dat
+sudo rm -rf /var/cache/apt/archives/lock && sudo rm -rf /var/lib/dpkg/lock && sudo rm -rf /var/cache/debconf/*.dat
 
 printf "\n\n fix broken dependencies\n"
-apt-get -f -y install
+sudo apt-get -f -y install
 
 printf "\n\n configure\n"
-dpkg --configure -a
+sudo dpkg --configure -a
 
 printf "\n\n update system\n"
-apt-get -y update
+sudo apt-get -y update
 
 setup_terminator_conf(){
   printf "\n\n create terminator conf dir\n"
@@ -199,11 +199,11 @@ GRUB_CMDLINE_LINUX=""
 # You may also have to choose to boot into either recovery mode or boot using a different kernel. 
 # All this, can be selected by; rebooting, press ESC after boot sound and selecting Advanced boot settings.'
 GRUB_CONFIG_FILE=/etc/default/grub
-touch "$GRUB_CONFIG_FILE"
+sudo touch "$GRUB_CONFIG_FILE"
 grep -qF -- "$GRUB_CONFIG_FILE_CONTENTS" "$GRUB_CONFIG_FILE" || echo "$GRUB_CONFIG_FILE_CONTENTS" >> "$GRUB_CONFIG_FILE"
 
 printf "\n\n update grub\n"
-update-grub
+sudo update-grub
 }
 setup_grub_conf
 
@@ -232,12 +232,12 @@ setup_bashrc
 
 perform_security_updates(){
   printf "\n\n  update\n"
-  apt-get -y update
+  sudo apt-get -y update
 
   printf "\n\n add security updates\n"
-  apt-get -y dist-upgrade
+  sudo apt-get -y dist-upgrade
 }
 perform_security_updates
 
 printf "\n\n clear /tmp directory\n"
-rm -rf /tmp/*
+sudo rm -rf /tmp/*

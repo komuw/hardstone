@@ -13,11 +13,12 @@ MY_NAME=$(whoami)
 
 
 printf "\n\n install vscode dependencies \n"
-apt -y install libxkbfile1
+sudo apt -y update
+sudo apt -y install libxkbfile1
 printf "\n\n  download vscode\n"
 wget -nc --output-document=/tmp/vscode.deb "https://go.microsoft.com/fwlink/?LinkID=760868"
 printf "\n\n  install vscode\n"
-dpkg -i /tmp/vscode.deb
+sudo dpkg -i /tmp/vscode.deb
 
 # on MacOs it is /Users/$MY_NAME/Library/Application\ Support/Code/User/settings.json
 printf "\n\n  configure vscode user settings file\n"

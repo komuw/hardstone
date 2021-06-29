@@ -13,9 +13,9 @@ export DEBIAN_FRONTEND=noninteractive
 install_media_codecs(){
     printf "\n\n install media codecs\n"
     
-    apt-get -y update
-    echo ttf-mscorefonts-installer msttcorefonts/accepted-mscorefonts-eula select true | debconf-set-selections  # agree to ttf-mscorefonts-installer license(prepare media codecs install)
-    apt-get -y install ubuntu-restricted-extras                                                                  # install system packages  media codecs
+    sudo apt-get -y update
+    echo ttf-mscorefonts-installer msttcorefonts/accepted-mscorefonts-eula select true | sudo debconf-set-selections  # agree to ttf-mscorefonts-installer license(prepare media codecs install)
+    sudo apt-get -y install ubuntu-restricted-extras                                                                  # install system packages  media codecs
 }
 install_media_codecs
 
