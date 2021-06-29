@@ -11,6 +11,8 @@ export DEBIAN_FRONTEND=noninteractive
 
 MY_NAME=$(whoami)
 
+printf "\n\n clear /tmp directory\n"
+sudo rm -rf /tmp/*
 
 setup_pip(){
     printf "\n\n setup_pip config \n"
@@ -51,27 +53,27 @@ install_bat
 install_google_chrome(){
     printf "\n\n install google chrome\n"
 
-    apt -y update
+    sudo apt -y update
     # install chrome dependencies
-    apt-get -y install libdbusmenu-glib4 \
+    sudo apt-get -y install libdbusmenu-glib4 \
                         libdbusmenu-gtk3-4 \
                         libindicator3-7 \
                         libappindicator3-1
     wget -nc --output-document=/tmp/google_chrome_stable_amd64.deb https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
     sudo dpkg -i /tmp/google_chrome_stable_amd64.deb
-    apt-get -f -y install # fix install chrome errors
+    sudo apt-get -f -y install # fix install chrome errors
 }
 install_google_chrome
 
 install_skype(){
     printf "\n\n install skype\n"
 
-    apt -y update
-    apt-key del 1F3045A5DF7587C3 # https://askubuntu.com/questions/1348146/invalid-signature-from-repo-skype-com-how-can-i-clear-this/1348149
-    curl https://repo.skype.com/data/SKYPE-GPG-KEY | apt-key add -
-    apt-get -y purge skype*
-    rm -rf /home/$MY_NAME/.Skype; rm -rf /home/$MY_NAME/.skype
-    apt -y install gconf-service libgconf-2-4 gnome-keyring # pre-requistes
+    sudo apt -y update
+    sudo apt-key del 1F3045A5DF7587C3 # https://askubuntu.com/questions/1348146/invalid-signature-from-repo-skype-com-how-can-i-clear-this/1348149
+    curl https://repo.skype.com/data/SKYPE-GPG-KEY | sudo apt-key add -
+    sudo apt-get -y purge skype*
+    rm -rf /home/$MY_NAME/.Skype
+    sudo apt -y install gconf-service libgconf-2-4 gnome-keyring # pre-requistes
     wget -nc --output-document=/tmp/skype.deb https://go.skype.com/skypeforlinux-64.deb
     sudo dpkg -i /tmp/skype.deb
 }
@@ -80,22 +82,23 @@ install_skype
 install_docker(){
     # NB: do not install docker from snap, it is broken
     printf "\n\n install docker\n"
-    apt -y remove docker docker-engine docker.io containerd runc
-    curl -fsSL https://download.docker.com/linux/ubuntu/gpg | gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg                                                                                       # add key
+    sudo apt -y purge docker docker.io containerd runc
+    curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg                                                                                  # add key
     echo "deb [arch=amd64 signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null  # add docker repo
-    apt -y update
-    apt -y install docker-ce docker-ce-cli containerd.io
-    usermod -aG docker $MY_NAME && usermod -aG docker $(whoami)                                                                                                                                                     # add user to docker group
+    sudo apt -y update
+    sudo apt -y install docker-ce docker-ce-cli containerd.io
+    sudo usermod -aG docker $MY_NAME                                                                                                                                                                                # add user to docker group
 
     printf "\n\n create docker dir\n"
     mkdir -p /home/$MY_NAME/.docker
     printf "\n\n make docker group owner of docker dir\n"
-    chown -R $MY_NAME:docker /home/$MY_NAME/.docker
+    sudo chown -R $MY_NAME:docker /home/$MY_NAME/.docker
     printf "\n\n add proper permissions to docker dir\n"
     chmod -R 775 /home/$MY_NAME/.docker
 
     printf "\n\n configure /etc/docker/daemon.json file\n"
-    mkdir -p /etc/docker
+    sudo mkdir -p /etc/docker
+    sudo chown -R $MY_NAME:docker /etc/docker
     DOCKER_DAEMON_CONFIG_FILE_CONTENTS='{
         "max-concurrent-downloads": 12,
         "max-concurrent-uploads": 5
