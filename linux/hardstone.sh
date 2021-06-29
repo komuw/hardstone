@@ -73,19 +73,19 @@ printf "\n\n CALLING dart.sh::\n\n"
 /bin/bash dart.sh
 printf "\n\n dart.sh done::\n"
 
-# I'm moving on from xonsh. I've experienced too many
-# issues everytime I update it, eg; https://github.com/xonsh/xonsh/issues/2662
-printf "\n\n CALLING ohmyz.sh::\n\n"
-/bin/bash ohmyz.sh
-printf "\n\n ohmyz.sh done::\n"
-
 printf "\n\n CALLING media.sh::\n\n"
 /bin/bash media.sh
 printf "\n\n media.sh done::\n"
 
 printf "\n\n CALLING tools.sh::\n\n"
-/bin/bash tools.sh
+/bin/bash tools.sh                   # should be installed before `ohmyz.sh`
 printf "\n\n tools.sh done::\n"
+
+# I'm moving on from xonsh. I've experienced too many
+# issues everytime I update it, eg; https://github.com/xonsh/xonsh/issues/2662
+printf "\n\n CALLING ohmyz.sh::\n\n"
+/bin/bash ohmyz.sh
+printf "\n\n ohmyz.sh done::\n"
 
 printf "\n\n CALLING java.sh::\n\n"
 /bin/bash java.sh

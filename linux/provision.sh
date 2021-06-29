@@ -141,19 +141,6 @@ apt-get -y install gcc \
         streamlink # livestreamer replacement
         # ifconfig
 
-install_skype(){
-    printf "\n\n install skype\n"
-
-    apt-key del 1F3045A5DF7587C3 # https://askubuntu.com/questions/1348146/invalid-signature-from-repo-skype-com-how-can-i-clear-this/1348149
-    curl https://repo.skype.com/data/SKYPE-GPG-KEY | apt-key add -
-    apt-get -y purge skype*
-    rm -rf /home/$MY_NAME/.Skype; rm -rf /home/$MY_NAME/.skype
-    apt -y install gconf-service libgconf-2-4 gnome-keyring # pre-requistes
-    wget -nc --output-document=/tmp/skype.deb https://go.skype.com/skypeforlinux-64.deb
-    dpkg -i /tmp/skype.deb
-}
-install_skype
-
 printf "\n\n remove potential apt lock\n"
 rm -rf /var/cache/apt/archives/lock && rm -rf /var/lib/dpkg/lock && rm -rf /var/cache/debconf/*.dat
 
@@ -166,42 +153,6 @@ dpkg --configure -a
 printf "\n\n update system\n"
 apt-get -y update
 
-printf "\n\n agree to ttf-mscorefonts-installer license(prepare media codecs install)\n"
-echo ttf-mscorefonts-installer msttcorefonts/accepted-mscorefonts-eula select true | debconf-set-selections
-
-printf "\n\n Install system packages  media codecs\n"
-apt-get -y install ubuntu-restricted-extras
-
-printf "\n\n update system\n"
-apt-get -y update
-
-printf "\n\n install google chrome\n"
-# install chrome dependencies
-apt-get -y install libdbusmenu-glib4 \
-                   libdbusmenu-gtk3-4 \
-                   libindicator3-7 \
-                   libappindicator3-1
-wget -nc --output-document=/tmp/google_chrome_stable_amd64.deb https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
-dpkg -i /tmp/google_chrome_stable_amd64.deb
-apt-get -f -y install # fix install chrome errors
-
-printf "\n\n install bat(https://github.com/sharkdp/bat)\n"
-wget -nc --output-document=/tmp/bat_amd64.deb https://github.com/sharkdp/bat/releases/download/v0.18.1/bat_0.18.1_amd64.deb
-dpkg -i /tmp/bat_amd64.deb
-
-printf "\n\n Install Python pip3 packages\n"
-pip3 install --upgrade pip # upgrade  pip3 gloablly
-python3 -m venv ~/.global_venv --without-pip # https://askubuntu.com/questions/879437/ensurepip-is-disabled-in-debian-ubuntu-for-the-system-python
-source ~/.global_venv/bin/activate && pip3 install --upgrade \
-         youtube-dl \
-         docker-compose \
-         asciinema \
-         httpie \
-         awscli \
-         sewer
-
-# printf "\n\n create users group"
-# group: name={{ USER }} state=present
 
 printf "\n\n create personal ssh-key\n"
 if [[ ! -e /home/$MY_NAME/.ssh/personal_id_rsa.pub ]]; then
@@ -211,12 +162,6 @@ fi
 chmod 600 /home/$MY_NAME/.ssh/personal_id_rsa
 chmod 600 /home/$MY_NAME/.ssh/personal_id_rsa.pub
 chown -R $MY_NAME:$MY_NAME /home/$MY_NAME/.ssh
-
-#printf "\n\n start ssh-agent"
-#shell: ssh-agent /bin/bash
-
-#printf "\n\n load your key to the agent"
-#command: ssh-add /home/$MY_NAME/.ssh/personal_id_rsa
 
 printf "\n\n your ssh public key is\n"
 cat /home/$MY_NAME/.ssh/personal_id_rsa.pub
@@ -232,11 +177,6 @@ chmod 600 /home/$MY_NAME/.ssh/personal_work_id_rsa
 chmod 600 /home/$MY_NAME/.ssh/personal_work_id_rsa.pub
 chown -R $MY_NAME:$MY_NAME /home/$MY_NAME/.ssh
 
-#printf "\n\n start ssh-agent"
-#shell: ssh-agent /bin/bash
-
-#printf "\n\n load your key to the agent"
-#command: ssh-add /home/$MY_NAME/.ssh/personal_work_id_rsa
 
 printf "\n\n your ssh public key for personal work is\n"
 cat /home/$MY_NAME/.ssh/personal_work_id_rsa.pub
@@ -244,11 +184,6 @@ cat /home/$MY_NAME/.ssh/personal_work_id_rsa.pub
 
 printf "\n\n configure ssh/config\n"
 cp ../templates/ssh_conf.j2 /home/$MY_NAME/.ssh/config
-
-
-# printf "\n\n configure bash aliases"
-# template: src=../templates/bash_aliases.j2
-#         dest=/home/$MY_NAME/.bash_aliases
 
 printf "\n\n configure .bashrc\n"
 # there ought to be NO newlines in the content
@@ -456,33 +391,6 @@ grep -qF -- "$GRUB_CONFIG_FILE_CONTENTS" "$GRUB_CONFIG_FILE" || echo "$GRUB_CONF
 printf "\n\n update grub\n"
 update-grub
 
-# NB: do not install docker from snap, it is broken
-printf "\n\n install docker\n"
-apt -y remove docker docker-engine docker.io containerd runc
-curl -fsSL https://download.docker.com/linux/ubuntu/gpg | apt-key add -                                   # add key
-apt-key fingerprint 0EBFCD88                                                                              # verify key
-add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"  # add docker repo
-apt -y update
-apt -y install docker-ce
-usermod -aG docker $MY_NAME && usermod -aG docker $(whoami)                                                  # add user to docker group
-
-
-printf "\n\n create docker dir\n"
-mkdir -p /home/$MY_NAME/.docker
-printf "\n\n make docker group owner of docker dir\n"
-chown -R root:docker /home/$MY_NAME/.docker
-printf "\n\n add proper permissions to docker dir\n"
-chmod -R 775 /home/$MY_NAME/.docker
-
-printf "\n\n configure /etc/docker/daemon.json file\n"
-mkdir -p /etc/docker
-DOCKER_DAEMON_CONFIG_FILE_CONTENTS='{
-    "max-concurrent-downloads": 12,
-    "max-concurrent-uploads": 5
-}'
-DOCKER_DAEMON_CONFIG_FILE=/etc/docker/daemon.json
-touch "$DOCKER_DAEMON_CONFIG_FILE"
-grep -qF -- "$DOCKER_DAEMON_CONFIG_FILE_CONTENTS" "$DOCKER_DAEMON_CONFIG_FILE" || echo "$DOCKER_DAEMON_CONFIG_FILE_CONTENTS" >> "$DOCKER_DAEMON_CONFIG_FILE"
 
 printf "\n\n  update\n"
 apt-get -y update

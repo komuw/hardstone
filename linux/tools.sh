@@ -10,6 +10,85 @@ shopt -s nullglob globstar
 export DEBIAN_FRONTEND=noninteractive
 
 
+install_python3_packages(){
+    printf "\n\n Install Python pip3 packages\n"
+    pip3 install --upgrade pip # upgrade  pip3 gloablly
+    python3 -m venv ~/.global_venv --without-pip # https://askubuntu.com/questions/879437/ensurepip-is-disabled-in-debian-ubuntu-for-the-system-python
+    source ~/.global_venv/bin/activate && pip3 install --upgrade \
+            youtube-dl \
+            docker-compose \
+            asciinema \
+            httpie \
+            awscli \
+            sewer
+}
+install_python3_packages
+
+install_bat(){
+    printf "\n\n install bat(https://github.com/sharkdp/bat)\n"
+    wget -nc --output-document=/tmp/bat_amd64.deb https://github.com/sharkdp/bat/releases/download/v0.18.1/bat_0.18.1_amd64.deb
+    dpkg -i /tmp/bat_amd64.deb
+}
+install_bat
+
+install_google_chrome(){
+    printf "\n\n install google chrome\n"
+
+    apt -y update
+    # install chrome dependencies
+    apt-get -y install libdbusmenu-glib4 \
+                        libdbusmenu-gtk3-4 \
+                        libindicator3-7 \
+                        libappindicator3-1
+    wget -nc --output-document=/tmp/google_chrome_stable_amd64.deb https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+    dpkg -i /tmp/google_chrome_stable_amd64.deb
+    apt-get -f -y install # fix install chrome errors
+}
+install_google_chrome
+
+install_skype(){
+    printf "\n\n install skype\n"
+
+    apt -y update
+    apt-key del 1F3045A5DF7587C3 # https://askubuntu.com/questions/1348146/invalid-signature-from-repo-skype-com-how-can-i-clear-this/1348149
+    curl https://repo.skype.com/data/SKYPE-GPG-KEY | apt-key add -
+    apt-get -y purge skype*
+    rm -rf /home/$MY_NAME/.Skype; rm -rf /home/$MY_NAME/.skype
+    apt -y install gconf-service libgconf-2-4 gnome-keyring # pre-requistes
+    wget -nc --output-document=/tmp/skype.deb https://go.skype.com/skypeforlinux-64.deb
+    dpkg -i /tmp/skype.deb
+}
+install_skype
+
+install_docker(){
+    # NB: do not install docker from snap, it is broken
+    printf "\n\n install docker\n"
+    apt -y remove docker docker-engine docker.io containerd runc
+    curl -fsSL https://download.docker.com/linux/ubuntu/gpg | gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg                                                                                       # add key
+    echo "deb [arch=amd64 signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null  # add docker repo
+    apt -y update
+    apt -y install docker-ce docker-ce-cli containerd.io
+    usermod -aG docker $MY_NAME && usermod -aG docker $(whoami)                                                                                                                                                     # add user to docker group
+
+    printf "\n\n create docker dir\n"
+    mkdir -p /home/$MY_NAME/.docker
+    printf "\n\n make docker group owner of docker dir\n"
+    chown -R root:docker /home/$MY_NAME/.docker
+    printf "\n\n add proper permissions to docker dir\n"
+    chmod -R 775 /home/$MY_NAME/.docker
+
+    printf "\n\n configure /etc/docker/daemon.json file\n"
+    mkdir -p /etc/docker
+    DOCKER_DAEMON_CONFIG_FILE_CONTENTS='{
+        "max-concurrent-downloads": 12,
+        "max-concurrent-uploads": 5
+    }'
+    DOCKER_DAEMON_CONFIG_FILE=/etc/docker/daemon.json
+    touch "$DOCKER_DAEMON_CONFIG_FILE"
+    grep -qF -- "$DOCKER_DAEMON_CONFIG_FILE_CONTENTS" "$DOCKER_DAEMON_CONFIG_FILE" || echo "$DOCKER_DAEMON_CONFIG_FILE_CONTENTS" >> "$DOCKER_DAEMON_CONFIG_FILE"
+}
+install_docker
+
 install_ripgrep(){
     printf "\n\n install ripgrep\n"
     wget -nc --output-document=/tmp/ripgrep_amd64.deb "https://github.com/BurntSushi/ripgrep/releases/download/12.1.1/ripgrep_12.1.1_amd64.deb"
