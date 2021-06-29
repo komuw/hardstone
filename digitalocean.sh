@@ -36,9 +36,9 @@ if sshd -t -q; then systemctl restart sshd fi
 
 MY_NAME=$(whoami)
 
-apt -y update && \
-apt -y install python && \
-apt -y install python3-pip nano wget unzip curl screen
+sudo apt -y update && \
+sudo apt -y install python && \
+sudo apt -y install python3-pip nano wget unzip curl screen
 
 rm -rf /home/$MY_NAME/installDir
 mkdir -p /home/$MY_NAME/installDir
