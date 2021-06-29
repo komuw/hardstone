@@ -207,11 +207,37 @@ update-grub
 }
 setup_grub_conf
 
-printf "\n\n  update\n"
-apt-get -y update
+setup_bashrc(){
+  printf "\n\n configure .bashrc\n"
+# there ought to be NO newlines in the content
+BASHRC_FILE_FILE_CONTENTS='#solve passphrase error in ssh
+#enable auto ssh-agent forwading
+#see: http://rabexc.org/posts/pitfalls-of-ssh-agents
+ssh-add -l &>/dev/null
+if [ "$?" == 2 ]; then
+  test -r /home/$MY_NAME/.ssh-agent && \
+    eval "$(</home/$MY_NAME/.ssh-agent)" >/dev/null
+  ssh-add -l &>/dev/null
+  if [ "$?" == 2 ]; then
+    (umask 066; ssh-agent > /home/$MY_NAME/.ssh-agent)
+    eval "$(</home/$MY_NAME/.ssh-agent)" >/dev/null
+    ssh-add
+  fi
+fi
+export HISTTIMEFORMAT="%d/%m/%Y %T "'
+BASHRC_FILE=/home/$MY_NAME/.bashrc
+grep -qF -- "$BASHRC_FILE_FILE_CONTENTS" "$BASHRC_FILE" || echo "$BASHRC_FILE_FILE_CONTENTS" >> "$BASHRC_FILE"
+}
+setup_bashrc
 
-printf "\n\n add security updates\n"
-apt-get -y dist-upgrade
+perform_security_updates(){
+  printf "\n\n  update\n"
+  apt-get -y update
+
+  printf "\n\n add security updates\n"
+  apt-get -y dist-upgrade
+}
+perform_security_updates
 
 printf "\n\n clear /tmp directory\n"
 rm -rf /tmp/*
