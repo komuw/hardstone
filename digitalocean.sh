@@ -8,19 +8,22 @@ else
 fi
 shopt -s nullglob globstar
 
-export DEBIAN_FRONTEND=noninteractive && \
+
+export DEBIAN_FRONTEND=noninteractive
+MY_NAME=$(whoami)
+
 apt -y update && \
 apt -y install python && \
 apt -y install python3-pip nano wget unzip curl screen
 
-rm -rf $HOME/stuff
-mkdir -p $HOME/stuff
-cd $HOME/stuff
+rm -rf /home/$MY_NAME/stuff
+mkdir -p /home/$MY_NAME/stuff
+cd /home/$MY_NAME/stuff
 
-wget -nc --output-document=$HOME/stuff/hardstone.zip https://github.com/komuw/hardstone/archive/refs/heads/master.zip
+wget -nc --output-document=/home/$MY_NAME/stuff/hardstone.zip https://github.com/komuw/hardstone/archive/refs/heads/master.zip
 unzip hardstone.zip
 mv hardstone-master/ hardstone
-cd $HOME/stuff/hardstone/linux/
+cd /home/$MY_NAME/stuff/hardstone/linux/
 
 screen -S hardstone
 screen -ls

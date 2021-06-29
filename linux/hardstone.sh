@@ -9,6 +9,8 @@ fi
 shopt -s nullglob globstar
 export DEBIAN_FRONTEND=noninteractive
 
+MY_NAME=$(whoami)
+
 
 # https://github.com/anordal/shellharden/blob/master/how_to_do_things_safely_in_bash.md
 # http://wiki.bash-hackers.org/syntax/pe#use_a_default_value
@@ -88,10 +90,6 @@ printf "\n\n tools.sh done::\n"
 printf "\n\n CALLING java.sh::\n\n"
 /bin/bash java.sh
 printf "\n\n java.sh done::\n"
-
-# printf "\n\n CALLING xonsh.sh::\n\n"
-# /bin/bash xonsh.sh
-# printf "\n\n xonsh.sh done::\n"
 
 # printf "\n\n CALLING anki.sh::\n\n"
 # /bin/bash anki.sh

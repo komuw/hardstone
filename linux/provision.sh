@@ -41,12 +41,12 @@ rm -rf /tmp/*
 
 
 printf "\n\n create my stuff dir\n"
-mkdir -p $HOME/mystuff
-chown -R $MY_NAME:$MY_NAME $HOME/mystuff
+mkdir -p /home/$MY_NAME/mystuff
+chown -R $MY_NAME:$MY_NAME /home/$MY_NAME/mystuff
 
 printf "\n\n create personalWork dir\n"
-mkdir -p $HOME/personalWork
-chown -R $MY_NAME:$MY_NAME $HOME/personalWork
+mkdir -p /home/$MY_NAME/personalWork
+chown -R $MY_NAME:$MY_NAME /home/$MY_NAME/personalWork
 
 
 printf "\n\n rm custome ppas\n"
