@@ -53,7 +53,7 @@ in mkShell {
 #
 # /bin/bash preRequiste.sh                         - DONE.
 # /bin/bash user.sh "$USER_PASSWORD"               - DONE
-# /bin/bash provision.sh
+# /bin/bash provision.sh                           - DONE
 # /bin/bash version_control.sh "$PERSONAL_WORK_EMAIL" "$PERSONAL_WORK_NAME"
 # /bin/bash setup_ssh.sh "$SSH_KEY_PHRASE_PERSONAL" "$SSH_KEY_PHRASE_PERSONAL_WORK" "$PERSONAL_WORK_EMAIL"
 # /bin/bash golang.sh
