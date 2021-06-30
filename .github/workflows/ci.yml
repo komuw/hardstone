@@ -5,20 +5,58 @@ on: [pull_request, push]
 
 jobs:
 
-  run_tests:
-    name: run_tests
-    timeout-minutes: 3
+  preRequiste:
+    name: preRequiste
+    timeout-minutes: 8
     strategy:
       matrix:
         platform: [ubuntu-20.04]
     runs-on: ${{ matrix.platform }}
     steps:
 
-      - name: Check out code
+      - name: Check out code into the directory
         uses: actions/checkout@v2
 
-      - name: test coverage
+      - name: preRequiste
         run: |
+          echo ""
           pwd
-          ls -lsha $HOME/work/
-          bash $HOME/work/hardstone/hardstone/nixos/start.sh
+          ls -lsha
+          echo ""
+          echo ""
+          /bin/bash linux/preRequiste.sh
+
+
+  user:
+    name: user
+    timeout-minutes: 8
+    strategy:
+      matrix:
+        platform: [ubuntu-20.04]
+    runs-on: ${{ matrix.platform }}
+    steps:
+
+      - name: Check out code into the directory
+        uses: actions/checkout@v2
+
+      - name: user
+        run: |
+          /bin/bash linux/user.sh myDummyPassword
+
+
+  provision:
+    name: provision
+    timeout-minutes: 8
+    strategy:
+      matrix:
+        platform: [ubuntu-20.04]
+    runs-on: ${{ matrix.platform }}
+    steps:
+
+      - name: Check out code into the directory
+        uses: actions/checkout@v2
+
+      - name: provision
+        run: |
+          /bin/bash linux/provision.sh
+

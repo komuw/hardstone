@@ -9,6 +9,15 @@ fi
 shopt -s nullglob globstar
 export DEBIAN_FRONTEND=noninteractive
 
+MY_NAME=$(whoami)
+
+# TODO: create a new readme.txt for this info
+# - format(using `disks` app in ubuntu) usb and format type should be `Internal disk for use with linux system(ext4)`
+# - download ISO file
+# - open `disks` app in ubuntu, select the usb, click on `Restore Disk Image`
+# - change computer boot order to have USB as first, you may have to restart OS and press F12 to go edit BIOS
+# - reboot computer with USB inserted(if USB is not picked up, then restart, press F12 and manually click on USB to boot)
+
 
 # https://github.com/anordal/shellharden/blob/master/how_to_do_things_safely_in_bash.md
 # http://wiki.bash-hackers.org/syntax/pe#use_a_default_value
@@ -56,8 +65,16 @@ printf "\n\n CALLING user.sh::\n\n"
 printf "\n\n user.sh done::\n"
 
 printf "\n\n CALLING provision.sh::\n\n"
-/bin/bash provision.sh "$SSH_KEY_PHRASE_PERSONAL" "$SSH_KEY_PHRASE_PERSONAL_WORK" "$PERSONAL_WORK_EMAIL" "$PERSONAL_WORK_NAME"
+/bin/bash provision.sh
 printf "\n\n provision.sh done::\n"
+
+printf "\n\n CALLING version_control.sh::\n\n"
+/bin/bash version_control.sh "$PERSONAL_WORK_EMAIL" "$PERSONAL_WORK_NAME"
+printf "\n\n version_control.sh done::\n"
+
+printf "\n\n CALLING setup_ssh.sh::\n\n"
+/bin/bash setup_ssh.sh "$SSH_KEY_PHRASE_PERSONAL" "$SSH_KEY_PHRASE_PERSONAL_WORK" "$PERSONAL_WORK_EMAIL"
+printf "\n\n setup_ssh.sh done::\n"
 
 printf "\n\n CALLING golang.sh::\n\n"
 /bin/bash golang.sh
@@ -71,13 +88,13 @@ printf "\n\n CALLING dart.sh::\n\n"
 /bin/bash dart.sh
 printf "\n\n dart.sh done::\n"
 
-printf "\n\n CALLING work_stuff.sh::\n\n"
-/bin/bash work_stuff.sh
-printf "\n\n work_stuff.sh done::\n"
+printf "\n\n CALLING media.sh::\n\n"
+/bin/bash media.sh
+printf "\n\n media.sh done::\n"
 
-# printf "\n\n CALLING xonsh.sh::\n\n"
-# /bin/bash xonsh.sh
-# printf "\n\n xonsh.sh done::\n"
+printf "\n\n CALLING tools.sh::\n\n"
+/bin/bash tools.sh                   # should be installed before `ohmyz.sh`
+printf "\n\n tools.sh done::\n"
 
 # I'm moving on from xonsh. I've experienced too many
 # issues everytime I update it, eg; https://github.com/xonsh/xonsh/issues/2662
@@ -85,21 +102,21 @@ printf "\n\n CALLING ohmyz.sh::\n\n"
 /bin/bash ohmyz.sh
 printf "\n\n ohmyz.sh done::\n"
 
-printf "\n\n CALLING media.sh::\n\n"
-/bin/bash media.sh
-printf "\n\n media.sh done::\n"
-
 printf "\n\n CALLING java.sh::\n\n"
 /bin/bash java.sh
 printf "\n\n java.sh done::\n"
 
-printf "\n\n CALLING anki.sh::\n\n"
-/bin/bash anki.sh
-printf "\n\n anki.sh done::\n"
+printf "\n\n CALLING clean_up.sh::\n\n"
+/bin/bash clean_up.sh
+printf "\n\n clean_up.sh done::\n"
 
-printf "\n\n CALLING tools.sh::\n\n"
-/bin/bash tools.sh
-printf "\n\n tools.sh done::\n"
+# printf "\n\n CALLING anki.sh::\n\n"
+# /bin/bash anki.sh
+# printf "\n\n anki.sh done::\n"
+
+# printf "\n\n CALLING work_stuff.sh::\n\n"
+# /bin/bash work_stuff.sh
+# printf "\n\n work_stuff.sh done::\n"
 
 
 printf "\n\n WHOLE SYSTEM SUCCESFULLY SETUP.\n"

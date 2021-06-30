@@ -9,6 +9,8 @@ fi
 shopt -s nullglob globstar
 export DEBIAN_FRONTEND=noninteractive
 
+MY_NAME=$(whoami)
+
 
 USER_PASSWORD=${1:-userPass}
 if [ "$USER_PASSWORD" == "userPass"  ]; then
@@ -18,4 +20,4 @@ fi
 
 
 printf "\n\n create user, if not exists. \n"
-id -u komuw &>/dev/null || useradd --groups=sudo --create-home --password="$USER_PASSWORD" --shell=/bin/bash komuw
+id -u $MY_NAME &>/dev/null || useradd --groups=sudo --create-home --password="$USER_PASSWORD" --shell=/bin/bash $MY_NAME
