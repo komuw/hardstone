@@ -18,8 +18,8 @@ with (import (fetchTarball "https://github.com/NixOS/nixpkgs/archive/21.05.tar.g
 
     usage:
     - from this directory, run;
-        THE_USER=$(whoami)
-        /nix/var/nix/profiles/per-user/$THE_USER/profile/bin/nix-shell
+        MY_NAME=$(whoami)
+        /nix/var/nix/profiles/per-user/$MY_NAME/profile/bin/nix-shell
 */
 
 

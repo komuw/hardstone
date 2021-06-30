@@ -17,7 +17,7 @@ export DEBIAN_FRONTEND=noninteractive
 
 # TODO: setup ntp; https://help.ubuntu.com/community/UbuntuTime
 
-THE_USER=$(whoami)
+MY_NAME=$(whoami)
 
 configure_timezone(){
     printf "\n\n\t 1. configure_timezone \n"
@@ -63,7 +63,7 @@ create_nix_conf_file(){
 create_nix_conf_file
 
 install_nix() {
-    NIX_PACKAGE_MANAGER_VERSION=2.3.10
+    NIX_PACKAGE_MANAGER_VERSION=2.3.13
     printf "\n\n\t 5. install_nix version%s \n" "$NIX_PACKAGE_MANAGER_VERSION"
 
     # This is a single-user installation: https://nixos.org/manual/nix/stable/#sect-single-user-installation
@@ -82,11 +82,11 @@ upgrade_nix() {
     # see:
     # 1. https://nixos.org/manual/nix/stable/#ch-upgrading-nix
     # 2. https://nixos.org/manual/nix/stable/#sec-nix-channel
-    /nix/var/nix/profiles/per-user/$THE_USER/profile/bin/nix-channel --list
-    /nix/var/nix/profiles/per-user/$THE_USER/profile/bin/nix-channel --remove nixpkgs
-    /nix/var/nix/profiles/per-user/$THE_USER/profile/bin/nix-channel --add "https://nixos.org/channels/nixpkgs-unstable" nixpkgs-unstable # TODO: use a stable/specific version
-    /nix/var/nix/profiles/per-user/$THE_USER/profile/bin/nix-channel --update
-    /nix/var/nix/profiles/per-user/$THE_USER/profile/bin/nix-channel --list
+    /nix/var/nix/profiles/per-user/$MY_NAME/profile/bin/nix-channel --list
+    /nix/var/nix/profiles/per-user/$MY_NAME/profile/bin/nix-channel --remove nixpkgs
+    /nix/var/nix/profiles/per-user/$MY_NAME/profile/bin/nix-channel --add "https://nixos.org/channels/nixpkgs-unstable" nixpkgs-unstable # TODO: use a stable/specific version
+    /nix/var/nix/profiles/per-user/$MY_NAME/profile/bin/nix-channel --update
+    /nix/var/nix/profiles/per-user/$MY_NAME/profile/bin/nix-channel --list
 
     # Channels are a way of distributing Nix software, but they are being phased out.
     # Even though they are still used by default,
@@ -112,10 +112,10 @@ clear_stuff(){
     sudo rm -rf /var/lib/apt/lists/*
     # The Nix store sometimes contains entries which are no longer useful.
     # garbage collect them
-    /nix/var/nix/profiles/per-user/$THE_USER/profile/bin/nix-collect-garbage -d
-    /nix/var/nix/profiles/per-user/$THE_USER/profile/bin/nix-store --optimise
+    /nix/var/nix/profiles/per-user/$MY_NAME/profile/bin/nix-collect-garbage -d
+    /nix/var/nix/profiles/per-user/$MY_NAME/profile/bin/nix-store --optimise
     # ref: https://nixos.org/manual/nix/unstable/command-ref/nix-store.html
-    /nix/var/nix/profiles/per-user/$THE_USER/profile/bin/nix-store --verify --repair
+    /nix/var/nix/profiles/per-user/$MY_NAME/profile/bin/nix-store --verify --repair
 }
 clear_stuff
 
@@ -127,18 +127,18 @@ create_nix_aliases(){
     touch ~/.bash_aliases # touch is silent if file already exists
 
     echo "##### nix package manager aliases #####
-alias nix='/nix/var/nix/profiles/per-user/$THE_USER/profile/bin/nix'
-alias nix-build='/nix/var/nix/profiles/per-user/$THE_USER/profile/bin/nix-build'
-alias nix-channel='/nix/var/nix/profiles/per-user/$THE_USER/profile/bin/nix-channel'
-alias nix-collect-garbage='/nix/var/nix/profiles/per-user/$THE_USER/profile/bin/nix-collect-garbage'
-alias nix-copy-closure='/nix/var/nix/profiles/per-user/$THE_USER/profile/bin/nix-copy-closure'
-alias nix-daemon='/nix/var/nix/profiles/per-user/$THE_USER/profile/bin/nix-daemon'
-alias nix-env='/nix/var/nix/profiles/per-user/$THE_USER/profile/bin/nix-env'
-alias nix-hash='/nix/var/nix/profiles/per-user/$THE_USER/profile/bin/nix-hash'
-alias nix-instantiate='/nix/var/nix/profiles/per-user/$THE_USER/profile/bin/nix-instantiate'
-alias nix--prefetch-url='/nix/var/nix/profiles/per-user/$THE_USER/profile/bin/nix--prefetch-url'
-alias nix-shell='/nix/var/nix/profiles/per-user/$THE_USER/profile/bin/nix-shell'
-alias nix-store='/nix/var/nix/profiles/per-user/$THE_USER/profile/bin/nix-store'
+alias nix='/nix/var/nix/profiles/per-user/$MY_NAME/profile/bin/nix'
+alias nix-build='/nix/var/nix/profiles/per-user/$MY_NAME/profile/bin/nix-build'
+alias nix-channel='/nix/var/nix/profiles/per-user/$MY_NAME/profile/bin/nix-channel'
+alias nix-collect-garbage='/nix/var/nix/profiles/per-user/$MY_NAME/profile/bin/nix-collect-garbage'
+alias nix-copy-closure='/nix/var/nix/profiles/per-user/$MY_NAME/profile/bin/nix-copy-closure'
+alias nix-daemon='/nix/var/nix/profiles/per-user/$MY_NAME/profile/bin/nix-daemon'
+alias nix-env='/nix/var/nix/profiles/per-user/$MY_NAME/profile/bin/nix-env'
+alias nix-hash='/nix/var/nix/profiles/per-user/$MY_NAME/profile/bin/nix-hash'
+alias nix-instantiate='/nix/var/nix/profiles/per-user/$MY_NAME/profile/bin/nix-instantiate'
+alias nix--prefetch-url='/nix/var/nix/profiles/per-user/$MY_NAME/profile/bin/nix--prefetch-url'
+alias nix-shell='/nix/var/nix/profiles/per-user/$MY_NAME/profile/bin/nix-shell'
+alias nix-store='/nix/var/nix/profiles/per-user/$MY_NAME/profile/bin/nix-store'
 ##### nix package manager aliases #####" | sudo tee ~/.bash_aliases
 
     . ~/.bash_aliases # source a file
@@ -186,11 +186,11 @@ source_files(){
     printf "\n\n\t 11. source_files \n"
 
     . ~/.nix-profile/etc/profile.d/nix.sh
-    . /home/$THE_USER/.nix-profile/etc/profile.d/nix.sh
+    . /home/$MY_NAME/.nix-profile/etc/profile.d/nix.sh
     . ~/.bash_aliases
 
     source ~/.nix-profile/etc/profile.d/nix.sh
-    source /home/$THE_USER/.nix-profile/etc/profile.d/nix.sh
+    source /home/$MY_NAME/.nix-profile/etc/profile.d/nix.sh
     source ~/.bash_aliases
 }
 source_files
