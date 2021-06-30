@@ -43,10 +43,12 @@ rm -rf /home/$MY_NAME/installDir
 mkdir -p /home/$MY_NAME/installDir
 cd /home/$MY_NAME/installDir
 
-wget -nc --output-document=/home/$MY_NAME/installDir/hardstone.zip https://github.com/komuw/hardstone/archive/refs/heads/master.zip
-unzip hardstone.zip
-mv hardstone-master/ hardstone
-cd /home/$MY_NAME/installDir/hardstone/nixos/
+git clone https://github.com/komuw/hardstone.git
+cd hardstone/
+git checkout nix-inheritance
+cd nixos/
+bash start.sh
+
 
 screen -S nixSession
 screen -ls
