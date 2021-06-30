@@ -11,6 +11,13 @@ export DEBIAN_FRONTEND=noninteractive
 
 MY_NAME=$(whoami)
 
+# TODO: create a new readme.txt for this info
+# - format(using `disks` app in ubuntu) usb and format type should be `Internal disk for use with linux system(ext4)`
+# - download ISO file
+# - open `disks` app in ubuntu, select the usb, click on `Restore Disk Image`
+# - change computer boot order to have USB as first, you may have to restart OS and press F12 to go edit BIOS
+# - reboot computer with USB inserted(if USB is not picked up, then restart, press F12 and manually click on USB to boot)
+
 
 # https://github.com/anordal/shellharden/blob/master/how_to_do_things_safely_in_bash.md
 # http://wiki.bash-hackers.org/syntax/pe#use_a_default_value
