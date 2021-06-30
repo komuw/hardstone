@@ -22,7 +22,7 @@ printf "\n::INSTALL brew and stuff\n\n"
 /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 brew analytics off
 brew update
-brew cask install iterm2
+brew install --cask iterm2
 
 printf "\n::INSTALL some apps via brew\n\n"
 brew install ack \
