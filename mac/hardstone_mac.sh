@@ -160,6 +160,7 @@ curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/1.1.7/get-poetr
 
 install_vscode(){
     printf "\n::INSTALL Vscode\n\n"
+    rm -rf "/Applications/Visual Studio Code.app/"
     wget -nc --output-document=/tmp/vscode.zip "https://code.visualstudio.com/sha/download?build=stable&os=darwin-universal"
     unzip /tmp/vscode.zip -d /tmp/vscode
     mv "/tmp/vscode/Visual Studio Code.app/" /Applications/
