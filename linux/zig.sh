@@ -9,10 +9,11 @@ fi
 shopt -s nullglob globstar
 export DEBIAN_FRONTEND=noninteractive
 
+MY_NAME=$(whoami)
 
 install_zig() {
     printf "\n\n remove any current zig files\n"
-    sudo rm -rf /usr/local/zigDir && sudo mkdir -p /usr/local/zigDir && sudo chown -R komuw /usr/local/zigDir
+    sudo rm -rf /usr/local/zigDir && sudo mkdir -p /usr/local/zigDir && sudo chown -R $MY_NAME /usr/local/zigDir
 
     printf "\n\n  download zig from master branch(change when zig gets to ver1)\n"
     # TODO: parse content from https://ziglang.org/download/index.json

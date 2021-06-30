@@ -9,5 +9,11 @@ fi
 shopt -s nullglob globstar
 export DEBIAN_FRONTEND=noninteractive
 
-printf "\n\n  install acestreamplayer\n"
-snap install acestreamplayer
+MY_NAME=$(whoami)
+
+printf "\n\n clear /tmp directory\n"
+sudo rm -rf /tmp/*
+
+printf "\n\n autoremove/purge\n"
+sudo apt -y autoremove
+sudo apt -y autopurge

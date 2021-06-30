@@ -9,11 +9,18 @@ fi
 shopt -s nullglob globstar
 export DEBIAN_FRONTEND=noninteractive
 
+MY_NAME=$(whoami)
+
+
+printf "\n\n add current user to sudo group\n"
+sudo usermod -aG sudo $MY_NAME
 
 printf "\n\n starting setup/provisioning....\n"
 printf "\n\n install pre-requiste stuff reequired by the other scripts. \nthe other scripts should be able to run in parallel....\n"
-apt-get -y update
-apt-get -y install gcc \
+sudo rm -rf /etc/apt/sources.list.d/*
+sudo rm -rf /tmp/*
+sudo apt-get -y update
+sudo apt-get -y install gcc \
                     build-essential \
                     libssl-dev \
                     libffi-dev \
@@ -24,9 +31,12 @@ apt-get -y install gcc \
                     git
 
 # If you need pip see:: https://github.com/pypa/pip/issues/5240
-apt-get -y update
+sudo apt-get -y update
 
 printf "\n\n set locale\n"
-LOCALE_CONFIG_FILE_CONTENTS='#locale
+sudo chown -R $MY_NAME:sudo /etc/profile
+LOCALE_CONFIG_FILE_CONTENTS='
+
+#locale
 export LC_ALL="en_US.UTF-8"'
 grep -qF -- "$LOCALE_CONFIG_FILE_CONTENTS" /etc/profile || echo "$LOCALE_CONFIG_FILE_CONTENTS" >> /etc/profile
