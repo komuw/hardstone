@@ -1,8 +1,8 @@
-with (import (fetchTarball "https://github.com/NixOS/nixpkgs/archive/4795e7f3a9cebe277bb4b5920caa8f0a2c313eb0.tar.gz") {});
+with (import (fetchTarball "https://github.com/NixOS/nixpkgs/archive/21.05.tar.gz") {});
 
 /*
   Alternative are:
-   (a) { pkgs ? import (fetchTarball "https://github.com/NixOS/nixpkgs/archive/20.09.tar.gz") {} }:
+   (a) { pkgs ? import (fetchTarball "https://github.com/NixOS/nixpkgs/archive/21.05.tar.gz") {} }:
    (b) { pkgs ? import (fetchTarball "https://github.com/NixOS/nixpkgs/archive/4795e7f3a9cebe277bb4b5920caa8f0a2c313eb0.tar.gz") {} }:
    (c) with (import <nixpkgs> {});
 
