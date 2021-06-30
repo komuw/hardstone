@@ -20,27 +20,28 @@ with (import (fetchTarball "https://github.com/NixOS/nixpkgs/archive/21.05.tar.g
     - from this directory, run;
         MY_NAME=$(whoami)
         /nix/var/nix/profiles/per-user/$MY_NAME/profile/bin/nix-shell
+
+    search for packages:
+      1. https://search.nixos.org/
+      2. nix search wget
 */
 
 
 let
   basePackages = [ ];
   
-  htopPath = ./htop.nix;
-  vlcPath = ./htop.nix;
   preRequistePath  = ./preRequiste.nix;
+  provisionPath  = ./provision.nix;
 
   inputs = basePackages 
     ++ lib.optional (builtins.pathExists preRequistePath) (import preRequistePath {}).inputs
-    ++ lib.optional (builtins.pathExists htopPath) (import htopPath {}).inputs
-    ++ lib.optional (builtins.pathExists vlcPath) (import vlcPath {}).inputs;
+    ++ lib.optional (builtins.pathExists provisionPath) (import provisionPath {}).inputs;
 
   baseHooks = "echo 'hello from default.nix;'";
 
   shellHooks = baseHooks
     + lib.optionalString (builtins.pathExists preRequistePath) (import preRequistePath {}).hooks
-    + lib.optionalString (builtins.pathExists htopPath) (import htopPath {}).hooks
-    + lib.optionalString (builtins.pathExists vlcPath) (import vlcPath {}).hooks;
+    + lib.optionalString (builtins.pathExists provisionPath) (import provisionPath {}).hooks;
 
 in mkShell {
   buildInputs = inputs;
@@ -49,8 +50,9 @@ in mkShell {
 
 
 # TODO: remove when done
-# /bin/bash preRequiste.sh
-# /bin/bash user.sh "$USER_PASSWORD"
+#
+# /bin/bash preRequiste.sh                         - DONE.
+# /bin/bash user.sh "$USER_PASSWORD"               - DONE
 # /bin/bash provision.sh
 # /bin/bash version_control.sh "$PERSONAL_WORK_EMAIL" "$PERSONAL_WORK_NAME"
 # /bin/bash setup_ssh.sh "$SSH_KEY_PHRASE_PERSONAL" "$SSH_KEY_PHRASE_PERSONAL_WORK" "$PERSONAL_WORK_EMAIL"
