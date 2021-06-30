@@ -3,14 +3,16 @@
 {
   inputs = [
       pkgs.mpv
-      pkgs.openssh-client
+      pkgs.openssh # TODO: we only want client not server
       pkgs.kdiff3
       pkgs.meld
       pkgs.terminator
       pkgs.lsof
       pkgs.telnet
       pkgs.htop
-      pkgs.unrar
+      # `unrar` has an unfree LICENSE. By default, nix refuses to install it.
+      #  We can force nix to install by setting env var `export NIXPKGS_ALLOW_UNFREE=1`
+      # pkgs.unrar
       pkgs.transmission
       pkgs.vlc
       pkgs.screen
@@ -46,6 +48,7 @@
         # cgroup-lite 
         # gdebi
         # wireguard
+        # openssh-client
 
       ];
   hooks = ''
