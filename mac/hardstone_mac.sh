@@ -173,10 +173,12 @@ export PATH="\$PATH:/Applications/Visual Studio Code.app/Contents/Resources/app/
 EOF
 )
 
+     touch "$BASHRC_PROFILE_FILE"
     if  ! grep -q "Add Visual Studio Code to path" "$BASHRC_PROFILE_FILE"; then
       echo "adding vscode to path."
       echo "$BASHRC_PROFILE_FILE_CONTENTS" >> "$BASHRC_PROFILE_FILE"
     fi
+    source "$BASHRC_PROFILE_FILE"
 
     printf "\n\n  install vscode extensions\n"
     code --user-data-dir='.' --install-extension ms-python.python
