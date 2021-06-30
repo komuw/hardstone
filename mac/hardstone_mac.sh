@@ -19,7 +19,7 @@ fi
 
 
 printf "\n::INSTALL brew and stuff\n\n"
-/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 brew analytics off
 brew update
 brew install --cask iterm2
