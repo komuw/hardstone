@@ -17,6 +17,9 @@ if [ "$SSH_KEY_PHRASE_PERSONAL" == "sshKeyPhrasePersonalNotSet"  ]; then
 fi
 
 
+printf "\n::clear tmp dir\n\n"
+rm -rf /tmp/*.pkg /tmp/*.gz /tmp/*.zip
+
 
 printf "\n::INSTALL brew and stuff\n\n"
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
