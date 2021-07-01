@@ -9,14 +9,21 @@
 
     validate(){
         if [[ -z "${SSH_KEY_PHRASE_PERSONAL}" ]]; then
-            printf "\n SSH_KEY_PHRASE_PERSONAL is not set \n"
+            printf "\n env var SSH_KEY_PHRASE_PERSONAL is not set \n"
             exit 88
         else
             echo ""
         fi
 
         if [[ -z "${SSH_KEY_PHRASE_PERSONAL_WORK}" ]]; then
-            printf "\n SSH_KEY_PHRASE_PERSONAL_WORK is not set \n"
+            printf "\n env var SSH_KEY_PHRASE_PERSONAL_WORK is not set \n"
+            exit 88
+        else
+            echo ""
+        fi
+
+        if [[ -z "${PERSONAL_WORK_EMAIL}" ]]; then
+            printf "\n env var PERSONAL_WORK_EMAIL is not set \n"
             exit 88
         else
             echo ""
@@ -39,6 +46,27 @@
         cat /home/$MY_NAME/.ssh/personal_id_rsa.pub
     }
     create_personal_ssh_key
+
+    create_personal_work_ssh_key(){
+        printf "\n\n create personal work ssh-key\n"
+        if [[ ! -e /home/$MY_NAME/.ssh/personal_work_id_rsa.pub ]]; then
+            mkdir -p /home/$MY_NAME/.ssh
+            ssh-keygen -t rsa -C "$PERSONAL_WORK_EMAIL" -b 8192 -q -N "$SSH_KEY_PHRASE_PERSONAL" -f /home/$MY_NAME/.ssh/personal_work_id_rsa
+        fi
+        chmod 600 /home/$MY_NAME/.ssh/personal_work_id_rsa
+        chmod 600 /home/$MY_NAME/.ssh/personal_work_id_rsa.pub
+        chown -R $MY_NAME:$MY_NAME /home/$MY_NAME/.ssh
+
+        printf "\n\n your ssh public key for personal work is\n"
+        cat /home/$MY_NAME/.ssh/personal_work_id_rsa.pub
+    }
+    create_personal_work_ssh_key
+
+    setup_ssh_conf(){
+        printf "\n\n configure ssh/config\n"
+        cp ../templates/ssh_conf.j2 /home/$MY_NAME/.ssh/config
+    }
+    setup_ssh_conf
 
 
   '';
