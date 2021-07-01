@@ -125,7 +125,8 @@
         fi
         export HISTTIMEFORMAT="%d/%m/%Y %T "'
         BASHRC_FILE=/home/$MY_NAME/.bashrc
-        grep -qF -- "$BASHRC_FILE_FILE_CONTENTS" "$BASHRC_FILE" || echo "$BASHRC_FILE_FILE_CONTENTS" >> "$BASHRC_FILE"
+        touch "$BASHRC_FILE"
+        echo "$BASHRC_FILE_FILE_CONTENTS" >> "$BASHRC_FILE"
     }
     setup_bashrc
   '';
