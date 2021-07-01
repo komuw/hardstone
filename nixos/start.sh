@@ -9,7 +9,7 @@ export DEBIAN_FRONTEND=noninteractive
 # 1. docker build -t hardstone-nix .
 # 2. docker run -it hardstone-nix
 # 3. bash start.sh
-# 4. export NIXPKGS_ALLOW_UNFREE=1 && \
+# 4. export NIXPKGS_ALLOW_UNFREE=1 && \ # for vscode
 #    export SSH_KEY_PHRASE_PERSONAL=SSH_KEY_PHRASE_PERSONAL  && \
 #    export SSH_KEY_PHRASE_PERSONAL_WORK=SSH_KEY_PHRASE_PERSONAL_WORK && \
 #    export PERSONAL_WORK_EMAIL=PERSONAL_WORK_EMAIL@example.com && \
