@@ -35,6 +35,7 @@
         /usr/local/go/bin/go install github.com/tsenart/vegeta@latest
         /usr/local/go/bin/go install mvdan.cc/gofumpt@latest
     }
+    install_go_pkgs
 
     install_gotip(){
         printf "\n\n install gotip https://godoc.org/golang.org/dl/gotip \n"
