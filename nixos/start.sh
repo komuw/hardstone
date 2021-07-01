@@ -30,10 +30,20 @@ export DEBIAN_FRONTEND=noninteractive
 
 MY_NAME=$(whoami)
 
+pre_setup(){
+    printf "\n\n\t 0. pre_setup \n"
+
+    sudo rm -rf /etc/apt/sources.list.d/*
+    sudo rm -rf /tmp/*.txt
+
+    sudo apt-get -y update
+    sudo rm -rf /var/cache/apt/archives/lock && sudo rm -rf /var/lib/dpkg/lock && sudo rm -rf /var/cache/debconf/*.dat  # remove potential apt lock
+    sudo apt-get -f -y install                                                                                          # fix broken dependencies
+}
+pre_setup
+
 configure_timezone(){
     printf "\n\n\t 1. configure_timezone \n"
-
-    sudo rm -rf /tmp/*.txt
 
     echo "tzdata tzdata/Areas select Africa
     tzdata tzdata/Zones/Africa select Nairobi" | sudo tee /tmp/tzdata_preseed.txt
@@ -51,7 +61,6 @@ configure_timezone
 install_nix_pre_requistes(){
     printf "\n\n\t 2. install_nix_pre_requistes \n"
 
-    sudo rm -rf /etc/apt/sources.list.d/*
     sudo apt -y update
     sudo apt -y install sudo
     sudo apt -y update
