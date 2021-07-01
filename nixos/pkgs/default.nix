@@ -38,6 +38,7 @@ let
   vscodePath  = ./vscode.nix;
   dartPath  = ./dart.nix;
   toolsPath  = ./tools.nix;
+  ohMyZshPath  = ./oh_my_zsh.nix;
 
   inputs = basePackages 
     ++ lib.optional (builtins.pathExists preRequistePath) (import preRequistePath {}).inputs
@@ -47,7 +48,8 @@ let
     ++ lib.optional (builtins.pathExists golangPath) (import golangPath {}).inputs
     ++ lib.optional (builtins.pathExists vscodePath) (import vscodePath {}).inputs
     ++ lib.optional (builtins.pathExists dartPath) (import dartPath {}).inputs
-    ++ lib.optional (builtins.pathExists toolsPath) (import toolsPath {}).inputs;
+    ++ lib.optional (builtins.pathExists toolsPath) (import toolsPath {}).inputs
+    ++ lib.optional (builtins.pathExists ohMyZshPath) (import ohMyZshPath {}).inputs;
 
   baseHooks = "printf '\n\n running hooks for default.nix \n\n'";
 
@@ -59,7 +61,8 @@ let
     + lib.optionalString (builtins.pathExists golangPath) (import golangPath {}).hooks
     + lib.optionalString (builtins.pathExists vscodePath) (import vscodePath {}).hooks
     + lib.optionalString (builtins.pathExists dartPath) (import dartPath {}).hooks
-    + lib.optionalString (builtins.pathExists toolsPath) (import toolsPath {}).hooks;
+    + lib.optionalString (builtins.pathExists toolsPath) (import toolsPath {}).hooks
+    + lib.optionalString (builtins.pathExists ohMyZshPath) (import ohMyZshPath {}).hooks;
 
 in mkShell {
   buildInputs = inputs;
