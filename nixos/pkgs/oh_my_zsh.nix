@@ -3,22 +3,34 @@
 {
   inputs = [
       pkgs.zsh
-      pkgs.oh-my-zsh
-
       ];
   hooks = ''
     printf "\n\n running hooks for oh_my_zsh.nix \n\n"
 
     MY_NAME=$(whoami)
 
-    # To copy the Oh My Zsh configuration file to your home directory, run the following command:
-    # see: https://search.nixos.org/packages?channel=21.05&show=oh-my-zsh&from=0&size=50&sort=relevance&query=oh+my
+    install_ohmyzsh(){
+        printf "\n\n Install ohmyzsh \n"
 
-    cp -v $(nix-env -q --out-path oh-my-zsh | cut -d' ' -f3)/share/oh-my-zsh/templates/zshrc.zsh-template ~/.zshrc
+        rm -rf /home/$MY_NAME/.oh-my-zsh
+        git clone https://github.com/robbyrussell/oh-my-zsh.git /home/$MY_NAME/.oh-my-zsh
 
-    cp -v $(nix-env -q --out-path oh-my-zsh | cut -d' ' -f3)/share/oh-my-zsh/templates/zshrc.zsh-template /home/dembe/alas_zshrc
+        git clone https://github.com/zsh-users/zsh-autosuggestions /home/$MY_NAME/.oh-my-zsh/custom/plugins/zsh-autosuggestions
+        git clone https://github.com/zsh-users/zsh-completions /home/$MY_NAME/.oh-my-zsh/custom/plugins/zsh-completions
+
+        cp ../templates/zshrc.j2 /home/$MY_NAME/.zshrc
+        cp ../templates/zshrc.j2 ~/.zshrc
+
+        chown -R $MY_NAME:$MY_NAME /home/$MY_NAME/.zshrc
+        chown -R $MY_NAME:$MY_NAME /home/$MY_NAME/.oh-my-zsh
+
+        printf "\n\n  activate zsh shell\n"
+        chsh -s $(which zsh)
+    }
+    install_ohmyzsh
 
   '';
 }
+
 
 
