@@ -3,12 +3,12 @@
 {
   inputs = [];
 
-  GOLANG_VERSION=go1.16.linux-amd64;
-
   hooks = ''
     printf "\n\n running hooks for golang.nix \n\n"
 
     MY_NAME=$(whoami)
+
+    GOLANG_VERSION=go1.16.linux-amd64;
 
     install_golang(){
         printf "\n\n  download golang\n"
