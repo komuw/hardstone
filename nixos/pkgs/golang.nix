@@ -22,6 +22,7 @@
             # modules exists
             echo ""
         else
+            go version
             go install github.com/rogpeppe/gohack@latest
             go install honnef.co/go/tools/cmd/staticcheck@latest
             go install github.com/go-delve/delve/cmd/dlv@latest
@@ -41,7 +42,6 @@
 
     change_owner(){
         printf "\n\n change ownership of ~/go\n"
-        go version
         chown -R $MY_NAME:$MY_NAME /home/$MY_NAME/go
         chown -R $MY_NAME:$MY_NAME /home/$MY_NAME/.cache/
     }
