@@ -2,7 +2,7 @@
 
 {
   inputs = [
-      pkgs.vscode
+      pkgs.vscode # unfree
   ];
 
   hooks = ''

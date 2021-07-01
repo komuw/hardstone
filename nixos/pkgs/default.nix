@@ -36,6 +36,8 @@ let
   setupSshPath  = ./setup_ssh.nix;
   golangPath  = ./golang.nix;
   vscodePath  = ./vscode.nix;
+  dartPath  = ./dart.nix;
+  toolsPath  = ./tools.nix;
 
   inputs = basePackages 
     ++ lib.optional (builtins.pathExists preRequistePath) (import preRequistePath {}).inputs
@@ -43,7 +45,9 @@ let
     ++ lib.optional (builtins.pathExists versionControlPath) (import versionControlPath {}).inputs
     ++ lib.optional (builtins.pathExists setupSshPath) (import setupSshPath {}).inputs
     ++ lib.optional (builtins.pathExists golangPath) (import golangPath {}).inputs
-    ++ lib.optional (builtins.pathExists vscodePath) (import vscodePath {}).inputs;
+    ++ lib.optional (builtins.pathExists vscodePath) (import vscodePath {}).inputs
+    ++ lib.optional (builtins.pathExists dartPath) (import dartPath {}).inputs
+    ++ lib.optional (builtins.pathExists toolsPath) (import toolsPath {}).inputs;
 
   baseHooks = "printf '\n\n running hooks for default.nix \n\n'";
 
@@ -53,7 +57,9 @@ let
     + lib.optionalString (builtins.pathExists versionControlPath) (import versionControlPath {}).hooks
     + lib.optionalString (builtins.pathExists setupSshPath) (import setupSshPath {}).hooks
     + lib.optionalString (builtins.pathExists golangPath) (import golangPath {}).hooks
-    + lib.optionalString (builtins.pathExists vscodePath) (import vscodePath {}).hooks;
+    + lib.optionalString (builtins.pathExists vscodePath) (import vscodePath {}).hooks
+    + lib.optionalString (builtins.pathExists dartPath) (import dartPath {}).hooks
+    + lib.optionalString (builtins.pathExists toolsPath) (import toolsPath {}).hooks;
 
 in mkShell {
   buildInputs = inputs;
@@ -70,9 +76,9 @@ in mkShell {
 # /bin/bash setup_ssh.sh "$SSH_KEY_PHRASE_PERSONAL" "$SSH_KEY_PHRASE_PERSONAL_WORK" "$PERSONAL_WORK_EMAIL" - DONE
 # /bin/bash golang.sh - DONE
 # /bin/bash vscode.sh - DONE
-# /bin/bash dart.sh
-# /bin/bash media.sh
-# /bin/bash tools.sh
+# /bin/bash dart.sh - DONE
+# /bin/bash media.sh - DONE
+# /bin/bash tools.sh - DONE
 # /bin/bash ohmyz.sh
 # /bin/bash java.sh
 # /bin/bash clean_up.sh
