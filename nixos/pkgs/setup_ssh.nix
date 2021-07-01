@@ -40,7 +40,23 @@
             echo ""
         fi
     }
-    validate_env_vars
+
+    personal_id_rsa_file="/home/$MY_NAME/.ssh/personal_id_rsa.pub"
+    if [ -f "$personal_id_rsa_file" ]; then
+        # file exists
+        echo ""
+    else
+        validate_env_vars
+    fi
+
+    personal_work_id_rsa_file="/home/$MY_NAME/.ssh/personal_work_id_rsa.pub"
+    if [ -f "$personal_work_id_rsa_file" ]; then
+        # file exists
+        echo ""
+    else
+        validate_env_vars
+    fi
+
 
     create_personal_ssh_key(){
         if [[ ! -e /home/$MY_NAME/.ssh/personal_id_rsa.pub ]]; then
@@ -100,3 +116,5 @@
 
   '';
 }
+
+
