@@ -11,12 +11,19 @@
     GOLANG_VERSION=go1.16.linux-amd64;
 
     install_golang(){
-        printf "\n\n  download golang\n"
-        sudo rm -rf "/usr/local/$GOLANG_VERSION.tar.gz"
-        sudo rm -rf /usr/local/go
-        sudo wget -nc --output-document="/usr/local/$GOLANG_VERSION.tar.gz" "https://dl.google.com/go/$GOLANG_VERSION.tar.gz"
-        printf "\n\n  untar golang file\n"
-        sudo tar -xzf "/usr/local/$GOLANG_VERSION.tar.gz" -C /usr/local/
+        printf "\n\n  install golang\n"
+
+        GOLANG_FILE=/usr/local/go/bin/go
+        if [ -f "$GOLANG_FILE" ]; then
+            # GOLANG_FILE exists
+            echo ""
+        else
+            sudo rm -rf "/usr/local/$GOLANG_VERSION.tar.gz"
+            sudo rm -rf /usr/local/go
+            sudo wget -nc --output-document="/usr/local/$GOLANG_VERSION.tar.gz" "https://dl.google.com/go/$GOLANG_VERSION.tar.gz"
+            printf "\n\n  untar golang file\n"
+            sudo tar -xzf "/usr/local/$GOLANG_VERSION.tar.gz" -C /usr/local/
+        fi
     }
     install_golang
 
