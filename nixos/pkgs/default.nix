@@ -32,16 +32,19 @@ let
   
   preRequistePath  = ./preRequiste.nix;
   provisionPath  = ./provision.nix;
+  versionControlPath  = ./version_control.nix;
 
   inputs = basePackages 
     ++ lib.optional (builtins.pathExists preRequistePath) (import preRequistePath {}).inputs
-    ++ lib.optional (builtins.pathExists provisionPath) (import provisionPath {}).inputs;
+    ++ lib.optional (builtins.pathExists provisionPath) (import provisionPath {}).inputs
+    ++ lib.optional (builtins.pathExists versionControlPath) (import versionControlPath {}).inputs;
 
   baseHooks = "echo 'hello from default.nix;'";
 
   shellHooks = baseHooks
     + lib.optionalString (builtins.pathExists preRequistePath) (import preRequistePath {}).hooks
-    + lib.optionalString (builtins.pathExists provisionPath) (import provisionPath {}).hooks;
+    + lib.optionalString (builtins.pathExists provisionPath) (import provisionPath {}).hooks
+    + lib.optionalString (builtins.pathExists versionControlPath) (import versionControlPath {}).hooks;
 
 in mkShell {
   buildInputs = inputs;
