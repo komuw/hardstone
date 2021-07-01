@@ -52,7 +52,7 @@
 
       ];
   hooks = ''
-    echo "hello from provision.nix"
+    printf "\n\n running hooks for provision.nix \n\n"
     
     MY_NAME=$(whoami)
 
@@ -128,14 +128,5 @@
         grep -qF -- "$BASHRC_FILE_FILE_CONTENTS" "$BASHRC_FILE" || echo "$BASHRC_FILE_FILE_CONTENTS" >> "$BASHRC_FILE"
     }
     setup_bashrc
-
-    perform_security_updates(){
-        printf "\n\n  update\n"
-        sudo apt-get -y update
-
-        printf "\n\n add security updates\n"
-        sudo apt-get -y dist-upgrade
-    }
-    perform_security_updates
   '';
 }

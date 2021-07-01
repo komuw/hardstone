@@ -8,7 +8,11 @@
       pkgs.git
       ];
   hooks = ''
-    echo "hello from preRequiste.nix"
+    printf "\n\n running hooks for preRequiste.nix \n\n"
+
+    CURL_CA_BUNDLE=$(find /nix -name ca-bundle.crt |tail -n 1)
+
+    export CURL_CA_BUNDLE="$CURL_CA_BUNDLE"
     export LC_ALL="en_US.UTF-8"
     export SOME_CUSTOM_ENV_VAR="hello there"
   '';

@@ -40,8 +40,12 @@ configure_timezone
 install_nix_pre_requistes(){
     printf "\n\n\t 2. install_nix_pre_requistes \n"
 
-    sudo apt -y update;sudo apt -y install sudo
-    sudo apt -y update; sudo apt -y install curl xz-utils
+    sudo rm -rf /etc/apt/sources.list.d/*
+    sudo apt -y update
+    sudo apt -y install sudo
+    sudo apt -y update
+    sudo apt-get -y dist-upgrade # security updates
+    sudo apt -y install curl xz-utils
 }
 install_nix_pre_requistes
 
@@ -82,11 +86,13 @@ upgrade_nix() {
     # see:
     # 1. https://nixos.org/manual/nix/stable/#ch-upgrading-nix
     # 2. https://nixos.org/manual/nix/stable/#sec-nix-channel
-    /nix/var/nix/profiles/per-user/$MY_NAME/profile/bin/nix-channel --list
-    /nix/var/nix/profiles/per-user/$MY_NAME/profile/bin/nix-channel --remove nixpkgs
-    /nix/var/nix/profiles/per-user/$MY_NAME/profile/bin/nix-channel --add "https://nixos.org/channels/nixpkgs-unstable" nixpkgs-unstable # TODO: use a stable/specific version
-    /nix/var/nix/profiles/per-user/$MY_NAME/profile/bin/nix-channel --update
-    /nix/var/nix/profiles/per-user/$MY_NAME/profile/bin/nix-channel --list
+
+    # TODO: do we need these?
+    # /nix/var/nix/profiles/per-user/$MY_NAME/profile/bin/nix-channel --list
+    # /nix/var/nix/profiles/per-user/$MY_NAME/profile/bin/nix-channel --remove nixpkgs
+    # /nix/var/nix/profiles/per-user/$MY_NAME/profile/bin/nix-channel --add "https://nixos.org/channels/nixpkgs-unstable" nixpkgs-unstable # TODO: use a stable/specific version
+    # /nix/var/nix/profiles/per-user/$MY_NAME/profile/bin/nix-channel --update
+    # /nix/var/nix/profiles/per-user/$MY_NAME/profile/bin/nix-channel --list
 
     # Channels are a way of distributing Nix software, but they are being phased out.
     # Even though they are still used by default,
@@ -99,8 +105,7 @@ setup_nix_ca_bundle(){
     printf "\n\n\t 7. setup_nix_ca_bundle \n"
 
     CURL_CA_BUNDLE=$(find /nix -name ca-bundle.crt |tail -n 1)
-    # TODO: maybe this export should also be done in /etc/profile?
-    export CURL_CA_BUNDLE=$CURL_CA_BUNDLE
+    export CURL_CA_BUNDLE=$CURL_CA_BUNDLE # this is also added in `preRequiste.nix`
 }
 setup_nix_ca_bundle
 
