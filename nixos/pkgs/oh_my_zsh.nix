@@ -13,6 +13,8 @@
 
   programs.zsh.ohMyZsh.enable = true;
 
+  users.defaultUserShell = pkgs.zsh;
+
   hooks = ''
     set -e # fail if any command fails
 
@@ -35,8 +37,8 @@
         chown -R $MY_NAME:$MY_NAME /home/$MY_NAME/.zshrc
         chown -R $MY_NAME:$MY_NAME /home/$MY_NAME/.oh-my-zsh
 
-        printf "\n\n  activate zsh shell\n"
-        chsh -s $(which zsh)
+        # printf "\n\n  activate zsh shell\n"
+        # chsh -s $(which zsh)
     }
     install_ohmyzsh
 
