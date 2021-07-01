@@ -35,8 +35,8 @@ if sshd -t -q; then systemctl restart sshd fi
 }
 
 MY_NAME=$(whoami)
-sudo apt -y update && \
-sudo apt -y install python && \
+sudo apt -y update
+sudo apt -y install python
 sudo apt -y install python3-pip nano wget unzip curl screen
 
 MY_NAME=$(whoami)
@@ -48,11 +48,11 @@ git clone https://github.com/komuw/hardstone.git
 cd hardstone/
 git checkout nix-inheritance
 cd nixos/
-bash start.sh && \
-export NIXPKGS_ALLOW_UNFREE=1 && \ # for vscode
-export SSH_KEY_PHRASE_PERSONAL=SSH_KEY_PHRASE_PERSONAL  && \
-export SSH_KEY_PHRASE_PERSONAL_WORK=SSH_KEY_PHRASE_PERSONAL_WORK && \
-export PERSONAL_WORK_EMAIL=PERSONAL_WORK_EMAIL@example.com && \
+bash start.sh
+export NIXPKGS_ALLOW_UNFREE=1 # for vscode
+export SSH_KEY_PHRASE_PERSONAL=SSH_KEY_PHRASE_PERSONAL
+export SSH_KEY_PHRASE_PERSONAL_WORK=SSH_KEY_PHRASE_PERSONAL_WORK
+export PERSONAL_WORK_EMAIL=PERSONAL_WORK_EMAIL@example.com
 nix-shell pkgs/
 
 
