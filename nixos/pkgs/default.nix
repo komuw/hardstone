@@ -41,7 +41,7 @@ let
     ++ lib.optional (builtins.pathExists versionControlPath) (import versionControlPath {}).inputs
     + lib.optional (builtins.pathExists setupSshPath) (import setupSshPath {}).inputs;
 
-  baseHooks = "echo 'hello from default.nix;'";
+  baseHooks = "printf '\n\n running hooks for default.nix \n\n'";
 
   shellHooks = baseHooks
     + lib.optionalString (builtins.pathExists preRequistePath) (import preRequistePath {}).hooks
