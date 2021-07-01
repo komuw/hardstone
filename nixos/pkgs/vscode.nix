@@ -2,10 +2,10 @@
 
 {
 
-#   https://nixos.org/manual/nixpkgs/stable/#sec-allow-unfree
-  allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) [
-    "vscode"
-  ];
+# #   https://nixos.org/manual/nixpkgs/stable/#sec-allow-unfree
+#   allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) [
+#     "vscode"
+#   ];
 
   inputs = [
       pkgs.vscode # unfree
