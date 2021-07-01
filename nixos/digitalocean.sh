@@ -46,7 +46,7 @@ cd /home/$MY_NAME/installDir
 
 git clone https://github.com/komuw/hardstone.git
 cd hardstone/
-git checkout more-silence
+git checkout master
 cd nixos/
 bash start.sh
 export NIXPKGS_ALLOW_UNFREE=1 # for vscode
