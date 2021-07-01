@@ -22,7 +22,8 @@
 
     add_vscode_cofig(){
         # on MacOs it is /Users/$MY_NAME/Library/Application\ Support/Code/User/settings.json
-        printf "\n\n  configure vscode user settings file\n"
+
+        # configure vscode user settings file
         mkdir -p /home/$MY_NAME/.config/Code/User
         mkdir -p /home/$MY_NAME/.vscode
         touch /home/$MY_NAME/.config/Code/User/settings.json
@@ -33,17 +34,23 @@
     add_vscode_cofig
 
     install_vscode_extensions(){
-        printf "\n\n  install vscode extensions\n"
-        code --user-data-dir='.' --install-extension ms-python.python
-        code --user-data-dir='.' --install-extension ms-python.vscode-pylance
-        code --user-data-dir='.' --install-extension dart-code.dart-code
-        code --user-data-dir='.' --install-extension dart-code.flutter
-        code --user-data-dir='.' --install-extension donaldtone.auto-open-markdown-preview-single
-        code --user-data-dir='.' --install-extension golang.go
-        code --user-data-dir='.' --install-extension ms-azuretools.vscode-docker
-        code --user-data-dir='.' --install-extension hashicorp.terraform
-        # code --user-data-dir='.' --install-extension ms-vscode.cpptools
-        code --list-extensions
+        # install vscode extensions
+
+        installed_extensions=$(code --list-extensions)
+        if [[ "$installed_extensions" == *"hashicorp.terraform"* ]]; then
+            # extensions already installed
+            echo ""
+        else
+            code --user-data-dir='.' --install-extension ms-python.python
+            code --user-data-dir='.' --install-extension ms-python.vscode-pylance
+            code --user-data-dir='.' --install-extension dart-code.dart-code
+            code --user-data-dir='.' --install-extension dart-code.flutter
+            code --user-data-dir='.' --install-extension donaldtone.auto-open-markdown-preview-single
+            code --user-data-dir='.' --install-extension golang.go
+            code --user-data-dir='.' --install-extension ms-azuretools.vscode-docker
+            code --user-data-dir='.' --install-extension hashicorp.terraform
+            # code --user-data-dir='.' --install-extension ms-vscode.cpptools
+        fi
     }
     install_vscode_extensions
 

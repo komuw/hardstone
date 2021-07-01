@@ -61,18 +61,14 @@
     MY_NAME=$(whoami)
 
     create_dirs(){
-        printf "\n\n create my stuff dir\n"
         mkdir -p /home/$MY_NAME/mystuff
         chown -R $MY_NAME:$MY_NAME /home/$MY_NAME/mystuff
-
-        printf "\n\n create personalWork dir\n"
         mkdir -p /home/$MY_NAME/personalWork
         chown -R $MY_NAME:$MY_NAME /home/$MY_NAME/personalWork
     }
     create_dirs
 
     setup_terminator_conf(){
-        printf "\n\n create terminator conf dir\n"
         mkdir -p /home/$MY_NAME/.config && mkdir -p /home/$MY_NAME/.config/terminator
         TERMINATOR_CONFIG_FILE_CONTENTS='[global_config]
         enabled_plugins = LaunchpadCodeURLHandler, APTURLHandler, LaunchpadBugURLHandler

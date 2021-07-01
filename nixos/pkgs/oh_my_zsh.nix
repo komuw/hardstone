@@ -25,16 +25,20 @@
     MY_NAME=$(whoami)
 
     install_ohmyzsh(){
-        printf "\n\n Install ohmyzsh \n"
+        oh_my_zsh_licence="/home/$MY_NAME/.oh-my-zsh/LICENSE.txt"
+        if [ -f "$oh_my_zsh_licence" ]; then
+            # repo exists
+            echo ""
+        else
+            rm -rf /home/$MY_NAME/.oh-my-zsh
+            git clone https://github.com/robbyrussell/oh-my-zsh.git /home/$MY_NAME/.oh-my-zsh
 
-        rm -rf /home/$MY_NAME/.oh-my-zsh
-        git clone https://github.com/robbyrussell/oh-my-zsh.git /home/$MY_NAME/.oh-my-zsh
+            git clone https://github.com/zsh-users/zsh-autosuggestions /home/$MY_NAME/.oh-my-zsh/custom/plugins/zsh-autosuggestions
+            git clone https://github.com/zsh-users/zsh-completions /home/$MY_NAME/.oh-my-zsh/custom/plugins/zsh-completions
 
-        git clone https://github.com/zsh-users/zsh-autosuggestions /home/$MY_NAME/.oh-my-zsh/custom/plugins/zsh-autosuggestions
-        git clone https://github.com/zsh-users/zsh-completions /home/$MY_NAME/.oh-my-zsh/custom/plugins/zsh-completions
-
-        cp ../templates/zshrc.j2 /home/$MY_NAME/.zshrc
-        cp ../templates/zshrc.j2 ~/.zshrc
+            cp ../templates/zshrc.j2 /home/$MY_NAME/.zshrc
+            cp ../templates/zshrc.j2 ~/.zshrc
+        fi
 
         chown -R $MY_NAME:$MY_NAME /home/$MY_NAME/.zshrc
         chown -R $MY_NAME:$MY_NAME /home/$MY_NAME/.oh-my-zsh
@@ -46,3 +50,5 @@
 
   '';
 }
+
+

@@ -15,31 +15,31 @@
     MY_NAME=$(whoami)
 
     install_go_pkgs(){
-        printf "\n\n go install some golang packages\n"
-        go install github.com/rogpeppe/gohack@latest
-        go install honnef.co/go/tools/cmd/staticcheck@latest
-        go install github.com/go-delve/delve/cmd/dlv@latest
-        go install golang.org/x/tools/gopls@latest
-        go install golang.org/x/tools/cmd/godex@latest
-        go install github.com/traefik/yaegi/cmd/yaegi@latest # yaegi repl. usage: rlwrap yaegi
-        go install github.com/maruel/panicparse/v2/cmd/pp@latest
-        go install github.com/securego/gosec/cmd/gosec@latest
-        go install github.com/google/pprof@latest
-        go install github.com/rs/curlie@latest
-        go install github.com/tsenart/vegeta@latest
-        go install mvdan.cc/gofumpt@latest
+
+        curlie_bin_file="/home/$MY_NAME/go/bin/curlie"
+        if [ -f "$curlie_bin_file" ]; then
+            # modules exists
+            echo ""
+        else
+            go version
+            go install github.com/rogpeppe/gohack@latest
+            go install honnef.co/go/tools/cmd/staticcheck@latest
+            go install github.com/go-delve/delve/cmd/dlv@latest
+            go install golang.org/x/tools/gopls@latest
+            go install golang.org/x/tools/cmd/godex@latest
+            go install github.com/traefik/yaegi/cmd/yaegi@latest # yaegi repl. usage: rlwrap yaegi
+            go install github.com/maruel/panicparse/v2/cmd/pp@latest
+            go install github.com/securego/gosec/cmd/gosec@latest
+            go install github.com/google/pprof@latest
+            go install github.com/rs/curlie@latest
+            go install github.com/tsenart/vegeta@latest
+            go install mvdan.cc/gofumpt@latest
+            go install golang.org/dl/gotip@latest
+        fi
     }
     install_go_pkgs
 
-    install_gotip(){
-        printf "\n\n install gotip https://godoc.org/golang.org/dl/gotip \n"
-        go install golang.org/dl/gotip@latest
-    }
-    install_gotip
-
     change_owner(){
-        printf "\n\n change ownership of ~/go\n"
-        go version
         chown -R $MY_NAME:$MY_NAME /home/$MY_NAME/go
         chown -R $MY_NAME:$MY_NAME /home/$MY_NAME/.cache/
     }
@@ -47,3 +47,4 @@
 
   '';
 }
+
