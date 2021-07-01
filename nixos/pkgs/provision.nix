@@ -52,6 +52,8 @@
 
       ];
   hooks = ''
+    set -e # fail if any command fails
+
     printf "\n\n running hooks for provision.nix \n\n"
     
     MY_NAME=$(whoami)

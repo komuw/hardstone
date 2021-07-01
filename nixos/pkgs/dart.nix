@@ -7,6 +7,8 @@
   ];
 
   hooks = ''
+    set -e # fail if any command fails
+
     printf "\n\n running hooks for dart.nix \n\n"
 
     MY_NAME=$(whoami)

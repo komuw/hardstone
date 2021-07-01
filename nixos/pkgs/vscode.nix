@@ -12,6 +12,8 @@
   ];
 
   hooks = ''
+    set -e # fail if any command fails
+
     printf "\n\n running hooks for vscode.nix \n\n"
 
     MY_NAME=$(whoami)

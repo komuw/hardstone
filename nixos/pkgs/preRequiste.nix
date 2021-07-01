@@ -8,6 +8,8 @@
       pkgs.git
       ];
   hooks = ''
+    set -e # fail if any command fails
+
     printf "\n\n running hooks for preRequiste.nix \n\n"
 
     CURL_CA_BUNDLE=$(find /nix -name ca-bundle.crt |tail -n 1)

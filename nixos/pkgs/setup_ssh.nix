@@ -10,6 +10,8 @@
   PERSONAL_WORK_EMAIL = builtins.getEnv "PERSONAL_WORK_EMAIL" != "";
 
   hooks = ''
+    set -e # fail if any command fails
+
     printf "\n\n running hooks for setup_ssh.nix \n\n"
 
     MY_NAME=$(whoami)
