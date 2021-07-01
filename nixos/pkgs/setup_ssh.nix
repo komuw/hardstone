@@ -2,35 +2,41 @@
 
 {
   inputs = [];
+
+  # get env var from the external environment
+  # https://stackoverflow.com/a/58018392
+  SSH_KEY_PHRASE_PERSONAL = builtins.getEnv "SSH_KEY_PHRASE_PERSONAL" != "";
+  SSH_KEY_PHRASE_PERSONAL_WORK = builtins.getEnv "SSH_KEY_PHRASE_PERSONAL_WORK" != "";
+  PERSONAL_WORK_EMAIL = builtins.getEnv "PERSONAL_WORK_EMAIL" != "";
+
   hooks = ''
     printf "\n\n running hooks for setup_ssh.nix \n\n"
 
     MY_NAME=$(whoami)
 
-    validate(){
-        if [[ -z "${SSH_KEY_PHRASE_PERSONAL}" ]]; then
+    validate_env_vars(){
+        if [[ -z "$SSH_KEY_PHRASE_PERSONAL" ]]; then
             printf "\n env var SSH_KEY_PHRASE_PERSONAL is not set \n"
             exit 88
         else
             echo ""
         fi
 
-        if [[ -z "${SSH_KEY_PHRASE_PERSONAL_WORK}" ]]; then
+        if [[ -z "$SSH_KEY_PHRASE_PERSONAL_WORK" ]]; then
             printf "\n env var SSH_KEY_PHRASE_PERSONAL_WORK is not set \n"
             exit 88
         else
             echo ""
         fi
 
-        if [[ -z "${PERSONAL_WORK_EMAIL}" ]]; then
+        if [[ -z "$PERSONAL_WORK_EMAIL" ]]; then
             printf "\n env var PERSONAL_WORK_EMAIL is not set \n"
             exit 88
         else
             echo ""
         fi
-
     }
-    validate
+    validate_env_vars
 
     create_personal_ssh_key(){
         printf "\n\n create personal ssh-key\n"
