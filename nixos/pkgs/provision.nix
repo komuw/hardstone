@@ -102,32 +102,10 @@
         [plugins]'
         TERMINATOR_CONFIG_FILE=/home/$MY_NAME/.config/terminator/config
         touch "$TERMINATOR_CONFIG_FILE"
-        echo "$TERMINATOR_CONFIG_FILE_CONTENTS" >> "$TERMINATOR_CONFIG_FILE"
+        grep -qxF "$TERMINATOR_CONFIG_FILE_CONTENTS" "$TERMINATOR_CONFIG_FILE" || echo "$TERMINATOR_CONFIG_FILE_CONTENTS" >> "$TERMINATOR_CONFIG_FILE"
     }
     setup_terminator_conf
-
-    setup_bashrc(){
-        printf "\n\n configure .bashrc\n"
-        # there ought to be NO newlines in the content
-        BASHRC_FILE_FILE_CONTENTS='#solve passphrase error in ssh
-        #enable auto ssh-agent forwading
-        #see: http://rabexc.org/posts/pitfalls-of-ssh-agents
-        ssh-add -l &>/dev/null
-        if [ "$?" == 2 ]; then
-        test -r /home/$MY_NAME/.ssh-agent && \
-            eval "$(</home/$MY_NAME/.ssh-agent)" >/dev/null
-        ssh-add -l &>/dev/null
-        if [ "$?" == 2 ]; then
-            (umask 066; ssh-agent > /home/$MY_NAME/.ssh-agent)
-            eval "$(</home/$MY_NAME/.ssh-agent)" >/dev/null
-            ssh-add
-        fi
-        fi
-        export HISTTIMEFORMAT="%d/%m/%Y %T "'
-        BASHRC_FILE=/home/$MY_NAME/.bashrc
-        touch "$BASHRC_FILE"
-        echo "$BASHRC_FILE_FILE_CONTENTS" >> "$BASHRC_FILE"
-    }
-    setup_bashrc
   '';
 }
+
+
