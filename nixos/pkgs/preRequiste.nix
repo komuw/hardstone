@@ -14,6 +14,8 @@
 
     printf "\n\n running hooks for preRequiste.nix \n\n"
 
+    MY_NAME=$(whoami)
+
     CURL_CA_BUNDLE=$(find /nix -name ca-bundle.crt |tail -n 1)
     export CURL_CA_BUNDLE="$CURL_CA_BUNDLE"
   '';
