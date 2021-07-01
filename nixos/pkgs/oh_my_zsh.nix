@@ -25,8 +25,6 @@
     MY_NAME=$(whoami)
 
     install_ohmyzsh(){
-        printf "\n\n Install ohmyzsh \n"
-
         oh_my_zsh_licence="/home/$MY_NAME/.oh-my-zsh/LICENSE.txt"
         if [ -f "$oh_my_zsh_licence" ]; then
             # repo exists

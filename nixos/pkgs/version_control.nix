@@ -11,7 +11,7 @@
 
     MY_NAME=$(whoami)
 
-    printf "\n\n configure gitconfig\n"
+    # configure gitconfig
     GIT_CONFIG_FILE_CONTENTS='
     # https://blog.jiayu.co/2019/02/conditional-git-configuration/
 
@@ -44,7 +44,7 @@
     touch "$GIT_CONFIG_FILE"
     grep -qxF "$GIT_CONFIG_FILE_CONTENTS" "$GIT_CONFIG_FILE" || echo "$GIT_CONFIG_FILE_CONTENTS" >> "$GIT_CONFIG_FILE"
 
-    printf "\n\n configure ~/mystuff/ gitconfig\n"
+    # configure ~/mystuff/gitconfig
     MYSTUFF_GIT_CONFIG_FILE_CONTENTS='
     [user]
         name = $MY_NAME
@@ -54,7 +54,7 @@
     touch "$MYSTUFF_GIT_CONFIG_FILE"
     grep -qxF "$MYSTUFF_GIT_CONFIG_FILE_CONTENTS" "$MYSTUFF_GIT_CONFIG_FILE" || echo "$MYSTUFF_GIT_CONFIG_FILE_CONTENTS" >> "$MYSTUFF_GIT_CONFIG_FILE"
 
-    printf "\n\n configure ~/personalWork/ gitconfig\n"
+    # configure ~/personalWork/gitconfig
     PERSONAL_WORK_GIT_CONFIG_FILE_CONTENTS='
     [user]
         name = "$PERSONAL_WORK_NAME"
@@ -64,7 +64,7 @@
     touch "$PERSONAL_WORK_GIT_CONFIG_FILE"
     grep -qxF "$PERSONAL_WORK_GIT_CONFIG_FILE_CONTENTS" "$PERSONAL_WORK_GIT_CONFIG_FILE" || echo "$PERSONAL_WORK_GIT_CONFIG_FILE_CONTENTS" >> "$PERSONAL_WORK_GIT_CONFIG_FILE"
 
-    printf "\n\n configure gitattributes\n"
+    # configure gitattributes
     GIT_ATTRIBUTES_FILE_CONTENTS='
     *.c     diff=cpp
     *.h     diff=cpp
@@ -93,7 +93,7 @@
     touch "$GIT_ATTRIBUTES_FILE"
     grep -qxF "$GIT_ATTRIBUTES_FILE_CONTENTS" "$GIT_ATTRIBUTES_FILE" || echo "$GIT_ATTRIBUTES_FILE_CONTENTS" >> "$GIT_ATTRIBUTES_FILE"
 
-    printf "\n\n configure hgrc(mercurial)\n"
+    # configure hgrc(mercurial)
     MERCURIAL_CONFIG_FILE_CONTENTS='[ui]
     username = $MY_NAME <komuw05@gmail.com>'
     MERCURIAL_CONFIG_FILE=/home/$MY_NAME/.hgrc

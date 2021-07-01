@@ -22,7 +22,8 @@
 
     add_vscode_cofig(){
         # on MacOs it is /Users/$MY_NAME/Library/Application\ Support/Code/User/settings.json
-        printf "\n\n  configure vscode user settings file\n"
+
+        # configure vscode user settings file
         mkdir -p /home/$MY_NAME/.config/Code/User
         mkdir -p /home/$MY_NAME/.vscode
         touch /home/$MY_NAME/.config/Code/User/settings.json
@@ -33,7 +34,7 @@
     add_vscode_cofig
 
     install_vscode_extensions(){
-        printf "\n\n  install vscode extensions\n"
+        # install vscode extensions
 
         installed_extensions=$(code --list-extensions)
         if [[ "$installed_extensions" == *"hashicorp.terraform"* ]]; then

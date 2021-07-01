@@ -15,7 +15,6 @@
     MY_NAME=$(whoami)
 
     install_go_pkgs(){
-        printf "\n\n go install some golang packages\n"
 
         curlie_bin_file="/home/$MY_NAME/go/bin/curlie"
         if [ -f "$curlie_bin_file" ]; then
@@ -41,7 +40,6 @@
     install_go_pkgs
 
     change_owner(){
-        printf "\n\n change ownership of ~/go\n"
         chown -R $MY_NAME:$MY_NAME /home/$MY_NAME/go
         chown -R $MY_NAME:$MY_NAME /home/$MY_NAME/.cache/
     }
