@@ -39,6 +39,7 @@ sudo apt -y update && \
 sudo apt -y install python && \
 sudo apt -y install python3-pip nano wget unzip curl screen
 
+MY_NAME=$(whoami)
 rm -rf /home/$MY_NAME/installDir
 mkdir -p /home/$MY_NAME/installDir
 cd /home/$MY_NAME/installDir
