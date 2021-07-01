@@ -10,7 +10,9 @@
   PERSONAL_WORK_EMAIL = builtins.getEnv "PERSONAL_WORK_EMAIL" != "";
 
   hooks = ''
-    set -e # fail if any command fails
+      # set -e # fail if any command fails
+      # do not use `set -e` which causes commands to fail.
+      # because it causes `nix-shell` to also exit if a command fails when running in the eventual shell
 
     printf "\n\n running hooks for setup_ssh.nix \n\n"
 

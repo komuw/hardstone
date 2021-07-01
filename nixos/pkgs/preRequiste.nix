@@ -8,7 +8,9 @@
       pkgs.git
       ];
   hooks = ''
-    set -e # fail if any command fails
+      # set -e # fail if any command fails
+      # do not use `set -e` which causes commands to fail.
+      # because it causes `nix-shell` to also exit if a command fails when running in the eventual shell
 
     printf "\n\n running hooks for preRequiste.nix \n\n"
 
