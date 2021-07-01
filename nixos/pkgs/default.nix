@@ -33,18 +33,21 @@ let
   preRequistePath  = ./preRequiste.nix;
   provisionPath  = ./provision.nix;
   versionControlPath  = ./version_control.nix;
+  setupSshPath  = ./setup_ssh.nix;
 
   inputs = basePackages 
     ++ lib.optional (builtins.pathExists preRequistePath) (import preRequistePath {}).inputs
     ++ lib.optional (builtins.pathExists provisionPath) (import provisionPath {}).inputs
-    ++ lib.optional (builtins.pathExists versionControlPath) (import versionControlPath {}).inputs;
+    ++ lib.optional (builtins.pathExists versionControlPath) (import versionControlPath {}).inputs
+    + lib.optional (builtins.pathExists setupSshPath) (import setupSshPath {}).inputs;
 
   baseHooks = "echo 'hello from default.nix;'";
 
   shellHooks = baseHooks
     + lib.optionalString (builtins.pathExists preRequistePath) (import preRequistePath {}).hooks
     + lib.optionalString (builtins.pathExists provisionPath) (import provisionPath {}).hooks
-    + lib.optionalString (builtins.pathExists versionControlPath) (import versionControlPath {}).hooks;
+    + lib.optionalString (builtins.pathExists versionControlPath) (import versionControlPath {}).hooks
+    + lib.optionalString (builtins.pathExists setupSshPath) (import setupSshPath {}).hooks;
 
 in mkShell {
   buildInputs = inputs;
@@ -57,7 +60,7 @@ in mkShell {
 # /bin/bash preRequiste.sh                         - DONE.
 # /bin/bash user.sh "$USER_PASSWORD"               - DONE
 # /bin/bash provision.sh                           - DONE
-# /bin/bash version_control.sh "$PERSONAL_WORK_EMAIL" "$PERSONAL_WORK_NAME"
+# /bin/bash version_control.sh "$PERSONAL_WORK_EMAIL" "$PERSONAL_WORK_NAME"  - DONE
 # /bin/bash setup_ssh.sh "$SSH_KEY_PHRASE_PERSONAL" "$SSH_KEY_PHRASE_PERSONAL_WORK" "$PERSONAL_WORK_EMAIL"
 # /bin/bash golang.sh
 # /bin/bash vscode.sh

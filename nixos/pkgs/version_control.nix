@@ -1,12 +1,7 @@
 { pkgs ? import (fetchTarball "https://github.com/NixOS/nixpkgs/archive/21.05.tar.gz") {} }:
 
 {
-  inputs = [
-      pkgs.gcc
-      pkgs.curl 
-      pkgs.wget 
-      pkgs.git
-      ];
+  inputs = [];
   hooks = ''
     printf "\n\n running hooks for version_control.nix \n\n"
 
