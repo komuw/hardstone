@@ -4,7 +4,18 @@
   inputs = [
       pkgs.zsh
       ];
+
+  programs.zsh.enable = true;
+  programs.zsh.histSize = 4000;
+  programs.zsh.autosuggestions.enable = true;
+  programs.zsh.enableCompletion = true;
+  programs.zsh.enableBashCompletion = true;
+
+  programs.zsh.ohMyZsh.enable = true;
+
   hooks = ''
+    set -e # fail if any command fails
+
     printf "\n\n running hooks for oh_my_zsh.nix \n\n"
 
     MY_NAME=$(whoami)
