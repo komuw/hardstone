@@ -48,7 +48,7 @@ git clone https://github.com/komuw/hardstone.git
 cd hardstone/
 git checkout nix-inheritance
 cd nixos/
-bash start.sh
+bash start.sh && nix-shell pkgs/
 
 
 screen -S nixSession
