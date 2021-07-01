@@ -9,18 +9,6 @@
     printf "\n\n running hooks for vscode.nix \n\n"
 
     MY_NAME=$(whoami)
-    
-    # install_vscode(){
-    #     printf "\n\n install vscode dependencies \n"
-
-    #     rm -rf /tmp/vscode.deb
-    #     sudo apt -y update
-    #     sudo apt -y install libxkbfile1
-    #     printf "\n\n  download vscode\n"
-    #     wget -nc --output-document=/tmp/vscode.deb "https://go.microsoft.com/fwlink/?LinkID=760868"
-    #     sudo dpkg -i /tmp/vscode.deb
-    # }
-    # install_vscode
 
     add_vscode_cofig(){
         # on MacOs it is /Users/$MY_NAME/Library/Application\ Support/Code/User/settings.json

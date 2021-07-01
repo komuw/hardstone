@@ -10,6 +10,7 @@
 
     GOLANG_VERSION=go1.16.linux-amd64;
 
+    # TODO: install this via `inputs = [pkgs.golang]`
     install_golang(){
         printf "\n\n  install golang\n"
 

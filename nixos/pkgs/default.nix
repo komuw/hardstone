@@ -69,7 +69,7 @@ in mkShell {
 # /bin/bash version_control.sh "$PERSONAL_WORK_EMAIL" "$PERSONAL_WORK_NAME"  - DONE
 # /bin/bash setup_ssh.sh "$SSH_KEY_PHRASE_PERSONAL" "$SSH_KEY_PHRASE_PERSONAL_WORK" "$PERSONAL_WORK_EMAIL" - DONE
 # /bin/bash golang.sh - DONE
-# /bin/bash vscode.sh
+# /bin/bash vscode.sh - DONE
 # /bin/bash dart.sh
 # /bin/bash media.sh
 # /bin/bash tools.sh
