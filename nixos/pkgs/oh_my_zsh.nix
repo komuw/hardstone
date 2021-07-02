@@ -20,7 +20,7 @@
       # do not use `set -e` which causes commands to fail.
       # because it causes `nix-shell` to also exit if a command fails when running in the eventual shell
 
-    printf "\n\n running hooks for oh_my_zsh.nix \n\n"
+    printf "\n running hooks for oh_my_zsh.nix \n"
 
     MY_NAME=$(whoami)
 
@@ -43,7 +43,7 @@
         chown -R $MY_NAME:$MY_NAME /home/$MY_NAME/.zshrc
         chown -R $MY_NAME:$MY_NAME /home/$MY_NAME/.oh-my-zsh
 
-        # printf "\n\n  activate zsh shell\n"
+        # printf "\n activate zsh shell\n"
         # chsh -s $(which zsh)
     }
     install_ohmyzsh

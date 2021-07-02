@@ -9,8 +9,7 @@ export DEBIAN_FRONTEND=noninteractive
 # 1. docker build -t hardstone-nix .
 # 2. docker run -it hardstone-nix
 # 3. bash start.sh
-# 4. export NIXPKGS_ALLOW_UNFREE=1 # for vscode
-#    export SSH_KEY_PHRASE_PERSONAL=SSH_KEY_PHRASE_PERSONAL
+# 4. export SSH_KEY_PHRASE_PERSONAL=SSH_KEY_PHRASE_PERSONAL
 #    export SSH_KEY_PHRASE_PERSONAL_WORK=SSH_KEY_PHRASE_PERSONAL_WORK
 #    export PERSONAL_WORK_EMAIL=PERSONAL_WORK_EMAIL@example.com
 # 5. nix-shell pkgs/
@@ -82,7 +81,14 @@ create_nix_conf_file(){
 
     sudo rm -rf /etc/nix/nix.conf
     sudo mkdir -p /etc/nix/
-    sudo cp etc.nix.nix.conf /etc/nix/nix.conf
+    sudo chown -R $MY_NAME:sudo /etc/nix/
+    cp etc.nix.nix.conf /etc/nix/nix.conf
+
+    mkdir -p ~/.config/nixpkgs
+    mkdir -p /home/$MY_NAME/.config/nixpkgs
+
+    cp config.nixpkgs.config.nix ~/.config/nixpkgs/config.nix
+    cp config.nixpkgs.config.nix /home/$MY_NAME/.config/nixpkgs/config.nix
 }
 create_nix_conf_file
 

@@ -51,7 +51,7 @@ let
     ++ lib.optional (builtins.pathExists toolsPath) (import toolsPath {}).inputs
     ++ lib.optional (builtins.pathExists ohMyZshPath) (import ohMyZshPath {}).inputs;
 
-  baseHooks = "printf '\n\n running hooks for default.nix \n\n'";
+  baseHooks = "printf '\n running hooks for default.nix \n'";
 
   shellHooks = baseHooks
     + lib.optionalString (builtins.pathExists preRequistePath) (import preRequistePath {}).hooks
