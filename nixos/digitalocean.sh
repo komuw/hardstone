@@ -49,7 +49,6 @@ cd hardstone/
 git checkout master
 cd nixos/
 bash start.sh
-export NIXPKGS_ALLOW_UNFREE=1 # for vscode
 export SSH_KEY_PHRASE_PERSONAL=SSH_KEY_PHRASE_PERSONAL
 export SSH_KEY_PHRASE_PERSONAL_WORK=SSH_KEY_PHRASE_PERSONAL_WORK
 export PERSONAL_WORK_EMAIL=PERSONAL_WORK_EMAIL@example.com
