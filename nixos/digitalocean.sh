@@ -46,7 +46,7 @@ cd /home/$MY_NAME/installDir
 
 git clone https://github.com/komuw/hardstone.git
 cd hardstone/
-git checkout master
+git checkout nix-conf
 cd nixos/
 bash start.sh
 export SSH_KEY_PHRASE_PERSONAL=SSH_KEY_PHRASE_PERSONAL
