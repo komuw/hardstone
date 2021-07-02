@@ -11,7 +11,7 @@
       pkgs.telnet
       pkgs.htop
       # `unrar` has an unfree LICENSE. By default, nix refuses to install it.
-      #  We can force nix to install by setting env var `export NIXPKGS_ALLOW_UNFREE=1`
+      #  We can force nix to install by setting env var `export NIXPKGS_ALLOW_UNFREE=1` or `allowUnfree` in `~/.config/nixpkgs/config.nix`
       # pkgs.unrar
       pkgs.transmission
       pkgs.vlc
@@ -56,7 +56,7 @@
       # do not use `set -e` which causes commands to fail.
       # because it causes `nix-shell` to also exit if a command fails when running in the eventual shell
 
-    printf "\n\n running hooks for provision.nix \n\n"
+    printf "\n running hooks for provision.nix \n"
     
     MY_NAME=$(whoami)
 
