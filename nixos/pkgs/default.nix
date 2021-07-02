@@ -68,20 +68,3 @@ in mkShell {
   buildInputs = inputs;
   shellHook = shellHooks;
 }
-
-
-# TODO: remove when done
-#
-# /bin/bash preRequiste.sh                         - DONE.
-# /bin/bash user.sh "$USER_PASSWORD"               - DONE
-# /bin/bash provision.sh                           - DONE
-# /bin/bash version_control.sh "$PERSONAL_WORK_EMAIL" "$PERSONAL_WORK_NAME"  - DONE
-# /bin/bash setup_ssh.sh "$SSH_KEY_PHRASE_PERSONAL" "$SSH_KEY_PHRASE_PERSONAL_WORK" "$PERSONAL_WORK_EMAIL" - DONE
-# /bin/bash golang.sh - DONE
-# /bin/bash vscode.sh - DONE
-# /bin/bash dart.sh - DONE
-# /bin/bash media.sh - DONE
-# /bin/bash tools.sh - DONE
-# /bin/bash ohmyz.sh
-# /bin/bash java.sh
-# /bin/bash clean_up.sh
