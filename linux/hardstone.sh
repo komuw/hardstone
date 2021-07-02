@@ -21,24 +21,18 @@ if [ "$SSH_KEY_PHRASE_PERSONAL" == "sshKeyPhrasePersonalNotSet"  ]; then
     exit
 fi
 
-SSH_KEY_PHRASE_PERSONAL_WORK=${2:-sshKeyPhrasePersonalWorkNotSet}
-if [ "$SSH_KEY_PHRASE_PERSONAL_WORK" == "sshKeyPhrasePersonalWorkNotSet"  ]; then
-    printf "\n\n SSH_KEY_PHRASE_PERSONAL_WORK should not be empty\n"
-    exit
-fi
-
-PERSONAL_WORK_EMAIL=${3:-PERSONAL_WORK_EMAILNotSet}
+PERSONAL_WORK_EMAIL=${2:-PERSONAL_WORK_EMAILNotSet}
 if [ "$PERSONAL_WORK_EMAIL" == "PERSONAL_WORK_EMAILNotSet"  ]; then
     printf "\n\n PERSONAL_WORK_EMAIL should not be empty\n"
     exit
 fi
 
-PERSONAL_WORK_NAME=${4:-PERSONAL_WORK_NAMENotSet}
+PERSONAL_WORK_NAME=${3:-PERSONAL_WORK_NAMENotSet}
 if [ "$PERSONAL_WORK_NAME" == "PERSONAL_WORK_NAMENotSet"  ]; then
     printf "\n\n PERSONAL_WORK_NAME should not be empty\n"
     exit
 fi
-USER_PASSWORD=${5:-userPass}
+USER_PASSWORD=${4:-userPass}
 if [ "$USER_PASSWORD" == "userPass"  ]; then
     printf "\n\n USER_PASSWORD should not be empty\n"
     exit
@@ -66,7 +60,7 @@ printf "\n\n CALLING version_control.sh::\n\n"
 printf "\n\n version_control.sh done::\n"
 
 printf "\n\n CALLING setup_ssh.sh::\n\n"
-/bin/bash setup_ssh.sh "$SSH_KEY_PHRASE_PERSONAL" "$SSH_KEY_PHRASE_PERSONAL_WORK" "$PERSONAL_WORK_EMAIL"
+/bin/bash setup_ssh.sh "$SSH_KEY_PHRASE_PERSONAL" "$PERSONAL_WORK_EMAIL"
 printf "\n\n setup_ssh.sh done::\n"
 
 printf "\n\n CALLING golang.sh::\n\n"

@@ -14,7 +14,7 @@ This is my setup, it may not work for you. Feel free to modify appropriately.
 * cd into this project's directory
 * run: 
 ```shell
-bash linux/hardstone.sh mySshKeyPassphrase personalWorkSshKeyPhrase personalWorkEmail personalWorkName UserPassword
+bash linux/hardstone.sh mySshKeyPassphrase personalWorkEmail personalWorkName UserPassword
 ```
 * go make a cup of coffee, this may take a while
 * your dev environment is ready

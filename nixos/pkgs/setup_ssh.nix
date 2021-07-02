@@ -6,7 +6,6 @@
   # get env var from the external environment
   # https://stackoverflow.com/a/58018392
   SSH_KEY_PHRASE_PERSONAL = builtins.getEnv "SSH_KEY_PHRASE_PERSONAL" != "";
-  PERSONAL_WORK_EMAIL = builtins.getEnv "PERSONAL_WORK_EMAIL" != "";
 
   hooks = ''
       # set -e # fail if any command fails
@@ -21,13 +20,6 @@
     validate_env_vars(){
         if [[ -z "$SSH_KEY_PHRASE_PERSONAL" ]]; then
             printf "\n\t ERROR: env var SSH_KEY_PHRASE_PERSONAL is not set \n"
-            exit 88
-        else
-            echo ""
-        fi
-
-        if [[ -z "$PERSONAL_WORK_EMAIL" ]]; then
-            printf "\n\t ERROR: env var PERSONAL_WORK_EMAIL is not set \n"
             exit 88
         else
             echo ""
@@ -54,7 +46,7 @@
     create_personal_ssh_key(){
         if [[ ! -e /home/$MY_NAME/.ssh/personal_id_rsa.pub ]]; then
             mkdir -p /home/$MY_NAME/.ssh
-            ssh-keygen -t rsa -C "$MY_NAME.personal@MY_HOSTNAME" -b 8192 -q -N "$SSH_KEY_PHRASE_PERSONAL" -f /home/$MY_NAME/.ssh/personal_id_rsa
+            ssh-keygen -t rsa -C "$MY_NAME.personal@$MY_HOSTNAME" -b 8192 -q -N "$SSH_KEY_PHRASE_PERSONAL" -f /home/$MY_NAME/.ssh/personal_id_rsa
         fi
         chmod 600 /home/$MY_NAME/.ssh/personal_id_rsa
         chmod 600 /home/$MY_NAME/.ssh/personal_id_rsa.pub
@@ -67,7 +59,7 @@
     create_personal_work_ssh_key(){
         if [[ ! -e /home/$MY_NAME/.ssh/personal_work_id_rsa.pub ]]; then
             mkdir -p /home/$MY_NAME/.ssh
-            ssh-keygen -t rsa -C "$MY_NAME.personal_work@MY_HOSTNAME" -b 8192 -q -N "$SSH_KEY_PHRASE_PERSONAL" -f /home/$MY_NAME/.ssh/personal_work_id_rsa
+            ssh-keygen -t rsa -C "$MY_NAME.personal_work@$MY_HOSTNAME" -b 8192 -q -N "$SSH_KEY_PHRASE_PERSONAL" -f /home/$MY_NAME/.ssh/personal_work_id_rsa
         fi
         chmod 600 /home/$MY_NAME/.ssh/personal_work_id_rsa
         chmod 600 /home/$MY_NAME/.ssh/personal_work_id_rsa.pub

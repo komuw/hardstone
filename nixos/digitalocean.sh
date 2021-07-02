@@ -50,7 +50,6 @@ git checkout master
 cd nixos/
 bash start.sh
 export SSH_KEY_PHRASE_PERSONAL=SSH_KEY_PHRASE_PERSONAL
-export PERSONAL_WORK_EMAIL=PERSONAL_WORK_EMAIL@example.com
 nix-shell pkgs/
 
 
