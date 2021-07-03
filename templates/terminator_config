@@ -3,6 +3,7 @@ enabled_plugins = LaunchpadCodeURLHandler, APTURLHandler, LaunchpadBugURLHandler
 [keybindings]
 copy = <Primary>c
 paste = <Primary>v
+new_tab = <Primary>t
 [profiles]
 [[default]]
     use_system_font = False
