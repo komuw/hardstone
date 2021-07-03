@@ -6,7 +6,6 @@
       pkgs.openssh # TODO: we only want client not server
       pkgs.kdiff3
       pkgs.meld
-      pkgs.terminator
       pkgs.lsof
       pkgs.telnet
       pkgs.htop
@@ -68,43 +67,6 @@
     }
     create_dirs
 
-    setup_terminator_conf(){
-        mkdir -p /home/$MY_NAME/.config && mkdir -p /home/$MY_NAME/.config/terminator
-        TERMINATOR_CONFIG_FILE_CONTENTS='[global_config]
-        enabled_plugins = LaunchpadCodeURLHandler, APTURLHandler, LaunchpadBugURLHandler
-        [keybindings]
-        copy = <Primary>c
-        paste = <Primary>v
-        [profiles]
-        [[default]]
-            use_system_font = False
-            background_darkness = 0.94
-            background_type = transparent
-            background_image = None
-            foreground_color = "#00ff00"
-            font = Monospace 13
-        [[{{ USER }}]]
-            use_system_font = False
-            background_darkness = 0.8
-            background_type = transparent
-            background_image = None
-            foreground_color = "#00ff00"
-            font = Monospace 14
-        [layouts]
-        [[default]]
-            [[[child1]]]
-            profile = New Profile
-            type = Terminal
-            parent = window0
-            [[[window0]]]
-            type = Window
-            parent = ""
-        [plugins]'
-        TERMINATOR_CONFIG_FILE=/home/$MY_NAME/.config/terminator/config
-        touch "$TERMINATOR_CONFIG_FILE"
-        grep -qxF "$TERMINATOR_CONFIG_FILE_CONTENTS" "$TERMINATOR_CONFIG_FILE" || echo "$TERMINATOR_CONFIG_FILE_CONTENTS" >> "$TERMINATOR_CONFIG_FILE"
-    }
-    setup_terminator_conf
   '';
 }
 
