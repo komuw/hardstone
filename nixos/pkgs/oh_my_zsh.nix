@@ -28,7 +28,7 @@
         oh_my_zsh_licence="/home/$MY_NAME/.oh-my-zsh/LICENSE.txt"
         if [ -f "$oh_my_zsh_licence" ]; then
             # repo exists
-            echo ""
+            echo -n ""
         else
             rm -rf /home/$MY_NAME/.oh-my-zsh
             git clone https://github.com/robbyrussell/oh-my-zsh.git /home/$MY_NAME/.oh-my-zsh

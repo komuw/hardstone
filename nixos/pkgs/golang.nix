@@ -19,7 +19,7 @@
         curlie_bin_file="/home/$MY_NAME/go/bin/curlie"
         if [ -f "$curlie_bin_file" ]; then
             # modules exists
-            echo ""
+            echo -n ""
         else
             go version
             go install github.com/rogpeppe/gohack@latest

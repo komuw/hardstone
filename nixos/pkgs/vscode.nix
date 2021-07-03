@@ -34,7 +34,7 @@
         installed_extensions=$(code --list-extensions)
         if [[ "$installed_extensions" == *"hashicorp.terraform"* ]]; then
             # extensions already installed
-            echo ""
+            echo -n ""
         else
             code --user-data-dir='/tmp/' --install-extension ms-python.python
             code --user-data-dir='/tmp/' --install-extension ms-python.vscode-pylance
