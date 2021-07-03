@@ -1,0 +1,3 @@
+[user]
+    name = "$PERSONAL_WORK_NAME"
+    email = "$PERSONAL_WORK_EMAIL"

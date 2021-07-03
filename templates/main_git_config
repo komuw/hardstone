@@ -1,0 +1,26 @@
+# https://blog.jiayu.co/2019/02/conditional-git-configuration/
+
+[includeIf "gitdir:~/personalWork/"]
+    path = ~/personalWork/.gitconfig
+
+[includeIf "gitdir:~/mystuff/"]
+    path = ~/mystuff/.gitconfig
+
+[alias]
+co = checkout
+ci = commit
+st = status
+br = branch
+hist = log --pretty=format:\"%h %ad | %s%d [%an]\" --graph --date=short
+type = cat-file -t
+dump = cat-file -p
+
+[diff]
+tool = meld
+[difftool "meld"]
+
+[merge]
+tool = meld
+conflictstyle = diff3
+[mergetool "meld"]
+keepBackup = false
