@@ -1,3 +1,5 @@
+# docs: https://www.systutorials.com/docs/linux/man/5-terminator_config
+
 [global_config]
 enabled_plugins = LaunchpadCodeURLHandler, APTURLHandler, LaunchpadBugURLHandler
 
@@ -17,6 +19,8 @@ new_tab = <Primary>t
     # If True, the value of `custom_command` will be used instead of the default shell.
     use_custom_command = True
     custom_command = zsh
+    # Number of scrollback lines to keep around. You can scroll back in the terminal by this number of lines. default is 500
+    scrollback_lines = 2000
 [[{{ USER }}]]
     use_system_font = False
     background_darkness = 0.8
