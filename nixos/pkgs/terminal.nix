@@ -14,10 +14,12 @@
     MY_NAME=$(whoami)
 
     setup_terminator_conf(){
-        mkdir -p /home/$MY_NAME/.config && mkdir -p /home/$MY_NAME/.config/terminator
+        mkdir -p /home/$MY_NAME/.config
+        mkdir -p /home/$MY_NAME/.config/terminator
         cp ../templates/terminator_config /home/$MY_NAME/.config/terminator/config
     }
     setup_terminator_conf
+
   '';
 }
 

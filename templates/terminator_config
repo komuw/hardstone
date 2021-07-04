@@ -1,9 +1,11 @@
 [global_config]
 enabled_plugins = LaunchpadCodeURLHandler, APTURLHandler, LaunchpadBugURLHandler
+
 [keybindings]
 copy = <Primary>c
 paste = <Primary>v
 new_tab = <Primary>t
+
 [profiles]
 [[default]]
     use_system_font = False
@@ -12,6 +14,9 @@ new_tab = <Primary>t
     background_image = None
     foreground_color = "#00ff00"
     font = Monospace 13
+    # If True, the value of `custom_command` will be used instead of the default shell.
+    use_custom_command = True
+    custom_command = zsh
 [[{{ USER }}]]
     use_system_font = False
     background_darkness = 0.8
@@ -19,6 +24,7 @@ new_tab = <Primary>t
     background_image = None
     foreground_color = "#00ff00"
     font = Monospace 14
+
 [layouts]
 [[default]]
     [[[child1]]]
@@ -28,4 +34,5 @@ new_tab = <Primary>t
     [[[window0]]]
     type = Window
     parent = ""
+
 [plugins]
