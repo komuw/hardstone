@@ -34,6 +34,12 @@ pre_setup(){
     sudo apt-get -y update
     sudo rm -rf /var/cache/apt/archives/lock && sudo rm -rf /var/lib/dpkg/lock && sudo rm -rf /var/cache/debconf/*.dat  # remove potential apt lock
     sudo apt-get -f -y install                                                                                          # fix broken dependencies
+
+    # setup gnome-terminal with custom config
+    # https://askubuntu.com/a/1241849
+    # use; `dconf dump /org/gnome/terminal/` to print the current config
+    cat ../templates/gnome_terminal_config | dconf load /org/gnome/terminal/
+    # config reference is: https://help.gnome.org/users/gnome-terminal/stable/pref.html.en
 }
 pre_setup
 
@@ -147,26 +153,13 @@ clear_stuff(){
 clear_stuff
 
 
-
 create_nix_aliases(){
     printf "\n\n\t 9. create_nix_aliases \n"
 
     touch ~/.bash_aliases # touch is silent if file already exists
-
-    echo "##### nix package manager aliases #####
-alias nix='/nix/var/nix/profiles/per-user/$MY_NAME/profile/bin/nix'
-alias nix-build='/nix/var/nix/profiles/per-user/$MY_NAME/profile/bin/nix-build'
-alias nix-channel='/nix/var/nix/profiles/per-user/$MY_NAME/profile/bin/nix-channel'
-alias nix-collect-garbage='/nix/var/nix/profiles/per-user/$MY_NAME/profile/bin/nix-collect-garbage'
-alias nix-copy-closure='/nix/var/nix/profiles/per-user/$MY_NAME/profile/bin/nix-copy-closure'
-alias nix-daemon='/nix/var/nix/profiles/per-user/$MY_NAME/profile/bin/nix-daemon'
-alias nix-env='/nix/var/nix/profiles/per-user/$MY_NAME/profile/bin/nix-env'
-alias nix-hash='/nix/var/nix/profiles/per-user/$MY_NAME/profile/bin/nix-hash'
-alias nix-instantiate='/nix/var/nix/profiles/per-user/$MY_NAME/profile/bin/nix-instantiate'
-alias nix--prefetch-url='/nix/var/nix/profiles/per-user/$MY_NAME/profile/bin/nix--prefetch-url'
-alias nix-shell='/nix/var/nix/profiles/per-user/$MY_NAME/profile/bin/nix-shell'
-alias nix-store='/nix/var/nix/profiles/per-user/$MY_NAME/profile/bin/nix-store'
-##### nix package manager aliases #####" | sudo tee ~/.bash_aliases
+    chown -R $MY_NAME:sudo ~/.bash_aliases
+    cp bash_aliases_conf ~/.bash_aliases
+    cp bash_aliases_conf /home/$MY_NAME/.bash_aliases
 
     . ~/.bash_aliases # source a file
 }
