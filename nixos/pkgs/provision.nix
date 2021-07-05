@@ -1,73 +1,76 @@
-{ pkgs ? import (fetchTarball "https://github.com/NixOS/nixpkgs/archive/21.05.tar.gz") {} }:
+with (import (fetchTarball "https://github.com/NixOS/nixpkgs/archive/21.05.tar.gz") {});
 
-{
-  inputs = [
-      pkgs.mpv
-      pkgs.openssh # TODO: we only want client not server
-      pkgs.kdiff3
-      pkgs.meld
-      pkgs.lsof
-      pkgs.telnet
-      pkgs.htop
-      # `unrar` has an unfree LICENSE. By default, nix refuses to install it.
-      #  We can force nix to install by setting env var `export NIXPKGS_ALLOW_UNFREE=1` or `allowUnfree` in `~/.config/nixpkgs/config.nix`
-      # pkgs.unrar
-      pkgs.transmission
-      pkgs.vlc
-      pkgs.screen
-      pkgs.iftop
-      pkgs.tcptrack
-      pkgs.wireshark
-      pkgs.nano
-      pkgs.zip
-      pkgs.redir
-      pkgs.gdb
-      pkgs.hexchat
-      pkgs.mosh
-      pkgs.vnstat
-      pkgs.psmisc
-      pkgs.traceroute
-      pkgs.graphviz
-      pkgs.ffmpeg
-      pkgs.x264
-      pkgs.x265
-      pkgs.nettools
-      pkgs.aria
-      pkgs.shellcheck
-      pkgs.rlwrap
-      pkgs.tree
-      pkgs.streamlink
+let
 
-       # FOUND BUT NOT SURE WE NEED THESE:
-       # lxc 
+in stdenv.mkDerivation {
+    name = "provision";
 
-        # WE HAVENT FOUND THESE:
-        # postgresql-client
-        # lxc-templates 
-        # cgroup-lite 
-        # gdebi
-        # wireguard
-        # openssh-client
+    buildInputs = [
+        pkgs.mpv
+        pkgs.openssh # TODO: we only want client not server
+        pkgs.kdiff3
+        pkgs.meld
+        pkgs.lsof
+        pkgs.telnet
+        pkgs.htop
+        # `unrar` has an unfree LICENSE. By default, nix refuses to install it.
+        #  We can force nix to install by setting env var `export NIXPKGS_ALLOW_UNFREE=1` or `allowUnfree` in `~/.config/nixpkgs/config.nix`
+        # pkgs.unrar
+        pkgs.transmission
+        pkgs.vlc
+        pkgs.screen
+        pkgs.iftop
+        pkgs.tcptrack
+        pkgs.wireshark
+        pkgs.nano
+        pkgs.zip
+        pkgs.redir
+        pkgs.gdb
+        pkgs.hexchat
+        pkgs.mosh
+        pkgs.vnstat
+        pkgs.psmisc
+        pkgs.traceroute
+        pkgs.graphviz
+        pkgs.ffmpeg
+        pkgs.x264
+        pkgs.x265
+        pkgs.nettools
+        pkgs.aria
+        pkgs.shellcheck
+        pkgs.rlwrap
+        pkgs.tree
+        pkgs.streamlink
 
-      ];
-  hooks = ''
-      # set -e # fail if any command fails
-      # do not use `set -e` which causes commands to fail.
-      # because it causes `nix-shell` to also exit if a command fails when running in the eventual shell
+        # FOUND BUT NOT SURE WE NEED THESE:
+        # lxc
 
-    printf "\n running hooks for provision.nix \n"
-    
-    MY_NAME=$(whoami)
+          # WE HAVENT FOUND THESE:
+          # postgresql-client
+          # lxc-templates
+          # cgroup-lite
+          # gdebi
+          # wireguard
+          # openssh-client
 
-    create_dirs(){
-        mkdir -p /home/$MY_NAME/mystuff
-        chown -R $MY_NAME:$MY_NAME /home/$MY_NAME/mystuff
-        mkdir -p /home/$MY_NAME/personalWork
-        chown -R $MY_NAME:$MY_NAME /home/$MY_NAME/personalWork
-    }
-    create_dirs
+        ];
 
-  '';
+    shellHook = ''
+        # set -e # fail if any command fails
+        # do not use `set -e` which causes commands to fail.
+        # because it causes `nix-shell` to also exit if a command fails when running in the eventual shell
+
+      printf "\n running hooks for provision.nix \n"
+
+      MY_NAME=$(whoami)
+
+      create_dirs(){
+          mkdir -p /home/$MY_NAME/mystuff
+          chown -R $MY_NAME:$MY_NAME /home/$MY_NAME/mystuff
+          mkdir -p /home/$MY_NAME/personalWork
+          chown -R $MY_NAME:$MY_NAME /home/$MY_NAME/personalWork
+      }
+      create_dirs
+
+    '';
 }
-
-
