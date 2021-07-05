@@ -26,48 +26,50 @@ with (import (fetchTarball "https://github.com/NixOS/nixpkgs/archive/21.05.tar.g
       2. nix search wget
 */
 
-
 let
-  basePackages = [ ];
-  
-  preRequistePath  = ./preRequiste.nix;
-  provisionPath  = ./provision.nix;
-  versionControlPath  = ./version_control.nix;
-  setupSshPath  = ./setup_ssh.nix;
-  golangPath  = ./golang.nix;
-  vscodePath  = ./vscode.nix;
-  dartPath  = ./dart.nix;
-  toolsPath  = ./tools.nix;
-  ohMyZshPath  = ./oh_my_zsh.nix;
-  terminalPath  = ./terminal.nix;
+    basePackages = [];
+    baseHooks = "";
 
-  inputs = basePackages 
-    ++ lib.optional (builtins.pathExists preRequistePath) (import preRequistePath {}).inputs
-    ++ lib.optional (builtins.pathExists provisionPath) (import provisionPath {}).inputs
-    ++ lib.optional (builtins.pathExists versionControlPath) (import versionControlPath {}).inputs
-    ++ lib.optional (builtins.pathExists setupSshPath) (import setupSshPath {}).inputs
-    ++ lib.optional (builtins.pathExists golangPath) (import golangPath {}).inputs
-    ++ lib.optional (builtins.pathExists vscodePath) (import vscodePath {}).inputs
-    ++ lib.optional (builtins.pathExists dartPath) (import dartPath {}).inputs
-    ++ lib.optional (builtins.pathExists toolsPath) (import toolsPath {}).inputs
-    ++ lib.optional (builtins.pathExists ohMyZshPath) (import ohMyZshPath {}).inputs
-    ++ lib.optional (builtins.pathExists terminalPath) (import terminalPath {}).inputs;
+    preRequisteImport = import ./preRequiste.nix;
+    provisionImport  = import ./provision.nix;
+    versionControlImport  = import ./version_control.nix;
+    setupSshImport  = import ./setup_ssh.nix;
+    golangImport  = import ./golang.nix;
+    vscodeImport  = import ./vscode.nix;
+    dartImport  = import ./dart.nix;
+    toolsImport  = import ./tools.nix;
+    ohMyZshImport  = import ./oh_my_zsh.nix;
+    terminalImport  = import ./terminal.nix;
 
-  baseHooks = "printf '\n running hooks for default.nix \n'";
+in stdenv.mkDerivation {
+    # docs: http://blog.ielliott.io/nix-docs/stdenv-mkDerivation.html
 
-  shellHooks = baseHooks
-    + lib.optionalString (builtins.pathExists preRequistePath) (import preRequistePath {}).hooks
-    + lib.optionalString (builtins.pathExists provisionPath) (import provisionPath {}).hooks
-    + lib.optionalString (builtins.pathExists versionControlPath) (import versionControlPath {}).hooks
-    + lib.optionalString (builtins.pathExists setupSshPath) (import setupSshPath {}).hooks
-    + lib.optionalString (builtins.pathExists golangPath) (import golangPath {}).hooks
-    + lib.optionalString (builtins.pathExists vscodePath) (import vscodePath {}).hooks
-    + lib.optionalString (builtins.pathExists dartPath) (import dartPath {}).hooks
-    + lib.optionalString (builtins.pathExists toolsPath) (import toolsPath {}).hooks
-    + lib.optionalString (builtins.pathExists ohMyZshPath) (import ohMyZshPath {}).hooks
-    + lib.optionalString (builtins.pathExists terminalPath) (import terminalPath {}).hooks;
+    name = "default";
 
-in mkShell {
-  buildInputs = inputs;
-  shellHook = shellHooks;
+    buildInputs = basePackages
+      ++ preRequisteImport.buildInputs
+      ++ provisionImport.buildInputs
+      ++ versionControlImport.buildInputs
+      ++ setupSshImport.buildInputs
+      ++ golangImport.buildInputs
+      ++ vscodeImport.buildInputs
+      ++ dartImport.buildInputs
+      ++ toolsImport.buildInputs
+      ++ ohMyZshImport.buildInputs
+      ++ terminalImport.buildInputs;
+
+    shellHook = baseHooks
+      + preRequisteImport.shellHook
+      + provisionImport.shellHook
+      + versionControlImport.shellHook
+      + setupSshImport.shellHook
+      + golangImport.shellHook
+      + vscodeImport.shellHook
+      + dartImport.shellHook
+      + toolsImport.shellHook
+      + ohMyZshImport.shellHook
+      + terminalImport.shellHook;
+
+    # buildPhase:      string?,
+    # installPhase:    string?,
 }
