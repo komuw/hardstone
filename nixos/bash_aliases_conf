@@ -18,3 +18,18 @@ alias nix-store='/nix/var/nix/profiles/per-user/$MY_NAME/profile/bin/nix-store'
 # code that we would want to be executed when a terminal starts up.
 
 export MY_NAME=$(whoami)
+
+
+# This function(anix/auto_nix) can be called to get a nix provisioned shell.
+anix(){
+    # you can call this function from any terminal to get a nix shell.
+
+    { # try
+        CURRENT_DIR=$(pwd)
+        cd ~/mystuff/hardstone/nixos
+        nix-shell pkgs/
+        cd "$CURRENT_DIR"
+    } || { # catch
+        printf "\n\t anix(found in `~/.bash_aliases`) failed. \n"
+    }
+}

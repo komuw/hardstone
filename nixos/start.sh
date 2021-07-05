@@ -147,7 +147,6 @@ clear_stuff(){
 clear_stuff
 
 
-
 create_nix_aliases(){
     printf "\n\n\t 9. create_nix_aliases \n"
 
