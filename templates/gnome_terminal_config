@@ -1,0 +1,16 @@
+[legacy]
+theme-variant='dark'
+
+[legacy/keybindings]
+copy='<Primary>c'
+new-tab='<Primary>t'
+paste='<Primary>v'
+
+[legacy/profiles:]
+list=['b1dcc9dd-5262-4d8d-a863-c897e6d979b9']
+
+[legacy/profiles:/:b1dcc9dd-5262-4d8d-a863-c897e6d979b9]
+custom-command='zsh'
+scrollback-lines=15000
+use-custom-command=false
+visible-name='moto'
