@@ -1,56 +1,57 @@
-{ pkgs ? import (fetchTarball "https://github.com/NixOS/nixpkgs/archive/21.05.tar.gz") {} }:
+with (import (fetchTarball "https://github.com/NixOS/nixpkgs/archive/21.05.tar.gz") {});
 
-{
+let
 
-  inputs = [
-      pkgs.vscode # unfree
-  ];
+in stdenv.mkDerivation {
+    name = "vscode";
 
-  hooks = ''
-      # set -e # fail if any command fails
-      # do not use `set -e` which causes commands to fail.
-      # because it causes `nix-shell` to also exit if a command fails when running in the eventual shell
+    buildInputs = [
+        pkgs.vscode # unfree
+    ];
 
-    printf "\n running hooks for vscode.nix \n"
+    shellHook = ''
+        # set -e # fail if any command fails
+        # do not use `set -e` which causes commands to fail.
+        # because it causes `nix-shell` to also exit if a command fails when running in the eventual shell
 
-    MY_NAME=$(whoami)
+        printf "\n running hooks for vscode.nix \n"
 
-    add_vscode_cofig(){
-        # on MacOs it is /Users/$MY_NAME/Library/Application\ Support/Code/User/settings.json
+        MY_NAME=$(whoami)
 
-        # configure vscode user settings file
-        mkdir -p /home/$MY_NAME/.config/Code/User
-        mkdir -p /home/$MY_NAME/.vscode
-        touch /home/$MY_NAME/.config/Code/User/settings.json
-        chown -R $MY_NAME:$MY_NAME /home/$MY_NAME/.config/Code/
-        chown -R $MY_NAME:$MY_NAME /home/$MY_NAME/.vscode
-        cp ../templates/vscode.j2 /home/$MY_NAME/.config/Code/User/settings.json
-    }
-    add_vscode_cofig
+        add_vscode_cofig(){
+            # on MacOs it is /Users/$MY_NAME/Library/Application\ Support/Code/User/settings.json
 
-    install_vscode_extensions(){
-        # install vscode extensions
+            # configure vscode user settings file
+            mkdir -p /home/$MY_NAME/.config/Code/User
+            mkdir -p /home/$MY_NAME/.vscode
+            touch /home/$MY_NAME/.config/Code/User/settings.json
+            chown -R $MY_NAME:$MY_NAME /home/$MY_NAME/.config/Code/
+            chown -R $MY_NAME:$MY_NAME /home/$MY_NAME/.vscode
+            cp ../templates/vscode.j2 /home/$MY_NAME/.config/Code/User/settings.json
+        }
+        add_vscode_cofig
 
-        installed_extensions=$(code --list-extensions)
-        if [[ "$installed_extensions" == *"hashicorp.terraform"* ]]; then
-            # extensions already installed
-            echo -n ""
-        else
-            code --user-data-dir='/tmp/' --install-extension ms-python.python
-            code --user-data-dir='/tmp/' --install-extension ms-python.vscode-pylance
-            code --user-data-dir='/tmp/' --install-extension dart-code.dart-code
-            code --user-data-dir='/tmp/' --install-extension dart-code.flutter
-            code --user-data-dir='/tmp/' --install-extension donaldtone.auto-open-markdown-preview-single
-            code --user-data-dir='/tmp/' --install-extension golang.go
-            code --user-data-dir='/tmp/' --install-extension ms-azuretools.vscode-docker
-            code --user-data-dir='/tmp/' --install-extension hashicorp.terraform
-            code --user-data-dir='/tmp/' --install-extension bbenoist.nix
-            # code --user-data-dir='/tmp/' --install-extension ms-vscode.cpptools
-        fi
-    }
-    install_vscode_extensions
+        install_vscode_extensions(){
+            # install vscode extensions
 
-  '';
+            installed_extensions=$(code --list-extensions)
+            if [[ "$installed_extensions" == *"hashicorp.terraform"* ]]; then
+                # extensions already installed
+                echo -n ""
+            else
+                code --user-data-dir='/tmp/' --install-extension ms-python.python
+                code --user-data-dir='/tmp/' --install-extension ms-python.vscode-pylance
+                code --user-data-dir='/tmp/' --install-extension dart-code.dart-code
+                code --user-data-dir='/tmp/' --install-extension dart-code.flutter
+                code --user-data-dir='/tmp/' --install-extension donaldtone.auto-open-markdown-preview-single
+                code --user-data-dir='/tmp/' --install-extension golang.go
+                code --user-data-dir='/tmp/' --install-extension ms-azuretools.vscode-docker
+                code --user-data-dir='/tmp/' --install-extension hashicorp.terraform
+                code --user-data-dir='/tmp/' --install-extension bbenoist.nix
+                # code --user-data-dir='/tmp/' --install-extension ms-vscode.cpptools
+            fi
+        }
+        install_vscode_extensions
+
+    '';
 }
-
-
