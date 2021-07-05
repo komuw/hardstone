@@ -25,4 +25,4 @@ in stdenv.mkDerivation {
       CURL_CA_BUNDLE=$(find /nix -name ca-bundle.crt |tail -n 1)
       export CURL_CA_BUNDLE="$CURL_CA_BUNDLE"
     '';
-} 
+}
