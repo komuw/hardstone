@@ -1,30 +1,35 @@
-{ pkgs ? import (fetchTarball "https://github.com/NixOS/nixpkgs/archive/21.05.tar.gz") {} }:
+with (import (fetchTarball "https://github.com/NixOS/nixpkgs/archive/21.05.tar.gz") {});
 
-{
-  inputs = [];
-  hooks = ''
-      # set -e # fail if any command fails
-      # do not use `set -e` which causes commands to fail.
-      # because it causes `nix-shell` to also exit if a command fails when running in the eventual shell
+let
 
-    printf "\n running hooks for version_control.nix \n"
+in stdenv.mkDerivation {
+    name = "version_control";
 
-    MY_NAME=$(whoami)
+    buildInputs = [];
 
-    # configure main gitconfig
-    cp ../templates/main_git_config /home/$MY_NAME/.gitconfig
+    shellHook = ''
+        # set -e # fail if any command fails
+        # do not use `set -e` which causes commands to fail.
+        # because it causes `nix-shell` to also exit if a command fails when running in the eventual shell
 
-    # configure ~/mystuff/gitconfig
-    cp  ../templates/personal_git_config /home/$MY_NAME/mystuff/.gitconfig
+      printf "\n running hooks for version_control.nix \n"
 
-    # configure ~/personalWork/gitconfig
-    cp ../templates/personal_work_git_config /home/$MY_NAME/personalWork/.gitconfig
+      MY_NAME=$(whoami)
 
-    # configure gitattributes
-    cp ../templates/git_attributes_config /home/$MY_NAME/mystuff/.gitattributes
+      # configure main gitconfig
+      cp ../templates/main_git_config /home/$MY_NAME/.gitconfig
 
-    # configure hgrc(mercurial)
-    cp ../templates/hg_config /home/$MY_NAME/.hgrc
+      # configure ~/mystuff/gitconfig
+      cp  ../templates/personal_git_config /home/$MY_NAME/mystuff/.gitconfig
 
-  '';
+      # configure ~/personalWork/gitconfig
+      cp ../templates/personal_work_git_config /home/$MY_NAME/personalWork/.gitconfig
+
+      # configure gitattributes
+      cp ../templates/git_attributes_config /home/$MY_NAME/mystuff/.gitattributes
+
+      # configure hgrc(mercurial)
+      cp ../templates/hg_config /home/$MY_NAME/.hgrc
+
+    '';
 }
