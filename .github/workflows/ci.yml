@@ -21,42 +21,10 @@ jobs:
         run: |
           echo ""
           pwd
+          echo ""
           ls -lsha
           echo ""
           echo ""
-          /bin/bash linux/preRequiste.sh
-
-
-  user:
-    name: user
-    timeout-minutes: 8
-    strategy:
-      matrix:
-        platform: [ubuntu-20.04]
-    runs-on: ${{ matrix.platform }}
-    steps:
-
-      - name: Check out code into the directory
-        uses: actions/checkout@v2
-
-      - name: user
-        run: |
-          /bin/bash linux/user.sh myDummyPassword
-
-
-  provision:
-    name: provision
-    timeout-minutes: 8
-    strategy:
-      matrix:
-        platform: [ubuntu-20.04]
-    runs-on: ${{ matrix.platform }}
-    steps:
-
-      - name: Check out code into the directory
-        uses: actions/checkout@v2
-
-      - name: provision
-        run: |
-          /bin/bash linux/provision.sh
-
+          cd nixos
+          /bin/bash start.sh
+          nix-shell pkgs/
