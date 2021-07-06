@@ -39,6 +39,15 @@ in stdenv.mkDerivation {
               go install github.com/tsenart/vegeta@latest
               go install mvdan.cc/gofumpt@latest
               go install golang.org/dl/gotip@latest
+
+              # the following are required by vscode for Go.
+              go install github.com/uudashr/gopkgs/v2/cmd/gopkgs@latest
+              go install github.com/ramya-rao-a/go-outline@latest
+              go install github.com/cweill/gotests/gotests@latest
+              go install github.com/fatih/gomodifytags@latest
+              go install github.com/josharian/impl@latest
+              go install github.com/haya14busa/goplay/cmd/goplay@latest
+              go install github.com/go-delve/delve/cmd/dlv@latest
           fi
       }
       install_go_pkgs
