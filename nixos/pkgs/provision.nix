@@ -67,8 +67,12 @@ in stdenv.mkDerivation {
       create_dirs(){
           mkdir -p /home/$MY_NAME/mystuff
           chown -R $MY_NAME:$MY_NAME /home/$MY_NAME/mystuff
+
           mkdir -p /home/$MY_NAME/personalWork
           chown -R $MY_NAME:$MY_NAME /home/$MY_NAME/personalWork
+
+          mkdir -p /home/$MY_NAME/paidWork
+          chown -R $MY_NAME:$MY_NAME /home/$MY_NAME/paidWork
       }
       create_dirs
 
