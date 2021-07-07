@@ -52,6 +52,17 @@ in stdenv.mkDerivation {
       }
       install_go_pkgs
 
+      install_go_tip(){
+          gotip_sdk_file="/home/$MY_NAME/sdk/gotip/bin/go"
+          if [ -f "$gotip_sdk_file" ]; then
+              # gotip sdk exists
+              echo -n ""
+          else
+              /home/$MY_NAME/go/bin/gotip download
+          fi
+      }
+      install_go_tip
+
       change_owner(){
           chown -R $MY_NAME:$MY_NAME /home/$MY_NAME/go
           chown -R $MY_NAME:$MY_NAME /home/$MY_NAME/.cache/
