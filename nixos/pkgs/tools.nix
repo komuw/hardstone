@@ -20,7 +20,11 @@ in stdenv.mkDerivation {
         pkgs.ripgrep
         pkgs.ripgrep-all
         pkgs.rr
-        pkgs.zoom-us # unfree
+
+        # For some reason, zoom installed via nix is not working.
+        # So we install it manually in `nixos/start.sh`.
+        # TODO: remove this once we get zoom working on nix.
+        # pkgs.zoom-us # unfree
 
         # WE HAVENT FOUND THESE:
         # pip

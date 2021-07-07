@@ -224,6 +224,26 @@ install_media_codecs(){
 }
 install_media_codecs
 
+
+install_zoom(){
+    printf "\n\n\t 13. install zoom \n"
+
+    # For some reason, zoom installed via nix is not working.
+    # So we install it manually.
+    # TODO: remove this once we get zoom working on nix.
+
+    sudo apt -y update
+    # install zoom dependencies
+    sudo apt-get -y install libgl1-mesa-glx \
+                        libegl1-mesa \
+                        libxcb-xtest0 \
+                        libxcb-xinerama0
+
+    wget -nc --output-document=/tmp/zoom_amd64.deb https://zoom.us/client/latest/zoom_amd64.deb
+    sudo dpkg -i /tmp/zoom_amd64.deb
+}
+install_zoom
+
 # The main command for package management is nix-env.
 # See: https://nixos.org/manual/nix/stable/#ch-basic-package-mgmt
 # Although others think it should not be widely recommended
