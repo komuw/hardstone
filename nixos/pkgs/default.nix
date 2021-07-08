@@ -40,6 +40,7 @@ let
     vscodeImport  = import ./vscode.nix;
     dartImport  = import ./dart.nix;
     toolsImport  = import ./tools.nix;
+    dockerImport  = import ./docker.nix;
     ohMyZshImport  = import ./oh_my_zsh.nix;
     terminalImport  = import ./terminal.nix;
 
@@ -57,6 +58,7 @@ in stdenv.mkDerivation {
       ++ vscodeImport.buildInputs
       ++ dartImport.buildInputs
       ++ toolsImport.buildInputs
+      ++ dockerImport.buildInputs
       ++ ohMyZshImport.buildInputs
       ++ terminalImport.buildInputs;
 
@@ -69,6 +71,7 @@ in stdenv.mkDerivation {
       + vscodeImport.shellHook
       + dartImport.shellHook
       + toolsImport.shellHook
+      + dockerImport.shellHook
       + ohMyZshImport.shellHook
       + terminalImport.shellHook;
 
