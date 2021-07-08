@@ -23,5 +23,40 @@ in stdenv.mkDerivation {
       printf "\n running hooks for docker.nix \n"
 
       MY_NAME=$(whoami)
+
+      add_systemd_files(){
+          # https://docs.docker.com/engine/install/linux-postinstall/#configure-docker-to-start-on-boot
+          # https://docs.docker.com/config/daemon/systemd/#manually-create-the-systemd-unit-files
+          # https://github.com/moby/moby/blob/v20.10.7/contrib/init/systemd/docker.socket
+          # https://github.com/moby/moby/blob/v20.10.7/contrib/init/systemd/docker.service
+
+          # troubleshoot using: `journalctl -u docker`
+
+          sudo cp ../templates/docker_systemd_socket_file /etc/systemd/system/docker.socket
+          sudo cp ../templates/docker_systemd_service_file /etc/systemd/system/docker.service
+
+          sudo chmod 0777 /etc/systemd/system/docker.socket
+          sudo chmod 0777 /etc/systemd/system/docker.service
+
+          sudo groupadd --force docker
+          sudo usermod -aG docker $MY_NAME
+
+          mkdir -p /home/$MY_NAME/.docker
+          sudo chown -R $MY_NAME:docker /home/$MY_NAME/.docker
+          chmod -R 775 /home/$MY_NAME/.docker
+
+          sudo mkdir -p /etc/docker
+          sudo chown -R $MY_NAME:docker /etc/docker
+          cp ../templates/docker_daemon_config.json /etc/docker/daemon.json
+
+          sudo systemctl daemon-reload
+          sudo systemctl enable docker.socket
+          sudo systemctl enable docker.service
+          systemctl list-unit-files | grep enabled | grep -i docker
+
+          sudo systemctl start docker # this will start docker.service
+      }
+      add_systemd_files
+
     '';
 }
