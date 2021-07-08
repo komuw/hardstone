@@ -22,8 +22,10 @@ with (import (fetchTarball "https://github.com/NixOS/nixpkgs/archive/21.05.tar.g
         /nix/var/nix/profiles/per-user/$MY_NAME/profile/bin/nix-shell
 
     search for packages:
-      1. https://search.nixos.org/
+      1. https://search.nixos.org/packages
       2. nix search wget
+    search for options to add to `~/.config/nixpkgs`
+      1. https://search.nixos.org/options
 */
 
 let
