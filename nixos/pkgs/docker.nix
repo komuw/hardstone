@@ -32,6 +32,12 @@ in stdenv.mkDerivation {
 
           # troubleshoot using: `journalctl -u docker`
 
+          sudo systemctl stop docker
+
+          sudo rm -rf /var/lib/docker
+          sudo rm -rf /home/$MY_NAME/.docker
+          sudo rm -rf /etc/docker
+
           sudo cp ../templates/docker_systemd_socket_file /etc/systemd/system/docker.socket
           sudo cp ../templates/docker_systemd_service_file /etc/systemd/system/docker.service
 
