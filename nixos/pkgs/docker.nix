@@ -30,7 +30,9 @@ in stdenv.mkDerivation {
           # https://github.com/moby/moby/blob/v20.10.7/contrib/init/systemd/docker.socket
           # https://github.com/moby/moby/blob/v20.10.7/contrib/init/systemd/docker.service
 
-          # troubleshoot using: `journalctl -u docker`
+          # troubleshoot using:
+           - `journalctl -u docker`
+           - `journalctl -n50 -u docker`
 
           # NB: You may need to restart the machine for some of this to kick in.
           # especially adding user to the docker group.
