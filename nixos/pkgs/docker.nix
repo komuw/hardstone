@@ -68,6 +68,9 @@ in stdenv.mkDerivation {
           systemctl list-unit-files | grep enabled | grep -i docker
 
           sudo systemctl start docker # this will start docker.service
+
+          # NB: You may need to restart the machine for some of this to kick in.
+          # especially adding user to the docker group.
       }
       add_systemd_files
 
