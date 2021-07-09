@@ -18,7 +18,7 @@ Type=notify
 Environment="THE_DOCKERD_PATH=$(which dockerd)"
 # TODO: we have hardcoded the dockerd path. This path is likely to change.
 # We should ideally use something like `$(which dockerd)`; but that aint working as of now.
-ExecStart=/nix/store/2r4dbgrmq7dz45i5skjjl2z2x6fi8gcf-docker-20.10.6/bin/dockerd -H fd://
+ExecStart=/nix/store/b25i074fd8sf266jfxibzzfisvksvwdw-docker-20.10.2/bin/dockerd -H fd://
 ExecReload=/bin/kill -s HUP $MAINPID
 
 LimitNOFILE=1048576
