@@ -37,40 +37,46 @@ in stdenv.mkDerivation {
           # NB: You may need to restart the machine for some of this to kick in.
           # especially adding user to the docker group.
 
-          sudo systemctl stop docker
+          docker_systemd_file="/etc/systemd/system/docker.service"
+          if [ -f "$docker_systemd_file" ]; then
+              # exists
+              echo -n ""
+          else
+              sudo systemctl stop docker
 
-          sudo rm -rf /var/lib/docker
-          sudo rm -rf /home/$MY_NAME/.docker
-          sudo rm -rf /etc/docker
+              sudo rm -rf /var/lib/docker
+              sudo rm -rf /home/$MY_NAME/.docker
+              sudo rm -rf /etc/docker
 
-          sudo cp ../templates/docker_systemd_socket_file /etc/systemd/system/docker.socket
-          sudo cp ../templates/docker_systemd_service_file /etc/systemd/system/docker.service
+              sudo cp ../templates/docker_systemd_socket_file /etc/systemd/system/docker.socket
+              sudo cp ../templates/docker_systemd_service_file /etc/systemd/system/docker.service
 
-          sudo chmod 0777 /etc/systemd/system/docker.socket
-          sudo chmod 0777 /etc/systemd/system/docker.service
-          sudo chown -R root:docker /etc/systemd/system/docker.socket
-          sudo chown -R root:docker /etc/systemd/system/docker.service
+              sudo chmod 0777 /etc/systemd/system/docker.socket
+              sudo chmod 0777 /etc/systemd/system/docker.service
+              sudo chown -R root:docker /etc/systemd/system/docker.socket
+              sudo chown -R root:docker /etc/systemd/system/docker.service
 
-          sudo groupadd --force docker
-          sudo usermod -aG docker $MY_NAME
+              sudo groupadd --force docker
+              sudo usermod -aG docker $MY_NAME
 
-          mkdir -p /home/$MY_NAME/.docker
-          sudo chown -R $MY_NAME:docker /home/$MY_NAME/.docker
-          chmod -R 775 /home/$MY_NAME/.docker
+              mkdir -p /home/$MY_NAME/.docker
+              sudo chown -R $MY_NAME:docker /home/$MY_NAME/.docker
+              chmod -R 775 /home/$MY_NAME/.docker
 
-          sudo mkdir -p /etc/docker
-          sudo chown -R $MY_NAME:docker /etc/docker
-          cp ../templates/docker_daemon_config.json /etc/docker/daemon.json
+              sudo mkdir -p /etc/docker
+              sudo chown -R $MY_NAME:docker /etc/docker
+              cp ../templates/docker_daemon_config.json /etc/docker/daemon.json
 
-          sudo systemctl daemon-reload
-          sudo systemctl enable docker.socket
-          sudo systemctl enable docker.service
-          systemctl list-unit-files | grep enabled | grep -i docker
+              sudo systemctl daemon-reload
+              sudo systemctl enable docker.socket
+              sudo systemctl enable docker.service
+              systemctl list-unit-files | grep enabled | grep -i docker
 
-          sudo systemctl start docker # this will start docker.service
+              sudo systemctl start docker # this will start docker.service
 
-          # NB: You may need to restart the machine for some of this to kick in.
-          # especially adding user to the docker group.
+              # NB: You may need to restart the machine for some of this to kick in.
+              # especially adding user to the docker group.
+          fi
       }
       add_systemd_files
 
