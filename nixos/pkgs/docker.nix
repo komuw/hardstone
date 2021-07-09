@@ -32,6 +32,9 @@ in stdenv.mkDerivation {
 
           # troubleshoot using: `journalctl -u docker`
 
+          # NB: You may need to restart the machine for some of this to kick in.
+          # especially adding user to the docker group.
+
           sudo systemctl stop docker
 
           sudo rm -rf /var/lib/docker
