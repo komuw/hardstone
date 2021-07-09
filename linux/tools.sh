@@ -82,7 +82,7 @@ install_skype
 install_docker(){
     # NB: do not install docker from snap, it is broken
     printf "\n\n install docker\n"
-    sudo apt -y purge docker docker.io containerd runc
+    sudo apt -y purge docker* docker.io containerd runc
     curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg                                                                                  # add key
     echo "deb [arch=amd64 signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null  # add docker repo
     sudo apt -y update
