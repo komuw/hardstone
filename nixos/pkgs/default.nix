@@ -62,6 +62,7 @@ in stdenv.mkDerivation {
       ++ ohMyZshImport.buildInputs
       ++ terminalImport.buildInputs;
 
+    # shellHook is a shell script to run after entering a nix-shell.
     shellHook = baseHooks
       + preRequisteImport.shellHook
       + provisionImport.shellHook
