@@ -8,6 +8,7 @@ Description=Docker Socket for the API
 # specify ListenStream=/var/run/docker.sock instead.
 ListenStream=/run/docker.sock
 SocketMode=0660
+# this was a CVE fix: https://github.com/moby/moby/issues/6836
 SocketUser=root
 SocketGroup=docker
 
