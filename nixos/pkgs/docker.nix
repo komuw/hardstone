@@ -46,6 +46,8 @@ in stdenv.mkDerivation {
 
           sudo chmod 0777 /etc/systemd/system/docker.socket
           sudo chmod 0777 /etc/systemd/system/docker.service
+          sudo chown -R root:docker /etc/systemd/system/docker.socket
+          sudo chown -R root:docker /etc/systemd/system/docker.service
 
           sudo groupadd --force docker
           sudo usermod -aG docker $MY_NAME
