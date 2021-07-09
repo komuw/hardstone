@@ -1,4 +1,5 @@
 # Taken from https://github.com/moby/moby/blob/v20.10.7/contrib/init/systemd/docker.service
+# systemd docs: https://www.freedesktop.org/software/systemd/man/systemd.service.html
 
 [Unit]
 Description=Docker Application Container Engine
