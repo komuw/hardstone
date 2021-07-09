@@ -40,6 +40,7 @@ let
     vscodeImport  = import ./vscode.nix;
     dartImport  = import ./dart.nix;
     toolsImport  = import ./tools.nix;
+    dockerImport  = import ./docker.nix;
     ohMyZshImport  = import ./oh_my_zsh.nix;
     terminalImport  = import ./terminal.nix;
 
@@ -57,9 +58,11 @@ in stdenv.mkDerivation {
       ++ vscodeImport.buildInputs
       ++ dartImport.buildInputs
       ++ toolsImport.buildInputs
+      ++ dockerImport.buildInputs
       ++ ohMyZshImport.buildInputs
       ++ terminalImport.buildInputs;
 
+    # shellHook is a shell script to run after entering a nix-shell.
     shellHook = baseHooks
       + preRequisteImport.shellHook
       + provisionImport.shellHook
@@ -69,6 +72,7 @@ in stdenv.mkDerivation {
       + vscodeImport.shellHook
       + dartImport.shellHook
       + toolsImport.shellHook
+      + dockerImport.shellHook
       + ohMyZshImport.shellHook
       + terminalImport.shellHook;
 

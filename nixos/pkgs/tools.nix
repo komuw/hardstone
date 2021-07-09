@@ -7,7 +7,6 @@ in stdenv.mkDerivation {
 
     buildInputs = [
         pkgs.youtube-dl
-        pkgs.docker-compose
         pkgs.asciinema
         pkgs.httpie
         # https://docs.aws.amazon.com/cli/latest/userguide/cliv2-migration.html
@@ -16,14 +15,6 @@ in stdenv.mkDerivation {
         pkgs.bat
         pkgs.google-chrome # unfree
         pkgs.skypeforlinux # unfree
-
-        # When you install packages on non-NixOS distros, services/daemons(eg docker) are not set up.
-        # Services are created by NixOS modules, hence they require NixOS.
-        # For other linuxes, you would need to integrate with systemd yourself.
-        # Without systemd integration, `docker version` works but `docker ps` doesn't because it needs dockerd to be running.
-        # https://stackoverflow.com/a/48973911/2768067
-        pkgs.docker
-
         pkgs.ripgrep
         pkgs.ripgrep-all
         pkgs.rr
