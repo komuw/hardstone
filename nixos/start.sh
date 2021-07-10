@@ -9,7 +9,7 @@ export DEBIAN_FRONTEND=noninteractive
 # 1. docker build -t hardstone-nix .
 # 2. docker run -it hardstone-nix
 # 3. bash start.sh
-# 4. export SSH_KEY_PHRASE_PERSONAL=SSH_KEY_PHRASE_PERSONAL
+# 4. export SSH_KEY_PHRASE=SSH_KEY_PHRASE
 # 5. nix-shell pkgs/
 #
 # or:
@@ -17,7 +17,7 @@ export DEBIAN_FRONTEND=noninteractive
 # or:
 # 1. docker-compose run my_nix_env bash
 # 2. bash start.sh
-# 3. export SSH_KEY_PHRASE_PERSONAL=SSH_KEY_PHRASE_PERSONAL
+# 3. export SSH_KEY_PHRASE=SSH_KEY_PHRASE
 # 4. nix-shell pkgs/
 
 
