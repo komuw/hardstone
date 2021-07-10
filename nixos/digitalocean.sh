@@ -49,7 +49,7 @@ cd hardstone/
 git checkout master
 cd nixos/
 bash start.sh
-export SSH_KEY_PHRASE_PERSONAL=SSH_KEY_PHRASE_PERSONAL
+export SSH_KEY_PHRASE=SSH_KEY_PHRASE
 nix-shell pkgs/
 
 
