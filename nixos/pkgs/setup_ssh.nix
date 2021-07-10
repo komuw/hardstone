@@ -47,8 +47,8 @@ in stdenv.mkDerivation {
             validate_env_vars
         fi
 
-        p_work_id_rsa_file="/home/$MY_NAME/.ssh/p_work_id_rsa.pub"
-        if [ -f "$p_work_id_rsa_file" ]; then
+        pd_work_id_rsa_file="/home/$MY_NAME/.ssh/pd_work_id_rsa.pub"
+        if [ -f "$pd_work_id_rsa_file" ]; then
             # file exists
             echo -n ""
         else
