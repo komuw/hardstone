@@ -26,6 +26,9 @@ return {
     -- https://wezfurlong.org/wezterm/config/lua/config/tab_max_width.html
     tab_max_width = 22,
 
+    -- the default key mappings can be found at;
+    -- https://wezfurlong.org/wezterm/config/keys.html#default-shortcut--key-binding-assignments
+    -- https://github.com/wez/wezterm/blob/wezterm-ssh-0.1.1/config/src/keyassignment.rs#L242-L245
     keys = {
         -- https://wezfurlong.org/wezterm/config/lua/keyassignment/CopyTo.html
         -- There's a bug where if you map `ctrl + c` to copy
