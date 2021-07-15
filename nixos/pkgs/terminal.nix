@@ -25,5 +25,19 @@ in stdenv.mkDerivation {
       }
       setup_terminator_conf
 
+      setup_wezterm(){
+          wezterm_conf_file="/home/$MY_NAME/.config/wezterm/wezterm.lua"
+          if [ -f "$wezterm_conf_file" ]; then
+              # config exists
+              echo -n ""
+          else
+              wget -nc --output-document=/tmp/wezterm_nightly.deb https://github.com/wez/wezterm/releases/download/nightly/wezterm-nightly.Ubuntu20.04.deb
+              sudo apt install -y /tmp/wezterm_nightly.deb
+              mkdir -p /home/$MY_NAME/.config/wezterm
+              cp ../templates/wezterm.lua /home/$MY_NAME/.config/wezterm/wezterm.lua
+          fi
+      }
+      setup_wezterm
+
     '';
 }
