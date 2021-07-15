@@ -26,6 +26,10 @@ in stdenv.mkDerivation {
       setup_terminator_conf
 
       setup_wezterm(){
+          # The wezterm pkg in nixpkgs has issues starting.
+          # so we install manually.
+          # TODO: revert to nix, once fixed.
+
           wezterm_conf_file="/home/$MY_NAME/.config/wezterm/wezterm.lua"
           if [ -f "$wezterm_conf_file" ]; then
               # config exists
