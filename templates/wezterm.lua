@@ -28,6 +28,9 @@ return {
 
     keys = {
         -- https://wezfurlong.org/wezterm/config/lua/keyassignment/CopyTo.html
+        -- There's a bug where if you map `ctrl + c` to copy
+        -- then you are not able to send sigints `^C` to commands.
+        -- see: https://github.com/wez/wezterm/issues/944
         {key="c", mods="CTRL", action=wezterm.action{CopyTo="ClipboardAndPrimarySelection"}},
         {key="C", mods="CTRL", action=wezterm.action{CopyTo="ClipboardAndPrimarySelection"}},
 
