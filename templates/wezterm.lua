@@ -31,11 +31,15 @@ return {
     -- https://github.com/wez/wezterm/blob/wezterm-ssh-0.1.1/config/src/keyassignment.rs#L242-L245
     keys = {
         -- https://wezfurlong.org/wezterm/config/lua/keyassignment/CopyTo.html
-        -- There's a bug where if you map `ctrl + c` to copy
-        -- then you are not able to send sigints `^C` to commands.
-        -- see: https://github.com/wez/wezterm/issues/944
         {key="c", mods="CTRL", action=wezterm.action{CopyTo="ClipboardAndPrimarySelection"}},
         {key="C", mods="CTRL", action=wezterm.action{CopyTo="ClipboardAndPrimarySelection"}},
+
+        -- by default, `ctrl+c` is mapped to `^C`(sigint)(`\x03`).
+        -- so we need to map `ctrl+shift+c` to the same.
+        -- see: https://github.com/wez/wezterm/issues/944
+        -- https://wezfurlong.org/wezterm/config/lua/keyassignment/SendString.html
+        {key="c", mods="CTRL|SHIFT", action=wezterm.action{SendString="\x03"}},
+        {key="C", mods="CTRL|SHIFT", action=wezterm.action{SendString="\x03"}},
 
         -- paste from the clipboard
         -- https://wezfurlong.org/wezterm/config/lua/keyassignment/PasteFrom.html
