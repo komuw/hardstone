@@ -70,6 +70,8 @@ in stdenv.mkDerivation {
       }
       change_owner
 
+      export NIX_HARDENING_ENABLE=""
+
     '';
 
     # set/unset `NIX_HARDENING_ENABLE` env var; https://stackoverflow.com/a/27719330/2768067
