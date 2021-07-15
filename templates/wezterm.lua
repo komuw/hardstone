@@ -3,8 +3,9 @@
 
 -- To debug this config file;
 -- (a) add this config to the required location, /home/$MY_NAME/.config/wezterm/wezterm.lua
--- (b) Start wezterm without backgrounding it. ie `wezterm`
--- (c) Any errors will be displayed in either the terminal(eg gnome-terminal) where wezterm is started,
+-- (b) add `debug_key_events = true,` to the config
+-- (c) Start wezterm without backgrounding it. ie `wezterm`
+-- (d) Any errors will be displayed in either the terminal(eg gnome-terminal) where wezterm is started,
 --     or in a new(2nd) wezterm terminal that will start.
 
 local wezterm = require 'wezterm';
