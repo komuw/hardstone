@@ -70,5 +70,21 @@ in stdenv.mkDerivation {
       }
       change_owner
 
+      export NIX_HARDENING_ENABLE=""
+
     '';
+
+    # set/unset `NIX_HARDENING_ENABLE` env var; https://stackoverflow.com/a/27719330/2768067
+    # We need to unset this because `delve` debugger is failing to debug with some error.
+    #     ```
+    #     runtime/cgo
+    #     warning _FORTIFY_SOURCE requires compiling with optimization (-O)
+    #         |    ^~~~~~~
+    #     cc1: all warnings being treated as errors
+    #     exit status 2
+    #     ```
+    # see issue: https://github.com/NixOS/nixpkgs/issues/18995
+    # also see PR: https://github.com/NixOS/nixpkgs/pull/28029/files on how it is set
+    # and its default value
+    NIX_HARDENING_ENABLE="";
 }
