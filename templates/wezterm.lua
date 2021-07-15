@@ -10,6 +10,11 @@ return {
     -- How many lines of scrollback you want to retain per tab
     scrollback_lines = 3500,
 
+    -- 0.0 (meaning completely translucent/transparent) through to 1.0 (meaning completely opaque).
+    -- Setting this to a value other than the default 1.0 may impact render performance.
+    -- https://wezfurlong.org/wezterm/config/appearance.html
+    window_background_opacity = 0.92,
+
     keys = {
         -- https://wezfurlong.org/wezterm/config/lua/keyassignment/CopyTo.html
         {key="c", mods="CTRL", action=wezterm.action{CopyTo="ClipboardAndPrimarySelection"}},
