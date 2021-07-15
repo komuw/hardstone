@@ -21,12 +21,14 @@ in stdenv.mkDerivation {
 
       CURL_CA_BUNDLE=$(find /nix -name ca-bundle.crt |tail -n 1)
       export CURL_CA_BUNDLE="$CURL_CA_BUNDLE"
+
+      export SOME_CUSTOM_ENV_VAR="hello_there"
     '';
 
     # set some env vars.
     # https://nixos.org/guides/declarative-and-reproducible-developer-environments.html#declarative-reproducible-envs
     # https://stackoverflow.com/a/27719330/2768067
     LC_ALL = "en_US.UTF-8";
-    SOME_CUSTOM_ENV_VAR = "hello there";
+    SOME_CUSTOM_ENV_VAR = "hello_there";
 
 }
