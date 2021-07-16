@@ -38,6 +38,7 @@ return {
         -- so we need to map `ctrl+shift+c` to the same.
         -- see: https://github.com/wez/wezterm/issues/944
         -- https://wezfurlong.org/wezterm/config/lua/keyassignment/SendString.html
+        -- https://wezfurlong.org/wezterm/escape-sequences.html#c0-control-codes
         {key="c", mods="CTRL|SHIFT", action=wezterm.action{SendString="\x03"}},
         {key="C", mods="CTRL|SHIFT", action=wezterm.action{SendString="\x03"}},
 
