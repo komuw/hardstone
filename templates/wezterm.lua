@@ -10,6 +10,10 @@
 
 local wezterm = require 'wezterm';
 
+-- The return statement at the end of your `wezterm.lua` file returns a table
+-- that is interpreted as the internal Config struct type.
+-- The various fields in the config struct are;
+-- https://wezfurlong.org/wezterm/config/lua/config/index.html
 return {
     -- Spawn a zsh shell in login mode
     default_prog = {"zsh", "-l"},
