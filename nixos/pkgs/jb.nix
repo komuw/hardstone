@@ -37,7 +37,7 @@ in stdenv.mkDerivation {
                 # exists
                 echo -n ""
             else
-                sudo groupadd --force libvirt
+                sudo groupadd --force libvirt # --force causes to exit with success if group already exists
                 sudo usermod -aG libvirt $MY_NAME
             fi
         }

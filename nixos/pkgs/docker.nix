@@ -58,7 +58,7 @@ in stdenv.mkDerivation {
 
               # NB: You may need to restart the machine for some of this to kick in.
               # especially adding user to the docker group.
-              sudo groupadd --force docker
+              sudo groupadd --force docker # --force causes to exit with success if group already exists
               sudo usermod -aG docker $MY_NAME
 
               mkdir -p /home/$MY_NAME/.docker
