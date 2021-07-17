@@ -1,0 +1,28 @@
+# Taken from https://github.com/snabbco/libvirt/blob/a4431931393aeb1ac5893f121151fa3df4fde612/daemon/libvirtd.service.in
+
+[Unit]
+Description=Libvirtd daemon
+Documentation=man:libvirtd(8)
+Documentation=http://libvirt.org
+
+Before=libvirt-guests.service
+After=network.target dbus.service iscsid.service apparmor.service
+Requires=libvirtd.socket
+
+[Service]
+Type=notify
+EnvironmentFile=-/etc/sysconfig/libvirtd
+# TODO: we have hardcoded the libvirtd path. This path is likely to change.
+# We should ideally use something like `$(which libvirtd)`; but that aint working as of now.
+ExecStart=/nix/store/ah0wzqg5xwahfliwfc37lm36xml4sqiz-libvirt-7.0.0/bin/libvirtd
+ExecReload=/bin/kill -s HUP $MAINPID
+
+# kill only the libvirtd process, not all processes in the cgroup
+KillMode=process
+Restart=on-failure
+
+# Override the maximum number of opened files
+LimitNOFILE=1048576
+
+[Install]
+WantedBy=multi-user.target

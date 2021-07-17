@@ -28,7 +28,7 @@ in stdenv.mkDerivation {
 
         MY_NAME=$(whoami)
 
-        add_to_group(){
+        add_libvirtd_group(){
             # NB: You may need to restart the machine for some of this to kick in.
             # especially adding user to the group.
 
@@ -42,7 +42,52 @@ in stdenv.mkDerivation {
                 sudo usermod -aG libvirt $MY_NAME
             fi
         }
-        add_to_group
+        add_libvirtd_group
+
+        add_libvirtd_systemd_files(){
+            # https://github.com/snabbco/libvirt/blob/a4431931393aeb1ac5893f121151fa3df4fde612/daemon/libvirtd.socket.in
+            # https://github.com/snabbco/libvirt/blob/a4431931393aeb1ac5893f121151fa3df4fde612/daemon/libvirtd.service.in
+            # https://github.com/snabbco/libvirt/blob/a4431931393aeb1ac5893f121151fa3df4fde612/daemon/libvirtd.conf
+
+
+            # troubleshoot using:
+            # - `journalctl -u libvirtd`
+            # - `journalctl -n50 -u libvirtd`
+
+            libvirtd_systemd_file="/etc/systemd/system/libvirtd.service"
+            if [ -f "$libvirtd_systemd_file" ]; then
+                # exists
+                printf "\n\t OH NO \n"
+                echo -n ""
+            else
+                printf "\n\t STrt \n"
+                sudo systemctl stop libvirtd
+
+                sudo cp ../templates/libvirtd_socket_file /etc/systemd/system/libvirtd.socket
+                sudo cp ../templates/libvirtd_systemd_service_file /etc/systemd/system/libvirtd.service
+
+                sudo chmod 0777 /etc/systemd/system/libvirtd.socket
+                sudo chmod 0777 /etc/systemd/system/libvirtd.service
+                sudo chown -R root:libvirt /etc/systemd/system/libvirtd.socket
+                sudo chown -R root:libvirt /etc/systemd/system/libvirtd.service
+
+                sudo systemctl daemon-reload
+                sudo systemctl enable libvirtd.socket
+                sudo systemctl enable libvirtd.service
+                systemctl list-unit-files | grep enabled | grep -i libvirtd
+
+                sudo systemctl start libvirtd
+
+                # symlink to /var/run/libvirt/libvirt-sock
+                # some libraries(eg minikube) expect that sock path.
+                sudo chown -R root:libvirt /var/run/libvirt
+                sudo ln --force --symbolic /run/libvirt.sock /var/run/libvirt/libvirt-sock
+                sudo chown -R root:libvirt /var/run/libvirt/libvirt-sock
+
+                printf "\n\t GOT HERE \n"
+            fi
+      }
+      add_libvirtd_systemd_files
 
     '';
 }
