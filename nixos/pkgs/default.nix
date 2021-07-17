@@ -43,6 +43,7 @@ let
     dockerImport  = import ./docker.nix;
     ohMyZshImport  = import ./oh_my_zsh.nix;
     terminalImport  = import ./terminal.nix;
+    jbImport  = import ./jb.nix;
 
 in stdenv.mkDerivation {
     # docs: http://blog.ielliott.io/nix-docs/stdenv-mkDerivation.html
@@ -60,7 +61,8 @@ in stdenv.mkDerivation {
       ++ toolsImport.buildInputs
       ++ dockerImport.buildInputs
       ++ ohMyZshImport.buildInputs
-      ++ terminalImport.buildInputs;
+      ++ terminalImport.buildInputs
+      ++ jbImport.buildInputs;
 
     # shellHook is a shell script to run after entering a nix-shell.
     shellHook = baseHooks
@@ -74,7 +76,8 @@ in stdenv.mkDerivation {
       + toolsImport.shellHook
       + dockerImport.shellHook
       + ohMyZshImport.shellHook
-      + terminalImport.shellHook;
+      + terminalImport.shellHook
+      + jbImport.shellHook;
 
     # buildPhase:      string?,
     # installPhase:    string?,
