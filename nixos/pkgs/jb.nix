@@ -10,7 +10,7 @@ in stdenv.mkDerivation {
         pkgs.qemu_kvm
         # When you install packages on non-NixOS distros, services/daemons(eg libvirtd) are not set up.
         # Services are created by NixOS modules, hence they require NixOS.
-        # For other linuxes, you would need to integrate with systemd yourself.
+        # For other linuxes, you would need to integrate with systemd yourself(see func `add_libvirtd_systemd_files`).
         # Without systemd integration, `libvirtd` is not up and running by default.
         # https://stackoverflow.com/a/48973911/2768067
         pkgs.libvirt

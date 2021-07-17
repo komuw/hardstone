@@ -8,7 +8,7 @@ in stdenv.mkDerivation {
     buildInputs = [
         # When you install packages on non-NixOS distros, services/daemons(eg docker) are not set up.
         # Services are created by NixOS modules, hence they require NixOS.
-        # For other linuxes, you would need to integrate with systemd yourself.
+        # For other linuxes, you would need to integrate with systemd yourself(see func `add_systemd_files`).
         # Without systemd integration, `docker version` works but `docker ps` doesn't because it needs dockerd to be running.
         # https://stackoverflow.com/a/48973911/2768067
         pkgs.docker
