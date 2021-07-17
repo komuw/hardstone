@@ -14,6 +14,7 @@ in stdenv.mkDerivation {
         # Without systemd integration, `libvirtd` is not up and running by default.
         # https://stackoverflow.com/a/48973911/2768067
         pkgs.libvirt
+        pkgs.docker-machine-kvm2
         pkgs.minikube
         pkgs.kubectl
         pkgs.jq
