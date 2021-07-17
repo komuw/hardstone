@@ -15,6 +15,10 @@ Type=notify
 # TODO: we have hardcoded the libvirtd path. This path is likely to change.
 # We should ideally use something like `$(which libvirtd)`; but that aint working as of now.
 ExecStart=/nix/store/ah0wzqg5xwahfliwfc37lm36xml4sqiz-libvirt-7.0.0/bin/libvirtd --config /etc/libvirtd/libvirtd.conf
+# the symbolic link for `/run/libvirt.sock` does not persist after a computer restart.
+# this is because `/run/libvirt.sock` is recreated every time `libvirtd` is restarted.
+ExecStartPost=ln --force --symbolic /run/libvirt.sock /var/run/libvirt/libvirt-sock
+ExecStartPost=chown -R root:libvirt /var/run/libvirt/libvirt-sock
 ExecReload=/bin/kill -s HUP $MAINPID
 
 # kill only the libvirtd process, not all processes in the cgroup
