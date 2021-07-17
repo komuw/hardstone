@@ -46,6 +46,10 @@ in stdenv.mkDerivation {
             else
                 sudo groupadd --force libvirt # --force causes to exit with success if group already exists
                 sudo usermod -aG libvirt $MY_NAME
+
+                # https://github.com/kubernetes/minikube/issues/927#issuecomment-407274870
+                sudo groupadd --force libvirtd
+                sudo usermod -aG libvirtd $MY_NAME
             fi
         }
         add_libvirtd_group
