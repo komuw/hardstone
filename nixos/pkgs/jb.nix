@@ -6,7 +6,8 @@ in stdenv.mkDerivation {
     name = "jb";
 
     buildInputs = [
-        pkgs.virtualbox 
+        pkgs.virtualbox
+        pkgs.libvirt
         pkgs.minikube
         pkgs.kubectl
         pkgs.jq
