@@ -109,5 +109,24 @@ in stdenv.mkDerivation {
       }
       add_libvirtd_systemd_files
 
+      symlink_docker_mach_driver(){
+          # by default, minikube downloads it's own binary of `docker-machine-driver-kvm2`
+          # and saves it in `$HOME/.minikube/bin/`. this download happens when you do `minikube --profile=ara start`
+          # however, that binary fails to run. try and run
+          # `$HOME/.minikube/bin/docker-machine-driver-kvm2 version` to see the errors.
+          #     `error while loading shared libraries: libvirt-qemu.so.0`
+          # see: https://github.com/kubernetes/minikube/issues/6023#issuecomment-567274494
+          # instead, what we can do is symlink the one installed by nix.
+
+          this_file=$(stat $HOME/.minikube/bin/docker-machine-driver-kvm2)
+          if [[ "$this_file" == *"/nix/store"* ]]; then
+              # the file has already been symlinked.
+              echo -n ""
+          else
+              ln --force --symbolic $(which docker-machine-driver-kvm2) $HOME/.minikube/bin/docker-machine-driver-kvm2
+          fi
+      }
+      symlink_docker_mach_driver
+
     '';
 }
