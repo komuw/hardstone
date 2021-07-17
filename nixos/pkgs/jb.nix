@@ -94,6 +94,11 @@ in stdenv.mkDerivation {
                 sudo ln --force --symbolic /run/libvirt.sock /var/run/libvirt/libvirt-sock
                 sudo chown -R root:libvirt /var/run/libvirt/libvirt-sock
 
+                # symlink to /usr/libexec/qemu-kvm
+                # some libraries(eg minikube) expect that path.
+                sudo ln --force --symbolic $(which qemu-kvm) /usr/libexec/qemu-kvm
+                sudo chown -R root:libvirt /usr/libexec/qemu-kvm
+
                 printf "\n\t GOT HERE \n"
             fi
       }
