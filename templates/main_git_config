@@ -24,3 +24,7 @@ tool = meld
 conflictstyle = diff3
 [mergetool "meld"]
 keepBackup = false
+
+# fix golang access to private git repos
+[url "git@github.com:"]
+    insteadOf = https://github.com/
