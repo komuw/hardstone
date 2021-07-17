@@ -27,5 +27,10 @@ in stdenv.mkDerivation {
 
         MY_NAME=$(whoami)
 
+        # NB: You may need to restart the machine for some of this to kick in.
+        # especially adding user to the group.
+        sudo groupadd --force libvirt
+        sudo usermod -aG libvirt $MY_NAME
+
     '';
 }

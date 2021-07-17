@@ -56,6 +56,8 @@ in stdenv.mkDerivation {
               sudo chown -R root:docker /etc/systemd/system/docker.socket
               sudo chown -R root:docker /etc/systemd/system/docker.service
 
+              # NB: You may need to restart the machine for some of this to kick in.
+              # especially adding user to the docker group.
               sudo groupadd --force docker
               sudo usermod -aG docker $MY_NAME
 
