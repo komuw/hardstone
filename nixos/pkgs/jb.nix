@@ -53,6 +53,7 @@ in stdenv.mkDerivation {
             # https://github.com/snabbco/libvirt/blob/a4431931393aeb1ac5893f121151fa3df4fde612/daemon/libvirtd.socket.in
             # https://github.com/snabbco/libvirt/blob/a4431931393aeb1ac5893f121151fa3df4fde612/daemon/libvirtd.service.in
             # https://github.com/snabbco/libvirt/blob/a4431931393aeb1ac5893f121151fa3df4fde612/daemon/libvirtd.conf
+            # https://libvirt.org/format.html
 
 
             # troubleshoot using:
@@ -68,8 +69,11 @@ in stdenv.mkDerivation {
                 printf "\n\t STrt \n"
                 sudo systemctl stop libvirtd
 
+                sudo mkdir -p /etc/libvirtd
+                sudo chown -R root:libvirt /etc/libvirtd
                 sudo cp ../templates/libvirtd_socket_file /etc/systemd/system/libvirtd.socket
                 sudo cp ../templates/libvirtd_systemd_service_file /etc/systemd/system/libvirtd.service
+                cp ../templates/libvirtd_config_file /etc/libvirtd/libvirtd.conf
 
                 sudo chmod 0777 /etc/systemd/system/libvirtd.socket
                 sudo chmod 0777 /etc/systemd/system/libvirtd.service

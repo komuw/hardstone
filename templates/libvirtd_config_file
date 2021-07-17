@@ -1,0 +1,103 @@
+# Taken from https://github.com/snabbco/libvirt/blob/a4431931393aeb1ac5893f121151fa3df4fde612/daemon/libvirtd.conf
+
+
+# Master libvirt daemon configuration file
+#
+# For further information consult http://libvirt.org/format.html
+#
+# NOTE: the tests/daemon-conf regression test script requires
+# that each "PARAMETER = VALUE" line in this file have the parameter
+# name just after a leading "#".
+
+#################################################################
+#
+# UNIX socket access controls
+#
+
+# Beware that if you are changing *any* of these options, and you use
+# socket activation with systemd, you need to adjust the settings in
+# the libvirtd.socket file as well since it could impose a security
+# risk if you rely on file permission checking only.
+
+# Set the UNIX domain socket group ownership. This can be used to
+# allow a 'trusted' set of users access to management capabilities
+# without becoming root.
+#
+# This is restricted to 'root' by default.
+unix_sock_group = "libvirt"
+
+# Set the UNIX socket permissions for the R/O socket. This is used
+# for monitoring VM status only
+#
+# Default allows any user. If setting group ownership, you may want to
+# restrict this too.
+unix_sock_ro_perms = "0777"
+
+# Set the UNIX socket permissions for the R/W socket. This is used
+# for full management of VMs
+#
+# Default allows only root. If PolicyKit is enabled on the socket,
+# the default will change to allow everyone (eg, 0777)
+#
+# If not using PolicyKit and setting group ownership for access
+# control, then you may want to relax this too.
+unix_sock_rw_perms = "0777"
+
+# Set the name of the directory in which sockets will be found/created.
+#unix_sock_dir = "/var/run/libvirt"
+
+
+
+#################################################################
+#
+# Authentication.
+#
+#  - none: do not perform auth checks. If you can connect to the
+#          socket you are allowed. This is suitable if there are
+#          restrictions on connecting to the socket (eg, UNIX
+#          socket permissions), or if there is a lower layer in
+#          the network providing auth (eg, TLS/x509 certificates)
+#
+#  - sasl: use SASL infrastructure. The actual auth scheme is then
+#          controlled from /etc/sasl2/libvirt.conf. For the TCP
+#          socket only GSSAPI & DIGEST-MD5 mechanisms will be used.
+#          For non-TCP or TLS sockets, any scheme is allowed.
+#
+#  - polkit: use PolicyKit to authenticate. This is only suitable
+#            for use on the UNIX sockets. The default policy will
+#            require a user to supply their own password to gain
+#            full read/write access (aka sudo like), while anyone
+#            is allowed read/only access.
+#
+# Set an authentication scheme for UNIX read-only sockets
+# By default socket permissions allow anyone to connect
+#
+# To restrict monitoring of domains you may wish to enable
+# an authentication mechanism here
+auth_unix_ro = "none"
+
+# Set an authentication scheme for UNIX read-write sockets
+# By default socket permissions only allow root. If PolicyKit
+# support was compiled into libvirt, the default will be to
+# use 'polkit' auth.
+#
+# If the unix_sock_rw_perms are changed you may wish to enable
+# an authentication mechanism here
+auth_unix_rw = "none"
+
+# Change the authentication scheme for TCP sockets.
+#
+# If you don't enable SASL, then all TCP traffic is cleartext.
+# Don't do this outside of a dev/test scenario. For real world
+# use, always enable SASL and use the GSSAPI or DIGEST-MD5
+# mechanism in /etc/sasl2/libvirt.conf
+#auth_tcp = "sasl"
+
+# Change the authentication scheme for TLS sockets.
+#
+# TLS sockets already have encryption provided by the TLS
+# layer, and limited authentication is done by certificates
+#
+# It is possible to make use of any SASL authentication
+# mechanism as well, by using 'sasl' for this option
+#auth_tls = "none"
