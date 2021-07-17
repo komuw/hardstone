@@ -10,6 +10,11 @@ in stdenv.mkDerivation {
         pkgs.minikube
         pkgs.kubectl
         pkgs.jq
+        # The mongo shell is included as part of the MongoDB server installation.
+        # https://docs.mongodb.com/manual/reference/program/mongo/
+        pkgs.mongodb
+        pkgs.mongodb-tools
+        pkgs.kubernetes-helm
     ];
 
     shellHook = ''
