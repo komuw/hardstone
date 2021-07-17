@@ -1,7 +1,7 @@
 {
     "telemetry.enableCrashReporter": false,
     "telemetry.enableTelemetry": false,
-    "window.zoomLevel": -2,
+    "window.zoomLevel": -1,
     "window.menuBarVisibility": "default",
     "files.exclude": {
         "**/.git": true,
@@ -18,7 +18,8 @@
         "comments": true,
         "strings": true
     },
-    // docs: https://github.com/golang/tools/blob/master/gopls/doc/vscode.md
+    // docs: https://github.com/golang/tools/blob/master/gopls/doc/settings.md
+    //       https://github.com/golang/vscode-go/blob/master/docs/settings.md
     "go.useLanguageServer": true,
     "[go]": {
         "editor.snippetSuggestions": "none",
@@ -27,9 +28,14 @@
             "source.organizeImports": true
         },
     },
+    // docs: https://github.com/golang/tools/blob/master/gopls/doc/settings.md
+    //       https://github.com/golang/vscode-go/blob/master/docs/settings.md
     "gopls": {
-        "usePlaceholders": true, // add parameter placeholders when completing a function
+        "ui.completion.usePlaceholders": true, // add parameter placeholders when completing a function
         // ----- Experimental settings -----
+        // opts a user into the experimental support for multi-module workspaces.
+        // https://github.com/golang/go/issues/32394#issuecomment-704743836
+        "build.experimentalWorkspaceModule": true,
         "completeUnimported": true, // autocomplete unimported packages
         "deepCompletion": true, // deep completion
         // ----- Experimental settings -----
