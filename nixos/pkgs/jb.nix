@@ -27,10 +27,21 @@ in stdenv.mkDerivation {
 
         MY_NAME=$(whoami)
 
-        # NB: You may need to restart the machine for some of this to kick in.
-        # especially adding user to the group.
-        sudo groupadd --force libvirt
-        sudo usermod -aG libvirt $MY_NAME
+        add_to_group(){
+            # NB: You may need to restart the machine for some of this to kick in.
+            # especially adding user to the group.
+
+            my_groups=$(groups $MY_NAME)
+            SUB='Linux'
+            if [[ "$my_groups" == *"libvirt"* ]]; then
+                # exists
+                echo -n ""
+            else
+                sudo groupadd --force libvirt
+                sudo usermod -aG libvirt $MY_NAME
+            fi
+        }
+        add_to_group
 
     '';
 }
