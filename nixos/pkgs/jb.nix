@@ -7,6 +7,7 @@ in stdenv.mkDerivation {
 
     buildInputs = [
         pkgs.virtualbox
+        pkgs.qemu_kvm
         pkgs.libvirt
         pkgs.minikube
         pkgs.kubectl
