@@ -9,6 +9,7 @@ in stdenv.mkDerivation {
         pkgs.virtualbox 
         pkgs.minikube
         pkgs.kubectl
+        pkgs.jq
     ];
 
     shellHook = ''
