@@ -144,6 +144,9 @@ in stdenv.mkDerivation {
           # TODO: do this conditionally based on whether `virsh net-list --all` has the string `default` in it.
           # also if present, its state should be `active`
 
+          # TODO: check if the env var `LIBVIRT_DEFAULT_URI` persists.
+          # We need to make sure that it persists to the eventual nix-shell.
+
           export LIBVIRT_DEFAULT_URI='qemu:///system'
           the_default_network_file=$(find /nix -name "default.xml" | grep -i networks | grep -v autostart)
           virsh net-define $the_default_network_file
