@@ -142,7 +142,7 @@ in stdenv.mkDerivation {
           # see; https://wiki.libvirt.org/page/Networking
 
           # TODO: do this conditionally based on whether `virsh net-list --all` has the string `default` in it.
-          # also if present, its state should be `active`
+          # also if present, its state should be `active`. This check should be done while `LIBVIRT_DEFAULT_URI` is set.
 
           # TODO: check if the env var `LIBVIRT_DEFAULT_URI` persists.
           # We need to make sure that it persists to the eventual nix-shell.
