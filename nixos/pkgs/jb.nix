@@ -131,5 +131,26 @@ in stdenv.mkDerivation {
       }
       symlink_docker_mach_driver
 
+      start_libvirt_default_network(){
+          # https://wiki.debian.org/KVM#Installation
+          # If you use libvirt to manage your VMs, libvirt provides a NATed bridged network named `default`
+          # that allows the host to communicate with the guests.
+          # This network is available only for the system domains (that is VMs created by root or using the qemu:///system connection URI)
+          # This network is not automatically started
+
+          # we need to start the default network.
+          # see; https://wiki.libvirt.org/page/Networking
+
+          # TODO: do this conditionally based on whether `virsh net-list --all` has the string `default` in it.
+          # also if present, its state should be `active`
+
+          the_default_network_file=$(find /nix -name "default.xml" | grep -i networks | grep -v autostart)
+          virsh net-define $the_default_network_file
+          virsh net-list --all
+          virsh net-autostart default
+          virsh net-start default
+      }
+      start_libvirt_default_network
+
     '';
 }
