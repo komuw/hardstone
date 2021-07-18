@@ -14,6 +14,8 @@ Type=notify
 # EnvironmentFile=-/etc/sysconfig/libvirtd
 # TODO: we have hardcoded the libvirtd path. This path is likely to change.
 # We should ideally use something like `$(which libvirtd)`; but that aint working as of now.
+# Idea: run `find /nix -name "*libvirtd*.service*"` all we need to do is symlink the libvirtd.service file that we find
+# That service file comes with the `ExecStart` set to point to the correct libvirtd
 ExecStart=/nix/store/ah0wzqg5xwahfliwfc37lm36xml4sqiz-libvirt-7.0.0/bin/libvirtd --config /etc/libvirtd/libvirtd.conf
 # the symbolic link for `/run/libvirt.sock` does not persist after a computer restart.
 # this is because `/run/libvirt.sock` is recreated every time `libvirtd` is restarted.

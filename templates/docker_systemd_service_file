@@ -18,6 +18,8 @@ Type=notify
 Environment="THE_DOCKERD_PATH=$(which dockerd)"
 # TODO: we have hardcoded the dockerd path. This path is likely to change.
 # We should ideally use something like `$(which dockerd)`; but that aint working as of now.
+# Idea: run `find /nix -name "*docker*.service*"` all we need to do is symlink the docker.service file that we find
+# That service file comes with the `ExecStart` set to point to the correct dockerd
 ExecStart=/nix/store/b25i074fd8sf266jfxibzzfisvksvwdw-docker-20.10.2/bin/dockerd -H fd://
 ExecReload=/bin/kill -s HUP $MAINPID
 
