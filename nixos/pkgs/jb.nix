@@ -23,6 +23,9 @@ in stdenv.mkDerivation {
         pkgs.mongodb
         pkgs.mongodb-tools
         pkgs.kubernetes-helm
+        pkgs.dnsmasq
+        pkgs.bridge-utils
+        pkgs.iptables
     ];
 
     shellHook = ''
