@@ -81,7 +81,7 @@ in stdenv.mkDerivation {
                 sudo chown -R root:libvirt /etc/libvirtd
                 sudo cp ../templates/libvirtd_socket_file /etc/systemd/system/libvirtd.socket
                 sudo cp ../templates/libvirtd_systemd_service_file /etc/systemd/system/libvirtd.service
-                sudo cp ../templates/libvirtd_config_file /etc/libvirtd/libvirtd.conf
+                sudo cp ../templates/libvirtd.conf /etc/libvirtd/libvirtd.conf
                 sudo chown -R root:libvirt /etc/libvirtd/libvirtd.conf
 
                 sudo chmod 0777 /etc/systemd/system/libvirtd.socket
