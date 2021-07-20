@@ -20,7 +20,11 @@ in stdenv.mkDerivation {
         pkgs.jq
         # The mongo shell is included as part of the MongoDB server installation.
         # https://docs.mongodb.com/manual/reference/program/mongo/
-        pkgs.mongodb
+        #
+        # The version of mongo-shell & mongo-tools should match the version of the server you want to connect to.
+        # The version of mongodb available in nixpkgs is older than the version we need. So we'll install manually.
+        # We should switch back to nixpkgs when they update.
+        # pkgs.mongodb
         pkgs.mongodb-tools
         pkgs.kubernetes-helm
         pkgs.dnsmasq # Do we need this while I'm using systemd-resolved? https://tailscale.com/blog/sisyphean-dns-client-linux/
@@ -37,12 +41,28 @@ in stdenv.mkDerivation {
 
         MY_NAME=$(whoami)
 
+        install_mongo_shell(){
+            # https://docs.mongodb.com/manual/reference/program/mongo/
+            #  The version of mongodb available in nixpkgs is older than the version we need. So we'll install manually.
+
+            # TODO: install conditionally
+            # you can use `dpkg --get-selections | grep -v deinstall | grep -i mongo`
+            is_installed=$(dpkg --get-selections | grep -v deinstall | grep mongodb)
+            if [[ "$is_installed" == *"mongodb-org-shell"* ]]; then
+                # already installed
+                echo -n ""
+            else
+                wget -nc --output-document=/tmp/mongo_db_shell.deb https://repo.mongodb.org/apt/ubuntu/dists/bionic/mongodb-org/4.2/multiverse/binary-amd64/mongodb-org-shell_4.2.15_amd64.deb
+                sudo apt install -y /tmp/mongo_db_shell.deb
+            fi
+        }
+        install_mongo_shell
+
         add_libvirtd_group(){
             # NB: You may need to restart the machine for some of this to kick in.
             # especially adding user to the group.
 
             my_groups=$(groups $MY_NAME)
-            SUB='Linux'
             if [[ "$my_groups" == *"libvirt"* ]]; then
                 # exists
                 echo -n ""
