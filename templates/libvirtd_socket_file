@@ -4,7 +4,7 @@
 Description=libvirtd Socket for the API
 
 [Socket]
-ListenStream=/run/libvirt.sock
+ListenStream=/var/run/libvirt/libvirt-sock
 
 # The following settings must match libvirtd.conf file in order to
 # work as expected because libvirtd can't change them later.

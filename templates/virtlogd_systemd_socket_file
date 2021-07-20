@@ -1,0 +1,14 @@
+# Taken from https://github.com/libvirt/libvirt/blob/cc5311e73071f463ef29d9cb1cdd3eb3e19ef93a/src/logging/virtlogd.socket.in
+
+[Unit]
+Description=Virtual machine log manager socket
+Before=libvirtd.service
+
+[Socket]
+ListenStream=/run/libvirt/virtlogd-sock
+SocketMode=0777
+SocketUser=root
+SocketGroup=libvirt
+
+[Install]
+WantedBy=sockets.target

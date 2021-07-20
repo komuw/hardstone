@@ -77,6 +77,9 @@ in stdenv.mkDerivation {
 
                 sudo mkdir -p /etc/libvirtd
                 sudo chown -R root:libvirt /etc/libvirtd
+                sudo chown -R root:libvirt /var/run/libvirt
+                sudo chown -R root:libvirt /var/lib/libvirt
+
                 sudo cp ../templates/libvirtd_socket_file /etc/systemd/system/libvirtd.socket
                 sudo cp ../templates/libvirtd_systemd_service_file /etc/systemd/system/libvirtd.service
                 sudo cp ../templates/libvirtd.conf /etc/libvirtd/libvirtd.conf
@@ -94,19 +97,43 @@ in stdenv.mkDerivation {
 
                 sudo systemctl start libvirtd
 
-                # symlink to /var/run/libvirt/libvirt-sock
-                # some libraries(eg minikube) expect that sock path.
-                sudo chown -R root:libvirt /var/run/libvirt
-                sudo ln --force --symbolic /run/libvirt.sock /var/run/libvirt/libvirt-sock
-                sudo chown -R root:libvirt /var/run/libvirt/libvirt-sock
-
                 # symlink to /usr/libexec/qemu-kvm
                 # some libraries(eg minikube) expect that path.
                 sudo ln --force --symbolic $(which qemu-kvm) /usr/libexec/qemu-kvm
                 sudo chown -R root:libvirt /usr/libexec/qemu-kvm
             fi
-      }
-      add_libvirtd_systemd_files
+        }
+        add_libvirtd_systemd_files
+
+        add_virtlogd_systemd_files(){
+            # this is needed by libvirtd for logging purposes
+            # https://libvirt.org/daemons.html#logging-systemd-integration
+
+
+            virtlogd_systemd_file="/etc/systemd/system/virtlogd.service"
+            if [ -f "$virtlogd_systemd_file" ]; then
+                # exists
+                echo -n ""
+            else
+                sudo systemctl stop virtlogd
+
+                sudo cp ../templates/virtlogd_systemd_socket_file /etc/systemd/system/virtlogd.socket
+                sudo cp ../templates/virtlogd_systemd_service_file /etc/systemd/system/virtlogd.service
+
+                sudo chmod 0777 /etc/systemd/system/virtlogd.socket
+                sudo chmod 0777 /etc/systemd/system/virtlogd.service
+                sudo chown -R root:libvirt /etc/systemd/system/virtlogd.socket
+                sudo chown -R root:libvirt /etc/systemd/system/virtlogd.service
+
+                sudo systemctl daemon-reload
+                sudo systemctl enable virtlogd.socket
+                sudo systemctl enable virtlogd.service
+                systemctl list-unit-files | grep enabled | grep -i virtlogd
+
+                sudo systemctl start virtlogd
+            fi
+        }
+        add_virtlogd_systemd_files
 
       symlink_docker_mach_driver(){
           # by default, minikube downloads it's own binary of `docker-machine-driver-kvm2`
