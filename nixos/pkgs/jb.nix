@@ -23,7 +23,7 @@ in stdenv.mkDerivation {
         pkgs.mongodb
         pkgs.mongodb-tools
         pkgs.kubernetes-helm
-        pkgs.dnsmasq
+        pkgs.dnsmasq # Do we need this while I'm using systemd-resolved? https://tailscale.com/blog/sisyphean-dns-client-linux/
         pkgs.bridge-utils
         pkgs.iptables
     ];
@@ -79,6 +79,7 @@ in stdenv.mkDerivation {
                 sudo chown -R root:libvirt /etc/libvirtd
                 sudo chown -R root:libvirt /var/run/libvirt
                 sudo chown -R root:libvirt /var/lib/libvirt
+                sudo chown -R root:libvirt /var/lib/libvirt/dnsmasq
 
                 sudo cp ../templates/libvirtd_socket_file /etc/systemd/system/libvirtd.socket
                 sudo cp ../templates/libvirtd_systemd_service_file /etc/systemd/system/libvirtd.service
