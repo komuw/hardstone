@@ -141,19 +141,20 @@ in stdenv.mkDerivation {
           # we need to start the default network.
           # see; https://wiki.libvirt.org/page/Networking
 
-          # TODO: do this conditionally based on whether `virsh net-list --all` has the string `default` in it.
-          # also if present, its state should be `active`. This check should be done while `LIBVIRT_DEFAULT_URI` is set.
-
-          # TODO: check if the env var `LIBVIRT_DEFAULT_URI` persists.
-          # We need to make sure that it persists to the eventual nix-shell.
-
           export LIBVIRT_DEFAULT_URI='qemu:///system'
-          the_default_network_file=$(find /nix -name "default.xml" | grep -i networks | grep -v autostart)
-          virsh net-define $the_default_network_file
-          virsh net-list --all
-          virsh --connect qemu:///system net-list --all
-          virsh net-autostart default
-          virsh net-start default
+
+          is_default_net=$(virsh --connect qemu:///system net-list --all)
+          if [[ "$is_default_net" == *"default   active   yes"* ]]; then
+              # the `default` network exists, is active & is set to autostart.
+              echo -n ""
+          else
+              the_default_network_file=$(find /nix -name "default.xml" | grep -i networks | grep -v autostart)
+              virsh net-define $the_default_network_file
+              virsh net-list --all
+              virsh --connect qemu:///system net-list --all
+              virsh net-autostart default
+              virsh net-start default
+          fi
       }
       start_libvirt_default_network
 
