@@ -71,10 +71,8 @@ in stdenv.mkDerivation {
             libvirtd_systemd_file="/etc/systemd/system/libvirtd.service"
             if [ -f "$libvirtd_systemd_file" ]; then
                 # exists
-                printf "\n\t OH NO \n"
                 echo -n ""
             else
-                printf "\n\t STrt \n"
                 sudo systemctl stop libvirtd
 
                 sudo mkdir -p /etc/libvirtd
@@ -106,8 +104,6 @@ in stdenv.mkDerivation {
                 # some libraries(eg minikube) expect that path.
                 sudo ln --force --symbolic $(which qemu-kvm) /usr/libexec/qemu-kvm
                 sudo chown -R root:libvirt /usr/libexec/qemu-kvm
-
-                printf "\n\t GOT HERE \n"
             fi
       }
       add_libvirtd_systemd_files
