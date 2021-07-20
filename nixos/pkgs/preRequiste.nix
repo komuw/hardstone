@@ -23,6 +23,19 @@ in stdenv.mkDerivation {
       export CURL_CA_BUNDLE="$CURL_CA_BUNDLE"
 
       export SOME_CUSTOM_ENV_VAR="hello_there"
+
+      setup_locale(){
+          my_file=$(cat /etc/locale.gen)
+          if [[ "$my_file" == *"en_AG"* ]]; then
+                # it means that the `/etc/locale.gen` file still has the default settings it came with.
+                # lets replace them
+                sudo cp ../templates/etc_locale.gen /etc/locale.gen
+                sudo locale-gen
+            else
+                echo -n ""
+            fi
+      }
+      setup_locale
     '';
 
     # set some env vars.

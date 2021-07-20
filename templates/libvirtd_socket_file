@@ -1,0 +1,15 @@
+# Taken from https://github.com/snabbco/libvirt/blob/a4431931393aeb1ac5893f121151fa3df4fde612/daemon/libvirtd.socket.in
+
+[Unit]
+Description=libvirtd Socket for the API
+
+[Socket]
+ListenStream=/var/run/libvirt/libvirt-sock
+
+# The following settings must match libvirtd.conf file in order to
+# work as expected because libvirtd can't change them later.
+# SocketMode=0777 is safe only if authentication on the socket is set
+# up.  For further information, please see the libvirtd.conf file.
+SocketMode=0777
+SocketUser=root
+SocketGroup=libvirt

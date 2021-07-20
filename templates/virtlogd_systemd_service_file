@@ -1,0 +1,25 @@
+[Unit]
+Description=Virtual machine log manager
+Requires=virtlogd.socket
+Before=libvirtd.service
+Documentation=man:virtlogd(8)
+Documentation=https://libvirt.org
+
+[Service]
+# TODO: we have hardcoded the virtlogd path. This path is likely to change.
+# We should ideally use something like `$(which virtlogd)`; but that aint working as of now.
+# Idea: run `find /nix -name "*virtlogd*.service*"` all we need to do is symlink the virtlogd.service file that we find
+# That service file comes with the `ExecStart` set to point to the correct virtlogd
+ExecStart=/nix/store/ah0wzqg5xwahfliwfc37lm36xml4sqiz-libvirt-7.0.0/bin/virtlogd
+ExecReload=/bin/kill -USR1 $MAINPID
+
+# Need to have at least one file open per guest (eg QEMU
+# stdio log), but might be more (eg serial console logs)
+# A common case is OpenStack which often has up to 4 file
+# handles per guest.
+# libvirtd.service written to expect 4096 guests, so if we
+# guess at 4 files per guest here that is 16k:
+LimitNOFILE=16384
+
+[Install]
+Also=virtlogd.socket
