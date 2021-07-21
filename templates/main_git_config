@@ -3,6 +3,9 @@
 [includeIf "gitdir:~/personalWork/"]
     path = ~/personalWork/.gitconfig
 
+[includeIf "gitdir:~/paidWork/"]
+    path = ~/paidWork/.gitconfig
+
 [includeIf "gitdir:~/mystuff/"]
     path = ~/mystuff/.gitconfig
 

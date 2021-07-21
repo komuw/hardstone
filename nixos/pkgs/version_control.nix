@@ -25,6 +25,9 @@ in stdenv.mkDerivation {
       # configure ~/personalWork/gitconfig
       cp ../templates/personal_work_git_config /home/$MY_NAME/personalWork/.gitconfig
 
+      # configure ~/paidWork/gitconfig
+      cp ../templates/paid_work_git_config /home/$MY_NAME/paidWork/.gitconfig
+
       # configure gitattributes
       cp ../templates/git_attributes_config /home/$MY_NAME/mystuff/.gitattributes
 
