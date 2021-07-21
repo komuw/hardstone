@@ -30,6 +30,7 @@ in stdenv.mkDerivation {
         pkgs.dnsmasq # Do we need this while I'm using systemd-resolved? https://tailscale.com/blog/sisyphean-dns-client-linux/
         pkgs.bridge-utils
         pkgs.iptables
+        pkgs.go_1_15
     ];
 
     shellHook = ''
@@ -201,6 +202,18 @@ in stdenv.mkDerivation {
           fi
       }
       start_libvirt_default_network
+
+      add_go_15(){
+          linked_file="/usr/local/bin/go15"
+          if [ -f "$linked_file" ]; then
+              # exists
+              echo -n ""
+          else
+              bin_file="$(find /nix -name "*go-1.15.12")/bin/go"
+              sudo ln --force --symbolic $bin_file /usr/local/bin/go15
+          fi
+      }
+      add_go_15
 
     '';
 }
