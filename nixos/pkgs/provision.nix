@@ -28,6 +28,7 @@ in stdenv.mkDerivation {
         pkgs.gdb
         pkgs.hexchat
         pkgs.mosh
+        pkgs.eternal-terminal
         pkgs.vnstat
         pkgs.psmisc
         pkgs.traceroute
