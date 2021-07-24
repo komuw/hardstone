@@ -53,6 +53,7 @@ in stdenv.mkDerivation {
               go install github.com/rs/curlie@latest
               go install github.com/tsenart/vegeta@latest
               go install mvdan.cc/gofumpt@latest
+              go install golang.org/x/exp/cmd/gorelease@latest              
               go install golang.org/dl/gotip@latest
               go install github.com/golangci/golangci-lint/cmd/golangci-lint@latest
 
