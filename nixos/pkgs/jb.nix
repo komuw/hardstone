@@ -215,5 +215,16 @@ in stdenv.mkDerivation {
       }
       add_go_15
 
+      install_jb_go_pkgs(){
+          structslop_bin_file="/home/$MY_NAME/go/bin/structslop"
+          if [ -f "$structslop_bin_file" ]; then
+              # modules exists
+              echo -n ""
+          else
+              go install github.com/orijtech/structslop/cmd/structslop@latest
+          fi
+      }
+      install_jb_go_pkgs
+
     '';
 }

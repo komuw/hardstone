@@ -34,7 +34,6 @@ in stdenv.mkDerivation {
       MY_NAME=$(whoami)
 
       install_go_pkgs(){
-
           curlie_bin_file="/home/$MY_NAME/go/bin/curlie"
           if [ -f "$curlie_bin_file" ]; then
               # modules exists
