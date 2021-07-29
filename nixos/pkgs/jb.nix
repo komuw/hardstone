@@ -31,6 +31,7 @@ in stdenv.mkDerivation {
         pkgs.bridge-utils
         pkgs.iptables
         pkgs.go_1_15
+        pkgs.jetbrains.goland
     ];
 
     shellHook = ''
@@ -225,6 +226,20 @@ in stdenv.mkDerivation {
           fi
       }
       install_jb_go_pkgs
+
+      add_max_watches_config(){
+          file_exists="/etc/sysctl.d/intellij_goland.conf"
+          if [ -f "$file_exists" ]; then
+              # exists
+              echo -n ""
+          else
+              printf "\n\t creating... \n"
+              sudo cp ../templates/intellij_goland.conf /etc/sysctl.d/intellij_goland.conf
+              sudo sysctl -p --system
+              # remember to restart Goland after this
+          fi
+      }
+      add_max_watches_config
 
     '';
 }
