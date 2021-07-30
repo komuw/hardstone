@@ -19,6 +19,7 @@ in stdenv.mkDerivation {
         pkgs.ripgrep-all
         pkgs.rr
         pkgs.unixtools.netstat
+        pkgs.fzf
 
         # For some reason, zoom installed via nix is not working.
         # So we install it manually in `nixos/start.sh`.
