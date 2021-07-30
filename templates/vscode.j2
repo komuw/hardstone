@@ -2,7 +2,7 @@
     "telemetry.enableCrashReporter": false,
     "telemetry.enableTelemetry": false,
     "window.zoomLevel": -1,
-    "window.menuBarVisibility": "default",
+    "window.menuBarVisibility": "toggle", // press `alt` key to show menu bar
     "files.exclude": {
         "**/.git": true,
         "**/.svn": true,
@@ -11,8 +11,10 @@
         "**/.DS_Store": true,
         "**/*.pyc": true
     },
+    "breadcrumbs.enabled": true,
     "editor.formatOnSave": true,
     "editor.minimap.enabled": false,
+    "editor.suggestSelection": "first",
     "editor.quickSuggestions": {
         "other": true,
         "comments": true,
@@ -21,6 +23,13 @@
     // docs: https://github.com/golang/tools/blob/master/gopls/doc/settings.md
     //       https://github.com/golang/vscode-go/blob/master/docs/settings.md
     "go.useLanguageServer": true,
+    // -- perf: the following are disabled to try and improve perfomance
+    "go.buildOnSave": "off",
+    "go.coverOnTestPackage": false,
+    "go.lintOnSave": "off",
+    "go.vetOnSave": "off",
+    "go.formatTool": "gofmt",
+    // -- perf:
     "[go]": {
         "editor.snippetSuggestions": "none",
         "editor.formatOnSave": true,
@@ -36,10 +45,9 @@
         // opts a user into the experimental support for multi-module workspaces.
         // https://github.com/golang/go/issues/32394#issuecomment-704743836
         "build.experimentalWorkspaceModule": true,
-        "completeUnimported": true, // autocomplete unimported packages
-        "deepCompletion": true, // deep completion
         // ----- Experimental settings -----
     },
+    // python docs: https://code.visualstudio.com/docs/python/settings-reference
     "python.linting.pylintArgs": [
         "--load-plugins",
         "pylint_django",
@@ -73,7 +81,4 @@
     "dart.allowAnalytics": false,
     "dart.debugExternalLibraries": true,
     "dart.debugSdkLibraries": true,
-    "breadcrumbs.enabled": true,
-    "python.jediEnabled": false, // this enables us to use MS lang server: https://code.visualstudio.com/docs/python/settings-reference
-    "editor.suggestSelection": "first",
 }
