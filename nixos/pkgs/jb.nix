@@ -241,5 +241,18 @@ in stdenv.mkDerivation {
       }
       add_max_watches_config
 
+      install_chart_doc_gen(){
+          chart_doc_bin_file="/usr/local/bin/chart-doc-gen"
+          if [ -f "$chart_doc_bin_file" ]; then
+              # binary exists
+              echo -n ""
+          else
+              wget -nc --output-document=/tmp/chart-doc-gen https://github.com/kubepack/chart-doc-gen/releases/download/v0.4.1/chart-doc-gen-linux-amd64
+              sudo mv /tmp/chart-doc-gen /usr/local/bin/chart-doc-gen
+              chmod +x /usr/local/bin/chart-doc-gen
+          fi
+      }
+      install_chart_doc_gen
+
     '';
 }
