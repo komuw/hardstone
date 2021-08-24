@@ -32,6 +32,8 @@ in stdenv.mkDerivation {
         pkgs.iptables
         pkgs.go_1_15
         pkgs.jetbrains.goland
+        pkgs.nodePackages.npm
+        pkgs.yarn
     ];
 
     shellHook = ''
