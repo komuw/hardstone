@@ -34,6 +34,7 @@ in stdenv.mkDerivation {
         pkgs.jetbrains.goland
         pkgs.nodePackages.npm
         pkgs.yarn
+        pkgs.nodejs
     ];
 
     shellHook = ''
