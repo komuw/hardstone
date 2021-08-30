@@ -1,4 +1,7 @@
-with (import (fetchTarball "https://github.com/NixOS/nixpkgs/archive/21.05.tar.gz") {});
+with (import (fetchTarball "https://github.com/NixOS/nixpkgs/archive/3e25f7feaaf09c15167d0410999fc38da3872e6c.tar.gz") {});
+# we need some specific versions of helm, kind, skaffold that are not available in version 21.05
+# TODO: go back to tagged version once the three packages get updated.
+
 
 let
 
@@ -26,7 +29,6 @@ in stdenv.mkDerivation {
         # We should switch back to nixpkgs when they update.
         # pkgs.mongodb
         pkgs.mongodb-tools
-        pkgs.kubernetes-helm
         pkgs.dnsmasq # Do we need this while I'm using systemd-resolved? https://tailscale.com/blog/sisyphean-dns-client-linux/
         pkgs.bridge-utils
         pkgs.iptables
@@ -35,6 +37,10 @@ in stdenv.mkDerivation {
         pkgs.nodePackages.npm
         pkgs.yarn
         pkgs.nodejs
+
+        pkgs.kubernetes-helm
+        pkgs.skaffold
+        pkgs.kind
     ];
 
     shellHook = ''
