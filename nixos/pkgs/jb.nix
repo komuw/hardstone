@@ -263,5 +263,28 @@ in stdenv.mkDerivation {
       }
       install_chart_doc_gen
 
+      add_dev_hosts(){
+          hosts_file=$(cat /etc/hosts)
+          if [[ "$hosts_file" == *"ara"* ]]; then
+              # hosts file is already well populated.
+              echo -n ""
+          else
+              sudo echo '
+127.0.0.1   localhost
+
+# The following lines are desirable for IPv6 capable hosts
+::1     ip6-localhost ip6-loopback
+fe00::0 ip6-localnet
+ff00::0 ip6-mcastprefix
+ff02::1 ip6-allnodes
+ff02::2 ip6-allrouters
+
+# jb
+127.0.0.1 mongodb-primary.ara-dev mongodb-secondary.ara-dev mongodb-arbiter.ara-dev
+127.0.0.1 controller.ara.test dashboard.ara.test billing.ara.test' >> /etc/hosts
+         fi
+      }
+      add_dev_hosts
+
     '';
 }
