@@ -4,12 +4,14 @@
 #
 # Docs: 1. https://www.freedesktop.org/software/systemd/man/systemd.network.html
 #       2. https://unix.stackexchange.com/questions/442598/how-to-configure-systemd-resolved-and-systemd-networkd-to-use-local-dns-server-f
+#       3. https://flaviutamas.com/2019/fixing-name-resolution-after-sleep
 
 [Match]
 # A whitespace-separated list of shell-style globs matching the device type, as exposed by `networkctl list`.
 # Some valid values are "ether", "loopback", "wlan", "wwan".
 # Alternatively, we could remove this setting and use `Name=*` so as to match all interfaces.
-Type=loopback wlan
+# You do not want to put `loopback` in here. see [3] above.
+Type=wlan
 
 [Network]
 Description=dns server for local dev purposes.
