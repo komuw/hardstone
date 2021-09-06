@@ -311,8 +311,8 @@ ff02::2 ip6-allrouters
               sudo cp ../templates/etc.systemd.resolved.conf /etc/systemd/resolved.conf
               sudo cp ../templates/etc.systemd.network.local_dns.network /etc/systemd/network/local_dns.network
               sudo cp ../templates/etc.NetworkManager.NetworkManager.conf /etc/NetworkManager/NetworkManager.conf
-              sudo mkdir -p /etc/systemd/resolved.conf.d
-              sudo cp ../templates/etc.systemd.resolved.conf.d.local_dns /etc/systemd/resolved.conf.d/local_dns.conf
+              #sudo mkdir -p /etc/systemd/resolved.conf.d
+              #sudo cp ../templates/etc.systemd.resolved.conf.d.local_dns /etc/systemd/resolved.conf.d/local_dns.conf
 
               sudo systemctl daemon-reload
               sudo systemctl restart systemd-networkd
