@@ -264,6 +264,21 @@ in stdenv.mkDerivation {
       }
       install_chart_doc_gen
 
+      install_skaffold(){
+          # TODO: remove this once nixpkgs has >= v1.30.1
+
+          skaffold_bin_file="/usr/local/bin/skaffold"
+          if [ -f "$skaffold_bin_file" ]; then
+              # binary exists
+              echo -n ""
+          else
+              wget -nc --output-document=/tmp/skaffold https://github.com/GoogleContainerTools/skaffold/releases/download/v1.31.0/skaffold-linux-amd64
+              sudo mv /tmp/skaffold /usr/local/bin/skaffold
+              chmod +x /usr/local/bin/skaffold
+          fi
+      }
+      install_skaffold
+
       add_dev_hosts(){
           hosts_file=$(cat /etc/hosts)
           if [[ "$hosts_file" == *"ara"* ]]; then
@@ -282,25 +297,25 @@ ff02::2 ip6-allrouters
 
 # jb
 127.0.0.1 mongodb-primary.ara-dev mongodb-secondary.ara-dev mongodb-arbiter.ara-dev
-127.0.0.1 controller.ara.test dashboard.ara.test billing.ara.test' >> /etc/hosts
+# 127.0.0.1 controller.ara.test dashboard.ara.test billing.ara.test' >> /etc/hosts
          fi
       }
       add_dev_hosts
 
-      install_skaffold(){
-          # TODO: remove this once nixpkgs has >= v1.30.1
-
-          skaffold_bin_file="/usr/local/bin/skaffold"
-          if [ -f "$skaffold_bin_file" ]; then
-              # binary exists
+      setup_dns(){
+          local_file="/etc/systemd/network/local_dns.network"
+          if [ -f "$local_file" ]; then
+              # exists
               echo -n ""
           else
-              wget -nc --output-document=/tmp/skaffold https://github.com/GoogleContainerTools/skaffold/releases/download/v1.31.0/skaffold-linux-amd64
-              sudo mv /tmp/skaffold /usr/local/bin/skaffold
-              chmod +x /usr/local/bin/skaffold
+              sudo cp ../templates/etc.systemd.resolved.conf /etc/systemd/resolved.conf
+              sudo cp ../templates/etc.systemd.network.local_dns.network /etc/systemd/network/local_dns.network
+              sudo systemctl daemon-reload
+              sudo systemctl restart systemd-networkd
+              sudo systemctl restart systemd-resolved
           fi
       }
-      install_skaffold
+      setup_dns
 
     '';
 }
