@@ -39,8 +39,9 @@ in stdenv.mkDerivation {
         pkgs.nodejs
 
         pkgs.kubernetes-helm
-        pkgs.skaffold
+        # pkgs.skaffold # nixpkgs doesn't yet have >= v1.30.1
         pkgs.kind
+        pkgs.direnv
     ];
 
     shellHook = ''
@@ -176,8 +177,8 @@ in stdenv.mkDerivation {
           # see: https://github.com/kubernetes/minikube/issues/6023#issuecomment-567274494
           # instead, what we can do is symlink the one installed by nix.
 
-          this_file=$(stat $HOME/.minikube/bin/docker-machine-driver-kvm2)
-          if [[ "$this_file" == *"/nix/store"* ]]; then
+          file_exists="$HOME/.minikube/bin/docker-machine-driver-kvm2"
+          if [ -f "$file_exists" ]; then
               # the file has already been symlinked.
               echo -n ""
           else
@@ -285,6 +286,21 @@ ff02::2 ip6-allrouters
          fi
       }
       add_dev_hosts
+
+      install_skaffold(){
+          # TODO: remove this once nixpkgs has >= v1.30.1
+
+          skaffold_bin_file="/usr/local/bin/skaffold"
+          if [ -f "$skaffold_bin_file" ]; then
+              # binary exists
+              echo -n ""
+          else
+              wget -nc --output-document=/tmp/skaffold https://github.com/GoogleContainerTools/skaffold/releases/download/v1.31.0/skaffold-linux-amd64
+              sudo mv /tmp/skaffold /usr/local/bin/skaffold
+              chmod +x /usr/local/bin/skaffold
+          fi
+      }
+      install_skaffold
 
     '';
 }
