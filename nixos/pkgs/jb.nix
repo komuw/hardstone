@@ -297,7 +297,7 @@ ff02::2 ip6-allrouters
 
 # jb
 127.0.0.1 mongodb-primary.ara-dev mongodb-secondary.ara-dev mongodb-arbiter.ara-dev
-# 127.0.0.1 controller.ara.test dashboard.ara.test billing.ara.test' >> /etc/hosts
+' >> /etc/hosts
          fi
       }
       add_dev_hosts
