@@ -1,0 +1,33 @@
+#  This file is part of systemd.
+# 
+# Use `networkctl list` & `networkctl status` to troubleshoot. 
+#
+# Docs: 1. https://www.freedesktop.org/software/systemd/man/systemd.network.html
+#       2. https://unix.stackexchange.com/questions/442598/how-to-configure-systemd-resolved-and-systemd-networkd-to-use-local-dns-server-f
+#       3. https://flaviutamas.com/2019/fixing-name-resolution-after-sleep
+
+[Match]
+# A whitespace-separated list of shell-style globs matching the device type, as exposed by `networkctl list`.
+# Some valid values are "ether", "loopback", "wlan", "wwan".
+# Alternatively, we could remove this setting and use `Name=*` so as to match all interfaces.
+# You do not want to put `loopback` in here. see [3] above.
+Type=wlan
+
+[Network]
+Description=dns server for local dev purposes.
+DNS=127.0.0.1:61053
+# For the domains listed below, use the DNS server listed above.
+Domains=~ara.test ~example
+# If true, this link's configured DNS servers are used for resolving domain names that do not match any link's configured Domains=setting.
+# If false, this link's configured DNS servers are never used for such domains,
+# and are exclusively used for resolving names that match at least one of the domains configured on this link.
+DNSDefaultRoute=false
+# Enables DHCPv4 and/or DHCPv6 client support. Accepts "yes", "no", "ipv4", or "ipv6". Defaults to "no".
+DHCP=no
+
+[DHCPv4]
+# When true (the default), the DNS servers received from the DHCP server will be used.
+UseDNS=false
+
+[DHCPv6]
+UseDNS=false
