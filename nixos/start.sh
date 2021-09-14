@@ -167,9 +167,70 @@ create_nix_aliases(){
 create_nix_aliases
 
 
+source_files(){
+    printf "\n\n\t 10. source_files \n"
+
+    . ~/.nix-profile/etc/profile.d/nix.sh
+    . /home/$MY_NAME/.nix-profile/etc/profile.d/nix.sh
+    . ~/.bash_aliases
+
+    source ~/.nix-profile/etc/profile.d/nix.sh
+    source /home/$MY_NAME/.nix-profile/etc/profile.d/nix.sh
+    source ~/.bash_aliases
+}
+source_files
+
+install_media_codecs(){
+    printf "\n\n\t 11. install media codecs \n"
+
+    sudo apt-get -y update
+    echo ttf-mscorefonts-installer msttcorefonts/accepted-mscorefonts-eula select true | sudo debconf-set-selections  # agree to ttf-mscorefonts-installer license(prepare media codecs install)
+    sudo apt-get -y install ubuntu-restricted-extras                                                                  # install system packages  media codecs
+}
+install_media_codecs
+
+
+install_zoom(){
+    printf "\n\n\t 12. install zoom \n"
+
+    # For some reason, zoom installed via nix is not working.
+    # So we install it manually.
+    # TODO: remove this once we get zoom working on nix.
+
+    sudo apt -y update
+    # install zoom dependencies
+    sudo apt-get -y install libgl1-mesa-glx \
+                        libegl1-mesa \
+                        libxcb-xtest0 \
+                        libxcb-xinerama0
+
+    wget -nc --output-document=/tmp/zoom_amd64.deb https://zoom.us/client/latest/zoom_amd64.deb
+    sudo dpkg -i /tmp/zoom_amd64.deb
+}
+install_zoom
+
+
+un_install_snapd(){
+    printf "\n\n\t 13. un_install snapd \n"
+
+    # https://askubuntu.com/questions/1035915/how-to-remove-snap-store-from-ubuntu
+
+    sudo apt -y autoremove --purge snapd gnome-software-plugin-snap
+    sudo rm -rf /snap
+    sudo rm -fr ~/snap
+    sudo rm -rf /var/snap
+    sudo rm -rf /var/lib/snapd
+    sudo rm -rf /var/cache/snapd
+
+    # prevent the package from being automatically installed, upgraded or removed.
+    sudo apt-mark hold snapd
+}
+un_install_snapd
+
+
 # TODO: make it possible to run this function
 uninstall_non_essential_apt_packages(){
-    printf "\n\n\t 10. uninstall_non_essential_apt_packages \n"
+    printf "\n\n\t 14. uninstall_non_essential_apt_packages \n"
 
     sudo rm -rf /tmp/*.txt
 
@@ -182,7 +243,7 @@ uninstall_non_essential_apt_packages(){
     #       https://askubuntu.com/questions/79665/keep-only-essential-packages
     # REQUIRED_PACKAGES.
     # Found by running: `dpkg-query -Wf '${Package;-40}${Priority}\n' | sort -b -k2,2 -k1,1 | grep required | awk '{print $1}'``
-    
+
     # make sure there at least one extra package installed that will be removed
     sudo apt -y update; sudo apt -y install cowsay
 
@@ -203,47 +264,6 @@ uninstall_non_essential_apt_packages(){
 # uninstall_non_essential_apt_packages
 
 
-source_files(){
-    printf "\n\n\t 11. source_files \n"
-
-    . ~/.nix-profile/etc/profile.d/nix.sh
-    . /home/$MY_NAME/.nix-profile/etc/profile.d/nix.sh
-    . ~/.bash_aliases
-
-    source ~/.nix-profile/etc/profile.d/nix.sh
-    source /home/$MY_NAME/.nix-profile/etc/profile.d/nix.sh
-    source ~/.bash_aliases
-}
-source_files
-
-install_media_codecs(){
-    printf "\n\n\t 12. install media codecs \n"
-
-    sudo apt-get -y update
-    echo ttf-mscorefonts-installer msttcorefonts/accepted-mscorefonts-eula select true | sudo debconf-set-selections  # agree to ttf-mscorefonts-installer license(prepare media codecs install)
-    sudo apt-get -y install ubuntu-restricted-extras                                                                  # install system packages  media codecs
-}
-install_media_codecs
-
-
-install_zoom(){
-    printf "\n\n\t 13. install zoom \n"
-
-    # For some reason, zoom installed via nix is not working.
-    # So we install it manually.
-    # TODO: remove this once we get zoom working on nix.
-
-    sudo apt -y update
-    # install zoom dependencies
-    sudo apt-get -y install libgl1-mesa-glx \
-                        libegl1-mesa \
-                        libxcb-xtest0 \
-                        libxcb-xinerama0
-
-    wget -nc --output-document=/tmp/zoom_amd64.deb https://zoom.us/client/latest/zoom_amd64.deb
-    sudo dpkg -i /tmp/zoom_amd64.deb
-}
-install_zoom
 
 # The main command for package management is nix-env.
 # See: https://nixos.org/manual/nix/stable/#ch-basic-package-mgmt
