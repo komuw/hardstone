@@ -31,7 +31,7 @@ in stdenv.mkDerivation {
         pkgs.mongodb-tools
         pkgs.bridge-utils
         pkgs.iptables
-        pkgs.go_1_17
+        pkgs.go_1_17 # remember to update the add_go_17() bash function.
         pkgs.jetbrains.goland
         pkgs.nodePackages.npm
         pkgs.yarn
