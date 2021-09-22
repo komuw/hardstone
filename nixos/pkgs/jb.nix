@@ -263,20 +263,5 @@ in stdenv.mkDerivation {
       }
       install_chart_doc_gen
 
-    #   install_skaffold(){
-    #       # TODO: remove this once nixpkgs has >= v1.30.1
-
-    #       skaffold_bin_file="/usr/local/bin/skaffold"
-    #       if [ -f "$skaffold_bin_file" ]; then
-    #           # binary exists
-    #           echo -n ""
-    #       else
-    #           wget -nc --output-document=/tmp/skaffold https://github.com/GoogleContainerTools/skaffold/releases/download/v1.31.0/skaffold-linux-amd64
-    #           sudo mv /tmp/skaffold /usr/local/bin/skaffold
-    #           chmod +x /usr/local/bin/skaffold
-    #       fi
-    #   }
-    #   install_skaffold
-
     '';
 }
