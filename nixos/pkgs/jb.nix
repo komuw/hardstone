@@ -213,17 +213,17 @@ in stdenv.mkDerivation {
       }
       start_libvirt_default_network
 
-      add_go_15(){
-          linked_file="/usr/local/bin/go15"
+      add_go_17(){
+          linked_file="/usr/local/bin/go17"
           if [ -f "$linked_file" ]; then
               # exists
               echo -n ""
           else
-              bin_file="$(find /nix -name "*go-1.15.12")/bin/go"
-              sudo ln --force --symbolic $bin_file /usr/local/bin/go15
+              bin_file="$(find /nix -name "*go-1.17.1")/bin/go"
+              sudo ln --force --symbolic $bin_file /usr/local/bin/go17
           fi
       }
-      add_go_15
+      add_go_17
 
       install_jb_go_pkgs(){
           structslop_bin_file="/home/$MY_NAME/go/bin/structslop"
