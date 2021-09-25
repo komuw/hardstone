@@ -1,4 +1,4 @@
-with (import (fetchTarball "https://github.com/NixOS/nixpkgs/archive/3e25f7feaaf09c15167d0410999fc38da3872e6c.tar.gz") {});
+with (import (fetchTarball "https://github.com/NixOS/nixpkgs/archive/e824324fd57be1485efc14d4d308e8f1bfc15d47.tar.gz") {});
 # we need some specific versions of helm, kind, skaffold that are not available in version 21.05
 # TODO: go back to tagged version once the three packages get updated.
 
@@ -31,14 +31,14 @@ in stdenv.mkDerivation {
         pkgs.mongodb-tools
         pkgs.bridge-utils
         pkgs.iptables
-        pkgs.go_1_15
+        pkgs.go_1_17 # remember to update the add_go_17() bash function.
         pkgs.jetbrains.goland
         pkgs.nodePackages.npm
         pkgs.yarn
         pkgs.nodejs
 
         pkgs.kubernetes-helm
-        # pkgs.skaffold # nixpkgs doesn't yet have >= v1.30.1
+        pkgs.skaffold
         pkgs.kind
         pkgs.direnv
     ];
@@ -213,17 +213,17 @@ in stdenv.mkDerivation {
       }
       start_libvirt_default_network
 
-      add_go_15(){
-          linked_file="/usr/local/bin/go15"
+      add_go_17(){
+          linked_file="/usr/local/bin/go17"
           if [ -f "$linked_file" ]; then
               # exists
               echo -n ""
           else
-              bin_file="$(find /nix -name "*go-1.15.12")/bin/go"
-              sudo ln --force --symbolic $bin_file /usr/local/bin/go15
+              bin_file="$(find /nix -name "*go-1.17.1")/bin/go"
+              sudo ln --force --symbolic $bin_file /usr/local/bin/go17
           fi
       }
-      add_go_15
+      add_go_17
 
       install_jb_go_pkgs(){
           structslop_bin_file="/home/$MY_NAME/go/bin/structslop"
@@ -262,21 +262,6 @@ in stdenv.mkDerivation {
           fi
       }
       install_chart_doc_gen
-
-      install_skaffold(){
-          # TODO: remove this once nixpkgs has >= v1.30.1
-
-          skaffold_bin_file="/usr/local/bin/skaffold"
-          if [ -f "$skaffold_bin_file" ]; then
-              # binary exists
-              echo -n ""
-          else
-              wget -nc --output-document=/tmp/skaffold https://github.com/GoogleContainerTools/skaffold/releases/download/v1.31.0/skaffold-linux-amd64
-              sudo mv /tmp/skaffold /usr/local/bin/skaffold
-              chmod +x /usr/local/bin/skaffold
-          fi
-      }
-      install_skaffold
 
     '';
 }
