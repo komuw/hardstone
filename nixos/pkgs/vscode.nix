@@ -48,7 +48,7 @@ in stdenv.mkDerivation {
                 code --user-data-dir='/tmp/' --install-extension ms-azuretools.vscode-docker
                 code --user-data-dir='/tmp/' --install-extension hashicorp.terraform
                 code --user-data-dir='/tmp/' --install-extension bbenoist.nix
-                # code --user-data-dir='/tmp/' --install-extension ms-vscode.cpptools
+                code --user-data-dir='/tmp/' --install-extension ms-vscode.cpptools
             fi
         }
         install_vscode_extensions

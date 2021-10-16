@@ -45,6 +45,7 @@ let
     terminalImport  = import ./terminal.nix;
     dnsImport  = import ./dns.nix;
     jbImport  = import ./jb.nix;
+    cLangImport = import ./c_lang.nix;
 
 in stdenv.mkDerivation {
     # docs: http://blog.ielliott.io/nix-docs/stdenv-mkDerivation.html
@@ -64,7 +65,8 @@ in stdenv.mkDerivation {
       ++ ohMyZshImport.buildInputs
       ++ terminalImport.buildInputs
       ++ dnsImport.buildInputs
-      ++ jbImport.buildInputs;
+      ++ jbImport.buildInputs
+      ++ cLangImport.buildInputs;
 
     # shellHook is a shell script to run after entering a nix-shell.
     shellHook = baseHooks
@@ -80,7 +82,8 @@ in stdenv.mkDerivation {
       + ohMyZshImport.shellHook
       + terminalImport.shellHook
       + dnsImport.shellHook
-      + jbImport.shellHook;
+      + jbImport.shellHook
+      + cLangImport.shellHook;
 
     # buildPhase:      string?,
     # installPhase:    string?,
