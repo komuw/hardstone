@@ -11,7 +11,9 @@
 # Some valid values are "ether", "loopback", "wlan", "wwan".
 # Alternatively, we could remove this setting and use `Name=*` so as to match all interfaces.
 # You do not want to put `loopback` in here. see [3] above.
-Type=wlan
+#
+# `wlan` handles WIFI. `wwan` handles when tethering on phone wifi(like safaricom).
+Type=wlan wwan
 
 [Network]
 Description=dns server for local dev purposes.
