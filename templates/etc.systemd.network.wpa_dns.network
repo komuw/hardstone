@@ -6,9 +6,7 @@
 #       2. https://unix.stackexchange.com/questions/442598/how-to-configure-systemd-resolved-and-systemd-networkd-to-use-local-dns-server-f
 #       3. https://flaviutamas.com/2019/fixing-name-resolution-after-sleep
 
-# Note: This config does not work with tethered(via phone) wifi like safaricom.
-# TODO: we should make it work.
-# For now, when working with such connections, use the file `etc.systemd.network.wpa_dns.network` instead
+# Also see `etc.systemd.network.local_dns.network`
 # TODO: We should unify that file and this one.
 #       or be able to add the two; by making the match section to be super-specific
 
@@ -29,13 +27,13 @@ Domains=~ara.test ~example
 # If true, this link's configured DNS servers are used for resolving domain names that do not match any link's configured Domains=setting.
 # If false, this link's configured DNS servers are never used for such domains,
 # and are exclusively used for resolving names that match at least one of the domains configured on this link.
-DNSDefaultRoute=false
+DNSDefaultRoute=true
 # Enables DHCPv4 and/or DHCPv6 client support. Accepts "yes", "no", "ipv4", or "ipv6". Defaults to "no".
-DHCP=no
+DHCP=yes
 
 [DHCPv4]
 # When true (the default), the DNS servers received from the DHCP server will be used.
-UseDNS=false
+UseDNS=true
 
 [DHCPv6]
-UseDNS=false
+UseDNS=true
