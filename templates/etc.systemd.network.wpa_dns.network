@@ -19,6 +19,10 @@
 # `wlan` handles WIFI. `wwan` handles when tethering on phone wifi(like safaricom).
 Type=wlan wwan
 
+# NOTE: The config for the custom DNS below(ara.test) does not work with this config
+#       But it does work with the `etc.systemd.network.local_dns.network` config file.
+#       TODO: we should fix that.
+
 [Network]
 Description=dns server for local dev purposes.
 DNS=127.0.0.1:61053
