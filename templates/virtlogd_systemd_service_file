@@ -10,7 +10,7 @@ Documentation=https://libvirt.org
 # We should ideally use something like `$(which virtlogd)`; but that aint working as of now.
 # Idea: run `find /nix -name "*virtlogd*.service*"` all we need to do is symlink the virtlogd.service file that we find
 # That service file comes with the `ExecStart` set to point to the correct virtlogd
-ExecStart=/nix/store/nllfj0wwvw2f7146gplqh9db1vk8j5k9-libvirt-7.0.0/bin/virtlogd
+ExecStart=/nix/store/xpwi9wzjqm5c5bfiid1zmilhymjmlxpf-libvirt-7.9.0/bin/virtlogd
 ExecReload=/bin/kill -USR1 $MAINPID
 
 # Need to have at least one file open per guest (eg QEMU
