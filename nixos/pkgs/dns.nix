@@ -45,9 +45,9 @@ ff02::2 ip6-allrouters
 
       setup_dns_files(){
           # example usage:
-          #    setup_dns_files etc.systemd.network.wireless_internet_dns.network
+          #    setup_dns_files etc_systemd_network_wireless_internet_dns.network
           #     or
-          #    setup_dns_files etc.systemd.network.tethered_internet_dns.network
+          #    setup_dns_files etc_systemd_network_tethered_internet_dns.network
 
           sudo rm -rf /etc/systemd/network/*
           sudo cp ../templates/etc.systemd.resolved.conf /etc/systemd/resolved.conf
@@ -64,17 +64,17 @@ ff02::2 ip6-allrouters
           if [[ -z "$USING_TETHERED_INTERNET" ]]; then
               # that env var is unset, which means we are NOT using tethered internet.
               # ie, we are using wireless internet.
-              the_file_name="etc.systemd.network.wireless_internet_dns.network"
+              the_file_name="etc_systemd_network_wireless_internet_dns.network"
           else
-              the_file_name="etc.systemd.network.tethered_internet_dns.network"
+              the_file_name="etc_systemd_network_tethered_internet_dns.network"
           fi
 
-          local_file="/etc/systemd/network/${the_file_name}"
+          local_file="/etc/systemd/network/$the_file_name"
           if [ -f "$local_file" ]; then
               # exists
               echo -n ""
           else
-              setup_dns_files "${the_file_name}"
+              setup_dns_files "$the_file_name"
           fi
       }
       setup_dns

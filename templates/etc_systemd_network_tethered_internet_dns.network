@@ -7,7 +7,7 @@
 #       2. https://unix.stackexchange.com/questions/442598/how-to-configure-systemd-resolved-and-systemd-networkd-to-use-local-dns-server-f
 #       3. https://flaviutamas.com/2019/fixing-name-resolution-after-sleep
 
-# Also see `etc.systemd.network.wireless_internet_dns.network`
+# Also see `etc_systemd_network_wireless_internet_dns.network`
 # TODO: We should unify that file and this one.
 #       or be able to add the two; by making the match section to be super-specific
 
@@ -21,7 +21,7 @@
 Type=wlan wwan
 
 # NOTE: The config for the custom DNS below(ara.test) does not work with this config
-#       But it does work with the `etc.systemd.network.wireless_internet_dns.network` config file.
+#       But it does work with the `etc_systemd_network_wireless_internet_dns.network` config file.
 #       TODO: we should fix that.
 
 [Network]
