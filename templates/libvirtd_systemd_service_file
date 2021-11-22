@@ -16,7 +16,7 @@ Type=notify
 # We should ideally use something like `$(which libvirtd)`; but that aint working as of now.
 # Idea: run `find /nix -name "*libvirtd*.service*"` all we need to do is symlink the libvirtd.service file that we find
 # That service file comes with the `ExecStart` set to point to the correct libvirtd
-ExecStart=/nix/store/nllfj0wwvw2f7146gplqh9db1vk8j5k9-libvirt-7.0.0/bin/libvirtd --config /etc/libvirtd/libvirtd.conf
+ExecStart=/nix/store/xpwi9wzjqm5c5bfiid1zmilhymjmlxpf-libvirt-7.9.0/bin/libvirtd --config /etc/libvirtd/libvirtd.conf
 ExecReload=/bin/kill -s HUP $MAINPID
 
 # kill only the libvirtd process, not all processes in the cgroup
