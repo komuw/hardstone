@@ -1,4 +1,5 @@
 #  This file is part of systemd.
+# The main network file must have the extension .network; other extensions are ignored.
 # 
 # Use `networkctl list` & `networkctl status` to troubleshoot. 
 #
