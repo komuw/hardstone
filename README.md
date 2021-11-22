@@ -12,9 +12,16 @@ This is my setup, it may not work for you. Feel free to modify appropriately.
       
 * git clone this project
 * cd into this project's directory
+* cd to `nixos` directory
 * run: 
 ```shell
-bash linux/hardstone.sh mySshKeyPassphrase personalWorkEmail personalWorkName UserPassword
+# 1. If you want to use nixpkgs:
+    bash start.sh
+    export SSH_KEY_PHRASE=my_ssh_key_pass_phrase
+    # export USING_TETHERED_INTERNET=YES # this is optional
+    nix-shell pkgs/
+# 2. If you want to just use bash:
+    bash linux/hardstone.sh mySshKeyPassphrase personalWorkEmail personalWorkName UserPassword
 ```
 * go make a cup of coffee, this may take a while
 * your dev environment is ready
@@ -23,7 +30,6 @@ bash linux/hardstone.sh mySshKeyPassphrase personalWorkEmail personalWorkName Us
 
 relax home boy. this setup will install and configure: 
 * openssh-client
-* meld
 * terminator
 * telnet
 * curl
@@ -32,19 +38,15 @@ relax home boy. this setup will install and configure:
 * transmission
 * vlc
 * google chrome
-* sublime-text3
-* vagrant
-* virtualbox
 * youtube-dl
 * asciinema
 * docker
-* nodeJS
 * Go(golang)
 * Dart(dartlang)
 * among other stuff
 
 ## NB:      
-* This project was tested on a machine running [ubuntu 18.04, 64bit.](https://circleci.com/gh/komuw/hardstone)
+* This project was tested on a machine running `ubuntu 21.04, 64bit`
 * However, It should work for most debian machines. 
 * Some tasks will fail for 32bit machines.
 
