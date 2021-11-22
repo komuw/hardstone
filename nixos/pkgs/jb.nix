@@ -1,4 +1,4 @@
-with (import (fetchTarball "https://github.com/NixOS/nixpkgs/archive/e824324fd57be1485efc14d4d308e8f1bfc15d47.tar.gz") {});
+with (import (fetchTarball "https://github.com/NixOS/nixpkgs/archive/b56d7a70a7158f81d964a55cfeb78848a067cc7d.tar.gz") {});
 # we need some specific versions of helm, kind, skaffold that are not available in version 21.05
 # TODO: go back to tagged version once the three packages get updated.
 
