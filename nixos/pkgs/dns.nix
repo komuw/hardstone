@@ -43,21 +43,38 @@ ff02::2 ip6-allrouters
       }
       add_dev_hosts
 
+      setup_dns_files(){
+          # example usage:
+          #    setup_dns_files etc.systemd.network.wireless_internet_dns.network
+          #     or
+          #    setup_dns_files etc.systemd.network.tethered_internet_dns.network
+
+          sudo rm -rf /etc/systemd/network/*
+          sudo cp ../templates/etc.systemd.resolved.conf /etc/systemd/resolved.conf
+          sudo cp "../templates/$1" "/etc/systemd/network/$1"
+          sudo cp ../templates/etc.NetworkManager.NetworkManager.conf /etc/NetworkManager/NetworkManager.conf
+
+          sudo systemctl daemon-reload
+          sudo systemctl restart systemd-networkd
+          sudo systemctl restart systemd-resolved
+          sudo systemctl restart NetworkManager
+      }
+
       setup_dns(){
-          local_file="/etc/systemd/network/local_dns.network"
+          if [[ -z "$USING_TETHERED_INTERNET" ]]; then
+              # that env var is unset, which means we are NOT using tethered internet.
+              # ie, we are using wireless internet.
+              the_file_name="etc.systemd.network.wireless_internet_dns.network"
+          else
+              the_file_name="etc.systemd.network.tethered_internet_dns.network"
+          fi
+
+          local_file="/etc/systemd/network/${the_file_name}"
           if [ -f "$local_file" ]; then
               # exists
               echo -n ""
           else
-              sudo rm -rf /etc/systemd/network/*
-              sudo cp ../templates/etc.systemd.resolved.conf /etc/systemd/resolved.conf
-              sudo cp ../templates/etc.systemd.network.wireless_internet_dns.network /etc/systemd/network/local_dns.network
-              sudo cp ../templates/etc.NetworkManager.NetworkManager.conf /etc/NetworkManager/NetworkManager.conf
-
-              sudo systemctl daemon-reload
-              sudo systemctl restart systemd-networkd
-              sudo systemctl restart systemd-resolved
-              sudo systemctl restart NetworkManager
+              setup_dns_files "${the_file_name}"
           fi
       }
       setup_dns
