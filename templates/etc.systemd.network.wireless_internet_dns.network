@@ -9,7 +9,7 @@
 
 # Note: This config does not work with tethered(via phone) wifi like safaricom.
 # TODO: we should make it work.
-# For now, when working with such connections, use the file `etc.systemd.network.wpa_dns.network` instead
+# For now, when working with such connections, use the file `etc.systemd.network.tethered_internet_dns.network` instead
 # TODO: We should unify that file and this one.
 #       or be able to add the two; by making the match section to be super-specific
 
@@ -23,7 +23,7 @@
 Type=wlan wwan
 
 # NOTE: The config for the custom DNS below(ara.test) WORKs with this config
-#       But it does NOT work with the `etc.systemd.network.wpa_dns.network` config file.
+#       But it does NOT work with the `etc.systemd.network.tethered_internet_dns.network` config file.
 #       TODO: we should fix that.
 
 [Network]
