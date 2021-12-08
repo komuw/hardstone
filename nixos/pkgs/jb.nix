@@ -9,7 +9,7 @@ with (import (fetchTarball "https://github.com/NixOS/nixpkgs/archive/e824324fd57
 #      v1.32.0
 #    kubectl client:
 #      v1.22.2
-#    kubectl server:
+#    kubectl server(this is installed by the jb project):
 #      v1.20.7
 
 # TODO: go back to tagged version once the three packages get updated.
