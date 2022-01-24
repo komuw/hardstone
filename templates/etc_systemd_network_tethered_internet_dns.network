@@ -2,6 +2,7 @@
 # The main network file must have the extension .network; other extensions are ignored.
 # 
 # Use `networkctl list` & `networkctl status` to troubleshoot. 
+# `networkctl list | grep -i 'wlan'` should show `routable` under operational.
 #
 # Docs: 1. https://www.freedesktop.org/software/systemd/man/systemd.network.html
 #       2. https://unix.stackexchange.com/questions/442598/how-to-configure-systemd-resolved-and-systemd-networkd-to-use-local-dns-server-f
