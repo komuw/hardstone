@@ -20,6 +20,7 @@ in stdenv.mkDerivation {
         pkgs.rr
         pkgs.unixtools.netstat
         pkgs.fzf
+        pkgs.delta # https://github.com/dandavison/delta
 
         # For some reason, zoom installed via nix is not working.
         # So we install it manually in `nixos/start.sh`.
