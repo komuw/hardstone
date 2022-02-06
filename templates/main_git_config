@@ -31,3 +31,17 @@ keepBackup = false
 # fix golang access to private git repos
 [url "git@github.com:"]
     insteadOf = https://github.com/
+
+######################### delta #########################
+# config for delta;
+# see https://github.com/dandavison/delta
+[core]
+    pager = delta
+# [interactive]
+#     diffFilter = delta --color-only
+[delta]
+    navigate = true  # use n and N to move between diff sections
+    side-by-side = true
+    line-numbers-left-format = ""
+    line-numbers-right-format = "│ "
+######################### delta #########################
