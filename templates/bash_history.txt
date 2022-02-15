@@ -1,0 +1,162 @@
+grep -rsIin "hello" ~/mystuff
+rg -inLp --hidden <search-item> /path/to/dir/    # ripgrep
+rga -inLp --hidden <search-item> /path/to/dir/   # ripgrep-all, also searches pdf, .doc etc
+ls -lsha ~/
+dpkg --get-selections | grep -v deinstall #list all installed packages/programs
+ps auxwwwww | grep "vlc"
+pstree -pal
+fuser -k 8080/tcp #kill whatever is using that port
+sed "s/day/night/g" <cool.txt >new.txt #replace day with night. `g` replaces multiple occurences in same line
+curl -vkIL https://google.com
+
+# ssh
+ssh-add ~/.ssh/id_rsa #to load ua new id to the agent
+ssh-add -l
+
+# git
+git co -b some-branch
+git br -dD some-branch
+git remote -v
+git checkout master -- /some/path/app.js /path/cool.py
+git reset --hard HEAD~1
+git reset --hard some-commit
+git log -i -Shello # git search contents of all git commits
+git log -i -Shello --patch # show commit together with the commit contents
+git log -i -Shello --pickaxe-regex # Treat the <string> given to -S as regex
+git log -i -Shello --patch -- somePath/ ':(exclude)*vendor*' # exclude a certain directory/file
+git stash list
+git stash push -m myStash /some/path/app.js /path/cool.py
+git stash apply stash@\{0\}
+git diff --diff-filter=d --name-only origin/master | grep '.py$'
+git diff --diff-filter=d --name-only origin/master | grep '.go$' | xargs gofmt -w -s && \
+git diff --diff-filter=d --name-only origin/master | grep '.go$' | xargs gofumpt -extra -lang 1.16 -w && \
+git diff --diff-filter=d --name-only origin/master | grep '.go$' | xargs goimports -w -local github.com/komuw/meli/image,github.com/komuw/meli/volume
+
+git remote add mine git@github.com:komuw/delve.git
+git push mine
+git co mine issues/2249-A
+git pull mine issues/2249-A\
+git fetch mine
+
+# docker
+docker ps -aq | xargs docker rm -f
+docker build -t komuw/smpp:v1.1 .
+docker run -it tyk-go1.16:latest sh
+docker run -it --entrypoint /bin/bash tyk-go1.16:latest
+docker run --rm -p 6379:6379/tcp redis --loglevel verbose
+docker exec -it d75c2f44127a bash
+docker stats --format "table {{.Name}}\t{{.CPUPerc}}\t{{.MemUsage}}\t{{.MemPerc}}\t{{.NetIO}}\t{{.BlockIO}}\t{{.PIDs}}\t"
+
+docker-compose up --build --force-recreate
+docker-compose run --service-ports web python manage.py runserver 3000 --settings=some.settings.development
+
+# golang
+grep -irSn "func ([A-Za-z]\+ \*[A-Za-z]\+" vars_test.go # find all Go methods that have a pointer receiver.`
+go mod tidy
+goimports -w .;gofmt -w -s .;go mod tidy;go run -race .
+go install github.com/komuw/ote@latest
+go build -gcflags="all=-N -l" -trimpath -o meli cli/cli.go
+go test -count=1 -tags=test_google,test_aws,test_another_tag --exec=/bin/true ./...
+go test \
+   -count=1 \
+   -tags=test_google,test_another_tag \
+   -timeout 80s \
+   github.com/komuw/meli/image \
+   -run ^TestCreation \
+   -v
+
+dlv exec ./meli -- -up -f testdata/docker-compose.yml 
+dlv debug cli/cli.go -- -up -f testdata/docker-compose.yml
+dlv debug main.go -- -someArg someArgValue   
+dlv --init <(printf continue) debug main.go -- -someArg someArgValue # this one will auto-continue so that you just find yourself at the breakpoint
+dlv --init <(printf break\ main.go:34\\ncontinue) debug main.go # this will set breakpoint and auto-continue
+dlv --init <(printf break\ segment.go:56\\ncontinue) test -- -test.timeout 30s -test.run ^TestNewSegment$
+
+go build -gcflags="all=-N -l" -o sir cmd/main.go
+rr record ./sir -arg1
+dlv replay /home/komuw/.local/share/rr/sir-0
+
+dlv \
+	test \
+	github.com/komuw/ote \
+	--build-flags="-v --tags=test_google,test_another_tag" \
+	-- \
+	-test.count=1 \
+	-test.timeout 20000s \
+   -test.v
+	-test.run ^Test_difference \
+	./...
+
+dlv --init <(printf break\ server/image.go:250\\ncontinue) \
+	test \
+	github.com/komuw/meli/image \
+	--build-flags="-v --tags=test_google,test_another_tag" \
+	-- \
+	-test.count=1 \
+	-test.timeout 20000s \
+	-test.run ^TestCreation \
+	./...
+
+# show stacktrace of whenever something(<some-regexp>) is called
+dlv \
+  trace \
+  github.com/komuw/meli/image \
+  "<some-regexp>" \
+  --build-flags="-v --tags=test_google,test_another_tag" \
+  --stack 203 \
+  --test \
+  -- \
+   -test.count=1 \
+  -test.timeout 20000s \
+  -test.run ^TestCreation \
+  ./...
+
+
+# https://kubernetes.io/docs/reference/kubectl/cheatsheet/
+# get pods/services
+kubectl get services --all-namespaces
+kubectl get pods --all-namespaces
+# describe a pod
+kubectl describe pod --namespace=some-ns some-pod-69d7876896-pml5q
+# fetch logs(selecting by labels)
+kubectl logs -f --namespace=some-ns -l app.kubernetes.io/instance=hello --all-containers=true --max-log-requests=21
+kubectl logs -f --namespace=some-ns -l app.kubernetes.io/component=web --all-containers=true
+kubectl logs -f --namespace=some-ns -l app.kubernetes.io/component=db --all-containers=true
+# exec into a pod
+kubectl exec --stdin --tty my-pod -- /bin/sh                  # 1 container case
+kubectl exec --stdin --tty my-pod -c my-container -- /bin/sh  # multi-container case
+kubectl exec --namespace=namespace --stdin --tty podName -- /bin/sh
+# show resource usages
+kubectl top pod --all-namespaces
+kubectl top node
+kubectl delete pod --namespace=hey my_pod
+# persistent volumes & persistent-volume-claims: https://kubernetes.io/docs/concepts/storage/persistent-volumes/
+kubectl get pv                                                                                 
+kubectl get pvc --all-namespaces
+kubectl describe pv <name>
+kubectl describe pvc --namespace=namespace <name>
+# secrets
+kubectl get secrets --all-namespaces
+kubectl describe secret --namespace=namespace <secret_name>
+kubectl get secret --namespace=foobarbaz-bingbong hello-home -o yaml
+kubectl get secret --namespace=foobarbaz-bingbong hello-home --template={{.data.mongoCS}} | base64 -d
+# networkPolicy
+kubectl get networkpolicy --all-namespaces
+kubectl get networkpolicy --namespace=foobarbaz-bingbong <name>
+kubectl describe networkpolicy --namespace=foobarbaz-bingbong <name>
+# create a pod for testing. This one has ping,telnet,wget etc already installed.
+# Note; you can specify labels, namespace etc.
+# eg for this case, we run it in kube-system namespace bcoz we want to test wether we can ping a pod from the kube-system NS
+kubectl run \
+  --namespace=kube-system \
+  --labels="app=tester-pod,env=dev,country=kenya" \
+  tester-pod \
+  --rm -ti \
+  --image busybox \
+  /bin/sh
+
+# media
+mpv --cache=50000 --cache-initial=10000 https://www.youtube.com/watch?v=HgEGAaYdABA
+vlc --file-caching 10000 --network-caching 10000 https://www.youtube.com/watch?v=HgEGAaYdABA
+streamlink --player "vlc --file-caching 10000 --network-caching 10000" --default-stream "best,720p,480p" --url https://www.youtube.com/watch?v=HgEGAaYdABA
+aria2c  --check-certificate=false  --continue=true  --max-concurrent-downloads=8  --max-connection-per-server=8  --max-overall-upload-limit=10  --allow-overwrite=true  --input-file=cool.txt
