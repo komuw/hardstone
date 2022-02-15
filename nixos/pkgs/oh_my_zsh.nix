@@ -42,5 +42,47 @@ in stdenv.mkDerivation {
         }
         install_ohmyzsh
 
+
+        seed_shell_history(){
+            # By default, zsh saves history to the file referenced by the env var `HISTFILE`
+            # On my machine that happens to be `~/.zsh_history`.
+            # There's also `~/.bash_history` which is used by bash.
+            # We should ideally keep the two files in sync
+
+            # 1. If .zsh_history file DOES not exists, use .bash_history file instead.
+            # 2. Read the file found in 1(above) and only read the latest X size. Where X is the value specified by `programs.zsh.histSize`
+            # 3. Backup .zsh_history file if it exists.
+            # 4. Write `templates/bash_history.txt` to both `.zsh_history` and `.bash_history`
+            # 5. Write the buffer read in 2(above) to both `.zsh_history` and `.bash_history`
+            # 6. end
+
+            MY_FILE=/home/$MY_NAME/.zsh_history # should not have quotes
+            if test -f "$MY_FILE"; then
+                # zsh_history exists, so we will use it.
+                echo -n ""
+            else
+                MY_FILE=/home/$MY_NAME/.bash_history # should not have quotes
+            fi
+
+            MY_BUFFER=$(tail -n 5000 "$MY_FILE") # we are reading 5000 which is greater than `programs.zsh.histSize` just to be sure.
+            cp "$MY_FILE" "$MY_FILE".backup
+
+            # empty the files. DO not use `>>`(which means append)
+            # this will also create them if they dont exist.
+            echo -n > /home/$MY_NAME/.zsh_history
+            echo -n > /home/$MY_NAME/.bash_history
+
+            # for the following, we want to use `>>` for append rather than `>` which truncates and then writes.
+            printf "\n\n#\t SEEDED HISTORY::\n\n" >> /home/$MY_NAME/.zsh_history
+            printf "\n\n#\t SEEDED HISTORY::\n\n" >> /home/$MY_NAME/.bash_history
+            cat ../templates/bash_history.txt >> /home/$MY_NAME/.zsh_history
+            cat ../templates/bash_history.txt >> /home/$MY_NAME/.bash_history
+
+            printf "\n\n#\t RELOADED HISTORY::\n\n" >> /home/$MY_NAME/.zsh_history
+            printf "\n\n#\t RELOADED HISTORY::\n\n" >> /home/$MY_NAME/.bash_history
+            echo "$MY_BUFFER" >> /home/$MY_NAME/.zsh_history # use echo instead of printf to minimize errors about bad formatting.
+            echo "$MY_BUFFER" >> /home/$MY_NAME/.bash_history
+        }
+        seed_shell_history
     '';
 }
