@@ -160,7 +160,7 @@ kubectl run \
   /bin/sh
 
 # media
-mpv --cache=50000 --cache-initial=10000 https://www.youtube.com/watch?v=HgEGAaYdABA
+mpv --cache=yes --cache-pause-initial=yes --cache-pause=yes https://www.youtube.com/watch?v=HgEGAaYdABA
 vlc --file-caching 10000 --network-caching 10000 https://www.youtube.com/watch?v=HgEGAaYdABA
 streamlink --player "vlc --file-caching 10000 --network-caching 10000" --default-stream "best,720p,480p" --url https://www.youtube.com/watch?v=HgEGAaYdABA
 aria2c  --check-certificate=false  --continue=true  --max-concurrent-downloads=8  --max-connection-per-server=8  --max-overall-upload-limit=10  --allow-overwrite=true  --input-file=cool.txt
