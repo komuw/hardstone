@@ -8,6 +8,9 @@ pstree -pal
 fuser -k 8080/tcp #kill whatever is using that port
 sed "s/day/night/g" <cool.txt >new.txt #replace day with night. `g` replaces multiple occurences in same line
 curl -vkIL https://google.com
+screen -ls
+screen -S hello
+screen -r 2049672 # ctrl-A-D
 
 # ssh
 ssh-add ~/.ssh/id_rsa #to load ua new id to the agent
