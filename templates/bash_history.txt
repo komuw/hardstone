@@ -1,6 +1,6 @@
 grep -rsIin "hello" ~/mystuff
-rg -inLp --hidden <search-item> /path/to/dir/    # ripgrep
-rga -inLp --hidden <search-item> /path/to/dir/   # ripgrep-all, also searches pdf, .doc etc
+rg -inLp --hidden "hello" /path/to/dir/    # ripgrep
+rga -inLp --hidden "hello" /path/to/dir/   # ripgrep-all, also searches pdf, .doc etc
 ls -lsha ~/
 dpkg --get-selections | grep -v deinstall #list all installed packages/programs
 ps auxwwwww | grep "vlc"
@@ -105,7 +105,7 @@ dlv --init <(printf break\ server/image.go:250\\ncontinue) \
 dlv \
   trace \
   github.com/komuw/meli/image \
-  "<some-regexp>" \
+  "some-regexp" \
   --build-flags="-v --tags=test_google,test_another_tag" \
   --stack 203 \
   --test \
@@ -137,17 +137,17 @@ kubectl delete pod --namespace=hey my_pod
 # persistent volumes & persistent-volume-claims: https://kubernetes.io/docs/concepts/storage/persistent-volumes/
 kubectl get pv                                                                                 
 kubectl get pvc --all-namespaces
-kubectl describe pv <name>
-kubectl describe pvc --namespace=namespace <name>
+kubectl describe pv pv-name
+kubectl describe pvc --namespace=namespace name
 # secrets
 kubectl get secrets --all-namespaces
-kubectl describe secret --namespace=namespace <secret_name>
+kubectl describe secret --namespace=namespace secret_name
 kubectl get secret --namespace=foobarbaz-bingbong hello-home -o yaml
 kubectl get secret --namespace=foobarbaz-bingbong hello-home --template={{.data.mongoCS}} | base64 -d
 # networkPolicy
 kubectl get networkpolicy --all-namespaces
-kubectl get networkpolicy --namespace=foobarbaz-bingbong <name>
-kubectl describe networkpolicy --namespace=foobarbaz-bingbong <name>
+kubectl get networkpolicy --namespace=foobarbaz-bingbong name
+kubectl describe networkpolicy --namespace=foobarbaz-bingbong name
 # create a pod for testing. This one has ping,telnet,wget etc already installed.
 # Note; you can specify labels, namespace etc.
 # eg for this case, we run it in kube-system namespace bcoz we want to test wether we can ping a pod from the kube-system NS
