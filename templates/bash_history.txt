@@ -53,6 +53,7 @@ docker stats --format "table {{.Name}}\t{{.CPUPerc}}\t{{.MemUsage}}\t{{.MemPerc}
 
 docker-compose up --build --force-recreate
 docker-compose run --service-ports web python manage.py runserver 3000 --settings=some.settings.development
+docker-compose run --service-ports --entrypoint=/bin/sh app
 
 # golang
 grep -irSn "func ([A-Za-z]\+ \*[A-Za-z]\+" vars_test.go # find all Go methods that have a pointer receiver.`
