@@ -49,6 +49,7 @@ docker run -it tyk-go1.16:latest sh
 docker run -it --entrypoint /bin/bash tyk-go1.16:latest
 docker run --rm -p 6379:6379/tcp redis --loglevel verbose
 docker exec -it d75c2f44127a bash
+docker logs -f 61f65ae20280
 docker stats --format "table {{.Name}}\t{{.CPUPerc}}\t{{.MemUsage}}\t{{.MemPerc}}\t{{.NetIO}}\t{{.BlockIO}}\t{{.PIDs}}\t"
 
 docker-compose up --build --force-recreate
