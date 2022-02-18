@@ -117,6 +117,13 @@ dlv \
   -test.run ^TestCreation \
   ./...
 
+curl -s http://localhost:7391/debug/pprof/heap > heap.out
+go tool pprof meli heap.out
+go tool pprof -base old_heap.out meli new_heap.out
+go tool pprof -diff_base old_heap.out meli new_heap.out
+go tool pprof -normalize -base old_heap.out meli new_heap.out
+go tool pprof -normalize -diff_base old_heap.out meli new_heap.out
+
 
 # https://kubernetes.io/docs/reference/kubectl/cheatsheet/
 # get pods/services
