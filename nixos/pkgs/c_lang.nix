@@ -7,7 +7,7 @@ in stdenv.mkDerivation {
 
     buildInputs = [
         pkgs.gcc
-        pkgs.clang_12
+        pkgs.clang_13
         pkgs.valgrind
         pkgs.gdb
     ];
