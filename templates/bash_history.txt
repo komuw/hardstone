@@ -11,8 +11,9 @@ curl -vkIL https://google.com
 screen -ls
 screen -S hello
 screen -r 2049672 # ctrl-A-D
-netstat -tunapl | grep -i 'listen'
 code . &
+netstat -tunapl | grep -i 'listen'
+lsof -i tcp | grep -i 'listen'
 
 # ssh
 ssh-add ~/.ssh/id_rsa #to load ua new id to the agent
