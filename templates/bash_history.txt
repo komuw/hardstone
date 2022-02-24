@@ -11,6 +11,7 @@ curl -vkIL https://google.com
 screen -ls
 screen -S hello
 screen -r 2049672 # ctrl-A-D
+code . &
 netstat -tunapl | grep -i 'listen'
 lsof -i tcp | grep -i 'listen'
 
