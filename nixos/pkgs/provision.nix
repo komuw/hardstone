@@ -66,14 +66,20 @@ in stdenv.mkDerivation {
       MY_NAME=$(whoami)
 
       create_dirs(){
-          mkdir -p /home/$MY_NAME/mystuff
-          chown -R $MY_NAME:$MY_NAME /home/$MY_NAME/mystuff
+            directory_exists="/home/$MY_NAME/mystuff"
+            if [ -d "$directory_exists" ]; then
+                # directory exists
+                echo -n ""
+            else
+                mkdir -p /home/$MY_NAME/mystuff
+                chown -R $MY_NAME:$MY_NAME /home/$MY_NAME/mystuff
 
-          mkdir -p /home/$MY_NAME/personalWork
-          chown -R $MY_NAME:$MY_NAME /home/$MY_NAME/personalWork
+                mkdir -p /home/$MY_NAME/personalWork
+                chown -R $MY_NAME:$MY_NAME /home/$MY_NAME/personalWork
 
-          mkdir -p /home/$MY_NAME/paidWork
-          chown -R $MY_NAME:$MY_NAME /home/$MY_NAME/paidWork
+                mkdir -p /home/$MY_NAME/paidWork
+                chown -R $MY_NAME:$MY_NAME /home/$MY_NAME/paidWork
+            fi
       }
       create_dirs
 
