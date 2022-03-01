@@ -42,6 +42,18 @@ in stdenv.mkDerivation {
         }
         install_ohmyzsh
 
+        add_ohmyzsh_aliases(){
+            oh_my_zsh_aliases="/home/$MY_NAME/.oh-my-zsh/custom/my_aliases.zsh"
+            if [ -f "$oh_my_zsh_aliases" ]; then
+                # file exists
+                echo -n ""
+            else
+                cp ../templates/oh_my_zsh_aliases.zsh /home/$MY_NAME/.oh-my-zsh/custom/my_aliases.zsh
+                chown -R $MY_NAME:$MY_NAME $oh_my_zsh_aliases
+            fi
+        }
+        add_ohmyzsh_aliases
+
 
         seed_shell_history(){
             # By default, zsh saves history to the file referenced by the env var `HISTFILE`
