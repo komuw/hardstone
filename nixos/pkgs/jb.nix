@@ -44,8 +44,8 @@ in stdenv.mkDerivation {
         pkgs.mongodb-tools
         pkgs.bridge-utils
         pkgs.iptables
+        pkgs.go_1_17 # remember to update the add_go_17() bash function.
         pkgs.go_1_16 # remember to update the add_go_16() bash function.
-        pkgs.go_1_15 # remember to update the add_go_15() bash function.
         pkgs.jetbrains.goland
         pkgs.nodePackages.npm
         pkgs.yarn
@@ -230,6 +230,18 @@ in stdenv.mkDerivation {
         }
         install_mongo_shell
 
+        add_go_17(){
+            linked_file="/usr/local/bin/go17"
+            if [ -f "$linked_file" ]; then
+                # exists
+                echo -n ""
+            else
+                bin_file="$(find /nix -name "*go-1.17.7")/bin/go"
+                sudo ln --force --symbolic $bin_file /usr/local/bin/go17
+            fi
+        }
+        add_go_17
+
         add_go_16(){
             linked_file="/usr/local/bin/go16"
             if [ -f "$linked_file" ]; then
@@ -241,18 +253,6 @@ in stdenv.mkDerivation {
             fi
         }
         add_go_16
-
-        add_go_15(){
-            linked_file="/usr/local/bin/go15"
-            if [ -f "$linked_file" ]; then
-                # exists
-                echo -n ""
-            else
-                bin_file="$(find /nix -name "*go-1.15.15")/bin/go"
-                sudo ln --force --symbolic $bin_file /usr/local/bin/go15
-            fi
-        }
-        add_go_15
 
         install_jb_go_pkgs(){
             structslop_bin_file="/home/$MY_NAME/go/bin/structslop"

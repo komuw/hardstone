@@ -1,4 +1,4 @@
-with (import (fetchTarball "https://github.com/NixOS/nixpkgs/archive/b734f40478ecf7d9557bea10473f2023b41956f8.tar.gz") {});
+with (import (fetchTarball "https://github.com/NixOS/nixpkgs/archive/2eb46d5c50448d30f3ac94c8fcb1f3c0f6732352.tar.gz") {});
 
 let
 
@@ -11,7 +11,8 @@ in stdenv.mkDerivation {
         pkgs.kdiff3
         pkgs.meld
         pkgs.lsof
-        pkgs.telnet
+        # inetutils provides the following tools: ftp, hostname, ifconfig, ping, telnet, traceroute, whois, etc.
+        pkgs.inetutils
         pkgs.htop
         # `unrar` has an unfree LICENSE. By default, nix refuses to install it.
         #  We can force nix to install by setting env var `export NIXPKGS_ALLOW_UNFREE=1` or `allowUnfree` in `~/.config/nixpkgs/config.nix`
@@ -29,9 +30,7 @@ in stdenv.mkDerivation {
         pkgs.hexchat
         pkgs.mosh
         pkgs.eternal-terminal
-        pkgs.vnstat
         pkgs.psmisc
-        pkgs.traceroute
         pkgs.graphviz
         pkgs.ffmpeg
         pkgs.x264
