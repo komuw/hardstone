@@ -236,7 +236,7 @@ in stdenv.mkDerivation {
                 # exists
                 echo -n ""
             else
-                bin_file="$(find /nix -name "*go-1.17.7")/bin/go"
+                bin_file="$(find /nix -name "*go-1.17.1")/bin/go"
                 sudo ln --force --symbolic $bin_file /usr/local/bin/go17
             fi
         }

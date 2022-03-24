@@ -46,6 +46,7 @@ in stdenv.mkDerivation {
               sudo rm -rf /usr/local/go
               sudo wget -nc --output-document="/usr/local/$GOLANG_VERSION.tar.gz" "https://go.dev/dl/$GOLANG_VERSION.tar.gz"
               sudo tar -xzf "/usr/local/$GOLANG_VERSION.tar.gz" -C /usr/local/
+              sudo ln --force --symbolic /usr/local/go/bin/go /usr/local/bin/go
           fi
       }
       install_latest_golang
