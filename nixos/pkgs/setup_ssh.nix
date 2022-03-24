@@ -1,4 +1,4 @@
-with (import (fetchTarball "https://github.com/NixOS/nixpkgs/archive/2eb46d5c50448d30f3ac94c8fcb1f3c0f6732352.tar.gz") {});
+with (import (fetchTarball "https://github.com/NixOS/nixpkgs/archive/81a80c69f716a5b782f2ab65e9eb38b7557ffb01.tar.gz") {});
 
 let
     # TODO: should we have a different passphrase per key?

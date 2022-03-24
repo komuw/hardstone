@@ -1,4 +1,4 @@
-with (import (fetchTarball "https://github.com/NixOS/nixpkgs/archive/2eb46d5c50448d30f3ac94c8fcb1f3c0f6732352.tar.gz") {});
+with (import (fetchTarball "https://github.com/NixOS/nixpkgs/archive/81a80c69f716a5b782f2ab65e9eb38b7557ffb01.tar.gz") {});
 
 let
 
@@ -21,7 +21,9 @@ in stdenv.mkDerivation {
     hardeningDisable = [ "all" ];
 
     buildInputs = [
-        pkgs.go
+        # We do not use the one from nixpkgs since they usually take a lot of
+        # time before updating to the latest Go version.
+        # pkgs.go
       ];
 
     shellHook = ''
@@ -32,6 +34,21 @@ in stdenv.mkDerivation {
       printf "\n running hooks for golang.nix \n"
 
       MY_NAME=$(whoami)
+
+      install_latest_golang(){
+          golang_bin_file="/usr/local/go/bin/go"
+          if [ -f "$golang_bin_file" ]; then
+              # bin file exists
+              echo -n ""
+          else
+              GOLANG_VERSION=go1.18.linux-amd64
+              sudo rm -rf "/usr/local/$GOLANG_VERSION.tar.gz"
+              sudo rm -rf /usr/local/go
+              sudo wget -nc --output-document="/usr/local/$GOLANG_VERSION.tar.gz" "https://go.dev/dl/$GOLANG_VERSION.tar.gz"
+              sudo tar -xzf "/usr/local/$GOLANG_VERSION.tar.gz" -C /usr/local/
+          fi
+      }
+      install_latest_golang
 
       install_go_pkgs(){
           curlie_bin_file="/home/$MY_NAME/go/bin/curlie"
