@@ -1,7 +1,6 @@
 {
     "telemetry.enableCrashReporter": false,
     "telemetry.enableTelemetry": false,
-    "window.zoomLevel": -1,
     "window.menuBarVisibility": "toggle", // press `alt` key to show menu bar
     "git.enabled": false,
     "files.exclude": {
@@ -83,4 +82,10 @@
     "dart.allowAnalytics": false,
     "dart.debugExternalLibraries": true,
     "dart.debugSdkLibraries": true,
+    "window.zoomLevel": -1,
+    // allow to search inside ignored files.
+    // by default, vscode wont search inside files listed in .gitignore, .rgignore(ripgrep) etc
+    "search.followSymlinks": true,
+    "search.useGlobalIgnoreFiles": false,
+    "search.useIgnoreFiles": false,
 }
