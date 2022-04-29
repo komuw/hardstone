@@ -68,6 +68,7 @@ in stdenv.mkDerivation {
             # 5. Write the buffer read in 2(above) to both `.zsh_history` and `.bash_history`
             # 6. end
 
+            # 1.
             MY_FILE=/home/$MY_NAME/.zsh_history # should not have quotes
             if test -f "$MY_FILE"; then
                 # zsh_history exists, so we will use it.
@@ -76,7 +77,10 @@ in stdenv.mkDerivation {
                 MY_FILE=/home/$MY_NAME/.bash_history # should not have quotes
             fi
 
+            # 2.
             MY_BUFFER=$(tail -n 5000 "$MY_FILE") # we are reading 5000 which is greater than `programs.zsh.histSize` just to be sure.
+
+            # 3.
             cp "$MY_FILE" "$MY_FILE".backup
 
             # empty the files. DO not use `>>`(which means append)
@@ -84,12 +88,14 @@ in stdenv.mkDerivation {
             echo -n > /home/$MY_NAME/.zsh_history
             echo -n > /home/$MY_NAME/.bash_history
 
+            # 4.
             # for the following, we want to use `>>` for append rather than `>` which truncates and then writes.
             printf "\n\n#\t SEEDED HISTORY::\n\n" >> /home/$MY_NAME/.zsh_history
             printf "\n\n#\t SEEDED HISTORY::\n\n" >> /home/$MY_NAME/.bash_history
             cat ../templates/bash_history.txt >> /home/$MY_NAME/.zsh_history
             cat ../templates/bash_history.txt >> /home/$MY_NAME/.bash_history
 
+            # 5.
             printf "\n\n#\t RELOADED HISTORY::\n\n" >> /home/$MY_NAME/.zsh_history
             printf "\n\n#\t RELOADED HISTORY::\n\n" >> /home/$MY_NAME/.bash_history
             echo "$MY_BUFFER" >> /home/$MY_NAME/.zsh_history # use echo instead of printf to minimize errors about bad formatting.
