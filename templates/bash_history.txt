@@ -14,6 +14,7 @@ screen -r 2049672 # ctrl-A-D
 code . &
 netstat -tunapl | grep -i 'listen'
 lsof -i tcp | grep -i 'listen'
+ss --listening --processes --tcp
 
 # ssh
 ssh-add ~/.ssh/id_rsa #to load ua new id to the agent
