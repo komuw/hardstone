@@ -36,6 +36,19 @@ in stdenv.mkDerivation {
             fi
       }
       setup_locale
+
+      update_ubuntu(){
+          # https://askubuntu.com/a/904259/376092
+          # (a) -mtime -7   : finds files that have a change time in the last 7 days
+          # (b) -maxdepth 0 : ensures find won't go into the contents of the directory.
+          # (c) -H          : dereferences /var/lib/apt/lists if it's a soft link
+          if [[ "$(find -H /var/lib/apt/lists -maxdepth 0 -mtime -7)" ]]; then
+              sudo apt -y update
+          else
+              echo -n ""
+          fi
+      }
+      update_ubuntu
     '';
 
     # set some env vars.
