@@ -36,6 +36,22 @@ in stdenv.mkDerivation {
             fi
       }
       setup_locale
+
+      update_ubuntu(){
+          # https://askubuntu.com/a/589036/37609
+          #
+          local aptDate="$(stat -c %Y '/var/cache/apt')"             # seconds
+          local nowDate="$(date +'%s')"                              # seconds
+          local diffSinceUpdate=$((nowDate - aptDate))               # seconds
+          local daysSinceUpdate="$((diffSinceUpdate/(60*60*24)))"    # days
+          local updateInterval="$((21 * 24 * 60 * 60))" # 21 days
+          if [ "$diffSinceUpdate" -gt "$updateInterval" ]; then
+              sudo apt -y update
+          else
+              printf "\n\n No need to run 'apt update', it was last ran $daysSinceUpdate days ago. \n\n"
+          fi
+      }
+      update_ubuntu
     '';
 
     # set some env vars.
@@ -43,5 +59,4 @@ in stdenv.mkDerivation {
     # https://stackoverflow.com/a/27719330/2768067
     LC_ALL = "en_US.UTF-8";
     SOME_CUSTOM_ENV_VAR = "hello_there";
-
 }
