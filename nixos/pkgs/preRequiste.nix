@@ -38,14 +38,17 @@ in stdenv.mkDerivation {
       setup_locale
 
       update_ubuntu(){
-          # https://askubuntu.com/a/904259/376092
-          # (a) -mtime -7   : finds files that have a change time in the last 7 days
-          # (b) -maxdepth 0 : ensures find won't go into the contents of the directory.
-          # (c) -H          : dereferences /var/lib/apt/lists if it's a soft link
-          if [[ "$(find -H /var/lib/apt/lists -maxdepth 0 -mtime -7)" ]]; then
+          # https://askubuntu.com/a/589036/37609
+          #
+          local aptDate="$(stat -c %Y '/var/cache/apt')"             # seconds
+          local nowDate="$(date +'%s')"                              # seconds
+          local diffSinceUpdate=$((nowDate - aptDate))               # seconds
+          local daysSinceUpdate="$((diffSinceUpdate/(60*60*24)))"    # days
+          local updateInterval="$((60 * 60 * 21))" # 21 days
+          if [ "$diffSinceUpdate" -gt "$updateInterval" ]; then
               sudo apt -y update
           else
-              echo -n ""
+              printf "\n\n No need to run 'apt update', it was last ran $daysSinceUpdate days ago. \n\n"
           fi
       }
       update_ubuntu
@@ -56,5 +59,4 @@ in stdenv.mkDerivation {
     # https://stackoverflow.com/a/27719330/2768067
     LC_ALL = "en_US.UTF-8";
     SOME_CUSTOM_ENV_VAR = "hello_there";
-
 }
