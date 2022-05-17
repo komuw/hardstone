@@ -44,7 +44,7 @@ in stdenv.mkDerivation {
           local nowDate="$(date +'%s')"                              # seconds
           local diffSinceUpdate=$((nowDate - aptDate))               # seconds
           local daysSinceUpdate="$((diffSinceUpdate/(60*60*24)))"    # days
-          local updateInterval="$((60 * 60 * 21))" # 21 days
+          local updateInterval="$((21 * 24 * 60 * 60))" # 21 days
           if [ "$diffSinceUpdate" -gt "$updateInterval" ]; then
               sudo apt -y update
           else
