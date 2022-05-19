@@ -39,12 +39,22 @@ in stdenv.mkDerivation {
 
       update_ubuntu(){
           # https://askubuntu.com/a/589036/37609
-          #
-          local aptDate="$(stat -c %Y '/var/cache/apt')"             # seconds
+          # https://github.com/ansible/ansible/blob/v2.13.0/lib/ansible/modules/apt.py#L1081-L1091
+
+          the_file="/var/lib/apt/periodic/update-success-stamp"
+          if [ -f "$the_file" ]; then
+              # exists
+              echo -n ""
+          else
+              the_file="/var/lib/apt/lists"
+          fi
+
+          local aptDate="$(stat -c %Y $the_file)"             # seconds
           local nowDate="$(date +'%s')"                              # seconds
           local diffSinceUpdate=$((nowDate - aptDate))               # seconds
           local daysSinceUpdate="$((diffSinceUpdate/(60*60*24)))"    # days
           local updateInterval="$((21 * 24 * 60 * 60))" # 21 days
+
           if [ "$diffSinceUpdate" -gt "$updateInterval" ]; then
               sudo apt -y update
           else
