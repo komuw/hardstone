@@ -1,4 +1,4 @@
-with (import (fetchTarball "https://github.com/NixOS/nixpkgs/archive/81a80c69f716a5b782f2ab65e9eb38b7557ffb01.tar.gz") {});
+with (import (fetchTarball "https://github.com/NixOS/nixpkgs/archive/01d4e58f598bcaf02e5a92a67a98afccecc94b0c.tar.gz") {});
 
 let
 
@@ -40,5 +40,30 @@ in stdenv.mkDerivation {
       printf "\n running hooks for tools.nix \n"
 
       MY_NAME=$(whoami)
+
+      install_zoom(){
+          # For some reason, zoom installed via nix is not working.
+          # So we install it manually.
+          # TODO: remove this once we get zoom working on nix.
+
+          zoom_file="/usr/bin/zoom"
+          if [ -f "$zoom_file" ]; then
+              # exists
+              echo -n ""
+          else
+              sudo apt -y update
+              # install zoom dependencies
+              sudo apt-get -y install libgl1-mesa-glx \
+                                      libegl1-mesa \
+                                      libxcb-xtest0 \
+                                      libxcb-xinerama0
+
+              rm -rf /tmp/zoom_amd64.deb
+              wget -nc --output-document=/tmp/zoom_amd64.deb https://zoom.us/client/latest/zoom_amd64.deb
+              sudo dpkg -i /tmp/zoom_amd64.deb
+          fi
+      }
+      install_zoom
+
     '';
 }

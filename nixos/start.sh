@@ -180,6 +180,7 @@ source_files(){
 }
 source_files
 
+
 install_media_codecs(){
     printf "\n\n\t 11. install media codecs \n"
 
@@ -190,28 +191,8 @@ install_media_codecs(){
 install_media_codecs
 
 
-install_zoom(){
-    printf "\n\n\t 12. install zoom \n"
-
-    # For some reason, zoom installed via nix is not working.
-    # So we install it manually.
-    # TODO: remove this once we get zoom working on nix.
-
-    sudo apt -y update
-    # install zoom dependencies
-    sudo apt-get -y install libgl1-mesa-glx \
-                        libegl1-mesa \
-                        libxcb-xtest0 \
-                        libxcb-xinerama0
-
-    wget -nc --output-document=/tmp/zoom_amd64.deb https://zoom.us/client/latest/zoom_amd64.deb
-    sudo dpkg -i /tmp/zoom_amd64.deb
-}
-install_zoom
-
-
 un_install_snapd(){
-    printf "\n\n\t 13. un_install snapd \n"
+    printf "\n\n\t 12. un_install snapd \n"
 
     # https://askubuntu.com/questions/1035915/how-to-remove-snap-store-from-ubuntu
 
@@ -230,7 +211,7 @@ un_install_snapd
 
 # TODO: make it possible to run this function
 uninstall_non_essential_apt_packages(){
-    printf "\n\n\t 14. uninstall_non_essential_apt_packages \n"
+    printf "\n\n\t 13. uninstall_non_essential_apt_packages \n"
 
     sudo rm -rf /tmp/*.txt
 

@@ -1,4 +1,4 @@
-with (import (fetchTarball "https://github.com/NixOS/nixpkgs/archive/81a80c69f716a5b782f2ab65e9eb38b7557ffb01.tar.gz") {});
+with (import (fetchTarball "https://github.com/NixOS/nixpkgs/archive/01d4e58f598bcaf02e5a92a67a98afccecc94b0c.tar.gz") {});
 
 let
 
@@ -39,12 +39,22 @@ in stdenv.mkDerivation {
 
       update_ubuntu(){
           # https://askubuntu.com/a/589036/37609
-          #
-          local aptDate="$(stat -c %Y '/var/cache/apt')"             # seconds
+          # https://github.com/ansible/ansible/blob/v2.13.0/lib/ansible/modules/apt.py#L1081-L1091
+
+          the_file="/var/lib/apt/periodic/update-success-stamp"
+          if [ -f "$the_file" ]; then
+              # exists
+              echo -n ""
+          else
+              the_file="/var/lib/apt/lists"
+          fi
+
+          local aptDate="$(stat -c %Y $the_file)"             # seconds
           local nowDate="$(date +'%s')"                              # seconds
           local diffSinceUpdate=$((nowDate - aptDate))               # seconds
           local daysSinceUpdate="$((diffSinceUpdate/(60*60*24)))"    # days
           local updateInterval="$((21 * 24 * 60 * 60))" # 21 days
+
           if [ "$diffSinceUpdate" -gt "$updateInterval" ]; then
               sudo apt -y update
           else
