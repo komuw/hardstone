@@ -47,7 +47,7 @@ in stdenv.mkDerivation {
           # TODO: remove this once we get zoom working on nix.
 
           zoom_file="/usr/bin/zoom"
-          if [ -f "$linked_file" ]; then
+          if [ -f "$zoom_file" ]; then
               # exists
               echo -n ""
           else
