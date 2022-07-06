@@ -51,8 +51,8 @@ in stdenv.mkDerivation {
               # exists
               echo -n ""
           else
-              sudo apt -y update
               # install zoom dependencies
+              sudo apt -y update
               sudo apt-get -y install libgl1-mesa-glx \
                                       libegl1-mesa \
                                       libxcb-xtest0 \
@@ -64,6 +64,18 @@ in stdenv.mkDerivation {
           fi
       }
       install_zoom
+
+      install_certutil(){
+          certutil_file="/usr/bin/certutil"
+          if [ -f "$certutil_file" ]; then
+              # exists
+              echo -n ""
+          else
+              sudo apt -y update
+              sudo apt -y install libnss3-tools # has `certutil` that is needed by `FiloSottile/mkcert` & `komuw/ong`
+          fi
+      }
+      install_certutil
 
     '';
 }
