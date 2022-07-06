@@ -57,6 +57,7 @@ in stdenv.mkDerivation {
 
           if [ "$diffSinceUpdate" -gt "$updateInterval" ]; then
               sudo apt -y update
+              sudo apt-get -y dist-upgrade # security updates
           else
               printf "\n\n No need to run 'apt update', it was last ran $daysSinceUpdate days ago. \n\n"
           fi
