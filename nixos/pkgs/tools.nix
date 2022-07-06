@@ -72,7 +72,7 @@ in stdenv.mkDerivation {
               echo -n ""
           else
               sudo apt -y update
-              sudo apt -y install libnss3-tools # has `certutil` that is needed by `FiloSottile/mkcert`
+              sudo apt -y install libnss3-tools # has `certutil` that is needed by `FiloSottile/mkcert` & `komuw/ong`
           fi
       }
       install_certutil
