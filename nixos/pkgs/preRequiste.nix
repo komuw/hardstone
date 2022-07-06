@@ -1,4 +1,4 @@
-with (import (fetchTarball "https://github.com/NixOS/nixpkgs/archive/01d4e58f598bcaf02e5a92a67a98afccecc94b0c.tar.gz") {});
+with (import (fetchTarball "https://github.com/NixOS/nixpkgs/archive/2169ff54f191e4cd7a47c80207d9b58b7e50202a.tar.gz") {});
 
 let
 
@@ -57,6 +57,7 @@ in stdenv.mkDerivation {
 
           if [ "$diffSinceUpdate" -gt "$updateInterval" ]; then
               sudo apt -y update
+              sudo apt-get -y dist-upgrade # security updates
           else
               printf "\n\n No need to run 'apt update', it was last ran $daysSinceUpdate days ago. \n\n"
           fi
