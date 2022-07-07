@@ -78,6 +78,7 @@ in stdenv.mkDerivation {
               go install github.com/quasilyte/go-ruleguard/cmd/ruleguard@latest
               go install golang.org/x/debug/cmd/viewcore@latest
               go install github.com/mfridman/tparse@latest
+              go install github.com/vearutop/stuckroutines@latest
 
               # the following are required by vscode for Go.
               go install github.com/uudashr/gopkgs/v2/cmd/gopkgs@latest
