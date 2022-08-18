@@ -35,7 +35,7 @@ in stdenv.mkDerivation {
               # config exists
               echo -n ""
           else
-              wget -nc --output-document=/tmp/wezterm_nightly.deb https://github.com/wez/wezterm/releases/download/nightly/wezterm-nightly.Ubuntu20.04.deb
+              wget -nc --output-document=/tmp/wezterm_nightly.deb https://github.com/wez/wezterm/releases/download/nightly/wezterm-nightly.Ubuntu22.04.deb
               sudo apt install -y /tmp/wezterm_nightly.deb
               mkdir -p /home/$MY_NAME/.config/wezterm
               cp ../templates/wezterm.lua /home/$MY_NAME/.config/wezterm/wezterm.lua
