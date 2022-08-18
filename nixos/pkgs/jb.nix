@@ -46,8 +46,8 @@ in stdenv.mkDerivation {
         pkgs.iptables
         # Do not use the various Go versions from nixPkgs.
         # They clash with the one installed via pkgs/golang.nix
+        # pkgs.go_1_18
         # pkgs.go_1_17
-        # pkgs.go_1_16
         pkgs.jetbrains.goland
         pkgs.nodePackages.npm
         pkgs.yarn
@@ -232,6 +232,21 @@ in stdenv.mkDerivation {
         }
         install_mongo_shell
 
+        install_go_18(){
+            linked_file="/usr/local/bin/go18"
+            if [ -f "$linked_file" ]; then
+                # exists
+                echo -n ""
+            else
+                GOLANG_VERSION=go1.18.5.linux-amd64
+                wget -nc --output-document="/tmp/$GOLANG_VERSION.tar.gz" "https://go.dev/dl/$GOLANG_VERSION.tar.gz"
+                mkdir -p /tmp/go18
+                tar -xzf "/tmp/$GOLANG_VERSION.tar.gz" -C /tmp/go18
+                sudo cp /tmp/go18/go/bin/go /usr/local/bin/go18
+            fi
+        }
+        install_go_18
+
         install_go_17(){
             linked_file="/usr/local/bin/go17"
             if [ -f "$linked_file" ]; then
@@ -246,21 +261,6 @@ in stdenv.mkDerivation {
             fi
         }
         install_go_17
-
-        install_go_16(){
-            linked_file="/usr/local/bin/go16"
-            if [ -f "$linked_file" ]; then
-                # exists
-                echo -n ""
-            else
-                GOLANG_VERSION=go1.16.8.linux-amd64
-                wget -nc --output-document="/tmp/$GOLANG_VERSION.tar.gz" "https://go.dev/dl/$GOLANG_VERSION.tar.gz"
-                mkdir -p /tmp/go16
-                tar -xzf "/tmp/$GOLANG_VERSION.tar.gz" -C /tmp/go16
-                sudo cp /tmp/go16/go/bin/go /usr/local/bin/go16
-            fi
-        }
-        install_go_16
 
         install_jb_go_pkgs(){
             structslop_bin_file="/home/$MY_NAME/go/bin/structslop"
