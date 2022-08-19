@@ -1,4 +1,4 @@
-with (import (fetchTarball "https://github.com/NixOS/nixpkgs/archive/2169ff54f191e4cd7a47c80207d9b58b7e50202a.tar.gz") {});
+with (import (fetchTarball "https://github.com/NixOS/nixpkgs/archive/7d92cc4294b27227eebf0be3ea230809d1ead890.tar.gz") {});
 
 let
 
@@ -41,7 +41,7 @@ in stdenv.mkDerivation {
               # bin file exists
               echo -n ""
           else
-              GOLANG_VERSION=go1.18.linux-amd64
+              GOLANG_VERSION=go1.19.linux-amd64
               sudo rm -rf "/usr/local/$GOLANG_VERSION.tar.gz"
               sudo rm -rf /usr/local/go
               sudo wget -nc --output-document="/usr/local/$GOLANG_VERSION.tar.gz" "https://go.dev/dl/$GOLANG_VERSION.tar.gz"
@@ -70,7 +70,7 @@ in stdenv.mkDerivation {
               go install github.com/rs/curlie@latest
               go install github.com/tsenart/vegeta@latest
               go install mvdan.cc/gofumpt@latest
-              go install golang.org/x/exp/cmd/gorelease@latest              
+              go install golang.org/x/exp/cmd/gorelease@latest
               go install golang.org/dl/gotip@latest
               go install github.com/golangci/golangci-lint/cmd/golangci-lint@latest
               go install golang.org/x/tools/cmd/goimports@latest

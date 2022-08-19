@@ -1,4 +1,4 @@
-with (import (fetchTarball "https://github.com/NixOS/nixpkgs/archive/2169ff54f191e4cd7a47c80207d9b58b7e50202a.tar.gz") {});
+with (import (fetchTarball "https://github.com/NixOS/nixpkgs/archive/7d92cc4294b27227eebf0be3ea230809d1ead890.tar.gz") {});
 
 let
 
@@ -35,7 +35,7 @@ in stdenv.mkDerivation {
               # config exists
               echo -n ""
           else
-              wget -nc --output-document=/tmp/wezterm_nightly.deb https://github.com/wez/wezterm/releases/download/nightly/wezterm-nightly.Ubuntu20.04.deb
+              wget -nc --output-document=/tmp/wezterm_nightly.deb https://github.com/wez/wezterm/releases/download/nightly/wezterm-nightly.Ubuntu22.04.deb
               sudo apt install -y /tmp/wezterm_nightly.deb
               mkdir -p /home/$MY_NAME/.config/wezterm
               cp ../templates/wezterm.lua /home/$MY_NAME/.config/wezterm/wezterm.lua
