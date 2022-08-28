@@ -27,6 +27,7 @@ git remote -v
 git checkout master -- /some/path/app.js /path/cool.py
 git reset --hard HEAD~1
 git reset --hard some-commit
+git push --all -u --follow-tags
 git push origin some-branch-name --force
 git log -i -Shello # git search contents of all git commits
 git log -i -Shello --patch # show commit together with the commit contents
