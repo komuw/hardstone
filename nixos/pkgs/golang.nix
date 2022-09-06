@@ -80,6 +80,7 @@ in stdenv.mkDerivation {
               go install github.com/mfridman/tparse@latest
               go install github.com/vearutop/stuckroutines@latest
               go install github.com/loov/view-annotated-file@latest
+              go install golang.org/x/vuln/cmd/govulncheck@latest
 
               # the following are required by vscode for Go.
               go install github.com/uudashr/gopkgs/v2/cmd/gopkgs@latest
