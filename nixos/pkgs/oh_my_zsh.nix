@@ -1,4 +1,4 @@
-with (import (fetchTarball "https://github.com/NixOS/nixpkgs/archive/7d92cc4294b27227eebf0be3ea230809d1ead890.tar.gz") {});
+with (import (fetchTarball "https://github.com/NixOS/nixpkgs/archive/74bf39d3f5c72b0cfecdb7f14301ee71ead129ee.tar.gz") {});
 
 let
 
@@ -25,10 +25,10 @@ in stdenv.mkDerivation {
                 echo -n ""
             else
                 rm -rf /home/$MY_NAME/.oh-my-zsh
-                git clone https://github.com/robbyrussell/oh-my-zsh.git /home/$MY_NAME/.oh-my-zsh
+                git clone --depth 3 https://github.com/robbyrussell/oh-my-zsh.git /home/$MY_NAME/.oh-my-zsh
 
-                git clone https://github.com/zsh-users/zsh-autosuggestions /home/$MY_NAME/.oh-my-zsh/custom/plugins/zsh-autosuggestions
-                git clone https://github.com/zsh-users/zsh-completions /home/$MY_NAME/.oh-my-zsh/custom/plugins/zsh-completions
+                git clone --depth 3 https://github.com/zsh-users/zsh-autosuggestions /home/$MY_NAME/.oh-my-zsh/custom/plugins/zsh-autosuggestions
+                git clone --depth 3 https://github.com/zsh-users/zsh-completions /home/$MY_NAME/.oh-my-zsh/custom/plugins/zsh-completions
 
                 cp ../templates/zshrc.j2 /home/$MY_NAME/.zshrc
                 cp ../templates/zshrc.j2 ~/.zshrc
