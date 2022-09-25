@@ -1,4 +1,4 @@
-{ pkgs ? import (fetchTarball "https://github.com/NixOS/nixpkgs/archive/7d92cc4294b27227eebf0be3ea230809d1ead890.tar.gz") {} }:
+{ pkgs ? import (fetchTarball "https://github.com/NixOS/nixpkgs/archive/397da86480b14f176181e245a49d13bb16d58a29.tar.gz") {} }:
 
 {
 # The time zone used when displaying times and dates. 
