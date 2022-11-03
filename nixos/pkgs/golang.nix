@@ -83,6 +83,7 @@ in stdenv.mkDerivation {
               go install golang.org/x/vuln/cmd/govulncheck@latest
               go install golang.org/x/perf/cmd/benchstat@latest
               go install golang.org/x/tools/cmd/godoc@latest
+              go install go101.org/gotv@latest
 
               # the following are required by vscode for Go.
               go install github.com/uudashr/gopkgs/v2/cmd/gopkgs@latest
