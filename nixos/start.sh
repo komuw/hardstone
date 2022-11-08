@@ -147,6 +147,7 @@ clear_stuff(){
     # The Nix store sometimes contains entries which are no longer useful.
     # garbage collect them
     /nix/var/nix/profiles/per-user/$MY_NAME/profile/bin/nix-collect-garbage -d
+    /nix/var/nix/profiles/per-user/$MY_NAME/profile/bin/nix-store --gc
     /nix/var/nix/profiles/per-user/$MY_NAME/profile/bin/nix-store --optimise
     # ref: https://nixos.org/manual/nix/unstable/command-ref/nix-store.html
     /nix/var/nix/profiles/per-user/$MY_NAME/profile/bin/nix-store --verify --repair
