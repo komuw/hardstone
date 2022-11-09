@@ -269,6 +269,7 @@ in stdenv.mkDerivation {
                 echo -n ""
             else
                 go install github.com/orijtech/structslop/cmd/structslop@latest
+                go install github.com/ovh/venom/cmd/venom@latest
             fi
         }
         install_jb_go_pkgs
