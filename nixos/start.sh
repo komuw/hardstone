@@ -73,9 +73,21 @@ install_nix_pre_requistes
 un_install_nix() {
     printf "\n\n\t 3. un_install_nix \n"
 
+    # According to the documentation, un_installing nix is as simple as;
+    #  `rm -rf /nix`
     # see: https://nixos.org/manual/nix/stable/#sect-single-user-installation
-    sudo rm -rf /nix
+    #
+    # However, that will also remove the /nix/store.
+    # This is okay if we really want to nuke nix.
+    # But if all we want is to upgrade nix, then nuking the store doesn't seem like what we want.
+    # Hence, here we only remove /nix/var and leave /nix/store.
+    #
+
+    sudo rm -rf /nix/var
     sudo rm -rf ~/.cache/nix/*
+    sudo rm -rf /home/$MY_NAME/.nix-channels
+    sudo rm -rf /home/$MY_NAME/.nix-defexpr
+    sudo rm -rf /home/$MY_NAME/.nix-profile
 }
 un_install_nix
 
