@@ -1,13 +1,13 @@
-with (import (fetchTarball "https://github.com/NixOS/nixpkgs/archive/e824324fd57be1485efc14d4d308e8f1bfc15d47.tar.gz") {});
+with (import (fetchTarball "https://github.com/NixOS/nixpkgs/archive/cf5b4eae5f34acb11c3c3d02fde904a354609c71.tar.gz") {});
 # we need some specific versions of helm, kind, skaffold that are not available in version 21.05
 # That is why we are using nixpkgs at commit e824324f
 # specificallly:
 #    helm version:
-#      v3.6.3
+#      v3.10.2
 #    kind:
-#      v0.11.1
+#      v0.17.0 
 #    skaffold:
-#      v1.32.0
+#      v2.0.2
 #    kubectl client:
 #      v1.22.2
 #    kubectl server(this is installed by the jb project):
