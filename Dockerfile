@@ -4,4 +4,5 @@ WORKDIR /usr/src/app
 
 COPY . /usr/src/app
 
-CMD bash nixos/start.sh
+CMD cd nixos/ && \
+    bash start.sh
