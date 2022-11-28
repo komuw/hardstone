@@ -25,8 +25,19 @@ export DEBIAN_FRONTEND=noninteractive
 
 MY_NAME=$(whoami)
 
+install_pre_pre_requistes(){
+    printf "\n\n\t 0.0 install_pre_pre_requistes \n"
+
+    apt -y update
+    apt -y install \
+        sudo \
+        dconf-cli \
+        dconf-editor
+}
+install_pre_pre_requistes
+
 pre_setup(){
-    printf "\n\n\t 0. pre_setup \n"
+    printf "\n\n\t 0.1 pre_setup \n"
 
     sudo rm -rf /etc/apt/sources.list.d/*
     sudo rm -rf /tmp/*.txt
