@@ -1,6 +1,6 @@
 with (import (fetchTarball "https://github.com/NixOS/nixpkgs/archive/cf5b4eae5f34acb11c3c3d02fde904a354609c71.tar.gz") {});
 # we need some specific versions of helm, kind, skaffold that are not available in version 21.05
-# That is why we are using nixpkgs at commit e824324f
+# That is why we are using nixpkgs(in this file) at this specific commit.
 # specificallly:
 #    helm version:
 #      v3.10.2
