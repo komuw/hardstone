@@ -50,7 +50,9 @@ allowUnfree = true;
 # To enable zsh for a particular user, use the users.users.<name?>.shell option for that user. To enable zsh system-wide use the users.defaultUserShell option.
 programs.zsh.enable = true;
 
-programs.zsh.histSize = 4000;
+# Note, history is kept in memory. Hence important to figure out how big is too much.
+# A long entry in `templates/bash_history.txt` is 200bytes. 10_000 of them will be 2MB
+programs.zsh.histSize = 10000;
 programs.zsh.autosuggestions.enable = true;
 programs.zsh.enableCompletion = true;
 programs.zsh.enableBashCompletion = true;

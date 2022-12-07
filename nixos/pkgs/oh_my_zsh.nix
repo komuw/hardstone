@@ -78,7 +78,7 @@ in stdenv.mkDerivation {
             fi
 
             # 2.
-            MY_BUFFER=$(tail -n 5000 "$MY_FILE") # we are reading 5000 which is greater than `programs.zsh.histSize` just to be sure.
+            MY_BUFFER=$(tail -n 12000 "$MY_FILE") # we are reading 12000 which is greater than `programs.zsh.histSize` just to be sure.
 
             # 3.
             cp "$MY_FILE" "$MY_FILE".backup
