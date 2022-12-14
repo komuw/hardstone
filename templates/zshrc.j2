@@ -141,7 +141,32 @@ export PATH
 ZSH_AUTOSUGGEST_STRATEGY=(history completion)
 ######################################### 
 
-# each terminal tab should keep its own history
+
+###################################################################################### OPTIONS ######################################################################################
+# Option names are case insensitive and underscores are ignored. For example,`allexport` is equivalent to `A__lleXP_ort`.
+# An option name may be inverted by preceding it with `no`, so `setopt No_Beep` is equivalent to `unsetopt beep`.
+#
+# Docs: https://zsh.sourceforge.io/Doc/Release/Options.html
+
+
+# 1. Terminal history.
+# Have each terminal tab should keep its own history
 # https://github.com/robbyrussell/oh-my-zsh/issues/2537
-setopt no_share_history
-unsetopt share_history
+# setopt no_share_history
+# unsetopt share_history
+#
+# This option both imports new commands from the history file, and also causes your typed commands to be appended to the history file.
+# If enabled, INC_APPEND_HISTORY should also NOT be enabled.
+setopt SHARE_HISTORY
+#
+# If history needs to be trimmed, expire the ones that have duplicates first.
+setopt HIST_EXPIRE_DUPS_FIRST
+#
+# If a new command line being added to the history list duplicates an older one, the older command is removed from the list.
+setopt HIST_IGNORE_ALL_DUPS
+#
+# When writing out the history file, older commands that duplicate newer ones are omitted.
+setopt HIST_SAVE_NO_DUPS
+
+###################################################################################### OPTIONS ######################################################################################
+
