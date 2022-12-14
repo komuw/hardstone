@@ -19,6 +19,8 @@ in stdenv.mkDerivation {
 
       printf "\n\n running hooks for preRequiste.nix \n\n"
 
+      MY_NAME=$(whoami)
+
       CURL_CA_BUNDLE=$(find /nix -name ca-bundle.crt |tail -n 1)
       export CURL_CA_BUNDLE="$CURL_CA_BUNDLE"
 
@@ -40,26 +42,34 @@ in stdenv.mkDerivation {
       update_ubuntu(){
           # https://askubuntu.com/a/589036/37609
           # https://github.com/ansible/ansible/blob/v2.13.0/lib/ansible/modules/apt.py#L1081-L1091
+          # https://serverfault.com/a/151112
 
-          the_file="/var/lib/apt/periodic/update-success-stamp"
+          local NOW=$(date +%s) # current unix timestamp.
+          local the_file="/home/$MY_NAME/.config/last_ubuntu_update.txt"
           if [ -f "$the_file" ]; then
-              # exists
-              echo -n ""
-          else
-              the_file="/var/lib/apt/lists"
-          fi
-
-          local aptDate="$(stat -c %Y $the_file)"             # seconds
-          local nowDate="$(date +'%s')"                              # seconds
-          local diffSinceUpdate=$((nowDate - aptDate))               # seconds
-          local daysSinceUpdate="$((diffSinceUpdate/(60*60*24)))"    # days
-          local updateInterval="$((21 * 24 * 60 * 60))" # 21 days
-
-          if [ "$diffSinceUpdate" -gt "$updateInterval" ]; then
-              sudo apt -y update
-              sudo apt-get -y dist-upgrade # security updates
-          else
+            # exists
+            local LAST_UPDATE=$(cat $the_file)
+            local diffSinceUpdate=$((NOW - LAST_UPDATE))  # seconds
+            local daysSinceUpdate="$((diffSinceUpdate/(60*60*24)))"    # days
+            local updateInterval="$((21 * 24 * 60 * 60))" # 21 days
+            if [ "$diffSinceUpdate" -gt "$updateInterval" ]; then
+                sudo apt -y update
+                sudo apt-get -y dist-upgrade # security updates
+                sudo apt -y autoremove
+                sudo apt -y clean
+                sudo apt -y purge '~c' # https://askubuntu.com/a/181965
+                echo "$NOW" > $the_file
+            else
               printf "\n\n No need to run 'apt update', it was last ran $daysSinceUpdate days ago. \n\n"
+            fi
+          else
+            # file does not exist, update eitherway
+            sudo apt -y update
+            sudo apt-get -y dist-upgrade # security updates
+            sudo apt -y autoremove
+            sudo apt -y clean
+            sudo apt -y purge '~c'
+            echo "$NOW" > $the_file
           fi
       }
       update_ubuntu

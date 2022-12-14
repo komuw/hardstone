@@ -143,6 +143,7 @@ clear_stuff(){
 
     sudo apt -y autoremove
     sudo apt -y clean
+    sudo apt -y purge '~c'
     sudo rm -rf /var/lib/apt/lists/*
     # The Nix store sometimes contains entries which are no longer useful.
     # garbage collect them
