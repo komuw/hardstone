@@ -55,6 +55,9 @@ in stdenv.mkDerivation {
             if [ "$diffSinceUpdate" -gt "$updateInterval" ]; then
                 sudo apt -y update
                 sudo apt-get -y dist-upgrade # security updates
+                sudo apt -y autoremove
+                sudo apt -y clean
+                sudo apt -y purge '~c' # https://askubuntu.com/a/181965
                 echo "$NOW" > $the_file
             else
               printf "\n\n No need to run 'apt update', it was last ran $daysSinceUpdate days ago. \n\n"
@@ -63,6 +66,9 @@ in stdenv.mkDerivation {
             # file does not exist, update eitherway
             sudo apt -y update
             sudo apt-get -y dist-upgrade # security updates
+            sudo apt -y autoremove
+            sudo apt -y clean
+            sudo apt -y purge '~c'
             echo "$NOW" > $the_file
           fi
       }
