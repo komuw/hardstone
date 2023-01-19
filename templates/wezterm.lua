@@ -24,7 +24,7 @@ return {
     -- 0.0 (meaning completely translucent/transparent) through to 1.0 (meaning completely opaque).
     -- Setting this to a value other than the default 1.0 may impact render performance.
     -- https://wezfurlong.org/wezterm/config/appearance.html
-    window_background_opacity = 0.92,
+    window_background_opacity = 0.96,
 
     -- max width that a tab can have in the tab bar. Defaults to 16 glyphs in width.
     -- https://wezfurlong.org/wezterm/config/lua/config/tab_max_width.html
