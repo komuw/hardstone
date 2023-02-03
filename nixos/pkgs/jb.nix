@@ -81,6 +81,28 @@ in stdenv.mkDerivation {
         }
         install_mongo_shell
 
+        install_mongo_tools(){
+            is_installed=$(dpkg --get-selections | grep -v deinstall | grep mongodb)
+            if [[ "$is_installed" == *"mongodb-database-tools"* ]]; then
+                # already installed
+                echo -n ""
+            else
+                # Also see: https://github.com/komuw/docker-debug/blob/mongo/mongo.sh
+                # The list of installed tools is: https://www.mongodb.com/docs/database-tools/
+                # - mongodump     - export of the contents of a mongo db.
+                # - mongorestore  - restores data from a mongodump to db.
+                # - bsondump      - convert bson dump files to json.
+                # - mongoimport   - imports content from an extended JSON, CSV, or TSV export file.
+                # - mongoexport   - produces a JSON, CSV, export 
+                # - mongostat     - provide a quick overview of the stus of a running mongo db instance.
+                # - mongotop      - provide an overview of the time a mongo instance spends reading and writing data.
+                # - mongofiles    - supports manipulating files stored in your MongoDB instance in GridFS objects.
+                wget -nc --output-document=/tmp/mongodb_database_tools.deb "https://fastdl.mongodb.org/tools/db/mongodb-database-tools-ubuntu2204-x86_64-100.6.1.deb"
+                sudo apt install -y /tmp/mongodb_database_tools.deb
+            fi
+        }
+        install_mongo_tools
+
         install_jb_go_pkgs(){
             structslop_bin_file="/home/$MY_NAME/go/bin/structslop"
             if [ -f "$structslop_bin_file" ]; then
