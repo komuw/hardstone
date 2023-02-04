@@ -3,7 +3,7 @@
 
 -- To debug this config file;
 -- (a) add this config to the required location, /home/$MY_NAME/.config/wezterm/wezterm.lua
--- (b) add `debug_key_events = true,` to the config
+-- (b) add `return { debug_key_events = true,}` to the config
 -- (c) Start wezterm without backgrounding it. ie `wezterm`
 -- (d) Any errors will be displayed in either the terminal(eg gnome-terminal) where wezterm is started,
 --     or in a new(2nd) wezterm terminal that will start.
@@ -35,16 +35,50 @@ return {
     -- https://github.com/wez/wezterm/blob/wezterm-ssh-0.1.1/config/src/keyassignment.rs#L242-L245
     keys = {
         -- https://wezfurlong.org/wezterm/config/lua/keyassignment/CopyTo.html
-        {key="c", mods="CTRL", action=wezterm.action{CopyTo="ClipboardAndPrimarySelection"}},
-        {key="C", mods="CTRL", action=wezterm.action{CopyTo="ClipboardAndPrimarySelection"}},
-
+        -- https://github.com/wez/wezterm/issues/606#issuecomment-1238029208
+        -- https://github.com/joshuarubin/dotfiles/blob/0c0028b48451849e0f081a44c3e9f0bbdece4a27/private_dot_config/wezterm/wezterm.lua#L195-L202
+        -- https://github.com/joshuarubin/dotfiles/blob/0c0028b48451849e0f081a44c3e9f0bbdece4a27/private_dot_config/wezterm/wezterm.lua#L73-L86
+        {
+          key="c", 
+          mods="CTRL", 
+          action = wezterm.action_callback(function(window, pane)
+            selection_text = window:get_selection_text_for_pane(pane)
+            is_selection_active = string.len(selection_text) ~= 0
+            if is_selection_active then
+                window:perform_action(wezterm.action.CopyTo('ClipboardAndPrimarySelection'), pane)
+            else
+                window:perform_action(wezterm.action.SendString("\x03"), pane)
+            end
+          end),
+        },
+        {
+          key="C", 
+          mods="CTRL", 
+          action = wezterm.action_callback(function(window, pane)
+            selection_text = window:get_selection_text_for_pane(pane)
+            is_selection_active = string.len(selection_text) ~= 0
+            if is_selection_active then
+                window:perform_action(wezterm.action.CopyTo('ClipboardAndPrimarySelection'), pane)
+            else
+                window:perform_action(wezterm.action.SendString("\x03"), pane)
+            end
+          end),
+        },
+        -- An alternative would be:
+        -- {key="c", mods="CTRL", action=wezterm.action{CopyTo="ClipboardAndPrimarySelection"}},
+        -- {key="C", mods="CTRL", action=wezterm.action{CopyTo="ClipboardAndPrimarySelection"}},
+        --
+        -- The problem with the alternative is that ctrl+C works for copying but does not work
+        -- for sending a SIGINT. Thus you also have to remap ctrl+shift+c so that sends SIGINT
+        -- as shown below.
+        --
         -- by default, `ctrl+c` is mapped to `^C`(sigint)(`\x03`).
         -- so we need to map `ctrl+shift+c` to the same.
         -- see: https://github.com/wez/wezterm/issues/944
         -- https://wezfurlong.org/wezterm/config/lua/keyassignment/SendString.html
         -- https://wezfurlong.org/wezterm/escape-sequences.html#c0-control-codes
-        {key="c", mods="CTRL|SHIFT", action=wezterm.action{SendString="\x03"}},
-        {key="C", mods="CTRL|SHIFT", action=wezterm.action{SendString="\x03"}},
+        -- {key="c", mods="CTRL|SHIFT", action=wezterm.action{SendString="\x03"}},
+        -- {key="C", mods="CTRL|SHIFT", action=wezterm.action{SendString="\x03"}},
 
         -- paste from the clipboard
         -- https://wezfurlong.org/wezterm/config/lua/keyassignment/PasteFrom.html
