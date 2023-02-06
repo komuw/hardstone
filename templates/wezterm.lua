@@ -95,7 +95,8 @@ return {
 
         -- closes the current tab, asks for confirmation.
         -- https://wezfurlong.org/wezterm/config/lua/keyassignment/CloseCurrentTab.html
-        {key="w", mods="CTRL", action=wezterm.action{CloseCurrentTab={confirm=true}}},
+        -- DO not use ctrl+w for closing tabs since `nano` uses it for search.
+        -- {key="w", mods="CTRL", action=wezterm.action{CloseCurrentTab={confirm=true}}},
 
     },
 
