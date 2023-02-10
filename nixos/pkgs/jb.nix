@@ -45,9 +45,12 @@ in stdenv.mkDerivation {
         pkgs.bridge-utils
         pkgs.iptables
         pkgs.jetbrains.goland
+
+        # As of 10/feb/2023 we use;
+        # node: v14.21.2, npm: 6.14.17, yarn: 1.22.19
+        pkgs.nodejs-slim-14_x
         pkgs.nodePackages.npm
         pkgs.yarn
-        pkgs.nodejs
 
         pkgs.kubernetes-helm
         pkgs.skaffold
