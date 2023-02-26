@@ -68,13 +68,7 @@ goimports -w .;gofmt -w -s .;go mod tidy;go run -race .
 go install github.com/komuw/ote@latest
 go build -gcflags="all=-N -l" -trimpath -o meli cli/cli.go
 go test -count=1 -tags=test_google,test_aws,test_another_tag --exec=/bin/true ./...
-go test \
-   -count=1 \
-   -tags=test_google,test_another_tag \
-   -timeout 80s \
-   github.com/komuw/meli/image \
-   -run ^TestCreation \
-   -v
+go test -race -tags=test_google,test_another_tag -timeout 80s github.com/komuw/meli/image -count=1 -run ^TestCreation -v
 
 dlv exec ./meli -- -up -f testdata/docker-compose.yml 
 dlv debug cli/cli.go -- -up -f testdata/docker-compose.yml
@@ -87,16 +81,7 @@ go build -gcflags="all=-N -l" -o sir cmd/main.go
 rr record ./sir -arg1
 dlv replay /home/komuw/.local/share/rr/sir-0
 
-dlv \
-	test \
-	github.com/komuw/ote \
-	--build-flags="-v --tags=test_google,test_another_tag" \
-	-- \
-	-test.count=1 \
-	-test.timeout 20000s \
-   -test.v
-	-test.run ^Test_difference \
-	./...
+dlv test github.com/komuw/ote --build-flags="-v --tags=test_google,test_another_tag" -- -test.run ^Test_difference -test.v ./...
 
 dlv --init <(printf break\ server/image.go:250\\ncontinue) \
 	test \
@@ -121,6 +106,26 @@ dlv \
   -test.timeout 20000s \
   -test.run ^TestCreation \
   ./...
+
+rrloop(){
+    #!/bin/bash
+    # http://choly.ca/post/debugging-go-with-rr/
+    set -x; # print command been ran
+    while :
+    do
+      rr $@
+      if [ $? -ne 0 ]; then
+        echo "encountered non-zero exit code: $?";
+        exit;
+      fi
+      set +x # remove prints
+    done
+
+    # usage:
+    #   go test -gcflags 'all=-N -l' -c github.com/komuw/hello/pkg -o some.test
+    #   ./rrloop.sh record --chaos some.test -test.run=TestSome
+}
+rrloop $@
 
 curl -s http://localhost:7391/debug/pprof/heap > heap.out
 go tool pprof meli heap.out
@@ -194,13 +199,7 @@ kubectl describe deployment my-deployment # The annotations will have the comman
 # create a pod for testing. This one has ping,telnet,wget etc already installed.
 # Note; you can specify labels, namespace etc.
 # eg for this case, we run it in kube-system namespace bcoz we want to test wether we can ping a pod from the kube-system NS
-kubectl run \
-  --namespace=kube-system \
-  --labels="app=tester-pod,env=dev,country=kenya" \
-  tester-pod \
-  --rm -ti \
-  --image busybox \
-  /bin/sh
+kubectl run --namespace=kube-system --labels="app=tester-pod,env=dev,country=kenya" tester-pod --rm -ti --image busybox /bin/sh
 
 # media
 mpv --cache=yes --cache-pause-initial=yes --cache-pause=yes https://www.youtube.com/watch?v=someCode
