@@ -93,6 +93,8 @@ dlv --init <(printf break\ server/image.go:250\\ncontinue) \
 	-test.run ^TestCreation \
 	./...
 
+dlv trace github.com/komuw/hello "someRegex" --stack 407 -- someArg --conf=hello.conf
+
 # show stacktrace of whenever something(<some-regexp>) is called
 dlv \
   trace \
