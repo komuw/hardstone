@@ -86,6 +86,9 @@ in stdenv.mkDerivation {
               go install golang.org/x/tools/go/analysis/passes/shadow/cmd/shadow@latest
               go install go101.org/gotv@latest
 
+              # my stuff
+              go install github.com/komuw/ote@latest
+
               # the following are required by vscode for Go.
               go install github.com/uudashr/gopkgs/v2/cmd/gopkgs@latest
               go install github.com/ramya-rao-a/go-outline@latest
