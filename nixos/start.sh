@@ -162,7 +162,7 @@ clear_stuff(){
 
     # The Nix store sometimes contains entries which are no longer useful.
     # garbage collect them
-    # /home/$MY_NAME/.nix-profile/bin/nix-collect-garbage -d
+    # /home/$MY_NAME/.nix-profile/bin/nix-collect-garbage -d # This seems to also delete the file `/home/$MY_NAME/.nix-profile`
     # /home/$MY_NAME/.nix-profile/bin/nix-store --gc
     # /home/$MY_NAME/.nix-profile/bin/nix-store --optimise
     # ref: https://nixos.org/manual/nix/unstable/command-ref/nix-store.html
