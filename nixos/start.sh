@@ -116,7 +116,7 @@ install_nix() {
     # The script will invoke sudo to create /nix
     # The install script will modify the first writable file from amongst ~/.bash_profile, ~/.bash_login and ~/.profile to source ~/.nix-profile/etc/profile.d/nix.sh
 
-    sh <(curl -L https://releases.nixos.org/nix/nix-$NIX_PACKAGE_MANAGER_VERSION/install) --no-daemon
+    curl -L "https://releases.nixos.org/nix/nix-$NIX_PACKAGE_MANAGER_VERSION/install" | sh -s -- --no-daemon
     . ~/.nix-profile/etc/profile.d/nix.sh # source a file
 }
 install_nix
@@ -129,11 +129,11 @@ upgrade_nix() {
     # 2. https://nixos.org/manual/nix/stable/#sec-nix-channel
 
     # TODO: do we need these?
-    # /nix/var/nix/profiles/per-user/$MY_NAME/profile/bin/nix-channel --list
-    # /nix/var/nix/profiles/per-user/$MY_NAME/profile/bin/nix-channel --remove nixpkgs
-    # /nix/var/nix/profiles/per-user/$MY_NAME/profile/bin/nix-channel --add "https://nixos.org/channels/nixpkgs-unstable" nixpkgs-unstable # TODO: use a stable/specific version
-    # /nix/var/nix/profiles/per-user/$MY_NAME/profile/bin/nix-channel --update
-    # /nix/var/nix/profiles/per-user/$MY_NAME/profile/bin/nix-channel --list
+    # /home/$MY_NAME/.nix-profile/bin/nix-channel --list
+    # /home/$MY_NAME/.nix-profile/bin/nix-channel --remove nixpkgs
+    # /home/$MY_NAME/.nix-profile/bin/nix-channel --add "https://nixos.org/channels/nixpkgs-unstable" nixpkgs-unstable # TODO: use a stable/specific version
+    # /home/$MY_NAME/.nix-profile/bin/nix-channel --update
+    # /home/$MY_NAME/.nix-profile/bin/nix-channel --list
 
     # Channels are a way of distributing Nix software, but they are being phased out.
     # Even though they are still used by default,
@@ -157,13 +157,16 @@ clear_stuff(){
     sudo apt -y clean
     sudo apt -y purge '~c'
     sudo rm -rf /var/lib/apt/lists/*
+
+    . ~/.nix-profile/etc/profile.d/nix.sh # source a file
+
     # The Nix store sometimes contains entries which are no longer useful.
     # garbage collect them
-    /nix/var/nix/profiles/per-user/$MY_NAME/profile/bin/nix-collect-garbage -d
-    /nix/var/nix/profiles/per-user/$MY_NAME/profile/bin/nix-store --gc
-    /nix/var/nix/profiles/per-user/$MY_NAME/profile/bin/nix-store --optimise
+    # /home/$MY_NAME/.nix-profile/bin/nix-collect-garbage -d
+    # /home/$MY_NAME/.nix-profile/bin/nix-store --gc
+    # /home/$MY_NAME/.nix-profile/bin/nix-store --optimise
     # ref: https://nixos.org/manual/nix/unstable/command-ref/nix-store.html
-    /nix/var/nix/profiles/per-user/$MY_NAME/profile/bin/nix-store --verify --repair
+    # /home/$MY_NAME/.nix-profile/bin/nix-store --verify --repair
 }
 clear_stuff
 
@@ -171,10 +174,11 @@ clear_stuff
 create_nix_aliases(){
     printf "\n\n\t 9. create_nix_aliases \n"
 
+    sudo rm -rf ~/.bash_aliases
     touch ~/.bash_aliases # touch is silent if file already exists
-    chown -R $MY_NAME:sudo ~/.bash_aliases
-    cp bash_aliases_conf ~/.bash_aliases
-    cp bash_aliases_conf /home/$MY_NAME/.bash_aliases
+    #chown -R $MY_NAME:sudo ~/.bash_aliases
+    #cp bash_aliases_conf ~/.bash_aliases
+    #cp bash_aliases_conf /home/$MY_NAME/.bash_aliases
 
     . ~/.bash_aliases # source a file
 }
