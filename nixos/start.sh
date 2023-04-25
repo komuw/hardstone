@@ -174,6 +174,23 @@ clear_stuff
 create_nix_aliases(){
     printf "\n\n\t 9. create_nix_aliases \n"
 
+    { # try
+        unalias nix
+        unalias nix-build
+        unalias nix-channel
+        unalias nix-collect-garbage
+        unalias nix-copy-closure
+        unalias nix-daemon
+        unalias nix-env
+        unalias nix-hash
+        unalias nix-instantiate
+        unalias nix-prefetch-url
+        unalias nix-shell
+        unalias nix-store
+    } || { # catch
+        echo -n ""
+    }
+
     sudo rm -rf ~/.bash_aliases
     touch ~/.bash_aliases # touch is silent if file already exists
     chown -R $MY_NAME:sudo ~/.bash_aliases
