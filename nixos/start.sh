@@ -176,9 +176,9 @@ create_nix_aliases(){
 
     sudo rm -rf ~/.bash_aliases
     touch ~/.bash_aliases # touch is silent if file already exists
-    #chown -R $MY_NAME:sudo ~/.bash_aliases
-    #cp bash_aliases_conf ~/.bash_aliases
-    #cp bash_aliases_conf /home/$MY_NAME/.bash_aliases
+    chown -R $MY_NAME:sudo ~/.bash_aliases
+    cp bash_aliases_conf ~/.bash_aliases
+    cp bash_aliases_conf /home/$MY_NAME/.bash_aliases
 
     . ~/.bash_aliases # source a file
 }
@@ -204,7 +204,7 @@ install_media_codecs(){
 
     sudo apt-get -y update
     echo ttf-mscorefonts-installer msttcorefonts/accepted-mscorefonts-eula select true | sudo debconf-set-selections  # agree to ttf-mscorefonts-installer license(prepare media codecs install)
-    sudo apt-get -y install ubuntu-restricted-extras                                                                  # install system packages  media codecs
+    sudo apt-get -y install ubuntu-restricted-extras                                                                  # install system packages media codecs
 }
 install_media_codecs
 
