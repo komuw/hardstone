@@ -19,7 +19,7 @@ with (import (fetchTarball "https://github.com/NixOS/nixpkgs/archive/0f487f2b51f
     usage:
     - from this directory, run;
         MY_NAME=$(whoami)
-        /nix/var/nix/profiles/per-user/$MY_NAME/profile/bin/nix-shell
+        /home/$MY_NAME/.nix-profile/bin/nix-shell
 
     search for packages:
       1. https://search.nixos.org/packages
