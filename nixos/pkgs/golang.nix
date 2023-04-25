@@ -1,4 +1,4 @@
-with (import (fetchTarball "https://github.com/NixOS/nixpkgs/archive/cdd3dda63b198675a4c5ed186a15b8fbd35d19a9.tar.gz") {});
+with (import (fetchTarball "https://github.com/NixOS/nixpkgs/archive/0f487f2b51f2cede265bd1f83cc1548d3d788b3d.tar.gz") {});
 
 let
 
@@ -41,7 +41,7 @@ in stdenv.mkDerivation {
               # bin file exists
               echo -n ""
           else
-              GOLANG_VERSION=go1.19.linux-amd64
+              GOLANG_VERSION=go1.20.linux-amd64
               sudo rm -rf "/usr/local/$GOLANG_VERSION.tar.gz"
               sudo rm -rf /usr/local/go
               sudo wget -nc --output-document="/usr/local/$GOLANG_VERSION.tar.gz" "https://go.dev/dl/$GOLANG_VERSION.tar.gz"
@@ -83,7 +83,11 @@ in stdenv.mkDerivation {
               go install golang.org/x/vuln/cmd/govulncheck@latest
               go install golang.org/x/perf/cmd/benchstat@latest
               go install golang.org/x/tools/cmd/godoc@latest
+              go install golang.org/x/tools/go/analysis/passes/shadow/cmd/shadow@latest
               go install go101.org/gotv@latest
+
+              # my stuff
+              go install github.com/komuw/ote@latest
 
               # the following are required by vscode for Go.
               go install github.com/uudashr/gopkgs/v2/cmd/gopkgs@latest

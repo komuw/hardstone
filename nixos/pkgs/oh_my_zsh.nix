@@ -1,4 +1,4 @@
-with (import (fetchTarball "https://github.com/NixOS/nixpkgs/archive/cdd3dda63b198675a4c5ed186a15b8fbd35d19a9.tar.gz") {});
+with (import (fetchTarball "https://github.com/NixOS/nixpkgs/archive/0f487f2b51f2cede265bd1f83cc1548d3d788b3d.tar.gz") {});
 
 let
 
@@ -78,7 +78,7 @@ in stdenv.mkDerivation {
             fi
 
             # 2.
-            MY_BUFFER=$(tail -n 5000 "$MY_FILE") # we are reading 5000 which is greater than `programs.zsh.histSize` just to be sure.
+            MY_BUFFER=$(tail -n 12000 "$MY_FILE") # we are reading 12000 which is greater than `programs.zsh.histSize` just to be sure.
 
             # 3.
             cp "$MY_FILE" "$MY_FILE".backup

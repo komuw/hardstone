@@ -1,4 +1,4 @@
-with (import (fetchTarball "https://github.com/NixOS/nixpkgs/archive/cdd3dda63b198675a4c5ed186a15b8fbd35d19a9.tar.gz") {});
+with (import (fetchTarball "https://github.com/NixOS/nixpkgs/archive/0f487f2b51f2cede265bd1f83cc1548d3d788b3d.tar.gz") {});
 
 let
 
@@ -29,6 +29,8 @@ in stdenv.mkDerivation {
           # The wezterm pkg in nixpkgs has issues starting.
           # so we install manually.
           # TODO: revert to nix, once fixed.
+          #
+          # https://wezfurlong.org/wezterm/install/linux.html
 
           wezterm_conf_file="/home/$MY_NAME/.config/wezterm/wezterm.lua"
           if [ -f "$wezterm_conf_file" ]; then

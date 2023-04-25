@@ -20,11 +20,12 @@ dump = cat-file -p
 
 [diff]
 tool = meld
+algorithm = histogram # myers, patience
 [difftool "meld"]
 
 [merge]
 tool = meld
-conflictstyle = diff3
+conflictstyle = zdiff3 # diff3
 [mergetool "meld"]
 keepBackup = false
 

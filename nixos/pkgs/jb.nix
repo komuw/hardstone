@@ -1,13 +1,13 @@
-with (import (fetchTarball "https://github.com/NixOS/nixpkgs/archive/e824324fd57be1485efc14d4d308e8f1bfc15d47.tar.gz") {});
+with (import (fetchTarball "https://github.com/NixOS/nixpkgs/archive/cf5b4eae5f34acb11c3c3d02fde904a354609c71.tar.gz") {});
 # we need some specific versions of helm, kind, skaffold that are not available in version 21.05
-# That is why we are using nixpkgs at commit e824324f
+# That is why we are using nixpkgs(in this file) at this specific commit.
 # specificallly:
 #    helm version:
-#      v3.6.3
+#      v3.10.2
 #    kind:
-#      v0.11.1
+#      v0.17.0 
 #    skaffold:
-#      v1.32.0
+#      v2.0.2
 #    kubectl client:
 #      v1.22.2
 #    kubectl server(this is installed by the jb project):
@@ -44,14 +44,13 @@ in stdenv.mkDerivation {
         pkgs.mongodb-tools
         pkgs.bridge-utils
         pkgs.iptables
-        # Do not use the various Go versions from nixPkgs.
-        # They clash with the one installed via pkgs/golang.nix
-        # pkgs.go_1_18
-        # pkgs.go_1_17
         pkgs.jetbrains.goland
+
+        # As of 10/feb/2023 we use;
+        # node: v14.21.2, npm: 6.14.17, yarn: 1.22.19
+        pkgs.nodejs-slim-14_x
         pkgs.nodePackages.npm
         pkgs.yarn
-        pkgs.nodejs
 
         pkgs.kubernetes-helm
         pkgs.skaffold
@@ -68,6 +67,83 @@ in stdenv.mkDerivation {
 
         MY_NAME=$(whoami)
 
+        install_mongo_shell(){
+            # https://docs.mongodb.com/manual/reference/program/mongo/
+            #  The version of mongodb available in nixpkgs is older than the version we need. So we'll install manually.
+
+            is_installed=$(dpkg --get-selections | grep -v deinstall | grep mongodb)
+            if [[ "$is_installed" == *"mongodb-org-shell"* ]]; then
+                # already installed
+                echo -n ""
+            else
+                # the binary is installed with name `mongo`
+                # we download an ubuntu18.04 since 21.04 isn't available from download page.
+                wget -nc --output-document=/tmp/mongo_db_shell.deb https://repo.mongodb.org/apt/ubuntu/dists/bionic/mongodb-org/4.2/multiverse/binary-amd64/mongodb-org-shell_4.2.15_amd64.deb
+                sudo apt install -y /tmp/mongo_db_shell.deb
+            fi
+        }
+        install_mongo_shell
+
+        install_mongo_tools(){
+            is_installed=$(dpkg --get-selections | grep -v deinstall | grep mongodb)
+            if [[ "$is_installed" == *"mongodb-database-tools"* ]]; then
+                # already installed
+                echo -n ""
+            else
+                # Also see: https://github.com/komuw/docker-debug/blob/mongo/mongo.sh
+                # The list of installed tools is: https://www.mongodb.com/docs/database-tools/
+                # - mongodump     - export of the contents of a mongo db.
+                # - mongorestore  - restores data from a mongodump to db.
+                # - bsondump      - convert bson dump files to json.
+                # - mongoimport   - imports content from an extended JSON, CSV, or TSV export file.
+                # - mongoexport   - produces a JSON, CSV, export 
+                # - mongostat     - provide a quick overview of the stus of a running mongo db instance.
+                # - mongotop      - provide an overview of the time a mongo instance spends reading and writing data.
+                # - mongofiles    - supports manipulating files stored in your MongoDB instance in GridFS objects.
+                wget -nc --output-document=/tmp/mongodb_database_tools.deb "https://fastdl.mongodb.org/tools/db/mongodb-database-tools-ubuntu2204-x86_64-100.6.1.deb"
+                sudo apt install -y /tmp/mongodb_database_tools.deb
+            fi
+        }
+        install_mongo_tools
+
+        install_jb_go_pkgs(){
+            structslop_bin_file="/home/$MY_NAME/go/bin/structslop"
+            if [ -f "$structslop_bin_file" ]; then
+                # modules exists
+                echo -n ""
+            else
+                go install github.com/orijtech/structslop/cmd/structslop@latest
+                go install github.com/ovh/venom/cmd/venom@latest
+            fi
+        }
+        install_jb_go_pkgs
+
+        add_max_watches_config(){
+            file_exists="/etc/sysctl.d/intellij_goland.conf"
+            if [ -f "$file_exists" ]; then
+                # exists
+                echo -n ""
+            else
+                printf "\n\t creating... \n"
+                sudo cp ../templates/intellij_goland.conf /etc/sysctl.d/intellij_goland.conf
+                sudo sysctl -p --system
+                # remember to restart Goland after this
+            fi
+        }
+        add_max_watches_config
+
+        install_chart_doc_gen(){
+            chart_doc_bin_file="/usr/local/bin/chart-doc-gen"
+            if [ -f "$chart_doc_bin_file" ]; then
+                # binary exists
+                echo -n ""
+            else
+                wget -nc --output-document=/tmp/chart-doc-gen https://github.com/kubepack/chart-doc-gen/releases/download/v0.4.7/chart-doc-gen-linux-amd64
+                sudo mv /tmp/chart-doc-gen /usr/local/bin/chart-doc-gen
+                chmod +x /usr/local/bin/chart-doc-gen
+            fi
+        }
+        install_chart_doc_gen
 
         ### The following commented-out code is for minikube usage. I'm not using minikube at the moment(I'm using skaffold/kind)##
         #
@@ -214,92 +290,6 @@ in stdenv.mkDerivation {
         #     fi
         # }
         # start_libvirt_default_network
-
-        install_mongo_shell(){
-            # https://docs.mongodb.com/manual/reference/program/mongo/
-            #  The version of mongodb available in nixpkgs is older than the version we need. So we'll install manually.
-
-            is_installed=$(dpkg --get-selections | grep -v deinstall | grep mongodb)
-            if [[ "$is_installed" == *"mongodb-org-shell"* ]]; then
-                # already installed
-                echo -n ""
-            else
-                # the binary is installed with name `mongo`
-                # we download an ubuntu18.04 since 21.04 isn't available from download page.
-                wget -nc --output-document=/tmp/mongo_db_shell.deb https://repo.mongodb.org/apt/ubuntu/dists/bionic/mongodb-org/4.2/multiverse/binary-amd64/mongodb-org-shell_4.2.15_amd64.deb
-                sudo apt install -y /tmp/mongo_db_shell.deb
-            fi
-        }
-        install_mongo_shell
-
-        install_go_18(){
-            linked_file="/usr/local/bin/go18"
-            if [ -f "$linked_file" ]; then
-                # exists
-                echo -n ""
-            else
-                GOLANG_VERSION=go1.18.5.linux-amd64
-                wget -nc --output-document="/tmp/$GOLANG_VERSION.tar.gz" "https://go.dev/dl/$GOLANG_VERSION.tar.gz"
-                mkdir -p /tmp/go18
-                tar -xzf "/tmp/$GOLANG_VERSION.tar.gz" -C /tmp/go18
-                sudo cp /tmp/go18/go/bin/go /usr/local/bin/go18
-            fi
-        }
-        install_go_18
-
-        install_go_17(){
-            linked_file="/usr/local/bin/go17"
-            if [ -f "$linked_file" ]; then
-                # exists
-                echo -n ""
-            else
-                GOLANG_VERSION=go1.17.1.linux-amd64
-                wget -nc --output-document="/tmp/$GOLANG_VERSION.tar.gz" "https://go.dev/dl/$GOLANG_VERSION.tar.gz"
-                mkdir -p /tmp/go17
-                tar -xzf "/tmp/$GOLANG_VERSION.tar.gz" -C /tmp/go17
-                sudo cp /tmp/go17/go/bin/go /usr/local/bin/go17
-            fi
-        }
-        install_go_17
-
-        install_jb_go_pkgs(){
-            structslop_bin_file="/home/$MY_NAME/go/bin/structslop"
-            if [ -f "$structslop_bin_file" ]; then
-                # modules exists
-                echo -n ""
-            else
-                go install github.com/orijtech/structslop/cmd/structslop@latest
-                go install github.com/ovh/venom/cmd/venom@latest
-            fi
-        }
-        install_jb_go_pkgs
-
-        add_max_watches_config(){
-            file_exists="/etc/sysctl.d/intellij_goland.conf"
-            if [ -f "$file_exists" ]; then
-                # exists
-                echo -n ""
-            else
-                printf "\n\t creating... \n"
-                sudo cp ../templates/intellij_goland.conf /etc/sysctl.d/intellij_goland.conf
-                sudo sysctl -p --system
-                # remember to restart Goland after this
-            fi
-        }
-        add_max_watches_config
-
-        install_chart_doc_gen(){
-            chart_doc_bin_file="/usr/local/bin/chart-doc-gen"
-            if [ -f "$chart_doc_bin_file" ]; then
-                # binary exists
-                echo -n ""
-            else
-                wget -nc --output-document=/tmp/chart-doc-gen https://github.com/kubepack/chart-doc-gen/releases/download/v0.4.7/chart-doc-gen-linux-amd64
-                sudo mv /tmp/chart-doc-gen /usr/local/bin/chart-doc-gen
-                chmod +x /usr/local/bin/chart-doc-gen
-            fi
-        }
-        install_chart_doc_gen
 
     '';
 }

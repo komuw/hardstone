@@ -1,4 +1,4 @@
-with (import (fetchTarball "https://github.com/NixOS/nixpkgs/archive/cdd3dda63b198675a4c5ed186a15b8fbd35d19a9.tar.gz") {});
+with (import (fetchTarball "https://github.com/NixOS/nixpkgs/archive/0f487f2b51f2cede265bd1f83cc1548d3d788b3d.tar.gz") {});
 
 let
 
@@ -81,6 +81,13 @@ in stdenv.mkDerivation {
             fi
       }
       create_dirs
+
+      setup_mpv_conf(){
+          mkdir -p /home/$MY_NAME/.config/mpv
+          cp ../templates/mpv_input.conf /home/$MY_NAME/.config/mpv/input.conf
+          cp ../templates/mpv_main.conf /home/$MY_NAME/.config/mpv/mpv.conf
+      }
+      setup_mpv_conf
 
     '';
 }
