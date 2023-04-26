@@ -57,6 +57,8 @@ docker run --rm -p 6379:6379/tcp redis --loglevel verbose
 docker exec -it d75c2f44127a bash
 docker logs -f 61f65ae20280
 docker stats --format "table {{.Name}}\t{{.CPUPerc}}\t{{.MemUsage}}\t{{.MemPerc}}\t{{.NetIO}}\t{{.BlockIO}}\t{{.PIDs}}\t"
+docker buildx create --use --name multi-arch-builder
+docker buildx build --push --platform linux/amd64,linux/arm64 -t komuw/debug:latest . # build for multiple cpus.
 
 docker-compose up --build --force-recreate
 docker-compose run --service-ports web python manage.py runserver 3000 --settings=some.settings.development
