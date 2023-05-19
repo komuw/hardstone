@@ -88,6 +88,7 @@ un_install_nix() {
     sudo rm -rf /home/$MY_NAME/.nix-channels
     sudo rm -rf /home/$MY_NAME/.nix-defexpr
     sudo rm -rf /home/$MY_NAME/.nix-profile
+    sudo rm -rf /home/$MY_NAME/.local/state/nix
 }
 un_install_nix
 
@@ -162,6 +163,8 @@ clear_stuff(){
 
     # The Nix store sometimes contains entries which are no longer useful.
     # garbage collect them
+    nix-store --gc # Do NOT use 'nix-collect-garbage -d', it messes with nix installation.
+
     # /home/$MY_NAME/.nix-profile/bin/nix-collect-garbage -d # This seems to also delete the file `/home/$MY_NAME/.nix-profile`
     # /home/$MY_NAME/.nix-profile/bin/nix-store --gc
     # /home/$MY_NAME/.nix-profile/bin/nix-store --optimise
