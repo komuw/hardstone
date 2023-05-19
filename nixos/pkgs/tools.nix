@@ -1,4 +1,4 @@
-with (import (fetchTarball "https://github.com/NixOS/nixpkgs/archive/0f487f2b51f2cede265bd1f83cc1548d3d788b3d.tar.gz") {});
+with (import (fetchTarball "https://github.com/NixOS/nixpkgs/archive/3de246057120fa703249de1e1aa7048bf066ef9b.tar.gz") {});
 
 let
 
@@ -56,7 +56,8 @@ in stdenv.mkDerivation {
               sudo apt-get -y install libgl1-mesa-glx \
                                       libegl1-mesa \
                                       libxcb-xtest0 \
-                                      libxcb-xinerama0
+                                      libxcb-xinerama0 \
+                                      libxcb-cursor0
 
               rm -rf /tmp/zoom_amd64.deb
               wget -nc --output-document=/tmp/zoom_amd64.deb https://zoom.us/client/latest/zoom_amd64.deb
