@@ -56,7 +56,8 @@ in stdenv.mkDerivation {
               sudo apt-get -y install libgl1-mesa-glx \
                                       libegl1-mesa \
                                       libxcb-xtest0 \
-                                      libxcb-xinerama0
+                                      libxcb-xinerama0 \
+                                      libxcb-cursor0
 
               rm -rf /tmp/zoom_amd64.deb
               wget -nc --output-document=/tmp/zoom_amd64.deb https://zoom.us/client/latest/zoom_amd64.deb
