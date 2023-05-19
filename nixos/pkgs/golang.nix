@@ -41,7 +41,7 @@ in stdenv.mkDerivation {
               # bin file exists
               echo -n ""
           else
-              GOLANG_VERSION=go1.20.linux-amd64
+              GOLANG_VERSION=go1.20.4.linux-amd64
               sudo rm -rf "/usr/local/$GOLANG_VERSION.tar.gz"
               sudo rm -rf /usr/local/go
               sudo wget -nc --output-document="/usr/local/$GOLANG_VERSION.tar.gz" "https://go.dev/dl/$GOLANG_VERSION.tar.gz"
