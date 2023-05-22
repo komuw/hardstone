@@ -51,7 +51,8 @@ in stdenv.mkDerivation {
               # exists
               echo -n ""
           else
-              # install zoom dependencies
+              # Install zoom dependencies
+              # Listed at; https://support.zoom.us/hc/en-us/articles/204206269-Installing-or-updating-Zoom-on-Linux#h_f75692f2-5e13-4526-ba87-216692521a82
               sudo apt -y update
               sudo apt-get -y install libgl1-mesa-glx \
                                       libegl1-mesa \
@@ -60,7 +61,14 @@ in stdenv.mkDerivation {
                                       libxcb-cursor0
 
               rm -rf /tmp/zoom_amd64.deb
-              wget -nc --output-document=/tmp/zoom_amd64.deb https://zoom.us/client/latest/zoom_amd64.deb
+              rm -rf /home/$MY_NAME/.zoom/*
+              rm -rf /usr/bin/zoom
+
+              # Versions are found at; https://support.zoom.us/hc/en-us/articles/205759689-Release-notes-for-Linux
+              # We have to choose the version carefully because some versions have bugs, even the latest versions.
+              local VERSION="latest"
+              local VERSION="5.14.7.2928" # may/2023
+              wget -nc --output-document=/tmp/zoom_amd64.deb "https://zoom.us/client/$VERSION/zoom_amd64.deb"
               sudo dpkg -i /tmp/zoom_amd64.deb
           fi
       }
