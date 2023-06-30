@@ -9,6 +9,9 @@
 [includeIf "gitdir:~/mystuff/"]
     path = ~/mystuff/.gitconfig
 
+[init]
+    defaultBranch = main
+
 [alias]
 co = checkout
 ci = commit
