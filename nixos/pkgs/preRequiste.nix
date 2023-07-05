@@ -53,6 +53,7 @@ in stdenv.mkDerivation {
             local daysSinceUpdate="$((diffSinceUpdate/(60*60*24)))"    # days
             local updateInterval="$((21 * 24 * 60 * 60))" # 21 days
             if [ "$diffSinceUpdate" -gt "$updateInterval" ]; then
+                sudo update-ca-certificates --fresh
                 sudo apt -y update
                 sudo apt-get -y dist-upgrade # security updates
                 sudo apt -y autoremove
