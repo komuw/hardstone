@@ -1,3 +1,4 @@
+with import <nixpkgs> {};
 with {
   # Using multiple channels in a shell.nix file.
   # https://devpress.csdn.net/k8s/62f4ea85c6770329307fa981.html
@@ -19,7 +20,6 @@ with {
   # nodejs: v18.x
   nodeimport = (import (fetchTarball "https://github.com/NixOS/nixpkgs/archive/8ad5e8132c5dcf977e308e7bf5517cc6cc0bf7d8.tar.gz") {});
 };
-with import <nixpkgs> {};
 let
 in stdenv.mkDerivation {
 
