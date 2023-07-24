@@ -1,9 +1,8 @@
-with import <nixpkgs> {};
+with import (fetchTarball "https://github.com/NixOS/nixpkgs/archive/9eade54db008c4a1eccee60c9080d00d47932918.tar.gz") {};
 with {
   # Using multiple channels in a shell.nix file.
   # https://devpress.csdn.net/k8s/62f4ea85c6770329307fa981.html
   # https://nixos.org/guides/nix-pills/fundamentals-of-stdenv.html#idm140737319505936
-  normalImport =  (import (fetchTarball "https://github.com/NixOS/nixpkgs/archive/9eade54db008c4a1eccee60c9080d00d47932918.tar.gz") {});
   
   # We need some specific versions of helm, kind, skaffold.
   #
@@ -24,13 +23,13 @@ let
 in stdenv.mkDerivation {
 
     buildInputs = [
-        normalImport.jq
-        normalImport.mongodb-tools
-        normalImport.bridge-utils
-        normalImport.iptables
-        # normalImport.jetbrains.goland
-        normalImport.yarn
-        normalImport.direnv
+        pkgs.jq
+        pkgs.mongodb-tools
+        pkgs.bridge-utils
+        pkgs.iptables
+        # pkgs.jetbrains.goland
+        pkgs.yarn
+        pkgs.direnv
 
         # The following commented-out code is for minikube usage.
         # I'm not using minikube at the moment(I'm using skaffold/kind)
