@@ -57,7 +57,7 @@ in stdenv.mkDerivation {
         skaffoldImport.skaffold
         helmImport.kubernetes-helm-wrapped
         kindImport.kind
-        kubectlImport.kubectl-convert
+        kubectlImport.kubectl
         nodeImport.nodejs-18_x # will also install npm
         chromiumImport.chromium
     ];
