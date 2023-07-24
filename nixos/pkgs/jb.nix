@@ -1,6 +1,7 @@
-let
+with {
   # Using multiple channels in a shell.nix file.
   # https://devpress.csdn.net/k8s/62f4ea85c6770329307fa981.html
+  # https://nixos.org/guides/nix-pills/fundamentals-of-stdenv.html#idm140737319505936
   normalImport =  (import (fetchTarball "https://github.com/NixOS/nixpkgs/archive/9eade54db008c4a1eccee60c9080d00d47932918.tar.gz") {});
   
   # We need some specific versions of helm, kind, skaffold.
@@ -17,9 +18,10 @@ let
   kubectlImport = (import (fetchTarball "https://github.com/NixOS/nixpkgs/archive/b3a285628a6928f62cdf4d09f4e656f7ecbbcafb.tar.gz") {});
   # nodejs: v18.x
   nodeimport = (import (fetchTarball "https://github.com/NixOS/nixpkgs/archive/8ad5e8132c5dcf977e308e7bf5517cc6cc0bf7d8.tar.gz") {});
-in
-{ nixpkgs ? import <nixpkgs> {} }:
-with nixpkgs; mkShell {
+};
+with import <nixpkgs> {};
+let
+in stdenv.mkDerivation {
 
     buildInputs = [
         normalImport.jq
