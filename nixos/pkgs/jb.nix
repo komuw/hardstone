@@ -3,7 +3,12 @@ with {
   # Using multiple channels in a shell.nix file.
   # https://devpress.csdn.net/k8s/62f4ea85c6770329307fa981.html
   # https://nixos.org/guides/nix-pills/fundamentals-of-stdenv.html#idm140737319505936
-  
+  #
+  # Specific package versions can be found in;
+  # - https://www.nixhub.io/
+  # - https://lazamar.co.uk/nix-versions/ 
+  # - https://search.nixos.org/packages
+
   # We need some specific versions of helm, kind, skaffold.
   #
   # skaffold: v2.0.3
