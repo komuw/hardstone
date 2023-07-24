@@ -39,12 +39,12 @@ in stdenv.mkDerivation {
         # The following commented-out code is for minikube usage.
         # I'm not using minikube at the moment(I'm using skaffold/kind)
         #
-        # normalImport.virtualbox
-        # normalImport.qemu_kvm
-        # normalImport.libvirt
-        # normalImport.docker-machine-kvm2
-        # normalImport.minikube
-        # normalImport.mongodb
+        # pkgs.virtualbox
+        # pkgs.qemu_kvm
+        # pkgs.libvirt
+        # pkgs.docker-machine-kvm2
+        # pkgs.minikube
+        # pkgs.mongodb
         #
         # When you install packages on non-NixOS distros, services/daemons(eg libvirtd) are not set up.
         # Services are created by NixOS modules, hence they require NixOS.
