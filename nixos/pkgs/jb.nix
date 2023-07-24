@@ -9,7 +9,7 @@ with {
   # - https://lazamar.co.uk/nix-versions/ 
   # - https://search.nixos.org/packages
 
-  # We need some specific versions of helm, kind, skaffold.
+  # We need some specific versions of helm, kind, skaffold, chromium, etc.
   #
   # skaffold: v2.0.3
   # see: https://lazamar.co.uk/nix-versions
@@ -22,7 +22,9 @@ with {
   # kubectl: v1.25.4
   kubectlImport = (import (fetchTarball "https://github.com/NixOS/nixpkgs/archive/b3a285628a6928f62cdf4d09f4e656f7ecbbcafb.tar.gz") {});
   # nodejs: v18.x
-  nodeimport = (import (fetchTarball "https://github.com/NixOS/nixpkgs/archive/8ad5e8132c5dcf977e308e7bf5517cc6cc0bf7d8.tar.gz") {});
+  nodeImport = (import (fetchTarball "https://github.com/NixOS/nixpkgs/archive/8ad5e8132c5dcf977e308e7bf5517cc6cc0bf7d8.tar.gz") {});
+  # chromium: v111
+  chromiumImport = (import (fetchTarball "https://github.com/NixOS/nixpkgs/archive/8ad5e8132c5dcf977e308e7bf5517cc6cc0bf7d8.tar.gz") {});
 };
 let
 in stdenv.mkDerivation {
@@ -56,7 +58,8 @@ in stdenv.mkDerivation {
         helmImport.kubernetes-helm-wrapped
         kindImport.kind
         kubectlImport.kubectl-convert
-        nodeimport.nodejs-18_x # will also install npm
+        nodeImport.nodejs-18_x # will also install npm
+        chromiumImport.chromium
     ];
 
     shellHook = ''
