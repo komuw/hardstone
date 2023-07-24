@@ -24,6 +24,8 @@ with (import (fetchTarball "https://github.com/NixOS/nixpkgs/archive/9eade54db00
     search for packages:
       1. https://search.nixos.org/packages
       2. nix search wget
+      3. https://www.nixhub.io/                # This will also give you historical versions.
+      4. https://lazamar.co.uk/nix-versions/   # This will also give you historical versions.
     search for options to add to `~/.config/nixpkgs`
       1. https://search.nixos.org/options
 */

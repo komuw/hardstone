@@ -1,61 +1,56 @@
-with (import (fetchTarball "https://github.com/NixOS/nixpkgs/archive/cf5b4eae5f34acb11c3c3d02fde904a354609c71.tar.gz") {});
-# we need some specific versions of helm, kind, skaffold that are not available in version 21.05
-# That is why we are using nixpkgs(in this file) at this specific commit.
-# specificallly:
-#    helm version:
-#      v3.10.2
-#    kind:
-#      v0.17.0 
-#    skaffold:
-#      v2.0.2
-#    kubectl client:
-#      v1.22.2
-#    kubectl server(this is installed by the jb project):
-#      v1.20.7
-
-# TODO: go back to tagged version once the three packages get updated.
-
-
 let
-
-in stdenv.mkDerivation {
-    name = "jb";
+  # Using multiple channels in a shell.nix file.
+  # https://devpress.csdn.net/k8s/62f4ea85c6770329307fa981.html
+  normalImport =  (import (fetchTarball "https://github.com/NixOS/nixpkgs/archive/9eade54db008c4a1eccee60c9080d00d47932918.tar.gz") {});
+  
+  # We need some specific versions of helm, kind, skaffold.
+  #
+  # skaffold: v2.0.3
+  # see: https://lazamar.co.uk/nix-versions
+  # see: https://lazamar.co.uk/nix-versions/?package=skaffold&version=2.0.3&fullName=skaffold-2.0.3&keyName=skaffold&revision=79b3d4bcae8c7007c9fd51c279a8a67acfa73a2a&channel=nixpkgs-unstable#instructions
+  skaffoldImport = (import (fetchTarball "https://github.com/NixOS/nixpkgs/archive/79b3d4bcae8c7007c9fd51c279a8a67acfa73a2a.tar.gz") {});
+  # helm version: v3.10.2
+  helmImport = (import (fetchTarball "https://github.com/NixOS/nixpkgs/archive/b3a285628a6928f62cdf4d09f4e656f7ecbbcafb.tar.gz") {});
+  # kind: v0.17.0 
+  kindImport = (import (fetchTarball "https://github.com/NixOS/nixpkgs/archive/8ad5e8132c5dcf977e308e7bf5517cc6cc0bf7d8.tar.gz") {});
+  # kubectl: v1.25.4
+  kubectlImport = (import (fetchTarball "https://github.com/NixOS/nixpkgs/archive/b3a285628a6928f62cdf4d09f4e656f7ecbbcafb.tar.gz") {});
+  # nodejs: v18.x
+  nodeimport = (import (fetchTarball "https://github.com/NixOS/nixpkgs/archive/8ad5e8132c5dcf977e308e7bf5517cc6cc0bf7d8.tar.gz") {});
+in
+{ nixpkgs ? import <nixpkgs> {} }:
+with nixpkgs; mkShell {
 
     buildInputs = [
-        pkgs.virtualbox
-        pkgs.qemu_kvm
+        normalImport.jq
+        normalImport.mongodb-tools
+        normalImport.bridge-utils
+        normalImport.iptables
+        # normalImport.jetbrains.goland
+        normalImport.yarn
+        normalImport.direnv
+
+        # The following commented-out code is for minikube usage.
+        # I'm not using minikube at the moment(I'm using skaffold/kind)
+        #
+        # normalImport.virtualbox
+        # normalImport.qemu_kvm
+        # normalImport.libvirt
+        # normalImport.docker-machine-kvm2
+        # normalImport.minikube
+        # normalImport.mongodb
+        #
         # When you install packages on non-NixOS distros, services/daemons(eg libvirtd) are not set up.
         # Services are created by NixOS modules, hence they require NixOS.
         # For other linuxes, you would need to integrate with systemd yourself(see func `add_libvirtd_systemd_files`).
         # Without systemd integration, `libvirtd` is not up and running by default.
         # https://stackoverflow.com/a/48973911/2768067
-        pkgs.libvirt
-        pkgs.docker-machine-kvm2
-        pkgs.minikube
-        pkgs.kubectl
-        pkgs.jq
-        # The mongo shell is included as part of the MongoDB server installation.
-        # https://docs.mongodb.com/manual/reference/program/mongo/
-        #
-        # The version of mongo-shell & mongo-tools should match the version of the server you want to connect to.
-        # The version of mongodb available in nixpkgs is older than the version we need. So we'll install manually.
-        # We should switch back to nixpkgs when they update.
-        # pkgs.mongodb
-        pkgs.mongodb-tools
-        pkgs.bridge-utils
-        pkgs.iptables
-        pkgs.jetbrains.goland
 
-        # As of 10/feb/2023 we use;
-        # node: v14.21.2, npm: 6.14.17, yarn: 1.22.19
-        pkgs.nodejs-slim-14_x
-        pkgs.nodePackages.npm
-        pkgs.yarn
-
-        pkgs.kubernetes-helm
-        pkgs.skaffold
-        pkgs.kind
-        pkgs.direnv
+        skaffoldImport.skaffold
+        helmImport.kubernetes-helm-wrapped
+        kindImport.kind
+        kubectlImport.kubectl-convert
+        nodeimport.nodejs-18_x # will also install npm
     ];
 
     shellHook = ''
