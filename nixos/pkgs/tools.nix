@@ -15,6 +15,7 @@ in stdenv.mkDerivation {
         pkgs.bat
         pkgs.google-chrome # unfree
         pkgs.skypeforlinux # unfree
+        pkgs.firefox
         pkgs.ripgrep
         pkgs.ripgrep-all
         pkgs.rr
