@@ -223,3 +223,8 @@ xrandr --listmonitors
 # Setup monitors, where XWAYLAND2 is the built-in display.
 # This also can be used to restart sleeping monitors.
 xrandr --output "XWAYLAND2" --auto --output "XWAYLAND4" --left-of "XWAYLAND2" --output "XWAYLAND3" --right-of "XWAYLAND2"
+
+# show dmesg/kernel logs
+sudo dmesg --level=err,warn --nopager --human --force-prefix --ctime --time-format=iso # --kernel
+
+
