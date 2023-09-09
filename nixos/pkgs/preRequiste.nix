@@ -64,7 +64,8 @@ in stdenv.mkDerivation {
               printf "\n\n No need to run 'apt update', it was last ran $daysSinceUpdate days ago. \n\n"
             fi
           else
-            # file does not exist, update eitherway
+            # file does not exist, update either way
+            sudo update-ca-certificates --fresh
             sudo apt -y update
             sudo apt-get -y dist-upgrade # security updates
             sudo apt -y autoremove
