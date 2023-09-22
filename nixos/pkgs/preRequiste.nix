@@ -52,7 +52,16 @@ in stdenv.mkDerivation {
                 echo -n ""
             else
                 sudo cp ../templates/file_limits.conf /etc/security/limits.d/file_limits.conf
-                sudo sysctl -p --system
+
+                # systemd ignores the values from the /etc/security/limits.conf
+                # See: https://askubuntu.com/a/1086382
+                # Use "systemd-analyze cat-config systemd/system.conf" to analyze entire config.
+                # Or "systemctl --user show | grep -i LimitNOFILE"
+                #
+                sudo mkdir -p /etc/systemd/system.conf.d/
+                sudo mkdir -p /etc/systemd/user.conf.d/
+                sudo cp ../templates/custom_systemd.conf /etc/systemd/system.conf.d/custom_systemd.conf
+                sudo cp ../templates/custom_systemd.conf /etc/systemd/user.conf.d/custom_systemd.conf
             fi
       }
       setup_limits_config
