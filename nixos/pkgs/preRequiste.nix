@@ -41,12 +41,17 @@ in stdenv.mkDerivation {
 
       setup_limits_config(){
             # ulimit -a
-            file_exists="/etc/security/limits.d/file-limits.conf"
+            #
+            # By default limits are taken from the /etc/security/limits.conf config file. 
+            # Then individual *.conf files from the /etc/security/limits.d/ directory are read. 
+            # See: "man pam_limits"
+            #
+            file_exists="/etc/security/limits.d/file_limits.conf"
             if [ -f "$file_exists" ]; then
                 # exists
                 echo -n ""
             else
-                sudo cp ../templates/file-limits.conf /etc/security/limits.d/file-limits.conf
+                sudo cp ../templates/file_limits.conf /etc/security/limits.d/file_limits.conf
                 sudo sysctl -p --system
             fi
       }
