@@ -39,6 +39,19 @@ in stdenv.mkDerivation {
       }
       setup_locale
 
+      setup_limits_config(){
+            # ulimit -a
+            file_exists="/etc/security/limits.d/file-limits.conf"
+            if [ -f "$file_exists" ]; then
+                # exists
+                echo -n ""
+            else
+                sudo cp ../templates/file-limits.conf /etc/security/limits.d/file-limits.conf
+                sudo sysctl -p --system
+            fi
+      }
+      setup_limits_config
+
       update_ubuntu(){
           # https://askubuntu.com/a/589036/37609
           # https://github.com/ansible/ansible/blob/v2.13.0/lib/ansible/modules/apt.py#L1081-L1091
