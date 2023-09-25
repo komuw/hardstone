@@ -128,7 +128,6 @@ in stdenv.mkDerivation {
                 # exists
                 echo -n ""
             else
-                printf "\n\t creating... \n"
                 sudo cp ../templates/intellij_goland.conf /etc/sysctl.d/intellij_goland.conf
                 sudo sysctl -p --system
                 # remember to restart Goland after this

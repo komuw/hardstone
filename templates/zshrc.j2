@@ -104,6 +104,15 @@ source $ZSH/oh-my-zsh.sh
   printf "\nsourcing some files failed. \n"
 }
 
+
+
+# Increase file descriptors.
+# Also see; hardstone/templates/file_limits.conf
+# The changes in "hardstone/templates/file_limits.conf" should be enough
+# but for some reason it didn't work, so we have to use this workaround.
+#
+ulimit -n 75535
+
 # Append this paths to $PATH
 for x ("$HOME/.nvm/bin/" \
        "$HOME/go/bin" \

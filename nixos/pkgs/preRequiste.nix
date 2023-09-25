@@ -39,6 +39,61 @@ in stdenv.mkDerivation {
       }
       setup_locale
 
+      insert_if_not_exists() {
+        # This will write something to a text file if it doesnt already exist.
+        # usage:
+        #   insert_if_not_exists "example" "78.3.21 example.com" /etc/hosts
+
+        to_check=$1
+        to_add=$2
+        file=$3
+
+        if grep -q "$to_check" "$file"; then
+          # already exists
+          echo -n ""
+        else
+          # append
+          { # try
+            printf "$to_add" >> "$file"
+          } || { # catch
+            printf "$to_add" | sudo tee -a "$file"
+          }
+        fi
+      }
+
+      setup_limits_config(){
+            # ulimit -a
+            #
+            # By default limits are taken from the /etc/security/limits.conf config file. 
+            # Then individual *.conf files from the /etc/security/limits.d/ directory are read. 
+            # See: "man pam_limits"
+            #
+            file_exists="/etc/security/limits.d/file_limits.conf"
+            if [ -f "$file_exists" ]; then
+                # exists
+                echo -n ""
+            else
+                sudo cp ../templates/file_limits.conf /etc/security/limits.d/file_limits.conf
+
+                # systemd ignores the values from the /etc/security/limits.conf
+                # See: https://askubuntu.com/a/1086382
+                # Use "systemd-analyze cat-config systemd/system.conf" to analyze entire config.
+                # Or "systemctl --user show | grep -i LimitNOFILE; systemctl show | grep -i LimitNOFILE"
+                #
+                sudo mkdir -p /etc/systemd/system.conf.d/
+                sudo mkdir -p /etc/systemd/user.conf.d/
+                sudo cp ../templates/custom_systemd.conf /etc/systemd/system.conf.d/custom_systemd.conf
+                sudo cp ../templates/custom_systemd.conf /etc/systemd/user.conf.d/custom_systemd.conf
+
+                insert_if_not_exists "65535" "\nDefaultLimitNOFILE=65535:524288\nDefaultLimitNOFILESoft=65535" /etc/systemd/system.conf
+                insert_if_not_exists "65535" "\nDefaultLimitNOFILE=65535:524288\nDefaultLimitNOFILESoft=65535" /etc/systemd/user.conf
+
+                systemctl --user daemon-reload
+                sudo systemctl daemon-reload
+            fi
+      }
+      setup_limits_config
+
       update_ubuntu(){
           # https://askubuntu.com/a/589036/37609
           # https://github.com/ansible/ansible/blob/v2.13.0/lib/ansible/modules/apt.py#L1081-L1091
