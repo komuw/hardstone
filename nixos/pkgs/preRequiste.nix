@@ -94,6 +94,20 @@ in stdenv.mkDerivation {
       }
       setup_limits_config
 
+      add_sysctl_config(){
+            # Use "sysctl -a" to find current values.
+            #
+            file_exists="/etc/sysctl.d/sysctl.conf"
+            if [ -f "$file_exists" ]; then
+                # exists
+                echo -n ""
+            else
+                sudo cp ../templates/sysctl.conf /etc/sysctl.d/sysctl.conf
+                sudo sysctl -p --system
+            fi
+      }
+      add_sysctl_config
+
       update_ubuntu(){
           # https://askubuntu.com/a/589036/37609
           # https://github.com/ansible/ansible/blob/v2.13.0/lib/ansible/modules/apt.py#L1081-L1091
