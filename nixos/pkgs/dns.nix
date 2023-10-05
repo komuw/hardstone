@@ -54,6 +54,9 @@ ff02::2 ip6-allrouters
           sudo cp "../templates/$1" "/etc/systemd/network/$1"
           sudo cp ../templates/etc.NetworkManager.NetworkManager.conf /etc/NetworkManager/NetworkManager.conf
 
+          sudo mkdir -p /etc/systemd/resolved.conf.d/
+          sudo cp ../templates/systemd_resolved_conf_for_test_domain.conf /etc/systemd/resolved.conf.d/systemd_resolved_conf_for_test_domain.conf
+
           sudo systemctl daemon-reload
           sudo systemctl restart systemd-networkd
           sudo systemctl restart systemd-resolved
