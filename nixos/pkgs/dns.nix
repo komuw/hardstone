@@ -38,6 +38,7 @@ ff02::2 ip6-allrouters
 
 # jb
 127.0.0.1 mongodb-primary.ara-dev mongodb-secondary.ara-dev mongodb-arbiter.ara-dev
+127.0.0.1 controller.ara.test dashboard.ara.test billing.ara.test
 ' >> /etc/hosts
          fi
       }
@@ -53,9 +54,6 @@ ff02::2 ip6-allrouters
           sudo cp ../templates/etc.systemd.resolved.conf /etc/systemd/resolved.conf
           sudo cp "../templates/$1" "/etc/systemd/network/$1"
           sudo cp ../templates/etc.NetworkManager.NetworkManager.conf /etc/NetworkManager/NetworkManager.conf
-
-          sudo mkdir -p /etc/systemd/resolved.conf.d/
-          sudo cp ../templates/systemd_resolved_conf_for_test_domain.conf /etc/systemd/resolved.conf.d/systemd_resolved_conf_for_test_domain.conf
 
           sudo systemctl daemon-reload
           sudo systemctl restart systemd-networkd
