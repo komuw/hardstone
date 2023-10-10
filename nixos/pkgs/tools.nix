@@ -1,4 +1,4 @@
-with (import (fetchTarball "https://github.com/NixOS/nixpkgs/archive/9eade54db008c4a1eccee60c9080d00d47932918.tar.gz") {});
+with (import (fetchTarball "https://github.com/NixOS/nixpkgs/archive/0b36900606b9be03ccb554be867ae2405f6ba428.tar.gz") {});
 
 let
 
@@ -17,7 +17,9 @@ in stdenv.mkDerivation {
         pkgs.skypeforlinux # unfree
         pkgs.firefox
         pkgs.ripgrep
-        pkgs.ripgrep-all
+        # nix-shell fails for `ripgrep-all` with error;
+        #   ERROR: test1 failed! Could not find the word 'hello' 26 times in the sample data.
+        # pkgs.ripgrep-all
         pkgs.rr
         pkgs.unixtools.netstat
         pkgs.fzf
