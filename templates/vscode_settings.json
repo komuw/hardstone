@@ -1,4 +1,6 @@
 {
+    // Docs: https://code.visualstudio.com/docs/getstarted/settings
+    //
     "telemetry.enableCrashReporter": false,
     "telemetry.enableTelemetry": false,
     "telemetry.telemetryLevel": "off",
@@ -21,7 +23,7 @@
         "comments": true,
         "strings": true
     },
-    "editor.experimental.stickyScroll.enabled": true,
+    "editor.stickyScroll.enabled": true,
     // docs: https://github.com/golang/tools/blob/master/gopls/doc/settings.md
     //       https://github.com/golang/vscode-go/blob/master/docs/settings.md
     "go.useLanguageServer": true,

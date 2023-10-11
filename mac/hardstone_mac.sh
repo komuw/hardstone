@@ -195,7 +195,7 @@ EOF
 
     # https://code.visualstudio.com/docs/getstarted/settings#_settings-file-locations
     rm -rf "$HOME/Library/Application Support/Code/User/settings.json"
-    cp ../templates/vscode.j2 "$HOME/Library/Application Support/Code/User/settings.json"
+    cp ../templates/vscode_settings.json "$HOME/Library/Application Support/Code/User/settings.json"
 }
 install_vscode
 
