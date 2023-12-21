@@ -1,4 +1,4 @@
-with (import (fetchTarball "https://github.com/NixOS/nixpkgs/archive/30d79186dd081d226f1f3f2465c4f7f8acd5ce9c.tar.gz") {});
+with (import (fetchTarball "https://github.com/NixOS/nixpkgs/archive/f63489a7f0a548df967dc58d7d8fd18a0046d37d.tar.gz") {});
 
 let
 
@@ -41,9 +41,10 @@ in stdenv.mkDerivation {
               # bin file exists
               echo -n ""
           else
-              GOLANG_VERSION=go1.21.3.linux-amd64
+              GOLANG_VERSION=go1.21.5.linux-amd64
               sudo rm -rf "/usr/local/$GOLANG_VERSION.tar.gz"
               sudo rm -rf /usr/local/go
+              sudo rm -rf /usr/local/go1.*.*gz
               sudo wget -nc --output-document="/usr/local/$GOLANG_VERSION.tar.gz" "https://go.dev/dl/$GOLANG_VERSION.tar.gz"
               sudo tar -xzf "/usr/local/$GOLANG_VERSION.tar.gz" -C /usr/local/
               sudo ln --force --symbolic /usr/local/go/bin/go /usr/local/bin/go
