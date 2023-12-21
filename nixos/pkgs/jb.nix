@@ -1,4 +1,4 @@
-with import (fetchTarball "https://github.com/NixOS/nixpkgs/archive/0b36900606b9be03ccb554be867ae2405f6ba428.tar.gz") {};
+with import (fetchTarball "https://github.com/NixOS/nixpkgs/archive/30d79186dd081d226f1f3f2465c4f7f8acd5ce9c.tar.gz") {};
 with {
   # Using multiple channels in a shell.nix file.
   # https://devpress.csdn.net/k8s/62f4ea85c6770329307fa981.html
