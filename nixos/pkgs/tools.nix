@@ -6,7 +6,8 @@ in stdenv.mkDerivation {
     name = "tools";
 
     buildInputs = [
-        pkgs.youtube-dl
+        # youtube-dl fork
+        pkgs.yt-dlp
         pkgs.asciinema
         pkgs.httpie
         # https://docs.aws.amazon.com/cli/latest/userguide/cliv2-migration.html
