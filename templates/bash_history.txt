@@ -38,7 +38,8 @@ git log -i -Shello --patch -- somePath/ ':(exclude)*vendor*' # exclude a certain
 git rebase main --interactive
 git stash list
 git stash push -m myStash /some/path/app.js /path/cool.py
-git stash apply stash@\{0\}
+git stash apply stash@{0}
+git stash show -p stash@{0} # show contents of a stash
 git diff --diff-filter=d --name-only origin/master | grep '.py$'
 git diff --diff-filter=d --name-only origin/master | grep '.go$' | xargs gofmt -w -s && \
 git diff --diff-filter=d --name-only origin/master | grep '.go$' | xargs gofumpt -extra -lang 1.16 -w && \
