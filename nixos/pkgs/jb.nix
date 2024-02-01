@@ -80,9 +80,9 @@ in stdenv.mkDerivation {
                 # already installed
                 echo -n ""
             else
-                # the binary is installed with name `mongo`
+                # the binary is installed with name `mongosh`
                 # we download an ubuntu18.04 since 21.04 isn't available from download page.
-                wget -nc --output-document=/tmp/mongo_db_shell.deb https://repo.mongodb.org/apt/ubuntu/dists/bionic/mongodb-org/4.2/multiverse/binary-amd64/mongodb-org-shell_4.2.15_amd64.deb
+                wget -nc --output-document=/tmp/mongo_db_shell.deb https://repo.mongodb.org/apt/ubuntu/dists/jammy/mongodb-org/5.0/multiverse/binary-amd64/mongodb-mongosh_2.1.3_amd64.deb
                 sudo apt install -y /tmp/mongo_db_shell.deb
             fi
         }

@@ -26,6 +26,7 @@ in stdenv.mkDerivation {
               # hosts file is already well populated.
               echo -n ""
           else
+              sudo chown -R $MY_NAME:$MY_NAME /etc/hosts
               sudo echo '
 127.0.0.1   localhost
 
