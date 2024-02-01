@@ -63,7 +63,7 @@ install_nix_pre_requistes(){
     printf "\n\n\t 2. install_nix_pre_requistes \n"
 
     sudo apt -y update
-    sudo apt -y install sudo
+    sudo apt -y install sudo usb-creator-gtk
     sudo apt -y update
     sudo apt-get -y dist-upgrade # security updates
     sudo apt -y install curl xz-utils
