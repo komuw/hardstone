@@ -30,13 +30,14 @@ new_tab = <Primary>t
     font = Monospace 14
 
 [layouts]
-[[default]]
-    [[[child1]]]
-    profile = New Profile
-    type = Terminal
-    parent = window0
+  [[default]]
     [[[window0]]]
-    type = Window
-    parent = ""
+      type = Window
+      parent = ""
+    [[[child1]]]
+      profile = New Profile
+      type = Terminal
+      parent = window0
+
 
 [plugins]
