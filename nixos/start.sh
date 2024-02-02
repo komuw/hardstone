@@ -234,7 +234,7 @@ un_install_snapd(){
 
     # https://askubuntu.com/questions/1035915/how-to-remove-snap-store-from-ubuntu
 
-    sudo apt -y autoremove --purge snapd gnome-software-plugin-snap
+    sudo apt -y autoremove --purge snapd gnome-software-plugin-snap firefox
     sudo rm -rf /snap
     sudo rm -fr ~/snap
     sudo rm -rf /var/snap
