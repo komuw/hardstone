@@ -38,6 +38,7 @@ DNSDefaultRoute=true
 DHCP=yes
 
 DNSOverTLS=yes
+DNSSEC=yes
 
 [DHCPv4]
 # When true (the default), the DNS servers received from the DHCP server will be used.
