@@ -50,16 +50,16 @@ ff02::2 ip6-allrouters
       }
       add_dev_hosts
 
-      setup_dns_files(){
+      setup_systemd_resolved_dns_files(){
           # example usage:
-          #    setup_dns_files etc_systemd_network_wireless_internet_dns.network
+          #    setup_systemd_resolved_dns_files etc_systemd_network_wireless_internet_dns.network
           #     or
-          #    setup_dns_files etc_systemd_network_tethered_internet_dns.network
+          #    setup_systemd_resolved_dns_files etc_systemd_network_tethered_internet_dns.network
 
           sudo rm -rf /etc/systemd/network/*
-          sudo cp ../templates/etc.systemd.resolved.conf /etc/systemd/resolved.conf
-          sudo cp "../templates/$1" "/etc/systemd/network/$1"
-          sudo cp ../templates/etc.NetworkManager.NetworkManager.conf /etc/NetworkManager/NetworkManager.conf
+          sudo cp ../templates/dns/etc.systemd.resolved.conf /etc/systemd/resolved.conf
+          sudo cp "../templates/dns/$1" "/etc/systemd/network/$1"
+          sudo cp ../templates/dns/etc.NetworkManager.NetworkManager.conf /etc/NetworkManager/NetworkManager.conf
 
           sudo systemctl daemon-reload
           sudo systemctl restart systemd-networkd
@@ -67,7 +67,7 @@ ff02::2 ip6-allrouters
           sudo systemctl restart NetworkManager
       }
 
-      setup_dns(){
+      setup_systemd_resolved_dns(){
           if [[ -z "$USING_TETHERED_INTERNET" ]]; then
               # that env var is unset, which means we are NOT using tethered internet.
               # ie, we are using wireless internet.
@@ -81,10 +81,77 @@ ff02::2 ip6-allrouters
               # exists
               echo -n ""
           else
-              setup_dns_files "$the_file_name"
+              setup_systemd_resolved_dns_files "$the_file_name"
           fi
       }
-      setup_dns
+      setup_systemd_resolved_dns
+
+      setup_dnscrypt_proxy(){
+          local_file="/usr/local/bin/dnscrypt-proxy"
+          if [ -f "$local_file" ]; then
+              # exists
+              echo -n ""
+          else
+              sudo systemctl stop systemd-resolved
+              sudo systemctl disable systemd-resolved
+              sudo apt -y remove resolvconf
+              sudo apt -y purge resolvconf
+
+              now=$(date '+%d-%m-%Y_%Hh-%Mmin')
+              sudo mkdir -p /etc/resolv_backups/
+              sudo cp /etc/resolv.conf "/etc/resolv_backups/resolv.conf_${now}_.backup"
+              sudo rm -f /etc/resolv.conf
+              sudo cp ../templates/dns/dnscrypt.resolv.conf /etc/resolv.conf
+
+              rm -rf /tmp/dnscrypt-proxy/;mkdir -p /tmp/dnscrypt-proxy/
+              wget -nc --output-document="/tmp/dnscrypt-proxy/dnscrypt-proxy.tar.gz" "https://github.com/DNSCrypt/dnscrypt-proxy/releases/download/2.1.5/dnscrypt-proxy-linux_x86_64-2.1.5.tar.gz"
+              tar -xzf "/tmp/dnscrypt-proxy/dnscrypt-proxy.tar.gz" -C /tmp/dnscrypt-proxy/
+              sudo cp /tmp/dnscrypt-proxy/linux-x86_64/dnscrypt-proxy /usr/local/bin
+
+              sudo rm -rf /etc/dnscrypt-proxy
+              sudo mkdir -p /etc/dnscrypt-proxy
+              sudo cp ../templates/dns/dnscrypt.forwarding-rules.txt /etc/dnscrypt-proxy/dnscrypt.forwarding-rules.txt
+              sudo cp ../templates/dns/dnscrypt-proxy.toml /etc/dnscrypt-proxy/dnscrypt-proxy.toml
+              wget -nc --output-document="/tmp/dnscrypt-proxy/blocked-names.txt" "https://download.dnscrypt.info/blacklists/domains/mybase.txt"
+              sudo cp /tmp/dnscrypt-proxy/blocked-names.txt /etc/dnscrypt-proxy/blocked-names.txt
+
+              dnscrypt-proxy -service install
+              dnscrypt-proxy -service start
+              sudo systemctl restart NetworkManager
+              sleep 2
+              dnscrypt-proxy -resolve example.com # check that it works
+          fi
+      }
+      setup_dnscrypt_proxy
+
+      update_dnscrypt_proxy_blocklist(){
+          # https://github.com/DNSCrypt/dnscrypt-proxy/wiki/Public-blocklist
+
+          local NOW=$(date +%s) # current unix timestamp.
+          local the_file="/home/$MY_NAME/.config/last_dnscrypt_proxy_blocklist_update.txt"
+          if [ -f "$the_file" ]; then
+            # exists
+            local LAST_UPDATE=$(cat $the_file)
+            local diffSinceUpdate=$((NOW - LAST_UPDATE))  # seconds
+            local daysSinceUpdate="$((diffSinceUpdate/(60*60*24)))"    # days
+            local updateInterval="$((17 * 24 * 60 * 60))" # 17 days
+            if [ "$diffSinceUpdate" -gt "$updateInterval" ]; then
+                wget -nc --output-document="/tmp/dnscrypt-proxy/blocked-names.txt" "https://download.dnscrypt.info/blacklists/domains/mybase.txt"
+                sudo cp /tmp/dnscrypt-proxy/blocked-names.txt /etc/dnscrypt-proxy/blocked-names.txt
+                dnscrypt-proxy -service restart
+                sudo systemctl restart NetworkManager
+            else
+              echo -n ""
+            fi
+          else
+            # file does not exist, update either way
+            wget -nc --output-document="/tmp/dnscrypt-proxy/blocked-names.txt" "https://download.dnscrypt.info/blacklists/domains/mybase.txt"
+            sudo cp /tmp/dnscrypt-proxy/blocked-names.txt /etc/dnscrypt-proxy/blocked-names.txt
+            dnscrypt-proxy -service restart
+            sudo systemctl restart NetworkManager
+          fi
+      }
+      update_dnscrypt_proxy_blocklist
 
     '';
 }
