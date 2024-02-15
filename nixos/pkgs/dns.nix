@@ -92,9 +92,12 @@ ff02::2 ip6-allrouters
               # exists
               echo -n ""
           else
+              TODAY=$(date '+%d-%m-%Y')
               NOW=$(date '+%d-%m-%Y_%Hh-%Mmin')
               sudo mkdir -p /etc/resolv_backups/
+              # These two backups can restored back to /etc/resolv.conf in case of failure.
               sudo cp /etc/resolv.conf "/etc/resolv_backups/resolv.conf_$NOW_.backup"
+              sudo cp /etc/resolv.conf "/etc/resolv_backups/resolv.conf_$TODAY.backup"
               sudo rm -f /etc/resolv.conf
               sudo cp ../templates/dns/dnscrypt.resolv.conf /etc/resolv.conf
 
@@ -125,6 +128,21 @@ ff02::2 ip6-allrouters
           fi
       }
       setup_dnscrypt_proxy
+
+      undo_setup_dnscrypt_proxy(){
+          # Function that can be used to undo any unwanted DNS changes.
+          # This restores things back to using systemd DNS.
+
+          TODAY=$(date '+%d-%m-%Y')
+          sudo cp "/etc/resolv_backups/resolv.conf_$TODAY.backup" /etc/resolv.conf
+          sudo systemctl start systemd-resolved
+          sudo systemctl enable systemd-resolved
+
+          sudo systemctl daemon-reload
+          sudo systemctl restart systemd-networkd
+          sudo systemctl restart systemd-resolved
+          sudo systemctl restart NetworkManager
+      }
 
       update_dnscrypt_proxy_blocklist(){
           # https://github.com/DNSCrypt/dnscrypt-proxy/wiki/Public-blocklist
