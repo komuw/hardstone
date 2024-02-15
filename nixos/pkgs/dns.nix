@@ -173,6 +173,7 @@ search ." > /etc/resolv.conf
                 wget -nc --output-document="/tmp/dnscrypt-blocked-names.txt" "https://download.dnscrypt.info/blacklists/domains/mybase.txt"
                 sudo cp /tmp/dnscrypt-blocked-names.txt /etc/dnscrypt-proxy/blocked-names.txt
                 sudo systemctl restart dnscrypt-proxy
+                echo "$NOW" > $the_file
             else
               echo -n ""
             fi
@@ -182,6 +183,7 @@ search ." > /etc/resolv.conf
             wget -nc --output-document="/tmp/dnscrypt-blocked-names.txt" "https://download.dnscrypt.info/blacklists/domains/mybase.txt"
             sudo cp /tmp/dnscrypt-blocked-names.txt /etc/dnscrypt-proxy/blocked-names.txt
             sudo systemctl restart dnscrypt-proxy
+            echo "$NOW" > $the_file
           fi
       }
       update_dnscrypt_proxy_blocklist
