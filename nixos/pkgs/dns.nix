@@ -92,11 +92,6 @@ ff02::2 ip6-allrouters
               # exists
               echo -n ""
           else
-              sudo systemctl stop systemd-resolved
-              sudo systemctl disable systemd-resolved
-              sudo apt -y remove resolvconf
-              sudo apt -y purge resolvconf
-
               NOW=$(date '+%d-%m-%Y_%Hh-%Mmin')
               sudo mkdir -p /etc/resolv_backups/
               sudo cp /etc/resolv.conf "/etc/resolv_backups/resolv.conf_$NOW_.backup"
@@ -114,6 +109,13 @@ ff02::2 ip6-allrouters
               sudo cp ../templates/dns/dnscrypt-proxy.toml /etc/dnscrypt-proxy/dnscrypt-proxy.toml
               wget -nc --output-document="/tmp/dnscrypt-proxy/blocked-names.txt" "https://download.dnscrypt.info/blacklists/domains/mybase.txt"
               sudo cp /tmp/dnscrypt-proxy/blocked-names.txt /etc/dnscrypt-proxy/blocked-names.txt
+
+              # only do this after you are done the downloading above.
+              # otherwise you wont be able to download since dns will be down.
+              sudo systemctl stop systemd-resolved
+              sudo systemctl disable systemd-resolved
+              sudo apt -y remove resolvconf
+              sudo apt -y purge resolvconf
 
               dnscrypt-proxy -service install
               dnscrypt-proxy -service start
