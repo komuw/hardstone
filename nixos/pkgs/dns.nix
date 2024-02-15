@@ -92,15 +92,6 @@ ff02::2 ip6-allrouters
               # exists
               echo -n ""
           else
-              TODAY=$(date '+%d-%m-%Y')
-              NOW=$(date '+%d-%m-%Y_%Hh-%Mmin')
-              sudo mkdir -p /etc/resolv_backups/
-              # These two backups can restored back to /etc/resolv.conf in case of failure.
-              sudo cp /etc/resolv.conf "/etc/resolv_backups/resolv.conf_$NOW_.backup"
-              sudo cp /etc/resolv.conf "/etc/resolv_backups/resolv.conf_$TODAY.backup"
-              sudo rm -f /etc/resolv.conf
-              sudo cp ../templates/dns/dnscrypt.resolv.conf /etc/resolv.conf
-
               rm -rf /tmp/dnscrypt-proxy/;mkdir -p /tmp/dnscrypt-proxy/
               wget -nc --output-document="/tmp/dnscrypt-proxy/dnscrypt-proxy.tar.gz" "https://github.com/DNSCrypt/dnscrypt-proxy/releases/download/2.1.5/dnscrypt-proxy-linux_x86_64-2.1.5.tar.gz"
               tar -xzf "/tmp/dnscrypt-proxy/dnscrypt-proxy.tar.gz" -C /tmp/dnscrypt-proxy/
@@ -119,6 +110,17 @@ ff02::2 ip6-allrouters
               sudo systemctl disable systemd-resolved
               sudo apt -y remove resolvconf
               sudo apt -y purge resolvconf
+
+              # only do this after you are done the downloading above.
+              # otherwise you wont be able to download since dns will be down.
+              TODAY=$(date '+%d-%m-%Y')
+              NOW=$(date '+%d-%m-%Y_%Hh-%Mmin')
+              sudo mkdir -p /etc/resolv_backups/
+              # These two backups can restored back to /etc/resolv.conf in case of failure.
+              sudo cp /etc/resolv.conf "/etc/resolv_backups/resolv.conf_$NOW_.backup"
+              sudo cp /etc/resolv.conf "/etc/resolv_backups/resolv.conf_$TODAY.backup"
+              sudo rm -f /etc/resolv.conf
+              sudo cp ../templates/dns/dnscrypt.resolv.conf /etc/resolv.conf
 
               dnscrypt-proxy -service install
               dnscrypt-proxy -service start
