@@ -131,8 +131,6 @@ ff02::2 ip6-allrouters
               sudo systemctl start dnscrypt-proxy # this will start dnscrypt-proxy.service
 
               sudo systemctl restart NetworkManager
-              sleep 2
-              dnscrypt-proxy -resolve example.com # check that it works
           fi
       }
       setup_dnscrypt_proxy
@@ -140,6 +138,13 @@ ff02::2 ip6-allrouters
       undo_setup_dnscrypt_proxy(){
           # Function that can be used to undo any unwanted DNS changes.
           # This restores things back to using systemd DNS.
+
+          # The full contents are;
+          # in case restoring from backup fails.
+          echo "
+nameserver 127.0.0.53
+options edns0 trust-ad
+search ." > /etc/resolv.conf
 
           TODAY=$(date '+%d-%m-%Y')
           sudo cp "/etc/resolv_backups/resolv.conf_$TODAY.backup" /etc/resolv.conf
