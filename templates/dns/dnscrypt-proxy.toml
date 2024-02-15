@@ -10,6 +10,10 @@
 ##
 ## Online documentation is available here: https://dnscrypt.info/doc
 
+# You can test by running;
+#   dig 2znp09oa.com
+# that domain is one found in /etc/dnscrypt-proxy/blocked-names.txt
+# and should result in error; "This query has been locally blocked" "by dnscrypt-proxy"
 
 
 ##################################
