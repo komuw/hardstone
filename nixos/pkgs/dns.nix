@@ -87,7 +87,7 @@ ff02::2 ip6-allrouters
       setup_systemd_resolved_dns
 
       setup_dnscrypt_proxy(){
-          local_file="/usr/local/bin/dnscrypt-proxy"
+          local_file="/etc/systemd/system/dnscrypt-proxy.service"
           if [ -f "$local_file" ]; then
               # exists
               echo -n ""
@@ -100,6 +100,7 @@ ff02::2 ip6-allrouters
               sudo rm -rf /etc/dnscrypt-proxy
               sudo mkdir -p /etc/dnscrypt-proxy
               sudo cp ../templates/dns/dnscrypt.forwarding-rules.txt /etc/dnscrypt-proxy/dnscrypt.forwarding-rules.txt
+              sudo cp ../templates/dns/dnscrypt-cloaking-rules.txt /etc/dnscrypt-proxy/dnscrypt-cloaking-rules.txt
               sudo cp ../templates/dns/dnscrypt-proxy.toml /etc/dnscrypt-proxy/dnscrypt-proxy.toml
               wget -nc --output-document="/tmp/dnscrypt-proxy/blocked-names.txt" "https://download.dnscrypt.info/blacklists/domains/mybase.txt"
               sudo cp /tmp/dnscrypt-proxy/blocked-names.txt /etc/dnscrypt-proxy/blocked-names.txt
@@ -122,8 +123,13 @@ ff02::2 ip6-allrouters
               sudo rm -f /etc/resolv.conf
               sudo cp ../templates/dns/dnscrypt.resolv.conf /etc/resolv.conf
 
-              dnscrypt-proxy -service install
-              dnscrypt-proxy -service start
+              sudo cp ../templates/dns/dnscrypt-proxy-systemd.service /etc/systemd/system/dnscrypt-proxy.service
+              sudo chmod 0777 /etc/systemd/system/dnscrypt-proxy.service
+              sudo systemctl daemon-reload
+              sudo systemctl enable dnscrypt-proxy.service
+              systemctl list-unit-files | grep enabled | grep -i dnscrypt-proxy
+              sudo systemctl start dnscrypt-proxy # this will start dnscrypt-proxy.service
+
               sudo systemctl restart NetworkManager
               sleep 2
               dnscrypt-proxy -resolve example.com # check that it works
@@ -158,19 +164,19 @@ ff02::2 ip6-allrouters
             local daysSinceUpdate="$((diffSinceUpdate/(60*60*24)))"    # days
             local updateInterval="$((17 * 24 * 60 * 60))" # 17 days
             if [ "$diffSinceUpdate" -gt "$updateInterval" ]; then
-                wget -nc --output-document="/tmp/dnscrypt-proxy/blocked-names.txt" "https://download.dnscrypt.info/blacklists/domains/mybase.txt"
-                sudo cp /tmp/dnscrypt-proxy/blocked-names.txt /etc/dnscrypt-proxy/blocked-names.txt
-                dnscrypt-proxy -service restart
-                sudo systemctl restart NetworkManager
+                rm -rf /tmp/dnscrypt-blocked-names.txt
+                wget -nc --output-document="/tmp/dnscrypt-blocked-names.txt" "https://download.dnscrypt.info/blacklists/domains/mybase.txt"
+                sudo cp /tmp/dnscrypt-blocked-names.txt /etc/dnscrypt-proxy/blocked-names.txt
+                sudo systemctl restart dnscrypt-proxy
             else
               echo -n ""
             fi
           else
             # file does not exist, update either way
-            wget -nc --output-document="/tmp/dnscrypt-proxy/blocked-names.txt" "https://download.dnscrypt.info/blacklists/domains/mybase.txt"
-            sudo cp /tmp/dnscrypt-proxy/blocked-names.txt /etc/dnscrypt-proxy/blocked-names.txt
-            dnscrypt-proxy -service restart
-            sudo systemctl restart NetworkManager
+            rm -rf /tmp/dnscrypt-blocked-names.txt
+            wget -nc --output-document="/tmp/dnscrypt-blocked-names.txt" "https://download.dnscrypt.info/blacklists/domains/mybase.txt"
+            sudo cp /tmp/dnscrypt-blocked-names.txt /etc/dnscrypt-proxy/blocked-names.txt
+            sudo systemctl restart dnscrypt-proxy
           fi
       }
       update_dnscrypt_proxy_blocklist

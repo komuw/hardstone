@@ -387,7 +387,7 @@ forwarding_rules = '/etc/dnscrypt-proxy/dnscrypt.forwarding-rules.txt'
 ##
 ## See the `example-cloaking-rules.txt` file for an example
 
-# cloaking_rules = 'cloaking-rules.txt'
+cloaking_rules = '/etc/dnscrypt-proxy/dnscrypt-cloaking-rules.txt'
 
 ## TTL used when serving entries in cloaking-rules.txt
 
