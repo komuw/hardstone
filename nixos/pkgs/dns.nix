@@ -97,9 +97,9 @@ ff02::2 ip6-allrouters
               sudo apt -y remove resolvconf
               sudo apt -y purge resolvconf
 
-              now=$(date '+%d-%m-%Y_%Hh-%Mmin')
+              NOW=$(date '+%d-%m-%Y_%Hh-%Mmin')
               sudo mkdir -p /etc/resolv_backups/
-              sudo cp /etc/resolv.conf "/etc/resolv_backups/resolv.conf_${now}_.backup"
+              sudo cp /etc/resolv.conf "/etc/resolv_backups/resolv.conf_$NOW_.backup"
               sudo rm -f /etc/resolv.conf
               sudo cp ../templates/dns/dnscrypt.resolv.conf /etc/resolv.conf
 
