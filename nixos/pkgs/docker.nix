@@ -48,8 +48,8 @@ in stdenv.mkDerivation {
               sudo rm -rf /home/$MY_NAME/.docker
               sudo rm -rf /etc/docker
 
-              sudo cp ../templates/docker_systemd_socket_file /etc/systemd/system/docker.socket
-              sudo cp ../templates/docker_systemd_service_file /etc/systemd/system/docker.service
+              sudo cp ../templates/docker/docker_systemd_socket_file /etc/systemd/system/docker.socket
+              sudo cp ../templates/docker/docker_systemd_service_file /etc/systemd/system/docker.service
 
               sudo chmod 0777 /etc/systemd/system/docker.socket
               sudo chmod 0777 /etc/systemd/system/docker.service
@@ -67,7 +67,7 @@ in stdenv.mkDerivation {
 
               sudo mkdir -p /etc/docker
               sudo chown -R $MY_NAME:docker /etc/docker
-              cp ../templates/docker_daemon_config.json /etc/docker/daemon.json
+              cp ../templates/docker/docker_daemon_config.json /etc/docker/daemon.json
 
               sudo systemctl daemon-reload
               sudo systemctl enable docker.socket
