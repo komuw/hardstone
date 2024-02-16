@@ -97,7 +97,9 @@ require_nofilter = true
 # - `scaleway-ams-ipv6` is operated by @jedisct1  in Netherlands.
 # - `cs-ireland` is operated by https://cryptostorm.is/ in Ireland.
 # - `meganerd` is operated by https://www.meganerd.nl/ in in Netherlands.
-disabled_server_names = ['cs-ireland', 'scaleway-ams-ipv6', 'meganerd']
+# - `dnscry.pt-fujairah-ipv4` is operated by https://www.dnscry.pt in Fujairah.
+# - `dnscry.pt-anon-johannesburg-ipv6` is operated by https://www.dnscry.pt in SA.
+disabled_server_names = ['cs-ireland', 'scaleway-ams-ipv6', 'meganerd', 'dnscry.pt-fujairah-ipv4', 'dnscry.pt-anon-johannesburg-ipv6']
 
 
 ## Always use TCP to connect to upstream servers.
@@ -854,8 +856,10 @@ fragments_blocked = ['cisco', 'cisco-ipv6', 'cisco-familyshield', 'cisco-familys
 # - `anon-scaleway-ams-ipv6` is operated by Frank Denis (@jedisct1) in Netherlands.
 # - `anon-cs-ireland` is operated by https://cryptostorm.is/ in Ireland.
 # - `anon-meganerd` is operated by https://www.meganerd.nl/ in in Netherlands.
+# - `dnscry.pt-anon-fujairah-ipv4` is operated by https://www.dnscry.pt in Fujairah.
+# - `dnscry.pt-anon-johannesburg-ipv6` is operated by https://www.dnscry.pt in SA.
 routes = [
-   { server_name='*', via=['anon-cs-ireland', 'anon-scaleway-ams-ipv6', 'anon-meganerd'] }
+   { server_name='*', via=['anon-cs-ireland', 'anon-scaleway-ams-ipv6', 'anon-meganerd', 'dnscry.pt-anon-fujairah-ipv4', 'dnscry.pt-johannesburg-ipv6'] }
 ]
 
 ## Skip resolvers incompatible with anonymization instead of using them directly
