@@ -71,7 +71,7 @@ ipv6_servers = false
 dnscrypt_servers = true
 
 # Use servers implementing the DNS-over-HTTPS protocol
-doh_servers = true
+doh_servers = false # We only want dnscrypt_servers since we want to use anonymized dns.
 
 # Use servers implementing the Oblivious DoH protocol
 odoh_servers = false
@@ -89,7 +89,16 @@ require_nolog = true
 require_nofilter = true
 
 # Server names to avoid even if they match all criteria
-disabled_server_names = []
+# We disable this servers so that we can use them for anonymized dns; https://github.com/DNSCrypt/dnscrypt-proxy/wiki/Anonymized-DNS
+# The server names come from; https://github.com/DNSCrypt/dnscrypt-resolvers/blob/master/v3/relays.md
+# And should also be added to `routes` section.
+# You want relays and the servers they relay to to be operated by different entities.
+# So make sure you check that the servers in this list are not all operated by same entity.
+# - `anon-kama` is operated by Frank Denis (@jedisct1) in France.
+# - `anon-scaleway-ams-ipv6` is operated by Frank Denis (@jedisct1) in Netherlands.
+# - `anon-cs-ireland` is operated by https://cryptostorm.is/ in Ireland.
+# - `anon-meganerd` is operated by https://www.meganerd.nl/ in in Netherlands.
+disabled_server_names = ['anon-kama', 'anon-scaleway-ams-ipv6', 'anon-cs-ireland', 'anon-meganerd']
 
 
 ## Always use TCP to connect to upstream servers.
@@ -838,10 +847,15 @@ fragments_blocked = ['cisco', 'cisco-ipv6', 'cisco-familyshield', 'cisco-familys
 #    { server_name='example-server-2', via=['sdns://gRIxMzcuNzQuMjIzLjIzNDo0NDM'] }
 # ]
 
+# Enable anonymized dns; https://github.com/DNSCrypt/dnscrypt-proxy/wiki/Anonymized-DNS
+# The server names come from; https://github.com/DNSCrypt/dnscrypt-resolvers/blob/master/v3/relays.md
+# And should also be added to `disabled_server_names` section.
+routes = [
+   { server_name='*', via=['anon-kama', 'anon-scaleway-ams-ipv6', 'anon-cs-ireland', 'anon-meganerd'] }
+]
 
 ## Skip resolvers incompatible with anonymization instead of using them directly
-
-skip_incompatible = false
+skip_incompatible = true
 
 
 ## If public server certificates for a non-conformant server cannot be
