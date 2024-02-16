@@ -94,8 +94,8 @@ require_nofilter = true
 # They are the resolvers corresponding to the relays added in the `routes` section.
 # You want relays and the servers they relay to to be operated by different entities.
 # So make sure you check that the servers in this list are not all operated by same entity.
-# - `scaleway-ams-ipv6` is operated by @jedisct1  in Netherlands.
 # - `cs-ireland` is operated by https://cryptostorm.is/ in Ireland.
+# - `scaleway-ams-ipv6` is operated by @jedisct1  in Netherlands.
 # - `meganerd` is operated by https://www.meganerd.nl/ in in Netherlands.
 # - `dnscry.pt-fujairah-ipv4` is operated by https://www.dnscry.pt in Fujairah.
 # - `dnscry.pt-anon-johannesburg-ipv6` is operated by https://www.dnscry.pt in SA.
@@ -853,8 +853,8 @@ fragments_blocked = ['cisco', 'cisco-ipv6', 'cisco-familyshield', 'cisco-familys
 # This are relays and their equivalent resolvers should be added in the `disabled_server_names` section.
 # You want relays and the servers they relay to to be operated by different entities.
 # So make sure you check that the servers in this list are not all operated by same entity.
-# - `anon-scaleway-ams-ipv6` is operated by Frank Denis (@jedisct1) in Netherlands.
 # - `anon-cs-ireland` is operated by https://cryptostorm.is/ in Ireland.
+# - `anon-scaleway-ams-ipv6` is operated by Frank Denis (@jedisct1) in Netherlands.
 # - `anon-meganerd` is operated by https://www.meganerd.nl/ in in Netherlands.
 # - `dnscry.pt-anon-fujairah-ipv4` is operated by https://www.dnscry.pt in Fujairah.
 # - `dnscry.pt-anon-johannesburg-ipv6` is operated by https://www.dnscry.pt in SA.
