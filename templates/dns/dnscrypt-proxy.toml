@@ -90,15 +90,14 @@ require_nofilter = true
 
 # Server names to avoid even if they match all criteria
 # We disable this servers so that we can use them for anonymized dns; https://github.com/DNSCrypt/dnscrypt-proxy/wiki/Anonymized-DNS
-# The server names come from; https://github.com/DNSCrypt/dnscrypt-resolvers/blob/master/v3/relays.md
-# And should also be added to `routes` section.
+# The server names come from; https://github.com/DNSCrypt/dnscrypt-resolvers/blob/master/v3/public-resolvers.md
+# They are the resolvers corresponding to the relays added in the `routes` section.
 # You want relays and the servers they relay to to be operated by different entities.
 # So make sure you check that the servers in this list are not all operated by same entity.
-# - `anon-kama` is operated by Frank Denis (@jedisct1) in France.
-# - `anon-scaleway-ams-ipv6` is operated by Frank Denis (@jedisct1) in Netherlands.
-# - `anon-cs-ireland` is operated by https://cryptostorm.is/ in Ireland.
-# - `anon-meganerd` is operated by https://www.meganerd.nl/ in in Netherlands.
-disabled_server_names = ['anon-kama', 'anon-scaleway-ams-ipv6', 'anon-cs-ireland', 'anon-meganerd']
+# - `scaleway-ams-ipv6` is operated by @jedisct1  in Netherlands.
+# - `cs-ireland` is operated by https://cryptostorm.is/ in Ireland.
+# - `meganerd` is operated by https://www.meganerd.nl/ in in Netherlands.
+disabled_server_names = ['cs-ireland', 'scaleway-ams-ipv6', 'meganerd']
 
 
 ## Always use TCP to connect to upstream servers.
@@ -849,9 +848,14 @@ fragments_blocked = ['cisco', 'cisco-ipv6', 'cisco-familyshield', 'cisco-familys
 
 # Enable anonymized dns; https://github.com/DNSCrypt/dnscrypt-proxy/wiki/Anonymized-DNS
 # The server names come from; https://github.com/DNSCrypt/dnscrypt-resolvers/blob/master/v3/relays.md
-# And should also be added to `disabled_server_names` section.
+# This are relays and their equivalent resolvers should be added in the `disabled_server_names` section.
+# You want relays and the servers they relay to to be operated by different entities.
+# So make sure you check that the servers in this list are not all operated by same entity.
+# - `anon-scaleway-ams-ipv6` is operated by Frank Denis (@jedisct1) in Netherlands.
+# - `anon-cs-ireland` is operated by https://cryptostorm.is/ in Ireland.
+# - `anon-meganerd` is operated by https://www.meganerd.nl/ in in Netherlands.
 routes = [
-   { server_name='*', via=['anon-kama', 'anon-scaleway-ams-ipv6', 'anon-cs-ireland', 'anon-meganerd'] }
+   { server_name='*', via=['anon-cs-ireland', 'anon-scaleway-ams-ipv6', 'anon-meganerd'] }
 ]
 
 ## Skip resolvers incompatible with anonymization instead of using them directly
