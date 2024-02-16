@@ -608,7 +608,7 @@ blocked_names_file = '/etc/dnscrypt-proxy/blocked-names.txt'
 
 ## Path to the file of allow list rules (absolute, or relative to the same directory as the config file)
 
-# allowed_names_file = 'allowed-names.txt'
+allowed_names_file = '/etc/dnscrypt-proxy/dnscrypt-allowed-names.txt'
 
 
 ## Optional path to a file logging allowed queries
