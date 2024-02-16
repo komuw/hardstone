@@ -135,8 +135,6 @@ ff02::2 ip6-allrouters
           # Function that can be used to undo any unwanted DNS changes.
           # This restores things back to using systemd DNS.
 
-          # The full contents are;
-          # in case restoring from backup fails.
           echo "
 nameserver 127.0.0.53
 options edns0 trust-ad
