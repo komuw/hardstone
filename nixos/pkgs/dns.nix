@@ -163,6 +163,15 @@ search ." > /etc/resolv.conf
             local daysSinceUpdate="$((diffSinceUpdate/(60*60*24)))"    # days
             local updateInterval="$((17 * 24 * 60 * 60))" # 17 days
             if [ "$diffSinceUpdate" -gt "$updateInterval" ]; then
+                { # try
+                    sudo systemctl stop systemd-resolved
+                    sudo systemctl disable systemd-resolved
+                    sudo apt -y remove resolvconf
+                    sudo apt -y purge resolvconf
+                } || { # catch
+                    echo -n "
+                }
+
                 rm -rf /tmp/dnscrypt-blocked-names.txt
                 wget -nc --output-document="/tmp/dnscrypt-blocked-names.txt" "https://download.dnscrypt.info/blacklists/domains/mybase.txt"
                 sudo cp /tmp/dnscrypt-blocked-names.txt /etc/dnscrypt-proxy/blocked-names.txt
