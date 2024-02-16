@@ -105,6 +105,7 @@ ff02::2 ip6-allrouters
               sudo cp ../templates/dns/dnscrypt-allowed-names.txt /etc/dnscrypt-proxy/dnscrypt-allowed-names.txt
               wget -nc --output-document="/tmp/dnscrypt-proxy/blocked-names.txt" "https://download.dnscrypt.info/blacklists/domains/mybase.txt"
               sudo cp /tmp/dnscrypt-proxy/blocked-names.txt /etc/dnscrypt-proxy/blocked-names.txt
+              dnscrypt-proxy -check -config /etc/dnscrypt-proxy/dnscrypt-proxy.toml
 
               # only do this after you are done the downloading above.
               # otherwise you wont be able to download since dns will be down.
@@ -115,12 +116,6 @@ ff02::2 ip6-allrouters
 
               # only do this after you are done the downloading above.
               # otherwise you wont be able to download since dns will be down.
-              TODAY=$(date '+%d-%m-%Y')
-              NOW=$(date '+%d-%m-%Y_%Hh-%Mmin')
-              sudo mkdir -p /etc/resolv_backups/
-              # These two backups can restored back to /etc/resolv.conf in case of failure.
-              sudo cp /etc/resolv.conf "/etc/resolv_backups/resolv.conf_$NOW_.backup"
-              sudo cp /etc/resolv.conf "/etc/resolv_backups/resolv.conf_$TODAY.backup"
               sudo rm -f /etc/resolv.conf
               sudo cp ../templates/dns/dnscrypt.resolv.conf /etc/resolv.conf
 
@@ -140,15 +135,11 @@ ff02::2 ip6-allrouters
           # Function that can be used to undo any unwanted DNS changes.
           # This restores things back to using systemd DNS.
 
-          # The full contents are;
-          # in case restoring from backup fails.
           echo "
 nameserver 127.0.0.53
 options edns0 trust-ad
 search ." > /etc/resolv.conf
 
-          TODAY=$(date '+%d-%m-%Y')
-          sudo cp "/etc/resolv_backups/resolv.conf_$TODAY.backup" /etc/resolv.conf
           sudo systemctl start systemd-resolved
           sudo systemctl enable systemd-resolved
 
@@ -170,6 +161,15 @@ search ." > /etc/resolv.conf
             local daysSinceUpdate="$((diffSinceUpdate/(60*60*24)))"    # days
             local updateInterval="$((17 * 24 * 60 * 60))" # 17 days
             if [ "$diffSinceUpdate" -gt "$updateInterval" ]; then
+                { # try
+                    sudo systemctl stop systemd-resolved
+                    sudo systemctl disable systemd-resolved
+                    sudo apt -y remove resolvconf
+                    sudo apt -y purge resolvconf
+                } || { # catch
+                    echo -n "
+                }
+
                 rm -rf /tmp/dnscrypt-blocked-names.txt
                 wget -nc --output-document="/tmp/dnscrypt-blocked-names.txt" "https://download.dnscrypt.info/blacklists/domains/mybase.txt"
                 sudo cp /tmp/dnscrypt-blocked-names.txt /etc/dnscrypt-proxy/blocked-names.txt
