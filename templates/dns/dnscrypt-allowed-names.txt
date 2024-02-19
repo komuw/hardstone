@@ -2,5 +2,6 @@
 # blocks this domain owned by twitter/X.
 # Since I use twitter and all links in twitter use this domain, we need to enable it.
 t.co
-# Observability platform. Might be needed for some of my work.
+# Observability platforms. Might be needed for some of my work.
 newrelic.com
+datadoghq.com
