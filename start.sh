@@ -38,7 +38,7 @@ pre_setup(){
     # setup gnome-terminal with custom config
     # https://askubuntu.com/a/1241849
     # use; `dconf dump /org/gnome/terminal/` to print the current config
-    cat ../templates/terminal/gnome_terminal_config | dconf load /org/gnome/terminal/
+    cat ./templates/terminal/gnome_terminal_config | dconf load /org/gnome/terminal/
     # config reference is: https://help.gnome.org/users/gnome-terminal/stable/pref.html.en
 }
 pre_setup

@@ -27,7 +27,7 @@ in stdenv.mkDerivation {
             touch /home/$MY_NAME/.config/Code/User/settings.json
             chown -R $MY_NAME:$MY_NAME /home/$MY_NAME/.config/Code/
             chown -R $MY_NAME:$MY_NAME /home/$MY_NAME/.vscode
-            cp ../templates/vscode_settings.json /home/$MY_NAME/.config/Code/User/settings.json
+            cp ./templates/vscode_settings.json /home/$MY_NAME/.config/Code/User/settings.json
         }
         add_vscode_cofig
 

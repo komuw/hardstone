@@ -84,8 +84,8 @@ in stdenv.mkDerivation {
 
       setup_mpv_conf(){
           mkdir -p /home/$MY_NAME/.config/mpv
-          cp ../templates/mpv_input.conf /home/$MY_NAME/.config/mpv/input.conf
-          cp ../templates/mpv_main.conf /home/$MY_NAME/.config/mpv/mpv.conf
+          cp ./templates/mpv_input.conf /home/$MY_NAME/.config/mpv/input.conf
+          cp ./templates/mpv_main.conf /home/$MY_NAME/.config/mpv/mpv.conf
       }
       setup_mpv_conf
 

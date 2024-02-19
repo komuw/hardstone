@@ -31,7 +31,7 @@ in stdenv.mkDerivation {
           if [[ "$my_file" == *"en_AG"* ]]; then
                 # it means that the `/etc/locale.gen` file still has the default settings it came with.
                 # lets replace them
-                sudo cp ../templates/etc_locale.gen /etc/locale.gen
+                sudo cp ./templates/etc_locale.gen /etc/locale.gen
                 sudo locale-gen
             else
                 echo -n ""
@@ -73,7 +73,7 @@ in stdenv.mkDerivation {
                 # exists
                 echo -n ""
             else
-                sudo cp ../templates/file_limits.conf /etc/security/limits.d/file_limits.conf
+                sudo cp ./templates/file_limits.conf /etc/security/limits.d/file_limits.conf
 
                 # systemd ignores the values from the /etc/security/limits.conf
                 # See: https://askubuntu.com/a/1086382
@@ -82,8 +82,8 @@ in stdenv.mkDerivation {
                 #
                 sudo mkdir -p /etc/systemd/system.conf.d/
                 sudo mkdir -p /etc/systemd/user.conf.d/
-                sudo cp ../templates/custom_systemd.conf /etc/systemd/system.conf.d/custom_systemd.conf
-                sudo cp ../templates/custom_systemd.conf /etc/systemd/user.conf.d/custom_systemd.conf
+                sudo cp ./templates/custom_systemd.conf /etc/systemd/system.conf.d/custom_systemd.conf
+                sudo cp ./templates/custom_systemd.conf /etc/systemd/user.conf.d/custom_systemd.conf
 
                 insert_if_not_exists "65535" "\nDefaultLimitNOFILE=65535:524288\nDefaultLimitNOFILESoft=65535" /etc/systemd/system.conf
                 insert_if_not_exists "65535" "\nDefaultLimitNOFILE=65535:524288\nDefaultLimitNOFILESoft=65535" /etc/systemd/user.conf
@@ -102,7 +102,7 @@ in stdenv.mkDerivation {
                 # exists
                 echo -n ""
             else
-                sudo cp ../templates/sysctl.conf /etc/sysctl.d/sysctl.conf
+                sudo cp ./templates/sysctl.conf /etc/sysctl.d/sysctl.conf
                 sudo sysctl -p --system
             fi
       }

@@ -57,9 +57,9 @@ ff02::2 ip6-allrouters
           #    setup_systemd_resolved_dns_files etc_systemd_network_tethered_internet_dns.network
 
           sudo rm -rf /etc/systemd/network/*
-          sudo cp ../templates/dns/etc.systemd.resolved.conf /etc/systemd/resolved.conf
-          sudo cp "../templates/dns/$1" "/etc/systemd/network/$1"
-          sudo cp ../templates/dns/etc.NetworkManager.NetworkManager.conf /etc/NetworkManager/NetworkManager.conf
+          sudo cp ./templates/dns/etc.systemd.resolved.conf /etc/systemd/resolved.conf
+          sudo cp "./templates/dns/$1" "/etc/systemd/network/$1"
+          sudo cp ./templates/dns/etc.NetworkManager.NetworkManager.conf /etc/NetworkManager/NetworkManager.conf
 
           sudo systemctl daemon-reload
           sudo systemctl restart systemd-networkd
@@ -99,10 +99,10 @@ ff02::2 ip6-allrouters
 
               sudo rm -rf /etc/dnscrypt-proxy
               sudo mkdir -p /etc/dnscrypt-proxy
-              sudo cp ../templates/dns/dnscrypt.forwarding-rules.txt /etc/dnscrypt-proxy/dnscrypt.forwarding-rules.txt
-              sudo cp ../templates/dns/dnscrypt-cloaking-rules.txt /etc/dnscrypt-proxy/dnscrypt-cloaking-rules.txt
-              sudo cp ../templates/dns/dnscrypt-proxy.toml /etc/dnscrypt-proxy/dnscrypt-proxy.toml
-              sudo cp ../templates/dns/dnscrypt-allowed-names.txt /etc/dnscrypt-proxy/dnscrypt-allowed-names.txt
+              sudo cp ./templates/dns/dnscrypt.forwarding-rules.txt /etc/dnscrypt-proxy/dnscrypt.forwarding-rules.txt
+              sudo cp ./templates/dns/dnscrypt-cloaking-rules.txt /etc/dnscrypt-proxy/dnscrypt-cloaking-rules.txt
+              sudo cp ./templates/dns/dnscrypt-proxy.toml /etc/dnscrypt-proxy/dnscrypt-proxy.toml
+              sudo cp ./templates/dns/dnscrypt-allowed-names.txt /etc/dnscrypt-proxy/dnscrypt-allowed-names.txt
               wget -nc --output-document="/tmp/dnscrypt-proxy/blocked-names.txt" "https://download.dnscrypt.info/blacklists/domains/mybase.txt"
               sudo cp /tmp/dnscrypt-proxy/blocked-names.txt /etc/dnscrypt-proxy/blocked-names.txt
               dnscrypt-proxy -check -config /etc/dnscrypt-proxy/dnscrypt-proxy.toml
@@ -117,9 +117,9 @@ ff02::2 ip6-allrouters
               # only do this after you are done the downloading above.
               # otherwise you wont be able to download since dns will be down.
               sudo rm -f /etc/resolv.conf
-              sudo cp ../templates/dns/dnscrypt.resolv.conf /etc/resolv.conf
+              sudo cp ./templates/dns/dnscrypt.resolv.conf /etc/resolv.conf
 
-              sudo cp ../templates/dns/dnscrypt-proxy-systemd.service /etc/systemd/system/dnscrypt-proxy.service
+              sudo cp ./templates/dns/dnscrypt-proxy-systemd.service /etc/systemd/system/dnscrypt-proxy.service
               sudo chmod 0777 /etc/systemd/system/dnscrypt-proxy.service
               sudo systemctl daemon-reload
               sudo systemctl enable dnscrypt-proxy.service
