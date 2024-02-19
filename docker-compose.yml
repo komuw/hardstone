@@ -1,8 +1,8 @@
 version: '3'
 services:
-  devmachine:
+  my_nix_env:
     build:
       context: .
-      dockerfile: Dockerfile
     volumes:
       - ./:/usr/src/app
+    command: bash -c "/usr/src/app/start.sh && nix-shell pkgs/"

@@ -99,7 +99,7 @@ in stdenv.mkDerivation {
         create_pd_work_ssh_key
 
         setup_ssh_conf(){
-            cp ../templates/ssh_conf.j2 /home/$MY_NAME/.ssh/config
+            cp ./templates/ssh_conf.j2 /home/$MY_NAME/.ssh/config
         }
         setup_ssh_conf
     '';

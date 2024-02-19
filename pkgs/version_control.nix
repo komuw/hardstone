@@ -17,22 +17,22 @@ in stdenv.mkDerivation {
       MY_NAME=$(whoami)
 
       # configure main gitconfig
-      cp ../templates/version_control/main_git_config /home/$MY_NAME/.gitconfig
+      cp ./templates/version_control/main_git_config /home/$MY_NAME/.gitconfig
 
       # configure ~/mystuff/gitconfig
-      cp  ../templates/version_control/personal_git_config /home/$MY_NAME/mystuff/.gitconfig
+      cp  ./templates/version_control/personal_git_config /home/$MY_NAME/mystuff/.gitconfig
 
       # configure ~/personalWork/gitconfig
-      cp ../templates/version_control/personal_work_git_config /home/$MY_NAME/personalWork/.gitconfig
+      cp ./templates/version_control/personal_work_git_config /home/$MY_NAME/personalWork/.gitconfig
 
       # configure ~/paidWork/gitconfig
-      cp ../templates/version_control/paid_work_git_config /home/$MY_NAME/paidWork/.gitconfig
+      cp ./templates/version_control/paid_work_git_config /home/$MY_NAME/paidWork/.gitconfig
 
       # configure gitattributes
-      cp ../templates/version_control/git_attributes_config /home/$MY_NAME/mystuff/.gitattributes
+      cp ./templates/version_control/git_attributes_config /home/$MY_NAME/mystuff/.gitattributes
 
       # configure hgrc(mercurial)
-      cp ../templates/version_control/hg_config /home/$MY_NAME/.hgrc
+      cp ./templates/version_control/hg_config /home/$MY_NAME/.hgrc
 
     '';
 }

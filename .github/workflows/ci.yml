@@ -25,6 +25,5 @@ jobs:
           ls -lsha
           echo ""
           echo ""
-          cd nixos
           /bin/bash start.sh
           nix-shell pkgs/

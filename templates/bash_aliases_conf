@@ -25,7 +25,7 @@ anix(){
 
     { # try
         CURRENT_DIR=$(pwd)
-        cd ~/mystuff/hardstone/nixos
+        cd ~/mystuff/hardstone
         nix-shell pkgs/
         cd "$CURRENT_DIR"
     } || { # catch

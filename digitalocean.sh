@@ -35,19 +35,23 @@ if sshd -t -q; then systemctl restart sshd fi
 }
 
 MY_NAME=$(whoami)
-
-sudo apt -y update && \
-sudo apt -y install python && \
+sudo apt -y update
+sudo apt -y install python
 sudo apt -y install python3-pip nano wget unzip curl screen
 
+MY_NAME=$(whoami)
 rm -rf /home/$MY_NAME/installDir
 mkdir -p /home/$MY_NAME/installDir
 cd /home/$MY_NAME/installDir
 
-wget -nc --output-document=/home/$MY_NAME/installDir/hardstone.zip https://github.com/komuw/hardstone/archive/refs/heads/master.zip
-unzip hardstone.zip
-mv hardstone-master/ hardstone
-cd /home/$MY_NAME/installDir/hardstone/linux/
+git clone https://github.com/komuw/hardstone.git
+cd hardstone/
+git checkout master
+bash start.sh
+export SSH_KEY_PHRASE=SSH_KEY_PHRASE
+nix-shell pkgs/
 
-screen -S hardstone
+
+screen -S nixSession
 screen -ls
+

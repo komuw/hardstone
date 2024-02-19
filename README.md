@@ -12,10 +12,9 @@ This is my setup, it may not work for you. Feel free to modify appropriately.
       
 * git clone this project
 * cd into this project's directory
-* cd to `nixos` directory
 * run: 
 ```shell
-bash nixos/start.sh
+bash start.sh
 export SSH_KEY_PHRASE=my_ssh_key_pass_phrase
 # export USING_TETHERED_INTERNET=YES # this is optional
 nix-shell pkgs/
@@ -24,7 +23,7 @@ nix-shell pkgs/
 * your dev environment is ready
 
 ## How will this setup mess up my computer?                  
-Check the files in `nixos/pkgs`
+Check the files in `pkgs/`
 
 ## NB:      
 * This project was tested on a machine running `ubuntu 22.04, 64bit`
@@ -34,7 +33,7 @@ Check the files in `nixos/pkgs`
 ## TODO:
 * run `shellcheck`;  
 ```sh
-shellcheck --color=always --shell=bash nixos/start.sh
+shellcheck --color=always --shell=bash start.sh
 ```  
 
 

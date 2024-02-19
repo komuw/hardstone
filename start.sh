@@ -38,7 +38,7 @@ pre_setup(){
     # setup gnome-terminal with custom config
     # https://askubuntu.com/a/1241849
     # use; `dconf dump /org/gnome/terminal/` to print the current config
-    cat ../templates/terminal/gnome_terminal_config | dconf load /org/gnome/terminal/
+    cat ./templates/terminal/gnome_terminal_config | dconf load /org/gnome/terminal/
     # config reference is: https://help.gnome.org/users/gnome-terminal/stable/pref.html.en
 }
 pre_setup
@@ -197,8 +197,8 @@ create_nix_aliases(){
     sudo rm -rf ~/.bash_aliases
     touch ~/.bash_aliases # touch is silent if file already exists
     chown -R $MY_NAME:sudo ~/.bash_aliases
-    cp bash_aliases_conf ~/.bash_aliases
-    cp bash_aliases_conf /home/$MY_NAME/.bash_aliases
+    cp templates/bash_aliases_conf ~/.bash_aliases
+    cp templates/bash_aliases_conf /home/$MY_NAME/.bash_aliases
 
     . ~/.bash_aliases # source a file
 }

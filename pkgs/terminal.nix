@@ -21,7 +21,7 @@ in stdenv.mkDerivation {
       setup_terminator_conf(){
           mkdir -p /home/$MY_NAME/.config
           mkdir -p /home/$MY_NAME/.config/terminator
-          cp ../templates/terminal/terminator_config /home/$MY_NAME/.config/terminator/config
+          cp ./templates/terminal/terminator_config /home/$MY_NAME/.config/terminator/config
       }
       setup_terminator_conf
 
@@ -40,7 +40,7 @@ in stdenv.mkDerivation {
               wget -nc --output-document=/tmp/wezterm_nightly.deb https://github.com/wez/wezterm/releases/download/nightly/wezterm-nightly.Ubuntu22.04.deb
               sudo apt install -y /tmp/wezterm_nightly.deb
               mkdir -p /home/$MY_NAME/.config/wezterm
-              cp ../templates/terminal/wezterm.lua /home/$MY_NAME/.config/wezterm/wezterm.lua
+              cp ./templates/terminal/wezterm.lua /home/$MY_NAME/.config/wezterm/wezterm.lua
           fi
       }
       setup_wezterm
