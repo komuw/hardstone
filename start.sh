@@ -197,8 +197,8 @@ create_nix_aliases(){
     sudo rm -rf ~/.bash_aliases
     touch ~/.bash_aliases # touch is silent if file already exists
     chown -R $MY_NAME:sudo ~/.bash_aliases
-    cp bash_aliases_conf ~/.bash_aliases
-    cp bash_aliases_conf /home/$MY_NAME/.bash_aliases
+    cp templates/bash_aliases_conf ~/.bash_aliases
+    cp templates/bash_aliases_conf /home/$MY_NAME/.bash_aliases
 
     . ~/.bash_aliases # source a file
 }
