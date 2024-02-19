@@ -27,7 +27,7 @@ in stdenv.mkDerivation {
         pkgs.delta # https://github.com/dandavison/delta
 
         # For some reason, zoom installed via nix is not working.
-        # So we install it manually in `nixos/start.sh`.
+        # So we install it manually in `./start.sh`.
         # TODO: remove this once we get zoom working on nix.
         # pkgs.zoom-us # unfree
 
