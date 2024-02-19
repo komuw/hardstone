@@ -15,7 +15,7 @@ This is my setup, it may not work for you. Feel free to modify appropriately.
 * cd to `nixos` directory
 * run: 
 ```shell
-bash start.sh
+bash nixos/start.sh
 export SSH_KEY_PHRASE=my_ssh_key_pass_phrase
 # export USING_TETHERED_INTERNET=YES # this is optional
 nix-shell pkgs/
