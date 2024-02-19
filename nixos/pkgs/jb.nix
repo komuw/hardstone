@@ -128,7 +128,7 @@ in stdenv.mkDerivation {
                 # exists
                 echo -n ""
             else
-                sudo cp ../templates/intellij_goland.conf /etc/sysctl.d/intellij_goland.conf
+                sudo cp ../templates/jb/intellij_goland.conf /etc/sysctl.d/intellij_goland.conf
                 sudo sysctl -p --system
                 # remember to restart Goland after this
             fi
@@ -193,9 +193,9 @@ in stdenv.mkDerivation {
         #         sudo chown -R root:libvirt /var/lib/libvirt
         #         sudo chown -R root:libvirt /var/lib/libvirt/dnsmasq
 
-        #         sudo cp ../templates/libvirtd_socket_file /etc/systemd/system/libvirtd.socket
-        #         sudo cp ../templates/libvirtd_systemd_service_file /etc/systemd/system/libvirtd.service
-        #         sudo cp ../templates/libvirtd.conf /etc/libvirtd/libvirtd.conf
+        #         sudo cp ../templates/jb/libvirtd_socket_file /etc/systemd/system/libvirtd.socket
+        #         sudo cp ../templates/jb/libvirtd_systemd_service_file /etc/systemd/system/libvirtd.service
+        #         sudo cp ../templates/jb/libvirtd.conf /etc/libvirtd/libvirtd.conf
         #         sudo chown -R root:libvirt /etc/libvirtd/libvirtd.conf
 
         #         sudo chmod 0777 /etc/systemd/system/libvirtd.socket
@@ -230,8 +230,8 @@ in stdenv.mkDerivation {
         #     else
         #         sudo systemctl stop virtlogd
 
-        #         sudo cp ../templates/virtlogd_systemd_socket_file /etc/systemd/system/virtlogd.socket
-        #         sudo cp ../templates/virtlogd_systemd_service_file /etc/systemd/system/virtlogd.service
+        #         sudo cp ../templates/jb/virtlogd_systemd_socket_file /etc/systemd/system/virtlogd.socket
+        #         sudo cp ../templates/jb/virtlogd_systemd_service_file /etc/systemd/system/virtlogd.service
 
         #         sudo chmod 0777 /etc/systemd/system/virtlogd.socket
         #         sudo chmod 0777 /etc/systemd/system/virtlogd.service
