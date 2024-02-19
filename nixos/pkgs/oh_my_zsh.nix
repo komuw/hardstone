@@ -42,8 +42,8 @@ in stdenv.mkDerivation {
                 unzip /tmp/zsh-completions.zip -d /tmp/zsh-completions
                 cp -r /tmp/zsh-completions/zsh-completions-master/ /home/$MY_NAME/.oh-my-zsh/custom/plugins/zsh-completions
 
-                cp ../templates/zshrc.j2 /home/$MY_NAME/.zshrc
-                cp ../templates/zshrc.j2 ~/.zshrc
+                cp ../templates/oh_my_zsh/zshrc.j2 /home/$MY_NAME/.zshrc
+                cp ../templates/oh_my_zsh/zshrc.j2 ~/.zshrc
             fi
 
             chown -R $MY_NAME:$MY_NAME /home/$MY_NAME/.zshrc
@@ -60,7 +60,7 @@ in stdenv.mkDerivation {
                 # file exists
                 echo -n ""
             else
-                cp ../templates/oh_my_zsh_aliases.zsh /home/$MY_NAME/.oh-my-zsh/custom/my_aliases.zsh
+                cp ../templates/oh_my_zsh/oh_my_zsh_aliases.zsh /home/$MY_NAME/.oh-my-zsh/custom/my_aliases.zsh
                 chown -R $MY_NAME:$MY_NAME $oh_my_zsh_aliases
             fi
         }
@@ -76,7 +76,7 @@ in stdenv.mkDerivation {
             # 1. If .zsh_history file DOES not exists, use .bash_history file instead.
             # 2. Read the file found in 1(above) and only read the latest X size. Where X is the value specified by `programs.zsh.histSize`
             # 3. Backup .zsh_history file if it exists.
-            # 4. Write `templates/bash_history.txt` to both `.zsh_history` and `.bash_history`
+            # 4. Write `templates/oh_my_zsh/bash_history.txt` to both `.zsh_history` and `.bash_history`
             # 5. Write the buffer read in 2(above) to both `.zsh_history` and `.bash_history`
             # 6. end
 
@@ -104,8 +104,8 @@ in stdenv.mkDerivation {
             # for the following, we want to use `>>` for append rather than `>` which truncates and then writes.
             printf "\n\n#\t SEEDED HISTORY::\n\n" >> /home/$MY_NAME/.zsh_history
             printf "\n\n#\t SEEDED HISTORY::\n\n" >> /home/$MY_NAME/.bash_history
-            cat ../templates/bash_history.txt >> /home/$MY_NAME/.zsh_history
-            cat ../templates/bash_history.txt >> /home/$MY_NAME/.bash_history
+            cat ../templates/oh_my_zsh/bash_history.txt >> /home/$MY_NAME/.zsh_history
+            cat ../templates/oh_my_zsh/bash_history.txt >> /home/$MY_NAME/.bash_history
 
             # 5.
             printf "\n\n#\t RELOADED HISTORY::\n\n" >> /home/$MY_NAME/.zsh_history
