@@ -167,7 +167,7 @@ search ." > /etc/resolv.conf
                     sudo apt -y remove resolvconf
                     sudo apt -y purge resolvconf
                 } || { # catch
-                    echo -n "
+                    echo -n ""
                 }
 
                 rm -rf /tmp/dnscrypt-blocked-names.txt
