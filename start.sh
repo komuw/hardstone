@@ -35,11 +35,16 @@ pre_setup(){
     sudo rm -rf /var/cache/apt/archives/lock && sudo rm -rf /var/lib/dpkg/lock && sudo rm -rf /var/cache/debconf/*.dat  # remove potential apt lock
     sudo apt-get -f -y install                                                                                          # fix broken dependencies
 
-    # setup gnome-terminal with custom config
-    # https://askubuntu.com/a/1241849
-    # use; `dconf dump /org/gnome/terminal/` to print the current config
-    cat ./templates/terminal/gnome_terminal_config | dconf load /org/gnome/terminal/
-    # config reference is: https://help.gnome.org/users/gnome-terminal/stable/pref.html.en
+    { # try
+        # setup gnome-terminal with custom config
+        # https://askubuntu.com/a/1241849
+        # use; `dconf dump /org/gnome/terminal/` to print the current config
+        cat ./templates/terminal/gnome_terminal_config | dconf load /org/gnome/terminal/
+        # config reference is: https://help.gnome.org/users/gnome-terminal/stable/pref.html.en
+    } || { # catch
+        sudo apt -y install dconf-cli
+        cat ./templates/terminal/gnome_terminal_config | dconf load /org/gnome/terminal/
+    }
 }
 pre_setup
 
