@@ -33,7 +33,6 @@ in stdenv.mkDerivation {
                 unzip /tmp/oh-my-zsh.zip -d /tmp/oh-my-zsh
                 cp -r /tmp/oh-my-zsh/ohmyzsh-master/ /home/$MY_NAME/.oh-my-zsh
 
-
                 wget -nc --output-document=/tmp/zsh-autosuggestions.zip https://github.com/zsh-users/zsh-autosuggestions/archive/master.zip                
                 unzip /tmp/zsh-autosuggestions.zip -d /tmp/zsh-autosuggestions
                 cp -r /tmp/zsh-autosuggestions/zsh-autosuggestions-master/ /home/$MY_NAME/.oh-my-zsh/custom/plugins/zsh-autosuggestions
