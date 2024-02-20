@@ -43,6 +43,12 @@ pre_setup(){
         # config reference is: https://help.gnome.org/users/gnome-terminal/stable/pref.html.en
     } || { # catch
         sudo apt -y install dconf-cli
+
+        sudo mkdir -p /var/lib/dbus
+        sudo touch /var/lib/dbus/machine-id
+        sudo chown -R $MY_NAME:root /var/lib/dbus/machine-id
+        sudo echo "12345" > /var/lib/dbus/machine-id
+
         cat ./templates/terminal/gnome_terminal_config | dconf load /org/gnome/terminal/
     }
 }
