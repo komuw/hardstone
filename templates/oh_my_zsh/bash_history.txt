@@ -136,6 +136,10 @@ rrloop(){
 }
 rrloop $@
 
+go test -run=XXXX -bench=BenchmarkMuxNew -count=10 github.com/komuw/ong/mux > old.txt
+go test -run=XXXX -bench=BenchmarkMuxNew -count=10 github.com/komuw/ong/mux > new.txt
+benchstat old.txt new.txt
+
 curl -s http://localhost:7391/debug/pprof/heap > heap.out
 go tool pprof meli heap.out
 go tool pprof -base old_heap.out meli new_heap.out
