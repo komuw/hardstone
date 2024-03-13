@@ -46,6 +46,10 @@ ff02::2 ip6-allrouters
 127.0.0.1 mongodb-primary.ara-dev mongodb-secondary.ara-dev mongodb-arbiter.ara-dev
 127.0.0.1 controller.ara.test dashboard.ara.test billing.ara.test
 ' >> /etc/hosts
+
+          # google-chrome misbehaves when hostname is changed, so fix that.
+          # see: https://askubuntu.com/a/476932/376092
+          rm -rf ~/.config/google-chrome/Singleton*
          fi
       }
       add_dev_hosts

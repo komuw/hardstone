@@ -76,7 +76,7 @@ in stdenv.mkDerivation {
             #  The version of mongodb available in nixpkgs is older than the version we need. So we'll install manually.
 
             is_installed=$(dpkg --get-selections | grep -v deinstall | grep mongodb)
-            if [[ "$is_installed" == *"mongodb-org-shell"* ]]; then
+            if [[ "$is_installed" == *"mongodb-mongosh"* ]]; then
                 # already installed
                 echo -n ""
             else
