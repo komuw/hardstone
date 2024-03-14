@@ -29,17 +29,9 @@ in stdenv.mkDerivation {
                 rm -rf /tmp/zsh-autosuggestions
                 rm -rf /tmp/zsh-completions
 
-                wget -nc --output-document=/tmp/oh-my-zsh.zip https://github.com/robbyrussell/oh-my-zsh/archive/master.zip
-                unzip /tmp/oh-my-zsh.zip -d /tmp/oh-my-zsh
-                cp -r /tmp/oh-my-zsh/ohmyzsh-master/ /home/$MY_NAME/.oh-my-zsh
-
-                wget -nc --output-document=/tmp/zsh-autosuggestions.zip https://github.com/zsh-users/zsh-autosuggestions/archive/master.zip                
-                unzip /tmp/zsh-autosuggestions.zip -d /tmp/zsh-autosuggestions
-                cp -r /tmp/zsh-autosuggestions/zsh-autosuggestions-master/ /home/$MY_NAME/.oh-my-zsh/custom/plugins/zsh-autosuggestions
-
-                wget -nc --output-document=/tmp/zsh-completions.zip https://github.com/zsh-users/zsh-completions/archive/master.zip
-                unzip /tmp/zsh-completions.zip -d /tmp/zsh-completions
-                cp -r /tmp/zsh-completions/zsh-completions-master/ /home/$MY_NAME/.oh-my-zsh/custom/plugins/zsh-completions
+                git clone --depth 3 https://github.com/ohmyzsh/ohmyzsh.git /home/$MY_NAME/.oh-my-zsh
+                git clone --depth 3 https://github.com/zsh-users/zsh-autosuggestions.git /home/$MY_NAME/.oh-my-zsh/custom/plugins/zsh-autosuggestions
+                git clone --depth 3 https://github.com/zsh-users/zsh-completions.git /home/$MY_NAME/.oh-my-zsh/custom/plugins/zsh-completions
 
                 cp ./templates/oh_my_zsh/zshrc.j2 /home/$MY_NAME/.zshrc
                 cp ./templates/oh_my_zsh/zshrc.j2 ~/.zshrc
