@@ -18,6 +18,7 @@ in stdenv.mkDerivation {
         pkgs.skypeforlinux # unfree
         pkgs.firefox
         pkgs.ripgrep
+        pkgs.gotraceui
         # nix-shell fails for `ripgrep-all` with error;
         #   ERROR: test1 failed! Could not find the word 'hello' 26 times in the sample data.
         # pkgs.ripgrep-all
