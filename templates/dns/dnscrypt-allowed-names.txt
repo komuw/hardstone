@@ -5,3 +5,5 @@ t.co
 # Observability platforms. Might be needed for some of my work.
 newrelic.com
 datadoghq.com
+# IP checker
+ipdata.co
