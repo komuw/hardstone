@@ -7,3 +7,5 @@ newrelic.com
 datadoghq.com
 # IP checker
 ipdata.co
+# metrics stuff
+posthog.com
