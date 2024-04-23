@@ -141,7 +141,7 @@ in stdenv.mkDerivation {
                 # binary exists
                 echo -n ""
             else
-                wget -nc --output-document=/tmp/chart-doc-gen https://github.com/kubepack/chart-doc-gen/releases/download/v0.5.0/chart-doc-gen-linux-amd64
+                wget -nc --output-document=/tmp/chart-doc-gen https://github.com/kubepack/chart-doc-gen/releases/download/v0.4.7/chart-doc-gen-linux-amd64
                 sudo mv /tmp/chart-doc-gen /usr/local/bin/chart-doc-gen
                 chmod +x /usr/local/bin/chart-doc-gen
             fi
