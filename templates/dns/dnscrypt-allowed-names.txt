@@ -9,3 +9,6 @@ datadoghq.com
 ipdata.co
 # metrics stuff
 posthog.com
+# stuff for work
+logrocket.com
+cta-redirect.hubspot.com
