@@ -34,12 +34,8 @@ localhost                ::1
 kw 127.0.1.1
 
 # jb
-mongodb-primary.ara-dev     127.0.0.1
-mongodb-secondary.ara-dev   127.0.0.1
-mongodb-arbiter.ara-dev     127.0.0.1
-controller.ara.test         127.0.0.1
-dashboard.ara.test          127.0.0.1
-billing.ara.test            127.0.0.1
+hello.app.test          127.0.0.1
+hell.app.test            127.0.0.1
 
 # For load-balancing, multiple IP addresses of the same class can also be
 # provided using the same format, one <pattern> <ip> pair per line.

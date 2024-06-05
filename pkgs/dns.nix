@@ -22,7 +22,7 @@ in stdenv.mkDerivation {
 
       add_dev_hosts(){
           hosts_file=$(cat /etc/hosts)
-          if [[ "$hosts_file" == *"ara"* ]]; then
+          if [[ "$hosts_file" == *"app"* ]]; then
               # hosts file is already well populated.
               echo -n ""
           else
@@ -43,8 +43,7 @@ ff02::1 ip6-allnodes
 ff02::2 ip6-allrouters
 
 # jb
-127.0.0.1 mongodb-primary.ara-dev mongodb-secondary.ara-dev mongodb-arbiter.ara-dev
-127.0.0.1 controller.ara.test dashboard.ara.test billing.ara.test
+127.0.0.1 hello.app.test hell.app.test
 ' >> /etc/hosts
 
           # google-chrome misbehaves when hostname is changed, so fix that.

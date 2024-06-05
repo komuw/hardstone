@@ -33,5 +33,5 @@
 ## AutomapHostsOnResolve 1
 # onion            127.0.0.1:9053
 
-# Send queries to ara.test domain to a custom dns server.
-ara.test 127.0.0.1:61053
+# Send queries to app.test domain to a custom dns server.
+app.test 127.0.0.1:61053
