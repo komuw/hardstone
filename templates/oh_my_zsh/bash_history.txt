@@ -206,7 +206,7 @@ kubectl get endpoint --all-namespaces # really good to see which services map to
 kubectl create deployment my-deployment --image=nginx --dry-run -o yaml
 
 # record the command that was used to make a change.
-kubectl scale deployment my-deployment replicas=5 --record 
+kubectl scale deployment my-deployment --replicas=5 --record 
 kubectl describe deployment my-deployment # The annotations will have the command that was recorded.
 
 # create a pod for testing. This one has ping,telnet,wget etc already installed.
