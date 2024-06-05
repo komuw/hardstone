@@ -142,7 +142,7 @@ ff02::2 ip6-allrouters
           echo "
 nameserver 127.0.0.53
 options edns0 trust-ad
-search ." > /etc/resolv.conf
+search ." | sudo tee /etc/resolv.conf
 
           sudo systemctl start systemd-resolved
           sudo systemctl enable systemd-resolved

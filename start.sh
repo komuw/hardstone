@@ -234,6 +234,20 @@ un_install_snapd(){
 
     # https://askubuntu.com/questions/1035915/how-to-remove-snap-store-from-ubuntu
 
+    {
+       sudo systemctl stop snapd
+       sudo umount /var/snap/firefox/common/host-hunspell
+    } || {
+       echo -n ''
+    }
+
+    {
+        sudo chmod -R a+rw /snap/;sudo chmod -R a+rw /var/snap
+        sudo apt -y autoremove --purge snapd gnome-software-plugin-snap firefox
+    } || {
+        echo -n ''
+    }
+
     sudo apt -y autoremove --purge snapd gnome-software-plugin-snap firefox
     sudo rm -rf /snap
     sudo rm -fr ~/snap
