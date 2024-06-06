@@ -12,3 +12,6 @@ posthog.com
 # stuff for work
 logrocket.com
 cta-redirect.hubspot.com
+# reef technologies
+reef.pl
+url1172.reef.pl
