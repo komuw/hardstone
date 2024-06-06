@@ -158,24 +158,28 @@ clear_stuff(){
     sudo apt -y clean
     sudo apt -y purge '~c'
     sudo rm -rf /var/lib/apt/lists/*
-
-    . ~/.nix-profile/etc/profile.d/nix.sh # source a file
-
-    # The Nix store sometimes contains entries which are no longer useful.
-    # garbage collect them
-    nix-store --gc # Do NOT use 'nix-collect-garbage -d', it messes with nix installation.
-
-    # /home/$MY_NAME/.nix-profile/bin/nix-collect-garbage -d # This seems to also delete the file `/home/$MY_NAME/.nix-profile`
-    # /home/$MY_NAME/.nix-profile/bin/nix-store --gc
-    # /home/$MY_NAME/.nix-profile/bin/nix-store --optimise
-    # ref: https://nixos.org/manual/nix/unstable/command-ref/nix-store.html
-    # /home/$MY_NAME/.nix-profile/bin/nix-store --verify --repair
 }
 clear_stuff
 
 
 create_nix_aliases(){
     printf "\n\n\t 9. create_nix_aliases \n"
+
+    {
+        . ~/.nix-profile/etc/profile.d/nix.sh # source a file
+
+        # The Nix store sometimes contains entries which are no longer useful.
+        # garbage collect them
+        nix-store --gc # Do NOT use 'nix-collect-garbage -d', it messes with nix installation.
+
+        # /home/$MY_NAME/.nix-profile/bin/nix-collect-garbage -d # This seems to also delete the file `/home/$MY_NAME/.nix-profile`
+        # /home/$MY_NAME/.nix-profile/bin/nix-store --gc
+        # /home/$MY_NAME/.nix-profile/bin/nix-store --optimise
+        # ref: https://nixos.org/manual/nix/unstable/command-ref/nix-store.html
+        # /home/$MY_NAME/.nix-profile/bin/nix-store --verify --repair
+    } || {
+        echo -n ''
+    }
 
     { # try
         unalias nix
@@ -291,10 +295,9 @@ uninstall_non_essential_apt_packages(){
     echo "$EXTRA_PACKAGES_AND_OPTIONAL_PACKAGES_MINUS_GRUB"
     sudo apt -y autoremove
     sudo apt purge -y $EXTRA_PACKAGES_AND_OPTIONAL_PACKAGES_MINUS_GRUB
-    clear_stuff
 }
 # uninstall_non_essential_apt_packages
-
+clear_stuff
 
 
 # The main command for package management is nix-env.
