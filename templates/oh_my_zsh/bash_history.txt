@@ -71,7 +71,7 @@ docker-compose run --service-ports --entrypoint=/bin/sh app
 # golang
 grep -irSn "func ([A-Za-z]\+ \*[A-Za-z]\+" vars_test.go # find all Go methods that have a pointer receiver.`
 go mod tidy
-goimports -w .;gofmt -w -s .;go mod tidy;go run -race .
+goimports -w .;gofumpt -extra -w .;gofmt -w -s .;go mod tidy;go test -race ./...
 go install github.com/komuw/ote@latest
 go build -gcflags="all=-N -l" -trimpath -o meli cli/cli.go
 go test -count=1 -tags=test_google,test_aws,test_another_tag --exec=/bin/true ./...
