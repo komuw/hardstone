@@ -248,7 +248,6 @@ un_install_snapd(){
         echo -n ''
     }
 
-    sudo apt -y autoremove --purge snapd gnome-software-plugin-snap firefox
     sudo rm -rf /snap
     sudo rm -fr ~/snap
     sudo rm -rf /var/snap
