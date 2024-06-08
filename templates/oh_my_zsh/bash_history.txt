@@ -236,4 +236,4 @@ xrandr --output "XWAYLAND2" --auto --output "XWAYLAND4" --left-of "XWAYLAND2" --
 # show dmesg/kernel logs
 sudo dmesg --level=err,warn --nopager --human --force-prefix --ctime --time-format=iso # --kernel
 
-
+journalctl -xf -n100 -u dnscrypt-proxy.service # tail logs of a systemd service/app
