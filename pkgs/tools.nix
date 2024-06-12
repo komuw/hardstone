@@ -73,6 +73,7 @@ in stdenv.mkDerivation {
               # We have to choose the version carefully because some versions have bugs, even the latest versions.
               local VERSION="latest"
               local VERSION="5.14.7.2928" # may/2023
+              local VERSION="6.0.12.5501" # 31/may/2024
               wget -nc --output-document=/tmp/zoom_amd64.deb "https://zoom.us/client/$VERSION/zoom_amd64.deb"
               sudo dpkg -i /tmp/zoom_amd64.deb
           fi
