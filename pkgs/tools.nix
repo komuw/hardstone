@@ -1,4 +1,4 @@
-with (import (fetchTarball "https://github.com/NixOS/nixpkgs/archive/f63489a7f0a548df967dc58d7d8fd18a0046d37d.tar.gz") {});
+with (import (fetchTarball "https://github.com/NixOS/nixpkgs/archive/437e3a21de2d2e1e4c3f556edf968d212f454c7f.tar.gz") {});
 
 let
 
@@ -73,6 +73,7 @@ in stdenv.mkDerivation {
               # We have to choose the version carefully because some versions have bugs, even the latest versions.
               local VERSION="latest"
               local VERSION="5.14.7.2928" # may/2023
+              local VERSION="6.0.12.5501" # 31/may/2024
               wget -nc --output-document=/tmp/zoom_amd64.deb "https://zoom.us/client/$VERSION/zoom_amd64.deb"
               sudo dpkg -i /tmp/zoom_amd64.deb
           fi
