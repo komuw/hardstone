@@ -15,3 +15,5 @@ cta-redirect.hubspot.com
 # reef technologies
 reef.pl
 url1172.reef.pl
+# parsely
+parsely.com
