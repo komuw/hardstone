@@ -25,7 +25,7 @@ ssh-add -l
 git co -b some-branch
 git br -dD some-branch
 git remote -v
-git checkout master -- /some/path/app.js /path/cool.py
+git checkout main -- /some/path/app.js /path/cool.py
 git reset --hard HEAD~1
 git reset --hard some-commit
 git push --all -u --follow-tags
@@ -41,10 +41,10 @@ git stash list
 git stash push -m myStash /some/path/app.js /path/cool.py
 git stash apply stash@{0}
 git stash show -p stash@{0} # show contents of a stash
-git diff --diff-filter=d --name-only origin/master | grep '.py$'
-git diff --diff-filter=d --name-only origin/master | grep '.go$' | xargs gofmt -w -s && \
-git diff --diff-filter=d --name-only origin/master | grep '.go$' | xargs gofumpt -extra -lang 1.16 -w && \
-git diff --diff-filter=d --name-only origin/master | grep '.go$' | xargs goimports -w -local github.com/komuw/meli/image,github.com/komuw/meli/volume
+git diff --diff-filter=d --name-only origin/main | grep '.py$'
+git diff --diff-filter=d --name-only origin/main | grep '.go$' | xargs gofmt -w -s && \
+git diff --diff-filter=d --name-only origin/main | grep '.go$' | xargs gofumpt -extra -lang 1.16 -w && \
+git diff --diff-filter=d --name-only origin/main | grep '.go$' | xargs goimports -w -local github.com/komuw/meli/image,github.com/komuw/meli/volume
 
 git remote add mine git@github.com:komuw/delve.git
 git push mine

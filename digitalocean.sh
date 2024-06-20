@@ -46,7 +46,7 @@ cd /home/$MY_NAME/installDir
 
 git clone https://github.com/komuw/hardstone.git
 cd hardstone/
-git checkout master
+git checkout main
 bash start.sh
 export SSH_KEY_PHRASE=SSH_KEY_PHRASE
 nix-shell pkgs/
