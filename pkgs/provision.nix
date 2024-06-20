@@ -29,7 +29,6 @@ in stdenv.mkDerivation {
         pkgs.gdb
         pkgs.hexchat
         pkgs.mosh
-        pkgs.eternal-terminal
         pkgs.psmisc
         pkgs.graphviz
         pkgs.ffmpeg

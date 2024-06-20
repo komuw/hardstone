@@ -7,6 +7,7 @@ in stdenv.mkDerivation {
 
     buildInputs = [
         pkgs.terminator
+        pkgs.eternal-terminal
         ];
 
     shellHook = ''

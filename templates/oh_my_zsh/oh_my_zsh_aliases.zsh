@@ -42,3 +42,6 @@ alias pip="pip3"
 
 alias mv=gitmv
 alias rm=gitrm
+
+# eternalterminal(ET): https://eternalterminal.dev
+alias ssh=et
