@@ -92,5 +92,20 @@ in stdenv.mkDerivation {
       }
       install_certutil
 
+      install_wireguard(){
+          # We haven't found wireguard on nixpkgs
+
+          wg_file="/usr/bin/wg"
+          if [ -f "$wg_file" ]; then
+              # exists
+              echo -n ""
+          else
+              # Install wireguard dependencies
+              sudo apt -y update
+              sudo apt-get -y install wireguard
+          fi
+      }
+      install_wireguard
+
     '';
 }

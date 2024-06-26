@@ -49,7 +49,6 @@ in stdenv.mkDerivation {
           # lxc-templates
           # cgroup-lite
           # gdebi
-          # wireguard
           # openssh-client
 
         ];
