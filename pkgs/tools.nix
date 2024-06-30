@@ -26,6 +26,7 @@ in stdenv.mkDerivation {
         pkgs.unixtools.netstat
         pkgs.fzf
         pkgs.delta # https://github.com/dandavison/delta
+        pkgs.sqlite
 
         # For some reason, zoom installed via nix is not working.
         # So we install it manually in `./start.sh`.
