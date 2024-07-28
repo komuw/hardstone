@@ -35,6 +35,7 @@ git log -i -Shello --patch # show commit together with the commit contents
 git log -i -Shello --pickaxe-regex # Treat the <string> given to -S as regex
 git log -i -G<regex_term> --patch # Like -S --pickaxe-regex but sometimes better
 git log -i -Shello --patch -- somePath/ ':(exclude)*vendor*' # exclude a certain directory/file
+git log -L :funcName:file/path.go # show commit history of a function, including diff
 git rebase main --interactive # squash commits
 git reset --soft $(git merge-base main HEAD) # squash commits
 git stash list
