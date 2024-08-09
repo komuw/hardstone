@@ -43,12 +43,12 @@ in stdenv.mkDerivation {
                 code --user-data-dir='/tmp/' --install-extension ms-python.vscode-pylance
                 code --user-data-dir='/tmp/' --install-extension dart-code.dart-code
                 code --user-data-dir='/tmp/' --install-extension dart-code.flutter
-                code --user-data-dir='/tmp/' --install-extension donaldtone.auto-open-markdown-preview-single
                 code --user-data-dir='/tmp/' --install-extension golang.go
                 code --user-data-dir='/tmp/' --install-extension ms-azuretools.vscode-docker
                 code --user-data-dir='/tmp/' --install-extension hashicorp.terraform
                 code --user-data-dir='/tmp/' --install-extension bbenoist.nix
                 code --user-data-dir='/tmp/' --install-extension ms-vscode.cpptools
+                # code --user-data-dir='/tmp/' --install-extension donaldtone.auto-open-markdown-preview-single
             fi
         }
         install_vscode_extensions
