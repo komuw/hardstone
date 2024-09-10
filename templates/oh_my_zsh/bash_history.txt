@@ -32,6 +32,7 @@ git push --all -u --follow-tags
 git push origin some-branch-name --force
 git log -i -Shello # git search contents of all git commits
 git log -i -Shello --patch # show commit together with the commit contents
+git log -i --reverse -S'func Backup' --patch # search contents but in reverse(oldest first).
 git log -i -Shello --pickaxe-regex # Treat the <string> given to -S as regex
 git log -i -G<regex_term> --patch # Like -S --pickaxe-regex but sometimes better
 git log -i -Shello --patch -- somePath/ ':(exclude)*vendor*' # exclude a certain directory/file
