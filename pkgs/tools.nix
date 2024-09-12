@@ -108,5 +108,21 @@ in stdenv.mkDerivation {
       }
       install_wireguard
 
+      install_superhtml(){
+        # html formatter and linter.
+
+        superhtml_file="/usr/local/bin/superhtml"
+        if [ -f "$superhtml_file" ]; then
+            # exists
+            echo -n ""
+        else
+            wget -nc --output-document="/tmp/superhtml.tar.gz" "https://github.com/kristoff-it/superhtml/releases/download/v0.5.0/x86_64-linux-musl.tar.gz"
+            mkdir -p /tmp/superhtml/
+            tar -xzf "/tmp/superhtml.tar.gz" -C /tmp/superhtml/
+            sudo cp /tmp/superhtml/x86_64-linux-musl/superhtml /usr/local/bin/superhtml
+        fi
+      }
+      install_superhtml
+
     '';
 }
