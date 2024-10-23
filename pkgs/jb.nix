@@ -1,4 +1,4 @@
-with import (fetchTarball "https://github.com/NixOS/nixpkgs/archive/437e3a21de2d2e1e4c3f556edf968d212f454c7f.tar.gz") {};
+with import (fetchTarball "https://github.com/NixOS/nixpkgs/archive/fa6faf973d97caaea26b88eba007b61bb8228fd8.tar.gz") {};
 with {
   # Using multiple channels in a shell.nix file.
   # https://devpress.csdn.net/k8s/62f4ea85c6770329307fa981.html
@@ -17,17 +17,17 @@ with {
   # skaffold: vA.B
   # see: https://lazamar.co.uk/nix-versions
   # see: https://lazamar.co.uk/nix-versions/?package=skaffold&version=2.0.3&fullName=skaffold-2.0.3&keyName=skaffold&revision=79b3d4bcae8c7007c9fd51c279a8a67acfa73a2a&channel=nixpkgs-unstable#instructions
-  skaffoldImport = (import (fetchTarball "https://github.com/NixOS/nixpkgs/archive/437e3a21de2d2e1e4c3f556edf968d212f454c7f.tar.gz") {});
+  skaffoldImport = (import (fetchTarball "https://github.com/NixOS/nixpkgs/archive/fa6faf973d97caaea26b88eba007b61bb8228fd8.tar.gz") {});
   # helm version: vA.B
-  helmImport = (import (fetchTarball "https://github.com/NixOS/nixpkgs/archive/437e3a21de2d2e1e4c3f556edf968d212f454c7f.tar.gz") {});
+  helmImport = (import (fetchTarball "https://github.com/NixOS/nixpkgs/archive/fa6faf973d97caaea26b88eba007b61bb8228fd8.tar.gz") {});
   # kind: vA.B
-  kindImport = (import (fetchTarball "https://github.com/NixOS/nixpkgs/archive/437e3a21de2d2e1e4c3f556edf968d212f454c7f.tar.gz") {});
+  kindImport = (import (fetchTarball "https://github.com/NixOS/nixpkgs/archive/fa6faf973d97caaea26b88eba007b61bb8228fd8.tar.gz") {});
   # kubectl: vA.B
-  kubectlImport = (import (fetchTarball "https://github.com/NixOS/nixpkgs/archive/437e3a21de2d2e1e4c3f556edf968d212f454c7f.tar.gz") {});
+  kubectlImport = (import (fetchTarball "https://github.com/NixOS/nixpkgs/archive/fa6faf973d97caaea26b88eba007b61bb8228fd8.tar.gz") {});
   # nodejs: vA.B
-  nodeImport = (import (fetchTarball "https://github.com/NixOS/nixpkgs/archive/437e3a21de2d2e1e4c3f556edf968d212f454c7f.tar.gz") {});
+  nodeImport = (import (fetchTarball "https://github.com/NixOS/nixpkgs/archive/fa6faf973d97caaea26b88eba007b61bb8228fd8.tar.gz") {});
   # chromium: vA.B
-  chromiumImport = (import (fetchTarball "https://github.com/NixOS/nixpkgs/archive/437e3a21de2d2e1e4c3f556edf968d212f454c7f.tar.gz") {});
+  chromiumImport = (import (fetchTarball "https://github.com/NixOS/nixpkgs/archive/fa6faf973d97caaea26b88eba007b61bb8228fd8.tar.gz") {});
 };
 let
 in stdenv.mkDerivation {

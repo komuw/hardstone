@@ -1,4 +1,4 @@
-with (import (fetchTarball "https://github.com/NixOS/nixpkgs/archive/437e3a21de2d2e1e4c3f556edf968d212f454c7f.tar.gz") {});
+with (import (fetchTarball "https://github.com/NixOS/nixpkgs/archive/fa6faf973d97caaea26b88eba007b61bb8228fd8.tar.gz") {});
 
 let
 
@@ -17,7 +17,7 @@ in stdenv.mkDerivation {
         # `unrar` has an unfree LICENSE. By default, nix refuses to install it.
         #  We can force nix to install by setting env var `export NIXPKGS_ALLOW_UNFREE=1` or `allowUnfree` in `~/.config/nixpkgs/config.nix`
         # pkgs.unrar
-        pkgs.transmission
+        pkgs.transmission_4
         pkgs.vlc
         pkgs.screen
         pkgs.iftop
