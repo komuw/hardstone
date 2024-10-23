@@ -17,7 +17,7 @@ in stdenv.mkDerivation {
         # `unrar` has an unfree LICENSE. By default, nix refuses to install it.
         #  We can force nix to install by setting env var `export NIXPKGS_ALLOW_UNFREE=1` or `allowUnfree` in `~/.config/nixpkgs/config.nix`
         # pkgs.unrar
-        pkgs.transmission
+        pkgs.transmission_4
         pkgs.vlc
         pkgs.screen
         pkgs.iftop
