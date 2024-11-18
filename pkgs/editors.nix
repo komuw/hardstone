@@ -3,7 +3,7 @@ with (import (fetchTarball "https://github.com/NixOS/nixpkgs/archive/fa6faf973d9
 let
 
 in stdenv.mkDerivation {
-    name = "vscode";
+    name = "editors";
 
     buildInputs = [
         pkgs.vscode # unfree
@@ -14,7 +14,7 @@ in stdenv.mkDerivation {
         # do not use `set -e` which causes commands to fail.
         # because it causes `nix-shell` to also exit if a command fails when running in the eventual shell
 
-        printf "\n running hooks for vscode.nix \n"
+        printf "\n running hooks for editors.nix \n"
 
         MY_NAME=$(whoami)
 
