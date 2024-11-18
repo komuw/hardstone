@@ -7,6 +7,7 @@ in stdenv.mkDerivation {
 
     buildInputs = [
         pkgs.vscode # unfree
+        pkgs.zed-editor
     ];
 
     shellHook = ''
