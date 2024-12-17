@@ -674,24 +674,37 @@ allowed_names_file = '/etc/dnscrypt-proxy/dnscrypt-allowed-names.txt'
 ## {after='21:00', before= '7:00'} matches 0:00-7:00 and 21:00-0:00
 ## {after= '9:00', before='18:00'} matches 9:00-18:00
 
+*.ycombinator.*        @time-to-sleep
+*.x.*                  @time-to-sleep
+*.twitter.*            @time-to-sleep
+*.soap2day.*           @time-to-sleep
+*.youtube.*            @time-to-sleep
+
+*.ycombinator.*        @time-to-work
+*.x.*                  @time-to-work
+*.twitter.*            @time-to-work
+*.soap2day.*           @time-to-work
+# we allow youtube during work hours
+
+
 [schedules]
 
-  # [schedules.time-to-sleep]
-  #   mon = [{after='21:00', before='7:00'}]
-  #   tue = [{after='21:00', before='7:00'}]
-  #   wed = [{after='21:00', before='7:00'}]
-  #   thu = [{after='21:00', before='7:00'}]
-  #   fri = [{after='23:00', before='7:00'}]
-  #   sat = [{after='23:00', before='7:00'}]
-  #   sun = [{after='21:00', before='7:00'}]
+  [schedules.time-to-sleep]
+    mon = [{after='23:00', before='7:00'}]
+    tue = [{after='23:00', before='7:00'}]
+    wed = [{after='23:00', before='7:00'}]
+    thu = [{after='23:00', before='7:00'}]
+    fri = [{after='23:00', before='7:00'}]
+    sat = [{after='23:00', before='7:00'}]
+    sun = [{after='23:00', before='7:00'}]
 
-  # [schedules.work]
-  #   mon = [{after='9:00', before='18:00'}]
-  #   tue = [{after='9:00', before='18:00'}]
-  #   wed = [{after='9:00', before='18:00'}]
-  #   thu = [{after='9:00', before='18:00'}]
-  #   fri = [{after='9:00', before='17:00'}]
-
+  [schedules.time-to-work]
+    mon = [{after='9:00', before='15:00'}]
+    tue = [{after='9:00', before='15:00'}]
+    wed = [{after='9:00', before='15:00'}]
+    thu = [{after='9:00', before='15:00'}]
+    fri = [{after='9:00', before='15:00'}]
+    # we leave weekend alone.
 
 
 #########################
