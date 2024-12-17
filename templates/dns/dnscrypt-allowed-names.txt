@@ -1,7 +1,6 @@
 # The blocklist that I use; https://github.com/DNSCrypt/dnscrypt-proxy/wiki/Public-blocklist
-# blocks this domain owned by twitter/X.
-# Since I use twitter and all links in twitter use this domain, we need to enable it.
-t.co
+# blocks some domains that I use. Enable them here.
+#
 # Observability platforms. Might be needed for some of my work.
 newrelic.com
 datadoghq.com
