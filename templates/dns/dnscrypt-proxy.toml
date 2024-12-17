@@ -562,8 +562,8 @@ format = 'tsv'
 # This one comes from https://download.dnscrypt.info/blacklists/domains/mybase.txt
 # and is maintained by Frank Denis and is updated daily.
 # https://github.com/DNSCrypt/dnscrypt-proxy/wiki/Public-blocklist
-blocked_names_file = '/etc/dnscrypt-proxy/blocked-names.txt'
 
+blocked_names_file = '/etc/dnscrypt-proxy/blocked-names.txt'
 
 ## Optional path to a file logging blocked queries
 
@@ -674,19 +674,7 @@ allowed_names_file = '/etc/dnscrypt-proxy/dnscrypt-allowed-names.txt'
 ## {after='21:00', before= '7:00'} matches 0:00-7:00 and 21:00-0:00
 ## {after= '9:00', before='18:00'} matches 9:00-18:00
 
-*.ycombinator.*        @time-to-sleep
-*.x.*                  @time-to-sleep
-*.twitter.*            @time-to-sleep
-*.soap2day.*           @time-to-sleep
-*.youtube.*            @time-to-sleep
-
-*.ycombinator.*        @time-to-work
-*.x.*                  @time-to-work
-*.twitter.*            @time-to-work
-*.soap2day.*           @time-to-work
-# we allow youtube during work hours
-
-
+# These schedules are used in `templates/dns/dnscrypt-proxy-blocked-names.txt`
 [schedules]
 
   [schedules.time-to-sleep]

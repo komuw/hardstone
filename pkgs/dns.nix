@@ -106,8 +106,8 @@ ff02::2 ip6-allrouters
               sudo cp ./templates/dns/dnscrypt-cloaking-rules.txt /etc/dnscrypt-proxy/dnscrypt-cloaking-rules.txt
               sudo cp ./templates/dns/dnscrypt-proxy.toml /etc/dnscrypt-proxy/dnscrypt-proxy.toml
               sudo cp ./templates/dns/dnscrypt-allowed-names.txt /etc/dnscrypt-proxy/dnscrypt-allowed-names.txt
-              wget -nc --output-document="/tmp/dnscrypt-proxy/blocked-names.txt" "https://download.dnscrypt.info/blacklists/domains/mybase.txt"
-              sudo cp /tmp/dnscrypt-proxy/blocked-names.txt /etc/dnscrypt-proxy/blocked-names.txt
+              sudo cp ./templates/dns/dnscrypt-proxy-blocked-names.txt /etc/dnscrypt-proxy/blocked-names.txt
+
               dnscrypt-proxy -check -config /etc/dnscrypt-proxy/dnscrypt-proxy.toml
 
               # only do this after you are done the downloading above.
@@ -151,46 +151,6 @@ search ." | sudo tee /etc/resolv.conf
           sudo systemctl restart systemd-resolved
           sudo systemctl restart NetworkManager
       }
-
-      update_dnscrypt_proxy_blocklist(){
-          # https://github.com/DNSCrypt/dnscrypt-proxy/wiki/Public-blocklist
-
-          local NOW=$(date +%s) # current unix timestamp.
-          local the_file="/home/$MY_NAME/.config/last_dnscrypt_proxy_blocklist_update.txt"
-          if [ -f "$the_file" ]; then
-            # exists
-            local LAST_UPDATE=$(cat $the_file)
-            local diffSinceUpdate=$((NOW - LAST_UPDATE))  # seconds
-            local daysSinceUpdate="$((diffSinceUpdate/(60*60*24)))"    # days
-            local updateInterval="$((17 * 24 * 60 * 60))" # 17 days
-            if [ "$diffSinceUpdate" -gt "$updateInterval" ]; then
-                { # try
-                    sudo systemctl stop systemd-resolved
-                    sudo systemctl disable systemd-resolved
-                    sudo apt -y remove resolvconf
-                    sudo apt -y purge resolvconf
-                } || { # catch
-                    echo -n ""
-                }
-
-                rm -rf /tmp/dnscrypt-blocked-names.txt
-                wget -nc --output-document="/tmp/dnscrypt-blocked-names.txt" "https://download.dnscrypt.info/blacklists/domains/mybase.txt"
-                sudo cp /tmp/dnscrypt-blocked-names.txt /etc/dnscrypt-proxy/blocked-names.txt
-                sudo systemctl restart dnscrypt-proxy
-                echo "$NOW" > $the_file
-            else
-              echo -n ""
-            fi
-          else
-            # file does not exist, update either way
-            rm -rf /tmp/dnscrypt-blocked-names.txt
-            wget -nc --output-document="/tmp/dnscrypt-blocked-names.txt" "https://download.dnscrypt.info/blacklists/domains/mybase.txt"
-            sudo cp /tmp/dnscrypt-blocked-names.txt /etc/dnscrypt-proxy/blocked-names.txt
-            sudo systemctl restart dnscrypt-proxy
-            echo "$NOW" > $the_file
-          fi
-      }
-      update_dnscrypt_proxy_blocklist
 
     '';
 }
