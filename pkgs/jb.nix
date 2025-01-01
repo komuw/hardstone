@@ -22,25 +22,19 @@ with {
   helmImport = (import (fetchTarball "https://github.com/NixOS/nixpkgs/archive/fa6faf973d97caaea26b88eba007b61bb8228fd8.tar.gz") {});
   # kind: vA.B
   kindImport = (import (fetchTarball "https://github.com/NixOS/nixpkgs/archive/fa6faf973d97caaea26b88eba007b61bb8228fd8.tar.gz") {});
-  # kubectl: vA.B
-  kubectlImport = (import (fetchTarball "https://github.com/NixOS/nixpkgs/archive/fa6faf973d97caaea26b88eba007b61bb8228fd8.tar.gz") {});
-  # nodejs: vA.B
-  nodeImport = (import (fetchTarball "https://github.com/NixOS/nixpkgs/archive/fa6faf973d97caaea26b88eba007b61bb8228fd8.tar.gz") {});
-  # chromium: vA.B
-  chromiumImport = (import (fetchTarball "https://github.com/NixOS/nixpkgs/archive/fa6faf973d97caaea26b88eba007b61bb8228fd8.tar.gz") {});
 };
 let
 in stdenv.mkDerivation {
 
     buildInputs = [
         pkgs.jq
+        pkgs.kubectl
+        pkgs.nodejs_23 # will also install npm
+        pkgs.ungoogled-chromium # with dependencies on Google web services removed
 
         skaffoldImport.skaffold
         helmImport.kubernetes-helm-wrapped
         kindImport.kind
-        kubectlImport.kubectl
-        nodeImport.nodejs-18_x # will also install npm
-        chromiumImport.chromium
     ];
 
     shellHook = ''
