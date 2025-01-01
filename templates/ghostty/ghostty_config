@@ -1,0 +1,4 @@
+# https://ghostty.org/docs/config
+
+gtk-single-instance = true
+

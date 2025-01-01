@@ -7,6 +7,7 @@ in stdenv.mkDerivation {
 
     buildInputs = [
         pkgs.terminator
+        pkgs.ghostty
         pkgs.eternal-terminal
         ];
 
@@ -25,6 +26,13 @@ in stdenv.mkDerivation {
           cp ./templates/terminal/terminator_config /home/$MY_NAME/.config/terminator/config
       }
       setup_terminator_conf
+
+      setup_ghostty_conf(){
+          mkdir -p /home/$MY_NAME/.config
+          mkdir -p /home/$MY_NAME/.config/ghostty/config
+          cp ./templates/ghostty/ghostty_config /home/$MY_NAME/.config/ghostty/config
+      }
+      # TODO: call setup_ghostty_conf
 
       setup_wezterm(){
           # The wezterm pkg in nixpkgs has issues starting.
