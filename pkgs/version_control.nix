@@ -1,4 +1,4 @@
-with (import (fetchTarball "https://github.com/NixOS/nixpkgs/archive/fa6faf973d97caaea26b88eba007b61bb8228fd8.tar.gz") {});
+with (import (fetchTarball "https://github.com/NixOS/nixpkgs/archive/7d9758079f4a14b4d397b0c4186d6168885586d4.tar.gz") {});
 
 let
 
