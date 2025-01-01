@@ -1,4 +1,15 @@
 # https://ghostty.org/docs/config
+#
+# The template does not set any default options, since Ghostty ships
+# with sensible defaults for all options. Users should only need to set
+# options that they want to change from the default.
+#
+# Run `ghostty +show-config --default --docs` to view a list of
+# all available config options and their default values.
+#
+# # Empty values are used to reset config keys to default.
+# key =
+#
 
 gtk-single-instance = true
 
