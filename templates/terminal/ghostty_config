@@ -21,3 +21,7 @@ command = zsh
 # A value of 1 is fully opaque and a value of 0 is fully transparent.
 # A value less than 0 or greater than 1 will be clamped to the nearest valid value.
 background-opacity = 0.8
+
+keybind = ctrl+c=copy_to_clipboard
+keybind = ctrl+v=paste_from_clipboard
+keybind = ctrl+t=new_tab
