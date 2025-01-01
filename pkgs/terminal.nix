@@ -1,4 +1,4 @@
-with (import (fetchTarball "https://github.com/NixOS/nixpkgs/archive/7d9758079f4a14b4d397b0c4186d6168885586d4.tar.gz") {});
+with (import (fetchTarball "https://github.com/NixOS/nixpkgs/archive/7af93d2e5372b0a12b3eda16dbb8eaddd0fe2176.tar.gz") {});
 
 let
 
@@ -30,7 +30,7 @@ in stdenv.mkDerivation {
       setup_ghostty_conf(){
           mkdir -p /home/$MY_NAME/.config
           mkdir -p /home/$MY_NAME/.config/ghostty/config
-          cp ./templates/ghostty/ghostty_config /home/$MY_NAME/.config/ghostty/config
+          cp ./templates/terminal/ghostty_config /home/$MY_NAME/.config/ghostty/config
       }
       # TODO: call setup_ghostty_conf
 
