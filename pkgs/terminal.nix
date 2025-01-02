@@ -28,10 +28,6 @@ in stdenv.mkDerivation {
       setup_terminator_conf
 
       setup_ghostty(){
-          mkdir -p /home/$MY_NAME/.config
-          mkdir -p /home/$MY_NAME/.config/ghostty/config
-          cp ./templates/terminal/ghostty_config /home/$MY_NAME/.config/ghostty/config
-
           ghostty_conf_file="/home/$MY_NAME/.config/ghostty/config"
           if [ -f "$ghostty_conf_file" ]; then
             # config exists
@@ -39,6 +35,9 @@ in stdenv.mkDerivation {
           else
             wget -nc --output-document=/tmp/ghostty.deb "https://github.com/mkasberg/ghostty-ubuntu/releases/download/1.0.1-0-ppa1/ghostty_1.0.1-0.ppa1_amd64_22.04.deb"
             sudo apt install -y /tmp/ghostty.deb
+
+            mkdir -p /home/$MY_NAME/.config/ghostty
+            cp ./templates/terminal/ghostty_config /home/$MY_NAME/.config/ghostty/config
           fi
       }
       setup_ghostty
