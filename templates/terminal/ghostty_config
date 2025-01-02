@@ -37,3 +37,7 @@ keybind = ctrl+t=new_tab
 #  - https://github.com/ghostty-org/ghostty/issues/4328
 keybind = ctrl+shift+c=text:\x03
 keybind =ctrl+k=text:\x03
+
+# TODO: enable scrollbar
+#  - https://github.com/ghostty-org/ghostty/issues/111
+
