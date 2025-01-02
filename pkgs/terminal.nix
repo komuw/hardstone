@@ -1,4 +1,4 @@
-with (import (fetchTarball "https://github.com/NixOS/nixpkgs/archive/fa6faf973d97caaea26b88eba007b61bb8228fd8.tar.gz") {});
+with (import (fetchTarball "https://github.com/NixOS/nixpkgs/archive/7af93d2e5372b0a12b3eda16dbb8eaddd0fe2176.tar.gz") {});
 
 let
 
@@ -7,6 +7,7 @@ in stdenv.mkDerivation {
 
     buildInputs = [
         pkgs.terminator
+        # pkgs.ghostty # This one does not work
         pkgs.eternal-terminal
         ];
 
@@ -25,6 +26,21 @@ in stdenv.mkDerivation {
           cp ./templates/terminal/terminator_config /home/$MY_NAME/.config/terminator/config
       }
       setup_terminator_conf
+
+      setup_ghostty(){
+          ghostty_conf_file="/home/$MY_NAME/.config/ghostty/config"
+          if [ -f "$ghostty_conf_file" ]; then
+            # config exists
+            echo -n ""
+          else
+            wget -nc --output-document=/tmp/ghostty.deb "https://github.com/mkasberg/ghostty-ubuntu/releases/download/1.0.1-0-ppa1/ghostty_1.0.1-0.ppa1_amd64_22.04.deb"
+            sudo apt install -y /tmp/ghostty.deb
+
+            mkdir -p /home/$MY_NAME/.config/ghostty
+            cp ./templates/terminal/ghostty_config /home/$MY_NAME/.config/ghostty/config
+          fi
+      }
+      setup_ghostty
 
       setup_wezterm(){
           # The wezterm pkg in nixpkgs has issues starting.
