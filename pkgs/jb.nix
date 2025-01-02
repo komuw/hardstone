@@ -12,7 +12,7 @@ with {
   # You can use the below if you need specific versions of packages.
   # For now, we do not.
   #
-  # We need some specific versions of helm, kind, skaffold, chromium, etc.
+  # We need some specific versions of helm, kind, skaffold, etc.
   #
   # skaffold: vA.B
   # see: https://lazamar.co.uk/nix-versions
@@ -30,7 +30,6 @@ in stdenv.mkDerivation {
         pkgs.jq
         pkgs.kubectl
         pkgs.nodejs_23 # will also install npm
-        pkgs.ungoogled-chromium # with dependencies on Google web services removed
 
         skaffoldImport.skaffold
         helmImport.kubernetes-helm-wrapped

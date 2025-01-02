@@ -14,7 +14,6 @@ in stdenv.mkDerivation {
         pkgs.awscli
         pkgs.awscli2
         pkgs.bat
-        pkgs.google-chrome # unfree
         pkgs.skypeforlinux # unfree
         pkgs.firefox
         pkgs.ripgrep
@@ -27,6 +26,11 @@ in stdenv.mkDerivation {
         pkgs.fzf
         pkgs.delta # https://github.com/dandavison/delta
         pkgs.sqlite
+
+        pkgs.google-chrome # unfree
+        # `ungoogled-chromium` is chromium with dependencies on Google web services removed.
+        # It will install programs called `chromium` & `chromium-browser`
+        pkgs.ungoogled-chromium
 
         # For some reason, zoom installed via nix is not working.
         # So we install it manually in `./start.sh`.
