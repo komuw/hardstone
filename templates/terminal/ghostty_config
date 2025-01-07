@@ -11,11 +11,16 @@
 # key =
 #
 
+# Use `ghostty +list-themes` to list and demo/preview themes.
+
 gtk-single-instance = true
 
-# scrollback-limit
+# todo: set `scrollback-limit` if needed
 
 command = zsh
+
+# Do not require confirmation before pasting text that appears unsafe.
+clipboard-paste-protection = false
 
 # The opacity level (opposite of transparency) of the background.
 # A value of 1 is fully opaque and a value of 0 is fully transparent.
