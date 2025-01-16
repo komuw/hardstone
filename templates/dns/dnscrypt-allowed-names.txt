@@ -16,3 +16,5 @@ reef.pl
 url1172.reef.pl
 # parsely
 parsely.com
+# useful for observability
+sentry.io
