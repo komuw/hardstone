@@ -18,3 +18,7 @@ url1172.reef.pl
 parsely.com
 # useful for observability
 sentry.io
+# twitter redirect proxy
+t.co
+# application hosting company
+railway.com
