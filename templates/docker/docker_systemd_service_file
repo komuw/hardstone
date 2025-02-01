@@ -20,7 +20,7 @@ Environment="THE_DOCKERD_PATH=$(which dockerd)"
 # We should ideally use something like `$(which dockerd)`; but that aint working as of now.
 # Idea: run `find /nix -name "*docker*.service*"` all we need to do is symlink the docker.service file that we find
 # That service file comes with the `ExecStart` set to point to the correct dockerd
-ExecStart=/nix/store/p28dy32asfdvchsrzyqj8pn391vjas1n-docker-27.4.0/bin/dockerd -H fd://  
+ExecStart=/nix/store/s9g8d3q5l89mp1nqypn1fy7w6amiha88-docker-27.5.0/bin/dockerd -H fd://  
 ExecReload=/bin/kill -s HUP $MAINPID
 LimitNOFILE=1048576
 # Having non-zero Limit*s causes performance problems due to accounting overhead
