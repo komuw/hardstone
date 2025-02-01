@@ -27,21 +27,22 @@ clipboard-paste-protection = false
 # A value less than 0 or greater than 1 will be clamped to the nearest valid value.
 background-opacity = 1.0
 
-# TODO: Allow `ctrl+c` to work both as a copy(if text is selected) and as sigINT.
+# Allow `ctrl+c` to work both as a copy(if text is selected) and as sigINT.
 #  - https://github.com/ghostty-org/ghostty/discussions/2811
 #  - https://github.com/ghostty-org/ghostty/issues/4328
 #  - https://github.com/ghostty-org/ghostty/pull/4345
 #  - https://github.com/ghostty-org/ghostty/pull/3970
+#  - https://ghostty.org/docs/install/release-notes/1-1-0#%22performable%22-keybindings
 #
-keybind = ctrl+c=copy_to_clipboard
-keybind = ctrl+v=paste_from_clipboard
-keybind = ctrl+t=new_tab
+keybind = performable:ctrl+c=copy_to_clipboard
+keybind = performable:ctrl+v=paste_from_clipboard
+keybind = performable:ctrl+t=new_tab
+
 # By default, `ctrl+c` is mapped to `^C`(sigint)(`\x03`).
-# so we need to map `ctrl+shift+c` to the same.
 #  - https://github.com/ghostty-org/ghostty/discussions/3516
 #  - https://github.com/ghostty-org/ghostty/issues/4328
-keybind = ctrl+shift+c=text:\x03
-keybind =ctrl+k=text:\x03
+# Below is an example of how we can map `ctrl+shift+c` to `^C`(sigint)(`\x03`).
+# keybind = ctrl+shift+c=text:\x03
 
 # TODO: enable scrollbar
 #  - https://github.com/ghostty-org/ghostty/issues/111
