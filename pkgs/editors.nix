@@ -28,7 +28,7 @@ in stdenv.mkDerivation {
             touch /home/$MY_NAME/.config/Code/User/settings.json
             chown -R $MY_NAME:$MY_NAME /home/$MY_NAME/.config/Code/
             chown -R $MY_NAME:$MY_NAME /home/$MY_NAME/.vscode
-            cp ./templates/vscode_settings.json /home/$MY_NAME/.config/Code/User/settings.json
+            cp ./templates/editors/vscode_settings.json /home/$MY_NAME/.config/Code/User/settings.json
         }
         add_vscode_cofig
 
@@ -66,7 +66,7 @@ in stdenv.mkDerivation {
            else
                wget -nc --output-document=/tmp/sublime_text_amd64.deb "https://download.sublimetext.com/sublime-text_build-4192_amd64.deb"
                sudo dpkg -i /tmp/sublime_text_amd64.deb
-               cp ./templates/templates/Preferences.sublime-settings /home/$MY_NAME/.config/sublime-text/Packages/User/Preferences.sublime-settings
+               cp ./templates/editors/Preferences.sublime-settings /home/$MY_NAME/.config/sublime-text/Packages/User/Preferences.sublime-settings
            fi
        }
        install_sublime_text
