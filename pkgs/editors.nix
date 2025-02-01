@@ -55,6 +55,10 @@ in stdenv.mkDerivation {
         install_vscode_extensions
 
        install_sublime_text(){
+           # Configuring sublime text for golang;
+           # https://github.com/golang/tools/blob/master/gopls/doc/subl.md
+           # https://agniva.me/gopls/2021/01/02/setting-up-gopls-sublime.html
+           #
            sublime_bin_file="/usr/bin/subl"
            if [ -f "$sublime_bin_file" ]; then
                # bin file exists
@@ -62,6 +66,7 @@ in stdenv.mkDerivation {
            else
                wget -nc --output-document=/tmp/sublime_text_amd64.deb "https://download.sublimetext.com/sublime-text_build-4192_amd64.deb"
                sudo dpkg -i /tmp/sublime_text_amd64.deb
+               cp ./templates/templates/Preferences.sublime-settings /home/$MY_NAME/.config/sublime-text/Packages/User/Preferences.sublime-settings
            fi
        }
        install_sublime_text
