@@ -33,7 +33,7 @@ in stdenv.mkDerivation {
             # config exists
             echo -n ""
           else
-            wget -nc --output-document=/tmp/ghostty.deb "https://github.com/mkasberg/ghostty-ubuntu/releases/download/1.0.1-0-ppa1/ghostty_1.0.1-0.ppa1_amd64_22.04.deb"
+            wget -nc --output-document=/tmp/ghostty.deb "https://github.com/mkasberg/ghostty-ubuntu/releases/download/1.1.0-0-ppa1/ghostty_1.1.0-0.ppa1_amd64_24.04.deb"
             sudo apt install -y /tmp/ghostty.deb
 
             mkdir -p /home/$MY_NAME/.config/ghostty
@@ -54,7 +54,7 @@ in stdenv.mkDerivation {
               # config exists
               echo -n ""
           else
-              wget -nc --output-document=/tmp/wezterm_nightly.deb https://github.com/wez/wezterm/releases/download/nightly/wezterm-nightly.Ubuntu22.04.deb
+              wget -nc --output-document=/tmp/wezterm_nightly.deb "https://github.com/wez/wezterm/releases/download/nightly/wezterm-nightly.Ubuntu24.04.deb"
               sudo apt install -y /tmp/wezterm_nightly.deb
               mkdir -p /home/$MY_NAME/.config/wezterm
               cp ./templates/terminal/wezterm.lua /home/$MY_NAME/.config/wezterm/wezterm.lua

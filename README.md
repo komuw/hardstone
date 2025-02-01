@@ -26,7 +26,7 @@ nix-shell pkgs/
 Check the files in `pkgs/`
 
 ## NB:      
-* This project was tested on a machine running `ubuntu 22.04, 64bit`
+* This project was tested on a machine running `ubuntu 24.04, 64bit`
 * However, It should work for most debian machines. 
 
 
