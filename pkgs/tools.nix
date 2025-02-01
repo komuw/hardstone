@@ -1,4 +1,4 @@
-with (import (fetchTarball "https://github.com/NixOS/nixpkgs/archive/7af93d2e5372b0a12b3eda16dbb8eaddd0fe2176.tar.gz") {});
+with (import (fetchTarball "https://github.com/NixOS/nixpkgs/archive/c4336c26616ff4405b7eb4e1ff39a9a51f3538ab.tar.gz") {});
 
 let
 
@@ -72,7 +72,7 @@ in stdenv.mkDerivation {
               rm -rf /home/$MY_NAME/.zoom/*
               rm -rf /usr/bin/zoom
 
-              # Versions are found at; https://support.zoom.us/hc/en-us/articles/205759689-Release-notes-for-Linux
+              # Versions are found at; https://support.zoom.com/hc/en/article?id=zm_kb&sysparm_article=KB0061222
               # We have to choose the version carefully because some versions have bugs, even the latest versions.
               local VERSION="latest"
               local VERSION="6.0.12.5501" # 31/may/2024 : last working version

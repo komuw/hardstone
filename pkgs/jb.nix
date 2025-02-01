@@ -1,4 +1,4 @@
-with import (fetchTarball "https://github.com/NixOS/nixpkgs/archive/7af93d2e5372b0a12b3eda16dbb8eaddd0fe2176.tar.gz") {};
+with import (fetchTarball "https://github.com/NixOS/nixpkgs/archive/c4336c26616ff4405b7eb4e1ff39a9a51f3538ab.tar.gz") {};
 with {
   # Using multiple channels in a shell.nix file.
   # https://devpress.csdn.net/k8s/62f4ea85c6770329307fa981.html
@@ -17,11 +17,11 @@ with {
   # skaffold: vA.B
   # see: https://lazamar.co.uk/nix-versions
   # see: https://lazamar.co.uk/nix-versions/?package=skaffold&version=2.0.3&fullName=skaffold-2.0.3&keyName=skaffold&revision=79b3d4bcae8c7007c9fd51c279a8a67acfa73a2a&channel=nixpkgs-unstable#instructions
-  skaffoldImport = (import (fetchTarball "https://github.com/NixOS/nixpkgs/archive/7af93d2e5372b0a12b3eda16dbb8eaddd0fe2176.tar.gz") {});
+  skaffoldImport = (import (fetchTarball "https://github.com/NixOS/nixpkgs/archive/c4336c26616ff4405b7eb4e1ff39a9a51f3538ab.tar.gz") {});
   # helm version: vA.B
-  helmImport = (import (fetchTarball "https://github.com/NixOS/nixpkgs/archive/7af93d2e5372b0a12b3eda16dbb8eaddd0fe2176.tar.gz") {});
+  helmImport = (import (fetchTarball "https://github.com/NixOS/nixpkgs/archive/c4336c26616ff4405b7eb4e1ff39a9a51f3538ab.tar.gz") {});
   # kind: vA.B
-  kindImport = (import (fetchTarball "https://github.com/NixOS/nixpkgs/archive/7af93d2e5372b0a12b3eda16dbb8eaddd0fe2176.tar.gz") {});
+  kindImport = (import (fetchTarball "https://github.com/NixOS/nixpkgs/archive/c4336c26616ff4405b7eb4e1ff39a9a51f3538ab.tar.gz") {});
 };
 let
 in stdenv.mkDerivation {
