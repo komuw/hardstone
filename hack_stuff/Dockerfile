@@ -1,4 +1,4 @@
-FROM ubuntu:22.04
+FROM ubuntu:24.04
 
 # Docker file to build an image that can be used for debuging purposes.
 
