@@ -64,9 +64,7 @@ in stdenv.mkDerivation {
               # Install zoom dependencies
               # Listed at; https://support.zoom.us/hc/en-us/articles/204206269-Installing-or-updating-Zoom-on-Linux#h_f75692f2-5e13-4526-ba87-216692521a82
               sudo apt -y update
-              sudo apt-get -y install libgl1-mesa-glx \
-                                      libegl1-mesa \
-                                      libxcb-xtest0 \
+              sudo apt-get -y install libxcb-xtest0 \
                                       libxcb-xinerama0 \
                                       libxcb-cursor0
 
@@ -77,8 +75,8 @@ in stdenv.mkDerivation {
               # Versions are found at; https://support.zoom.us/hc/en-us/articles/205759689-Release-notes-for-Linux
               # We have to choose the version carefully because some versions have bugs, even the latest versions.
               local VERSION="latest"
-              local VERSION="5.14.7.2928" # may/2023
-              local VERSION="6.0.12.5501" # 31/may/2024
+              local VERSION="6.0.12.5501" # 31/may/2024 : last working version
+              local VERSION="6.3.6.6315" # 15/jan/2025
               wget -nc --output-document=/tmp/zoom_amd64.deb "https://zoom.us/client/$VERSION/zoom_amd64.deb"
               sudo dpkg -i /tmp/zoom_amd64.deb
           fi
