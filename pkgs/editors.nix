@@ -7,7 +7,7 @@ in stdenv.mkDerivation {
 
     buildInputs = [
         pkgs.vscode # unfree
-        pkgs.sublime4
+        # pkgs.sublime4 # does not work
     ];
 
     shellHook = ''
@@ -53,6 +53,18 @@ in stdenv.mkDerivation {
             fi
         }
         install_vscode_extensions
+
+       install_sublime_text(){
+           sublime_bin_file="/usr/bin/subl"
+           if [ -f "$sublime_bin_file" ]; then
+               # bin file exists
+               echo -n ""
+           else
+               wget -nc --output-document=/tmp/sublime_text_amd64.deb "https://download.sublimetext.com/sublime-text_build-4192_amd64.deb"
+               sudo dpkg -i /tmp/sublime_text_amd64.deb
+           fi
+       }
+       install_sublime_text
 
     '';
 }
