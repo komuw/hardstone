@@ -72,7 +72,7 @@ in stdenv.mkDerivation {
               rm -rf /home/$MY_NAME/.zoom/*
               rm -rf /usr/bin/zoom
 
-              # Versions are found at; https://support.zoom.us/hc/en-us/articles/205759689-Release-notes-for-Linux
+              # Versions are found at; https://support.zoom.com/hc/en/article?id=zm_kb&sysparm_article=KB0061222
               # We have to choose the version carefully because some versions have bugs, even the latest versions.
               local VERSION="latest"
               local VERSION="6.0.12.5501" # 31/may/2024 : last working version
