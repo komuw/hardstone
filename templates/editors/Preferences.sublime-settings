@@ -1,0 +1,39 @@
+{
+    "ignored_packages": ["Vintage"],
+    "index_files": true,
+    //
+    // TODO: enable stickyScroll
+    //
+    // Configuring sublime text for golang;
+    // https://github.com/golang/tools/blob/master/gopls/doc/subl.md
+    // https://agniva.me/gopls/2021/01/02/setting-up-gopls-sublime.html
+    // https://code.visualstudio.com/docs/getstarted/settings
+    // https://github.com/golang/vscode-go/blob/master/docs/settings.md
+    // https://github.com/golang/tools/blob/master/gopls/doc/settings.md
+    //
+     "clients":
+     {
+         "gopls":
+         {
+             "command": ["/home/kw/go/bin/gopls"],
+             "enabled": true,
+             "env": {
+                 "PATH": "/home/kw/go/bin:/usr/local/go/bin"
+             },
+             "scopes":["source.go"],
+             "syntaxes": [
+                 "Packages/Go/Go.sublime-syntax",
+             ],
+             "settings": {
+                // https://github.com/golang/tools/blob/master/gopls/doc/settings.md
+                 "gopls.usePlaceholders": true,
+                 "gopls.completeUnimported": true,
+             },
+             "languageId": "go"
+         }
+     },
+     "only_show_lsp_completions": true,
+     "show_references_in_quick_panel": true,
+     "log_debug": true,
+     "log_stderr": true
+}

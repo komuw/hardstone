@@ -3,10 +3,11 @@ with (import (fetchTarball "https://github.com/NixOS/nixpkgs/archive/c4336c26616
 let
 
 in stdenv.mkDerivation {
-    name = "vscode";
+    name = "editors";
 
     buildInputs = [
         pkgs.vscode # unfree
+        # pkgs.sublime4 # does not work
     ];
 
     shellHook = ''
@@ -14,7 +15,7 @@ in stdenv.mkDerivation {
         # do not use `set -e` which causes commands to fail.
         # because it causes `nix-shell` to also exit if a command fails when running in the eventual shell
 
-        printf "\n running hooks for vscode.nix \n"
+        printf "\n running hooks for editors.nix \n"
 
         MY_NAME=$(whoami)
 
@@ -27,7 +28,7 @@ in stdenv.mkDerivation {
             touch /home/$MY_NAME/.config/Code/User/settings.json
             chown -R $MY_NAME:$MY_NAME /home/$MY_NAME/.config/Code/
             chown -R $MY_NAME:$MY_NAME /home/$MY_NAME/.vscode
-            cp ./templates/vscode_settings.json /home/$MY_NAME/.config/Code/User/settings.json
+            cp ./templates/editors/vscode_settings.json /home/$MY_NAME/.config/Code/User/settings.json
         }
         add_vscode_cofig
 
@@ -52,6 +53,23 @@ in stdenv.mkDerivation {
             fi
         }
         install_vscode_extensions
+
+       install_sublime_text(){
+           # Configuring sublime text for golang;
+           # https://github.com/golang/tools/blob/master/gopls/doc/subl.md
+           # https://agniva.me/gopls/2021/01/02/setting-up-gopls-sublime.html
+           #
+           sublime_bin_file="/usr/bin/subl"
+           if [ -f "$sublime_bin_file" ]; then
+               # bin file exists
+               echo -n ""
+           else
+               wget -nc --output-document=/tmp/sublime_text_amd64.deb "https://download.sublimetext.com/sublime-text_build-4192_amd64.deb"
+               sudo dpkg -i /tmp/sublime_text_amd64.deb
+               cp ./templates/editors/Preferences.sublime-settings /home/$MY_NAME/.config/sublime-text/Packages/User/Preferences.sublime-settings
+           fi
+       }
+       install_sublime_text
 
     '';
 }

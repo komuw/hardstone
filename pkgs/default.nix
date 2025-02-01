@@ -39,7 +39,7 @@ let
     versionControlImport  = import ./version_control.nix;
     setupSshImport  = import ./setup_ssh.nix;
     golangImport  = import ./golang.nix;
-    vscodeImport  = import ./vscode.nix;
+    editorsImport  = import ./editors.nix;
     dartImport  = import ./dart.nix;
     toolsImport  = import ./tools.nix;
     dockerImport  = import ./docker.nix;
@@ -60,7 +60,7 @@ in stdenv.mkDerivation {
       ++ versionControlImport.buildInputs
       ++ setupSshImport.buildInputs
       ++ golangImport.buildInputs
-      ++ vscodeImport.buildInputs
+      ++ editorsImport.buildInputs
       ++ dartImport.buildInputs
       ++ toolsImport.buildInputs
       ++ dockerImport.buildInputs
@@ -77,7 +77,7 @@ in stdenv.mkDerivation {
       + versionControlImport.shellHook
       + setupSshImport.shellHook
       + golangImport.shellHook
-      + vscodeImport.shellHook
+      + editorsImport.shellHook
       + dartImport.shellHook
       + toolsImport.shellHook
       + dockerImport.shellHook
