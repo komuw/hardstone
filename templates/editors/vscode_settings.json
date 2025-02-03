@@ -1,4 +1,6 @@
 {
+    // Config file for both vscode and vscodium
+    //
     // Docs: https://code.visualstudio.com/docs/getstarted/settings
     //
     "telemetry.enableCrashReporter": false,
