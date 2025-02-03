@@ -10,7 +10,7 @@ export DEBIAN_FRONTEND=noninteractive
 # 2. docker run -it hardstone-nix
 # 3. bash start.sh
 # 4. export SSH_KEY_PHRASE=SSH_KEY_PHRASE
-# 5. nix-shell pkgs/
+# 5. nix-shell pkgs/ # nix-shell --repair pkgs/
 #
 # or:
 # 1. docker-compose run my_nix_env
