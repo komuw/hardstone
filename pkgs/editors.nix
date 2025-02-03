@@ -7,6 +7,7 @@ in stdenv.mkDerivation {
 
     buildInputs = [
         pkgs.vscode # unfree
+        pkgs.vscodium # free vscode
         # pkgs.sublime4 # does not work
     ];
 
