@@ -92,6 +92,8 @@ in stdenv.mkDerivation {
                 codium --user-data-dir='/tmp/' --install-extension hashicorp.terraform
                 codium --user-data-dir='/tmp/' --install-extension bbenoist.nix
                 # codium --user-data-dir='/tmp/' --install-extension ms-vscode.cpptools
+
+                codium --list-extensions
             fi
        }
        setup_vscodium
