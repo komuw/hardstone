@@ -7,6 +7,7 @@ in stdenv.mkDerivation {
 
     buildInputs = [
         pkgs.vscode # unfree
+        pkgs.vscodium # free vscode
         # pkgs.sublime4 # does not work
     ];
 
@@ -36,15 +37,14 @@ in stdenv.mkDerivation {
             # install vscode extensions
 
             installed_extensions=$(code --list-extensions)
-            if [[ "$installed_extensions" == *"hashicorp.terraform"* ]]; then
+            if [[ "$installed_extensions" == *"golang.go"* ]]; then
                 # extensions already installed
                 echo -n ""
             else
+                code --user-data-dir='/tmp/' --install-extension golang.go
                 code --user-data-dir='/tmp/' --install-extension ms-python.python
-                code --user-data-dir='/tmp/' --install-extension ms-python.vscode-pylance
                 code --user-data-dir='/tmp/' --install-extension dart-code.dart-code
                 code --user-data-dir='/tmp/' --install-extension dart-code.flutter
-                code --user-data-dir='/tmp/' --install-extension golang.go
                 code --user-data-dir='/tmp/' --install-extension ms-azuretools.vscode-docker
                 code --user-data-dir='/tmp/' --install-extension hashicorp.terraform
                 code --user-data-dir='/tmp/' --install-extension bbenoist.nix
@@ -70,6 +70,33 @@ in stdenv.mkDerivation {
            fi
        }
        install_sublime_text
+
+       setup_vscodium(){
+            cp ./templates/editors/vscode_settings.json /home/$MY_NAME/.config/VSCodium/User/settings.json
+
+            installed_extensions=$(codium --list-extensions)
+            if [[ "$installed_extensions" == *"golang.go"* ]]; then
+                # extensions already installed
+                echo -n ""
+            else
+                # Install vscode extensions
+                # From: https://open-vsx.org/
+                #
+                # codium --update-extensions
+                #
+                codium --user-data-dir='/tmp/' --install-extension golang.go
+                codium --user-data-dir='/tmp/' --install-extension ms-python.python
+                codium --user-data-dir='/tmp/' --install-extension dart-code.dart-code
+                codium --user-data-dir='/tmp/' --install-extension dart-code.flutter
+                codium --user-data-dir='/tmp/' --install-extension ms-azuretools.vscode-docker
+                codium --user-data-dir='/tmp/' --install-extension hashicorp.terraform
+                codium --user-data-dir='/tmp/' --install-extension bbenoist.nix
+                # codium --user-data-dir='/tmp/' --install-extension ms-vscode.cpptools
+
+                codium --list-extensions
+            fi
+       }
+       setup_vscodium
 
     '';
 }
