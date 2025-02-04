@@ -16,6 +16,7 @@ netstat -tunapl | grep -i 'listen'
 lsof -i tcp | grep -i 'listen'
 ss --listening --processes --tcp
 ss --listening --processes --tcp --udp
+mtr -r -w --show-ips example.com
 
 # ssh
 ssh-add ~/.ssh/id_rsa #to load ua new id to the agent
