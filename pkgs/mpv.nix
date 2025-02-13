@@ -2,13 +2,13 @@
 
 let
   myShellHook = ''
-    echo "Welcome to the media.nix shell!"
-    export MEDIA_VAR="This is from media.nix"
+    echo "Welcome to the mpv.nix shell!"
+    export MPV_VAR="This is from mpv.nix"
   '';
 
   packages = {
-    httpie = pkgs.httpie;
-    hello = pkgs.hello;
+    fzf = pkgs.fzf;
+    bat = pkgs.bat;
   };
 
 in

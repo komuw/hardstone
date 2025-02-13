@@ -1,3 +1,4 @@
+# flake.nix
 {
 # Usage:
 #  cd $cwd
@@ -17,45 +18,33 @@
     nixpkgs.url = "github:NixOS/nixpkgs?rev=7af93d2e5372b0a12b3eda16dbb8eaddd0fe2176";
   };
 
-  outputs = { self, nixpkgs }:
-    let
-      system = "x86_64-linux"; # Or "aarch64-linux" for ARM64, etc.  Adjust as needed.
-      pkgs = nixpkgs.legacyPackages.${system};
+ outputs = { self, nixpkgs }: let # Add lib here!
+    system = "x86_64-linux";  # Set your architecture!
+    pkgs = nixpkgs.legacyPackages.${system};
+    lib = nixpkgs.lib;       # Get lib from nixpkgs here!
 
-      media = import ./media.nix { pkgs = pkgs; };
-      another = import ./another.nix { pkgs = pkgs; };
+    # Import the package definitions.
+    media = import ./media.nix { inherit pkgs lib; };
+    mpv = import ./mpv.nix { inherit pkgs lib; };
 
-    in {
-      devShells = {
-        default = pkgs.mkShell {
-          buildInputs = [
-            media 
-            another 
-          ];
+    myShellHook = ''
+        echo "Welcome to the flake.nix development shell!"
+        echo "This shell includes packages from media.nix and mpv.nix."
+        export FLAKE_VAR="This is from flake.nix"
+      '';
 
-          # Optional: Add a shell prompt customization
-          shellHook = ''
-            printf "\n\n running hooks for flake.nix \n\n"
-            MY_NAME=$(whoami)
-          '';
-
-        # Use the devShell from imports.
-        media = media.devShell; 
-        another = another.devShell;
-        };
+  in {
+    packages.${system} = {
+      default = pkgs.symlinkJoin {
+        name = "all-tools";
+        paths = (lib.attrValues media) ++ (lib.attrValues mpv); # Combine all packages
       };
+    }; # Merge both 'media' and 'mpv' sets
 
-      # # Optional: To make these packages available in your system (requires NixOS or home-manager)
-      # packages.${system} = {
-      #   vlc = media.vlc;
-      #   chrome = pkgs.google-chrome;
-      # };
 
-      # Optional: A simple hello world program
-    #   apps.${system}.hello = {
-    #     type = "app";
-    #     program = "${pkgs.hello}/bin/hello";
-    #   };
-
+    devShells.${system}.default = pkgs.mkShell {
+      packages = (lib.attrValues media) ++ (lib.attrValues mpv);
+      shellHook = myShellHook;
     };
+  };
 }
