@@ -2,6 +2,7 @@
 # Usage:
 #  cd $cwd
 #  nix develop
+# nix develop path:$(pwd) # This one does not require git.
 #
 # Docs:
 # 1. https://gemini.google.com/share/560bf3b8ab29
