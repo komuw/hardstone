@@ -66,7 +66,7 @@ install_nix_pre_requistes(){
     sudo apt -y install sudo usb-creator-gtk
     sudo apt -y update
     sudo apt-get -y dist-upgrade # security updates
-    sudo apt -y install curl xz-utils
+    sudo apt -y install curl xz-utils git # git is required by `nix develop`
 }
 install_nix_pre_requistes
 

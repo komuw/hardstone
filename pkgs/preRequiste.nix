@@ -9,7 +9,7 @@ in stdenv.mkDerivation {
       pkgs.gcc
       pkgs.curl 
       pkgs.wget 
-      pkgs.git
+      pkgs.git # TODO: remove, this is now isntalled in start.sh
       ];
 
     shellHook = ''
