@@ -24,12 +24,13 @@
 
       media = import ./media.nix { pkgs = pkgs; };
       another = import ./another.nix { pkgs = pkgs; };
+
     in {
       devShells = {
         default = pkgs.mkShell {
           buildInputs = [
-            media
-            another
+            media 
+            another 
           ];
 
           # Optional: Add a shell prompt customization
@@ -44,12 +45,11 @@
         };
       };
 
-      # Optional: To make these packages available in your system (requires NixOS or home-manager)
-    #   packages.${system} = {
-    #     vlc = pkgs.vlc;
-    #     python3 = pkgs.python3; # Or pkgs.python
-    #     chrome = pkgs.google-chrome;
-    #   };
+      # # Optional: To make these packages available in your system (requires NixOS or home-manager)
+      # packages.${system} = {
+      #   vlc = media.vlc;
+      #   chrome = pkgs.google-chrome;
+      # };
 
       # Optional: A simple hello world program
     #   apps.${system}.hello = {
