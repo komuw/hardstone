@@ -87,6 +87,7 @@ in stdenv.mkDerivation {
               go install golang.org/x/tools/go/analysis/passes/shadow/cmd/shadow@latest
               go install go101.org/gotv@latest
               go install golang.org/x/tools/cmd/bisect@latest
+              go install github.com/cloudwego/goref/cmd/grf@latest
 
               # my stuff
               go install github.com/komuw/ote@latest
