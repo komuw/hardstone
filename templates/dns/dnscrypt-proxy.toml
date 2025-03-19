@@ -1,4 +1,3 @@
-
 ##############################################
 #                                            #
 #        dnscrypt-proxy configuration        #
@@ -677,21 +676,30 @@ allowed_names_file = '/etc/dnscrypt-proxy/dnscrypt-allowed-names.txt'
 # These schedules are used in `templates/dns/dnscrypt-proxy-blocked-names.txt`
 [schedules]
 
-  [schedules.time-to-sleep]
-    mon = [{after='23:30', before='7:00'}]
-    tue = [{after='23:30', before='7:00'}]
-    wed = [{after='23:30', before='7:00'}]
-    thu = [{after='23:30', before='7:00'}]
-    fri = [{after='23:30', before='7:00'}]
-    sat = [{after='23:30', before='7:00'}]
-    sun = [{after='23:30', before='7:00'}]
+  [schedules.time-to-sleep-one]
+    mon = [{after='23:30', before='23:59'}]
+    tue = [{after='23:30', before='23:59'}]
+    wed = [{after='23:30', before='23:59'}]
+    thu = [{after='23:30', before='23:59'}]
+    fri = [{after='23:30', before='23:59'}]
+    sat = [{after='23:30', before='23:59'}]
+    sun = [{after='23:30', before='23:59'}]
+
+  [schedules.time-to-sleep-two]
+    mon = [{after='00:00', before='7:00'}]
+    tue = [{after='00:00', before='7:00'}]
+    wed = [{after='00:00', before='7:00'}]
+    thu = [{after='00:00', before='7:00'}]
+    fri = [{after='00:00', before='7:00'}]
+    sat = [{after='00:00', before='7:00'}]
+    sun = [{after='00:00', before='7:00'}]
 
   [schedules.time-to-work]
-    mon = [{after='9:00', before='15:00'}]
-    tue = [{after='9:00', before='15:00'}]
-    wed = [{after='9:00', before='15:00'}]
-    thu = [{after='9:00', before='15:00'}]
-    fri = [{after='9:00', before='15:00'}]
+    mon = [{after='9:00', before='14:30'}]
+    tue = [{after='9:00', before='14:30'}]
+    wed = [{after='9:00', before='14:30'}]
+    thu = [{after='9:00', before='14:30'}]
+    fri = [{after='9:00', before='14:30'}]
     # we leave weekend alone.
 
 
