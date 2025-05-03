@@ -54,6 +54,8 @@ ff02::2 ip6-allrouters
       add_dev_hosts
 
       setup_systemd_resolved_dns_files(){
+          # This is a helper function that is called by `setup_systemd_resolved_dns`
+          #
           # example usage:
           #    setup_systemd_resolved_dns_files etc_systemd_network_wireless_internet_dns.network
           #     or
