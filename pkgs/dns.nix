@@ -146,6 +146,13 @@ nameserver 127.0.0.53
 options edns0 trust-ad
 search ." | sudo tee /etc/resolv.conf
 
+
+          { # try
+            sudo systemctl stop dnscrypt-proxy
+          } || { # catch
+            echo -n ""
+          }
+
           sudo systemctl start systemd-resolved
           sudo systemctl enable systemd-resolved
 
