@@ -45,3 +45,6 @@ alias rm=gitrm
 
 # eternalterminal(ET): https://eternalterminal.dev
 alias ssh=et
+
+alias ripgrep="rg"
+alias ripgrep-all="rga"

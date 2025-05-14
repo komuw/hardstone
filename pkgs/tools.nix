@@ -16,11 +16,12 @@ in stdenv.mkDerivation {
         pkgs.bat
         pkgs.skypeforlinux # unfree
         pkgs.firefox
-        pkgs.ripgrep
         pkgs.gotraceui
         # nix-shell fails for `ripgrep-all` with error;
         #   ERROR: test1 failed! Could not find the word 'hello' 26 times in the sample data.
-        # pkgs.ripgrep-all
+        # pkgs.ripgrep-all # we install it using ash script.
+        #
+        # pkgs.ripgrep # we install it using ash script.
         pkgs.rr
         pkgs.unixtools.netstat
         pkgs.fzf
@@ -121,10 +122,41 @@ in stdenv.mkDerivation {
             wget -nc --output-document="/tmp/superhtml.tar.gz" "https://github.com/kristoff-it/superhtml/releases/download/v0.5.0/x86_64-linux-musl.tar.gz"
             mkdir -p /tmp/superhtml/
             tar -xzf "/tmp/superhtml.tar.gz" -C /tmp/superhtml/
-            sudo cp /tmp/superhtml/x86_64-linux-musl/superhtml /usr/local/bin/superhtml
+            sudo cp /tmp/superhtml/*/superhtml /usr/local/bin/superhtml
         fi
       }
       install_superhtml
+
+      install_ripgrep(){
+          ripgrep_bin_file="/usr/local/bin/rg"
+          if [ -f "$ripgrep_bin_file" ]; then
+              # bin file exists
+              echo -n ""
+          else
+              wget -nc --output-document=/tmp/ripgrep.tar.gz "https://github.com/BurntSushi/ripgrep/releases/download/14.1.1/ripgrep-14.1.1-x86_64-unknown-linux-musl.tar.gz"
+              mkdir -p /tmp/ripgrep/
+              tar -xzf "/tmp/ripgrep.tar.gz" -C /tmp/ripgrep/
+              sudo cp /tmp/ripgrep/*/rg /usr/local/bin/rg
+          fi
+      }
+      install_ripgrep
+
+      install_ripgrep_all(){
+           rga_bin_file="/usr/local/bin/rga"
+           if [ -f "$rga_bin_file" ]; then
+               # bin file exists
+               echo -n ""
+           else
+               wget -nc --output-document=/tmp/ripgrep_all.tar.gz "https://github.com/phiresky/ripgrep-all/releases/download/v0.10.9/ripgrep_all-v0.10.9-x86_64-unknown-linux-musl.tar.gz"
+               mkdir -p /tmp/ripgrep_all/
+               tar -xzf "/tmp/ripgrep_all.tar.gz" -C /tmp/ripgrep_all/
+               sudo cp /tmp/ripgrep_all/*/rga /usr/local/bin/rga
+               sudo cp /tmp/ripgrep_all/*/rga-fzf /usr/local/bin/rga-fzf
+               sudo cp /tmp/ripgrep_all/*/rga-fzf-open /usr/local/bin/rga-fzf-open
+               sudo cp /tmp/ripgrep_all/*/rga-preproc /usr/local/bin/rga-preproc
+           fi
+      }
+      install_ripgrep_all
 
     '';
 }
