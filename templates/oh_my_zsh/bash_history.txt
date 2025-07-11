@@ -240,3 +240,6 @@ xrandr --output "XWAYLAND2" --auto --output "XWAYLAND4" --left-of "XWAYLAND2" --
 sudo dmesg --level=err,warn --nopager --human --force-prefix --ctime --time-format=iso # --kernel
 
 journalctl -xef -n100 -u dnscrypt-proxy.service # tail logs of a systemd service/app
+
+# -20(high priority), 19(lowest priority), 0(default)
+nice -n 19 ls -lsah # start prog and assign less cpu priority
