@@ -30,6 +30,7 @@ in stdenv.mkDerivation {
         pkgs.jq
         pkgs.kubectl
         pkgs.nodejs_23 # will also install npm
+        pkgs.teams-for-linux
 
         skaffoldImport.skaffold
         helmImport.kubernetes-helm-wrapped
