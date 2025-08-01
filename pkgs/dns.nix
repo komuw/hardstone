@@ -91,6 +91,13 @@ ff02::2 ip6-allrouters
       }
       setup_systemd_resolved_dns
 
+      turn_off_wife_power_save(){
+          sudo cp ./templates/dns/wifi-powersave-on.conf /etc/NetworkManager/conf.d/default-wifi-powersave-on.conf
+          sudo systemctl restart NetworkManager
+          sleep 1;
+      }
+      turn_off_wife_power_save
+
       setup_dnscrypt_proxy(){
           local_file="/etc/systemd/system/dnscrypt-proxy.service"
           if [ -f "$local_file" ]; then
