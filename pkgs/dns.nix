@@ -106,7 +106,7 @@ ff02::2 ip6-allrouters
           else
               rm -rf /tmp/dnscrypt-proxy/
               mkdir -p /tmp/dnscrypt-proxy/
-              wget -nc --output-document="/tmp/dnscrypt-proxy/dnscrypt-proxy.tar.gz" "https://github.com/DNSCrypt/dnscrypt-proxy/releases/download/2.1.8/dnscrypt-proxy-linux_x86_64-2.1.8.tar.gz"
+              wget -nc --output-document="/tmp/dnscrypt-proxy/dnscrypt-proxy.tar.gz" "https://github.com/DNSCrypt/dnscrypt-proxy/releases/download/2.1.12/dnscrypt-proxy-linux_x86_64-2.1.12.tar.gz"
               tar -xzf "/tmp/dnscrypt-proxy/dnscrypt-proxy.tar.gz" -C /tmp/dnscrypt-proxy/
               sudo cp /tmp/dnscrypt-proxy/linux-x86_64/dnscrypt-proxy /usr/local/bin
 
