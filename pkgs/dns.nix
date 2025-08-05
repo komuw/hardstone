@@ -133,7 +133,7 @@ ff02::2 ip6-allrouters
               sudo systemctl daemon-reload
               sudo systemctl enable dnscrypt-proxy.service
               systemctl list-unit-files | grep enabled | grep -i dnscrypt-proxy
-              sudo systemctl start dnscrypt-proxy # this will start dnscrypt-proxy.service
+              sudo systemctl restart dnscrypt-proxy # this will start dnscrypt-proxy.service
               {
                   # only do this after you are done the downloading above.
                   # otherwise you wont be able to download since dns will be down.
