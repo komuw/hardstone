@@ -8,6 +8,7 @@ Wants=nss-lookup.target
 
 [Service]
 NonBlocking=true
+WorkingDirectory=/tmp/
 ExecStart=dnscrypt-proxy --config /etc/dnscrypt-proxy/dnscrypt-proxy.toml
 ProtectHome=yes
 ProtectControlGroups=yes
