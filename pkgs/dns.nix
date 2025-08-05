@@ -123,13 +123,8 @@ ff02::2 ip6-allrouters
 
               # only do this after you are done the downloading above.
               # otherwise you wont be able to download since dns will be down.
-              sudo systemctl stop systemd-resolved
-              sudo systemctl disable systemd-resolved
               sudo apt -y remove resolvconf
               sudo apt -y purge resolvconf
-
-              # only do this after you are done the downloading above.
-              # otherwise you wont be able to download since dns will be down.
               sudo rm -f /etc/resolv.conf
               sudo cp ./templates/dns/dnscrypt.resolv.conf /etc/resolv.conf
 
@@ -139,8 +134,17 @@ ff02::2 ip6-allrouters
               sudo systemctl enable dnscrypt-proxy.service
               systemctl list-unit-files | grep enabled | grep -i dnscrypt-proxy
               sudo systemctl start dnscrypt-proxy # this will start dnscrypt-proxy.service
-
-              sudo systemctl restart NetworkManager
+              {
+                  # only do this after you are done the downloading above.
+                  # otherwise you wont be able to download since dns will be down.
+                  sudo systemctl stop systemd-resolved
+                  sudo systemctl disable systemd-resolved
+              }
+              {
+                  sudo systemctl restart NetworkManager
+                  sleep 3
+                  sudo ss -lptn 'sport = :53'
+              }
           fi
       }
       setup_dnscrypt_proxy
