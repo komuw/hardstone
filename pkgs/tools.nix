@@ -14,7 +14,8 @@ in stdenv.mkDerivation {
         pkgs.awscli
         pkgs.awscli2
         pkgs.bat
-        pkgs.skypeforlinux # unfree
+        # Skype was shutdown in May 2025
+        # pkgs.skypeforlinux # unfree
         pkgs.firefox
         pkgs.gotraceui
         # nix-shell fails for `ripgrep-all` with error;
