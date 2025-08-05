@@ -1,4 +1,4 @@
-with (import (fetchTarball "https://github.com/NixOS/nixpkgs/archive/7af93d2e5372b0a12b3eda16dbb8eaddd0fe2176.tar.gz") {});
+with (import (fetchTarball "https://github.com/NixOS/nixpkgs/archive/79ad88f2565df1a4e4d8fdbca7a8b4d35e80876f.tar.gz") {});
 
 /*
   Alternative are:
@@ -45,15 +45,17 @@ let
     dockerImport  = import ./docker.nix;
     ohMyZshImport  = import ./oh_my_zsh.nix;
     terminalImport  = import ./terminal.nix;
-    dnsImport  = import ./dns.nix;
     jbImport  = import ./jb.nix;
     cLangImport = import ./c_lang.nix;
+    dnsImport  = import ./dns.nix;
 
 in stdenv.mkDerivation {
     # docs: http://blog.ielliott.io/nix-docs/stdenv-mkDerivation.html
 
     name = "default";
 
+    # dns setup should be the last step.
+    # This is because all the other steps depend on working internet.
     buildInputs = basePackages
       ++ preRequisteImport.buildInputs
       ++ provisionImport.buildInputs
@@ -66,9 +68,9 @@ in stdenv.mkDerivation {
       ++ dockerImport.buildInputs
       ++ ohMyZshImport.buildInputs
       ++ terminalImport.buildInputs
-      ++ dnsImport.buildInputs
       ++ jbImport.buildInputs
-      ++ cLangImport.buildInputs;
+      ++ cLangImport.buildInputs
+      ++ dnsImport.buildInputs;
 
     # shellHook is a shell script to run after entering a nix-shell.
     shellHook = baseHooks
@@ -83,9 +85,9 @@ in stdenv.mkDerivation {
       + dockerImport.shellHook
       + ohMyZshImport.shellHook
       + terminalImport.shellHook
-      + dnsImport.shellHook
       + jbImport.shellHook
-      + cLangImport.shellHook;
+      + cLangImport.shellHook
+      + dnsImport.shellHook;
 
     # buildPhase:      string?,
     # installPhase:    string?,

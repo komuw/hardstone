@@ -1,4 +1,4 @@
-with (import (fetchTarball "https://github.com/NixOS/nixpkgs/archive/7af93d2e5372b0a12b3eda16dbb8eaddd0fe2176.tar.gz") {});
+with (import (fetchTarball "https://github.com/NixOS/nixpkgs/archive/79ad88f2565df1a4e4d8fdbca7a8b4d35e80876f.tar.gz") {});
 
 let
 
@@ -33,7 +33,7 @@ in stdenv.mkDerivation {
             # config exists
             echo -n ""
           else
-            wget -nc --output-document=/tmp/ghostty.deb "https://github.com/mkasberg/ghostty-ubuntu/releases/download/1.1.0-0-ppa1/ghostty_1.1.0-0.ppa1_amd64_24.04.deb"
+            wget -nc --output-document=/tmp/ghostty.deb "https://github.com/mkasberg/ghostty-ubuntu/releases/download/1.1.3-0-ppa2/ghostty_1.1.3-0.ppa2_amd64_24.04.deb"
             sudo apt install -y /tmp/ghostty.deb
 
             mkdir -p /home/$MY_NAME/.config/ghostty

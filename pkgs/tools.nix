@@ -1,4 +1,4 @@
-with (import (fetchTarball "https://github.com/NixOS/nixpkgs/archive/7af93d2e5372b0a12b3eda16dbb8eaddd0fe2176.tar.gz") {});
+with (import (fetchTarball "https://github.com/NixOS/nixpkgs/archive/79ad88f2565df1a4e4d8fdbca7a8b4d35e80876f.tar.gz") {});
 
 let
 
@@ -77,8 +77,8 @@ in stdenv.mkDerivation {
               # Versions are found at; https://support.zoom.com/hc/en/article?id=zm_kb&sysparm_article=KB0061222
               # We have to choose the version carefully because some versions have bugs, even the latest versions.
               local VERSION="latest"
-              local VERSION="6.0.12.5501" # 31/may/2024 : last working version
-              local VERSION="6.3.6.6315" # 15/jan/2025
+              local VERSION="6.3.6.6315" # 15/jan/2025 : last working version
+              local VERSION="6.5.8.3527" # 4/august/2025
               wget -nc --output-document=/tmp/zoom_amd64.deb "https://zoom.us/client/$VERSION/zoom_amd64.deb"
               sudo dpkg -i /tmp/zoom_amd64.deb
           fi

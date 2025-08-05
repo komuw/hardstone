@@ -1,4 +1,4 @@
-with (import (fetchTarball "https://github.com/NixOS/nixpkgs/archive/7af93d2e5372b0a12b3eda16dbb8eaddd0fe2176.tar.gz") {});
+with (import (fetchTarball "https://github.com/NixOS/nixpkgs/archive/79ad88f2565df1a4e4d8fdbca7a8b4d35e80876f.tar.gz") {});
 
 let
 
@@ -69,7 +69,6 @@ ff02::2 ip6-allrouters
           sudo systemctl daemon-reload
           sudo systemctl restart systemd-networkd
           sudo systemctl restart systemd-resolved
-          sudo systemctl restart NetworkManager
       }
 
       setup_systemd_resolved_dns(){
@@ -91,22 +90,16 @@ ff02::2 ip6-allrouters
       }
       setup_systemd_resolved_dns
 
-      turn_off_wife_power_save(){
-          sudo cp ./templates/dns/wifi-powersave-on.conf /etc/NetworkManager/conf.d/default-wifi-powersave-on.conf
-          sudo systemctl restart NetworkManager
-          sleep 1;
-      }
-      turn_off_wife_power_save
-
       setup_dnscrypt_proxy(){
           local_file="/etc/systemd/system/dnscrypt-proxy.service"
           if [ -f "$local_file" ]; then
               # exists
               echo -n ""
           else
+              rm -rf /usr/local/bin/dnscrypt-proxy
               rm -rf /tmp/dnscrypt-proxy/
               mkdir -p /tmp/dnscrypt-proxy/
-              wget -nc --output-document="/tmp/dnscrypt-proxy/dnscrypt-proxy.tar.gz" "https://github.com/DNSCrypt/dnscrypt-proxy/releases/download/2.1.8/dnscrypt-proxy-linux_x86_64-2.1.8.tar.gz"
+              wget -nc --output-document="/tmp/dnscrypt-proxy/dnscrypt-proxy.tar.gz" "https://github.com/DNSCrypt/dnscrypt-proxy/releases/download/2.1.12/dnscrypt-proxy-linux_x86_64-2.1.12.tar.gz"
               tar -xzf "/tmp/dnscrypt-proxy/dnscrypt-proxy.tar.gz" -C /tmp/dnscrypt-proxy/
               sudo cp /tmp/dnscrypt-proxy/linux-x86_64/dnscrypt-proxy /usr/local/bin
 
@@ -122,13 +115,8 @@ ff02::2 ip6-allrouters
 
               # only do this after you are done the downloading above.
               # otherwise you wont be able to download since dns will be down.
-              sudo systemctl stop systemd-resolved
-              sudo systemctl disable systemd-resolved
               sudo apt -y remove resolvconf
               sudo apt -y purge resolvconf
-
-              # only do this after you are done the downloading above.
-              # otherwise you wont be able to download since dns will be down.
               sudo rm -f /etc/resolv.conf
               sudo cp ./templates/dns/dnscrypt.resolv.conf /etc/resolv.conf
 
@@ -137,12 +125,31 @@ ff02::2 ip6-allrouters
               sudo systemctl daemon-reload
               sudo systemctl enable dnscrypt-proxy.service
               systemctl list-unit-files | grep enabled | grep -i dnscrypt-proxy
-              sudo systemctl start dnscrypt-proxy # this will start dnscrypt-proxy.service
-
-              sudo systemctl restart NetworkManager
+              sudo systemctl restart dnscrypt-proxy # this will start dnscrypt-proxy.service
+              {
+                  # only do this after you are done the downloading above.
+                  # otherwise you wont be able to download since dns will be down.
+                  sudo systemctl stop systemd-resolved
+                  sudo systemctl disable systemd-resolved
+                  sleep 3
+                  sudo ss -lptn 'sport = :53'
+              }
           fi
       }
       setup_dnscrypt_proxy
+
+      turn_off_wife_power_save(){
+          sudo cp ./templates/dns/wifi-powersave-on.conf /etc/NetworkManager/conf.d/default-wifi-powersave-on.conf
+      }
+      turn_off_wife_power_save
+
+      restart_network_manager(){
+          # This needs to happen as the last step.
+          # This is because all the other steps depend on working internet.
+          sudo systemctl restart NetworkManager
+          sleep 2;
+      }
+      restart_network_manager
 
       undo_setup_dnscrypt_proxy(){
           # Function that can be used to undo any unwanted DNS changes.
