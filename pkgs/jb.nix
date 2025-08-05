@@ -29,7 +29,7 @@ in stdenv.mkDerivation {
     buildInputs = [
         pkgs.jq
         pkgs.kubectl
-        pkgs.nodejs_23 # will also install npm
+        pkgs.nodejs # will also install npm
         pkgs.teams-for-linux
 
         skaffoldImport.skaffold

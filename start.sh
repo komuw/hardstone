@@ -109,7 +109,9 @@ create_nix_conf_file(){
 create_nix_conf_file
 
 install_nix() {
-    NIX_PACKAGE_MANAGER_VERSION=2.24.9 # versions can be found at: https://releases.nixos.org/?prefix=nix/
+    # versions can be found at: https://releases.nixos.org/?prefix=nix/
+    #                           https://github.com/NixOs/Nix/tags
+    NIX_PACKAGE_MANAGER_VERSION=2.30.2
     printf "\n\n\t 5. install_nix version%s \n" "$NIX_PACKAGE_MANAGER_VERSION"
 
     # This is a single-user installation: https://nixos.org/manual/nix/stable/#sect-single-user-installation
