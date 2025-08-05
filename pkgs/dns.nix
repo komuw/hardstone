@@ -69,7 +69,6 @@ ff02::2 ip6-allrouters
           sudo systemctl daemon-reload
           sudo systemctl restart systemd-networkd
           sudo systemctl restart systemd-resolved
-          sudo systemctl restart NetworkManager
       }
 
       setup_systemd_resolved_dns(){
@@ -90,13 +89,6 @@ ff02::2 ip6-allrouters
           fi
       }
       setup_systemd_resolved_dns
-
-      turn_off_wife_power_save(){
-          sudo cp ./templates/dns/wifi-powersave-on.conf /etc/NetworkManager/conf.d/default-wifi-powersave-on.conf
-          sudo systemctl restart NetworkManager
-          sleep 1;
-      }
-      turn_off_wife_power_save
 
       setup_dnscrypt_proxy(){
           local_file="/etc/systemd/system/dnscrypt-proxy.service"
@@ -139,15 +131,25 @@ ff02::2 ip6-allrouters
                   # otherwise you wont be able to download since dns will be down.
                   sudo systemctl stop systemd-resolved
                   sudo systemctl disable systemd-resolved
-              }
-              {
-                  sudo systemctl restart NetworkManager
                   sleep 3
                   sudo ss -lptn 'sport = :53'
               }
           fi
       }
       setup_dnscrypt_proxy
+
+      turn_off_wife_power_save(){
+          sudo cp ./templates/dns/wifi-powersave-on.conf /etc/NetworkManager/conf.d/default-wifi-powersave-on.conf
+      }
+      turn_off_wife_power_save
+
+      restart_network_manager(){
+          # This needs to happen as the last step.
+          # This is because all the other steps depend on working internet.
+          sudo systemctl restart NetworkManager
+          sleep 2;
+      }
+      restart_network_manager
 
       undo_setup_dnscrypt_proxy(){
           # Function that can be used to undo any unwanted DNS changes.
