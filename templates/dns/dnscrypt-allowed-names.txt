@@ -22,3 +22,6 @@ sentry.io
 t.co
 # application hosting company
 railway.com
+# for checking internet speed
+fast.com
+api.fast.com
