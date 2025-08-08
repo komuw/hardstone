@@ -85,6 +85,7 @@ ff02::2 ip6-allrouters
               # exists
               echo -n ""
           else
+              DO_RESTART_NETWORK="1";
               setup_systemd_resolved_dns_files "$the_file_name"
           fi
       }
@@ -96,6 +97,7 @@ ff02::2 ip6-allrouters
               # exists
               echo -n ""
           else
+              DO_RESTART_NETWORK="1";
               rm -rf /usr/local/bin/dnscrypt-proxy
               rm -rf /tmp/dnscrypt-proxy/
               mkdir -p /tmp/dnscrypt-proxy/
@@ -146,8 +148,13 @@ ff02::2 ip6-allrouters
       restart_network_manager(){
           # This needs to happen as the last step.
           # This is because all the other steps depend on working internet.
-          sudo systemctl restart NetworkManager
-          sleep 2;
+          #
+          if [ "$DO_RESTART_NETWORK" -eq "1" ]; then
+              sudo systemctl restart NetworkManager
+              sleep 2;
+          else
+              echo -n "";
+          fi
       }
       restart_network_manager
 
