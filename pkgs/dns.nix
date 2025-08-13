@@ -71,6 +71,7 @@ ff02::2 ip6-allrouters
           sudo systemctl restart systemd-resolved
       }
 
+      DO_RESTART_NETWORK="0";
       setup_systemd_resolved_dns(){
           if [[ -z "$USING_TETHERED_INTERNET" ]]; then
               # that env var is unset, which means we are NOT using tethered internet.
