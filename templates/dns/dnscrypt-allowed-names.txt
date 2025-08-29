@@ -8,7 +8,7 @@ datadoghq.com
 ipdata.co
 # metrics stuff
 posthog.com
-# stuff for work
+# stuff for tyk work
 logrocket.com
 cta-redirect.hubspot.com
 # reef technologies
@@ -25,3 +25,5 @@ railway.com
 # for checking internet speed
 fast.com
 api.fast.com
+# discord
+click.discord.com
