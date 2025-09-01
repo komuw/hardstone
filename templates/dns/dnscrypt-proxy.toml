@@ -735,11 +735,11 @@ allowed_names_file = '/etc/dnscrypt-proxy/dnscrypt-allowed-names.txt'
     sat = [{after='00:00', before='6:00'}]
     sun = [{after='00:00', before='6:00'}]
   [schedules.time-to-work]
-    mon = [{after='9:00', before='14:30'}]
-    tue = [{after='9:00', before='14:30'}]
-    wed = [{after='9:00', before='14:30'}]
-    thu = [{after='9:00', before='14:30'}]
-    fri = [{after='9:00', before='14:30'}]
+    mon = [{after='9:00', before='14:55'}]
+    tue = [{after='9:00', before='14:55'}]
+    wed = [{after='9:00', before='14:55'}]
+    thu = [{after='9:00', before='14:55'}]
+    fri = [{after='9:00', before='14:55'}]
     # we leave weekend alone.
 
 
