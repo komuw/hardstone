@@ -243,3 +243,7 @@ journalctl -xef -n100 -u dnscrypt-proxy.service # tail logs of a systemd service
 
 # -20(high priority), 19(lowest priority), 0(default)
 nice -n 19 ls -lsah # start prog and assign less cpu priority
+
+# start tailscale and enable subnets
+tailscale up --accept-routes
+tailscale up --accept-routes --accept-dns=false # don't use tailscale's dns server.
