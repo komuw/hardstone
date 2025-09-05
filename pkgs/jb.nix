@@ -46,6 +46,22 @@ in stdenv.mkDerivation {
 
         MY_NAME=$(whoami)
 
+
+        install_buf(){
+            buf_bin_file="/usr/local/bin/buf"
+            if [ -f "$buf_bin_file" ]; then
+                # bin file exists
+                echo -n ""
+            else
+                VERSION="1.57.0"
+                rm -rf /tmp/buf
+                curl -sSL "https://github.com/bufbuild/buf/releases/download/v${VERSION}/buf-$(uname -s)-$(uname -m)" -o /tmp/buf
+                chmod +x /tmp/buf
+                sudo cp /tmp/buf /usr/local/bin/buf
+            fi
+        }
+        install_buf
+
         install_mongo_shell(){
             # https://docs.mongodb.com/manual/reference/program/mongo/
             #  The version of mongodb available in nixpkgs is older than the version we need. So we'll install manually.
